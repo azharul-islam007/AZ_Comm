@@ -1,0 +1,626 @@
+/home/ubuntu/anaconda3/bin/conda run -n myenv --no-capture-output python /tmp/pycharm_project_885/Europearl/SD5.py 
+2025-03-08 12:34:05,947 - INFO - Using device: cuda
+/home/ubuntu/.local/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+2025-03-08 12:34:07,242 - ERROR - Failed to initialize physical channel: __init__() got an unexpected keyword argument 'enable_content_adaptive_coding'
+2025-03-08 12:34:07,242 - INFO - Will collect up to 10000 transmission pairs
+2025-03-08 12:34:07,242 - INFO - Using device: cuda
+2025-03-08 12:34:08,407 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:08,413 - INFO - ✅ OpenAI API connection successful
+2025-03-08 12:34:08,414 - INFO - Initializing semantic loss with bert-base-uncased model
+/home/ubuntu/.local/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+2025-03-08 12:34:09,252 - INFO - Semantic perceptual loss initialized successfully
+2025-03-08 12:34:09,252 - INFO - Semantic perceptual loss initialized successfully
+2025-03-08 12:34:09,274 - INFO - Loaded 10000 items from compressed data
+2025-03-08 12:34:09,278 - INFO - Loaded 10000 original sentences
+2025-03-08 12:34:09,279 - INFO - Detected embedding dimension: 460
+2025-03-08 12:34:09,279 - WARNING - Error loading VAE compressor: load_or_train_vae_compressor() got an unexpected keyword argument 'input_dim'
+2025-03-08 12:34:09,279 - WARNING - Could not configure content-adaptive coding: 'NoneType' object has no attribute 'get_channel_info'
+2025-03-08 12:34:09,296 - INFO - Detected dimensions: input=460, hidden=920, latent=460
+2025-03-08 12:34:09,299 - INFO - Loading pre-trained enhanced MLPDenoisingVAE from ./models/enhanced_mlp_dvae_model.pth
+/tmp/pycharm_project_885/Europearl/semantic_mlpdvae.py:520: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(full_model_path, map_location=device)
+2025-03-08 12:34:09,388 - INFO - Loaded model was trained with semantic perceptual loss
+2025-03-08 12:34:09,389 - INFO - Using enhanced RL agent for API optimization (exploration rate: 0.30)
+2025-03-08 12:34:09,389 - INFO - === Starting Enhanced Semantic Reconstruction Pipeline ===
+2025-03-08 12:34:09,389 - INFO - Noise level: 0.15, Noise type: gaussian
+2025-03-08 12:34:09,389 - INFO - OpenAI API available: True
+2025-03-08 12:34:09,389 - INFO - Physical channel enabled: True
+2025-03-08 12:34:09,389 - INFO - Using enhanced MLPDenoisingVAE: True
+2025-03-08 12:34:09,389 - INFO - Using semantic loss: True
+2025-03-08 12:34:09,389 - INFO - Using VAE compression: False
+2025-03-08 12:34:09,389 - INFO - Using content-adaptive coding: False
+Processing samples:   0%|                                | 0/50 [00:00<?, ?it/s]2025-03-08 12:34:09,409 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:10,109 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:10,113 - INFO - API reconstruction successful
+2025-03-08 12:34:10,113 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:10,116 - INFO - Using default tokenizer.
+2025-03-08 12:34:11,671 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:11,671 - INFO - Using default tokenizer.
+2025-03-08 12:34:11,684 - INFO - Sample 1/50
+2025-03-08 12:34:11,684 - INFO - Original: Although , as you will have seen , the dreaded ' millennium bug ' failed to materialise , still the people in a number of countries suffered a series of natural disasters that truly were dreadful .
+2025-03-08 12:34:11,684 - INFO - Semantic noisy: Although , as you will tave seen , xht dreaded ' millennium bug ' failed to materialise , still the people in a number of countries suffered a sefbes of nyturaf disxsders that truly were dreadful .
+2025-03-08 12:34:11,684 - INFO - Semantic reconstructed: Although, as you will have seen, the dreaded 'millennium bug' failed to materialize, still the people in a number of countries suffered a series of natural disasters that truly were dreadful.
+2025-03-08 12:34:11,684 - INFO - Direct noisy: Although , as you will have aeen , the dreaded ' millennium bug ' failed to materialise , still the people in a number of countries suffered a series of natural disabterr that truly were dreadful .
+2025-03-08 12:34:11,684 - INFO - Direct reconstructed: Although , as you will have aeen , the dreaded ' millennium bug ' failed to materialise , still the people in a number of countries suffered a series of natural disabterr that truly were dreadful .
+2025-03-08 12:34:11,684 - INFO - Semantic BLEU: 0.5347, ROUGE-L: 0.9677, SEMANTIC: 0.9983
+2025-03-08 12:34:11,684 - INFO - Direct BLEU: 0.8543, ROUGE-L: 0.9355, SEMANTIC: 0.9464
+2025-03-08 12:34:11,684 - INFO - Current cost: $0.0002 of $2.00
+2025-03-08 12:34:11,684 - INFO - ---
+Processing samples:   2%|▍                       | 1/50 [00:02<01:52,  2.29s/it]2025-03-08 12:34:11,685 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:12,228 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:12,234 - INFO - API reconstruction successful
+2025-03-08 12:34:12,234 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:12,235 - INFO - Using default tokenizer.
+2025-03-08 12:34:12,254 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:12,815 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:12,818 - INFO - API reconstruction successful
+2025-03-08 12:34:12,819 - INFO - Using default tokenizer.
+2025-03-08 12:34:12,845 - INFO - Sample 2/50
+2025-03-08 12:34:12,845 - INFO - Original: You have requested a debate on this subject in the course of the next few days , during this part-session .
+2025-03-08 12:34:12,845 - INFO - Semantic noisy: You have requested a debate on this subject in the nourse of the next vey days , during tlqs part-session .
+2025-03-08 12:34:12,846 - INFO - Semantic reconstructed: You have requested a debate on this subject in the course of the next few days, during this part-session.
+2025-03-08 12:34:12,846 - INFO - Direct noisy: You have requested a debate on this subject in the course of the next few days , during thiy part-mession .
+2025-03-08 12:34:12,846 - INFO - Direct reconstructed: You have requested a debate on this subject in the course of the next few days, during this part-session.
+2025-03-08 12:34:12,846 - INFO - Semantic BLEU: 0.7279, ROUGE-L: 1.0000, SEMANTIC: 1.0000
+2025-03-08 12:34:12,846 - INFO - Direct BLEU: 0.7279, ROUGE-L: 1.0000, SEMANTIC: 1.0000
+2025-03-08 12:34:12,846 - INFO - Current cost: $0.0005 of $2.00
+2025-03-08 12:34:12,846 - INFO - ---
+Processing samples:   4%|▉                       | 2/50 [00:03<01:18,  1.63s/it]2025-03-08 12:34:12,847 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:12,847 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:12,847 - INFO - Using default tokenizer.
+2025-03-08 12:34:12,864 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:12,864 - INFO - Using default tokenizer.
+2025-03-08 12:34:12,876 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:13,405 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:13,409 - INFO - API reconstruction successful
+2025-03-08 12:34:13,410 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:13,410 - INFO - Using default tokenizer.
+2025-03-08 12:34:13,439 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:13,986 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:13,990 - INFO - API reconstruction successful
+2025-03-08 12:34:13,991 - INFO - Using default tokenizer.
+Processing samples:   8%|█▉                      | 4/50 [00:04<00:44,  1.03it/s]2025-03-08 12:34:14,018 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:14,684 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:14,688 - INFO - API reconstruction successful
+2025-03-08 12:34:14,688 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:14,690 - INFO - Using default tokenizer.
+2025-03-08 12:34:14,784 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:15,465 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:15,475 - INFO - API reconstruction successful
+2025-03-08 12:34:15,475 - INFO - Using default tokenizer.
+Processing samples:  10%|██▍                     | 5/50 [00:06<00:50,  1.13s/it]2025-03-08 12:34:15,505 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:16,190 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:16,197 - INFO - API reconstruction successful
+2025-03-08 12:34:16,197 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:16,198 - INFO - Using default tokenizer.
+2025-03-08 12:34:16,226 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:16,871 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:16,875 - INFO - API reconstruction successful
+2025-03-08 12:34:16,876 - INFO - Using default tokenizer.
+Processing samples:  12%|██▉                     | 6/50 [00:07<00:53,  1.21s/it]2025-03-08 12:34:16,904 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:17,446 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:17,452 - INFO - API reconstruction successful
+2025-03-08 12:34:17,452 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:17,453 - INFO - Using default tokenizer.
+2025-03-08 12:34:17,480 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:17,481 - INFO - Using default tokenizer.
+Processing samples:  14%|███▎                    | 7/50 [00:08<00:44,  1.02s/it]2025-03-08 12:34:17,496 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:17,496 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:17,497 - INFO - Using default tokenizer.
+2025-03-08 12:34:17,509 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:17,509 - INFO - Using default tokenizer.
+2025-03-08 12:34:17,522 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:17,522 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:17,522 - INFO - Using default tokenizer.
+2025-03-08 12:34:17,533 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:17,533 - INFO - Using default tokenizer.
+2025-03-08 12:34:17,544 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:17,544 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:17,545 - INFO - Using default tokenizer.
+2025-03-08 12:34:17,556 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:17,556 - INFO - Using default tokenizer.
+2025-03-08 12:34:17,566 - INFO - Sample 10/50
+2025-03-08 12:34:17,566 - INFO - Original: I would like your advice about Rule 143 concerning inadmissibility .
+2025-03-08 12:34:17,566 - INFO - Semantic noisy: I would like your advice about Rule 143 concerning inadmissibility .
+2025-03-08 12:34:17,566 - INFO - Semantic reconstructed: I would like your advice about Rule 143 concerning inadmissibility .
+2025-03-08 12:34:17,566 - INFO - Direct noisy: I would like your advice about Rwlt 143 concerning inadmissibility .
+2025-03-08 12:34:17,566 - INFO - Direct reconstructed: I would like your advice about Rwlt 143 concerning inadmissibility .
+2025-03-08 12:34:17,567 - INFO - Semantic BLEU: 1.0000, ROUGE-L: 1.0000, SEMANTIC: 1.0000
+2025-03-08 12:34:17,567 - INFO - Direct BLEU: 0.7017, ROUGE-L: 0.9000, SEMANTIC: 0.9295
+2025-03-08 12:34:17,567 - INFO - Current cost: $0.0018 of $2.00
+2025-03-08 12:34:17,567 - INFO - ---
+2025-03-08 12:34:17,567 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:17,567 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:17,568 - INFO - Using default tokenizer.
+2025-03-08 12:34:17,579 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:18,507 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:18,511 - INFO - API reconstruction successful
+2025-03-08 12:34:18,512 - INFO - Using default tokenizer.
+Processing samples:  22%|█████                  | 11/50 [00:09<00:21,  1.85it/s]2025-03-08 12:34:18,540 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:19,223 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:19,226 - INFO - API reconstruction successful
+2025-03-08 12:34:19,226 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:19,228 - INFO - Using default tokenizer.
+2025-03-08 12:34:19,257 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:20,156 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:20,160 - INFO - API reconstruction successful
+2025-03-08 12:34:20,161 - INFO - Using default tokenizer.
+Processing samples:  24%|█████▌                 | 12/50 [00:10<00:28,  1.34it/s]2025-03-08 12:34:20,193 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:20,193 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:20,194 - INFO - Using default tokenizer.
+2025-03-08 12:34:20,207 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:20,207 - INFO - Using default tokenizer.
+2025-03-08 12:34:20,220 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:20,845 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:20,849 - INFO - API reconstruction successful
+2025-03-08 12:34:20,849 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:20,850 - INFO - Using default tokenizer.
+2025-03-08 12:34:20,879 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:21,545 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:21,549 - INFO - API reconstruction successful
+2025-03-08 12:34:21,550 - INFO - Using default tokenizer.
+Processing samples:  28%|██████▍                | 14/50 [00:12<00:26,  1.37it/s]2025-03-08 12:34:21,579 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:22,301 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:22,305 - INFO - API reconstruction successful
+2025-03-08 12:34:22,305 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:22,307 - INFO - Using default tokenizer.
+2025-03-08 12:34:22,335 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:23,099 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:23,105 - INFO - API reconstruction successful
+2025-03-08 12:34:23,106 - INFO - Using default tokenizer.
+Processing samples:  30%|██████▉                | 15/50 [00:13<00:31,  1.12it/s]2025-03-08 12:34:23,135 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:23,136 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:23,136 - INFO - Using default tokenizer.
+2025-03-08 12:34:23,150 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:23,150 - INFO - Using default tokenizer.
+2025-03-08 12:34:23,163 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:23,164 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:23,164 - INFO - Using default tokenizer.
+2025-03-08 12:34:23,175 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:23,176 - INFO - Using default tokenizer.
+2025-03-08 12:34:23,188 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:23,188 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:23,188 - INFO - Using default tokenizer.
+2025-03-08 12:34:23,199 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:23,199 - INFO - Using default tokenizer.
+2025-03-08 12:34:23,210 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:23,862 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:23,867 - INFO - API reconstruction successful
+2025-03-08 12:34:23,867 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:23,868 - INFO - Using default tokenizer.
+2025-03-08 12:34:23,895 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:23,896 - INFO - Using default tokenizer.
+Processing samples:  38%|████████▋              | 19/50 [00:14<00:16,  1.92it/s]2025-03-08 12:34:23,911 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:25,333 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:25,338 - INFO - API reconstruction successful
+2025-03-08 12:34:25,338 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:25,339 - INFO - Using default tokenizer.
+2025-03-08 12:34:25,366 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:25,854 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:25,858 - INFO - API reconstruction successful
+2025-03-08 12:34:25,859 - INFO - Using default tokenizer.
+2025-03-08 12:34:25,884 - INFO - Sample 20/50
+2025-03-08 12:34:25,885 - INFO - Original: This is all in accordance with the principles that we have always upheld .
+2025-03-08 12:34:25,885 - INFO - Semantic noisy: This is all in accordance with sse principles that we have always upheld .
+2025-03-08 12:34:25,885 - INFO - Semantic reconstructed: This is all in accordance with the principles that we have always upheld.
+2025-03-08 12:34:25,885 - INFO - Direct noisy: This is all in aucordarce weth the pxinciplqs that we have xxways upheld .
+2025-03-08 12:34:25,885 - INFO - Direct reconstructed: This is all in accordance with the principles that we have always upheld.
+2025-03-08 12:34:25,885 - INFO - Semantic BLEU: 0.8446, ROUGE-L: 1.0000, SEMANTIC: 1.0000
+2025-03-08 12:34:25,885 - INFO - Direct BLEU: 0.8446, ROUGE-L: 1.0000, SEMANTIC: 1.0000
+2025-03-08 12:34:25,885 - INFO - Current cost: $0.0093 of $2.00
+2025-03-08 12:34:25,885 - INFO - ---
+Processing samples:  40%|█████████▏             | 20/50 [00:16<00:22,  1.33it/s]2025-03-08 12:34:25,886 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:25,886 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:25,887 - INFO - Using default tokenizer.
+2025-03-08 12:34:25,900 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:25,900 - INFO - Using default tokenizer.
+2025-03-08 12:34:25,912 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:27,334 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:27,339 - INFO - API reconstruction successful
+2025-03-08 12:34:27,339 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:27,341 - INFO - Using default tokenizer.
+2025-03-08 12:34:27,369 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:27,369 - INFO - Using default tokenizer.
+Processing samples:  44%|██████████             | 22/50 [00:17<00:21,  1.33it/s]2025-03-08 12:34:27,385 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:27,987 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:27,991 - INFO - API reconstruction successful
+2025-03-08 12:34:27,992 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:27,993 - INFO - Using default tokenizer.
+2025-03-08 12:34:28,019 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:28,669 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:28,676 - INFO - API reconstruction successful
+2025-03-08 12:34:28,677 - INFO - Using default tokenizer.
+Processing samples:  46%|██████████▌            | 23/50 [00:19<00:23,  1.17it/s]2025-03-08 12:34:28,706 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:28,706 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:28,706 - INFO - Using default tokenizer.
+2025-03-08 12:34:28,719 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:28,719 - INFO - Using default tokenizer.
+2025-03-08 12:34:28,730 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:29,337 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:29,348 - INFO - API reconstruction successful
+2025-03-08 12:34:29,349 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:29,350 - INFO - Using default tokenizer.
+2025-03-08 12:34:29,377 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:29,999 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:30,006 - INFO - API reconstruction successful
+2025-03-08 12:34:30,007 - INFO - Using default tokenizer.
+Processing samples:  50%|███████████▌           | 25/50 [00:20<00:19,  1.27it/s]2025-03-08 12:34:30,036 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:30,036 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:30,036 - INFO - Using default tokenizer.
+2025-03-08 12:34:30,049 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:30,049 - INFO - Using default tokenizer.
+2025-03-08 12:34:30,062 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:31,268 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:31,274 - INFO - API reconstruction successful
+2025-03-08 12:34:31,274 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:31,275 - INFO - Using default tokenizer.
+2025-03-08 12:34:31,300 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:31,879 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:31,882 - INFO - API reconstruction successful
+2025-03-08 12:34:31,883 - INFO - Using default tokenizer.
+Processing samples:  54%|████████████▍          | 27/50 [00:22<00:19,  1.19it/s]2025-03-08 12:34:31,908 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:31,909 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:31,909 - INFO - Using default tokenizer.
+2025-03-08 12:34:31,920 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:31,921 - INFO - Using default tokenizer.
+2025-03-08 12:34:31,932 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:33,204 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:33,211 - INFO - API reconstruction successful
+2025-03-08 12:34:33,211 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:33,212 - INFO - Using default tokenizer.
+2025-03-08 12:34:33,239 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:34,079 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:34,086 - INFO - API reconstruction successful
+2025-03-08 12:34:34,086 - INFO - Using default tokenizer.
+Processing samples:  58%|█████████████▎         | 29/50 [00:24<00:19,  1.08it/s]2025-03-08 12:34:34,114 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:34,776 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:34,784 - INFO - API reconstruction successful
+2025-03-08 12:34:34,785 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:34,786 - INFO - Using default tokenizer.
+2025-03-08 12:34:34,814 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:35,461 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:35,467 - INFO - API reconstruction successful
+2025-03-08 12:34:35,468 - INFO - Using default tokenizer.
+2025-03-08 12:34:35,497 - INFO - Sample 30/50
+2025-03-08 12:34:35,497 - INFO - Original: Mrs Plooij-van Gorsel , I can tell you that this matter is on the agenda for the Quaestors ' meeting on Wednesday .
+2025-03-08 12:34:35,497 - INFO - Semantic noisy: Mrs Plooij-van Gorsel , I can tell you that this mattur is on the agenda for the Quaestors ' myetiwg on Wednesday .
+2025-03-08 12:34:35,497 - INFO - Semantic reconstructed: Mrs. Plooij-van Gorsel, I can tell you that this matter is on the agenda for the Quaestors' meeting on Wednesday.
+2025-03-08 12:34:35,497 - INFO - Direct noisy: Mrs dlojij-van Gorsel , I can tell you thso this matter is on the agenda for the Quaestors ' meeting on Wednesday .
+2025-03-08 12:34:35,497 - INFO - Direct reconstructed: Mrs. Dlojij-van Gorsel, I can tell you that this matter is on the agenda for the Quaestors' meeting on Wednesday.
+2025-03-08 12:34:35,497 - INFO - Semantic BLEU: 0.5732, ROUGE-L: 1.0000, SEMANTIC: 0.9931
+2025-03-08 12:34:35,497 - INFO - Direct BLEU: 0.5641, ROUGE-L: 0.9524, SEMANTIC: 0.9861
+2025-03-08 12:34:35,497 - INFO - Current cost: $0.0230 of $2.00
+2025-03-08 12:34:35,497 - INFO - ---
+Processing samples:  60%|█████████████▊         | 30/50 [00:26<00:20,  1.01s/it]2025-03-08 12:34:35,498 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:36,224 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:36,229 - INFO - API reconstruction successful
+2025-03-08 12:34:36,230 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:36,231 - INFO - Using default tokenizer.
+2025-03-08 12:34:36,258 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:37,524 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:37,528 - INFO - API reconstruction successful
+2025-03-08 12:34:37,529 - INFO - Using default tokenizer.
+Processing samples:  62%|██████████████▎        | 31/50 [00:28<00:23,  1.23s/it]2025-03-08 12:34:37,554 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:38,192 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:38,196 - INFO - API reconstruction successful
+2025-03-08 12:34:38,196 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:38,197 - INFO - Using default tokenizer.
+2025-03-08 12:34:38,223 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:38,791 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:38,796 - INFO - API reconstruction successful
+2025-03-08 12:34:38,796 - INFO - Using default tokenizer.
+Processing samples:  64%|██████████████▋        | 32/50 [00:29<00:22,  1.24s/it]2025-03-08 12:34:38,824 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:38,824 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:38,824 - INFO - Using default tokenizer.
+2025-03-08 12:34:38,837 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:40,456 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:40,461 - INFO - API reconstruction successful
+2025-03-08 12:34:40,461 - INFO - Using default tokenizer.
+Processing samples:  66%|███████████████▏       | 33/50 [00:31<00:22,  1.34s/it]2025-03-08 12:34:40,492 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:41,737 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:41,750 - INFO - API reconstruction successful
+2025-03-08 12:34:41,750 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:41,751 - INFO - Using default tokenizer.
+2025-03-08 12:34:41,777 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:42,687 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:42,691 - INFO - API reconstruction successful
+2025-03-08 12:34:42,691 - INFO - Using default tokenizer.
+Processing samples:  68%|███████████████▋       | 34/50 [00:33<00:25,  1.57s/it]2025-03-08 12:34:42,716 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:43,652 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:43,657 - INFO - API reconstruction successful
+2025-03-08 12:34:43,658 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:43,659 - INFO - Using default tokenizer.
+2025-03-08 12:34:43,685 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:43,685 - INFO - Using default tokenizer.
+Processing samples:  70%|████████████████       | 35/50 [00:34<00:21,  1.41s/it]2025-03-08 12:34:43,700 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:44,796 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:44,805 - INFO - API reconstruction successful
+2025-03-08 12:34:44,805 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:44,806 - INFO - Using default tokenizer.
+2025-03-08 12:34:44,835 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:48,162 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:48,166 - INFO - API reconstruction successful
+2025-03-08 12:34:48,167 - INFO - Using default tokenizer.
+Processing samples:  72%|████████████████▌      | 36/50 [00:38<00:31,  2.28s/it]2025-03-08 12:34:48,194 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:48,194 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:48,194 - INFO - Using default tokenizer.
+2025-03-08 12:34:48,208 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:51,448 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:51,454 - INFO - API reconstruction successful
+2025-03-08 12:34:51,454 - INFO - Using default tokenizer.
+Processing samples:  74%|█████████████████      | 37/50 [00:42<00:33,  2.56s/it]2025-03-08 12:34:51,475 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:52,229 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:52,235 - INFO - API reconstruction successful
+2025-03-08 12:34:52,235 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:52,236 - INFO - Using default tokenizer.
+2025-03-08 12:34:52,262 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:53,049 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:53,057 - INFO - API reconstruction successful
+2025-03-08 12:34:53,057 - INFO - Using default tokenizer.
+Processing samples:  76%|█████████████████▍     | 38/50 [00:43<00:27,  2.29s/it]2025-03-08 12:34:53,084 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:34:53,084 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:53,084 - INFO - Using default tokenizer.
+2025-03-08 12:34:53,098 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:54,303 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:54,307 - INFO - API reconstruction successful
+2025-03-08 12:34:54,308 - INFO - Using default tokenizer.
+Processing samples:  78%|█████████████████▉     | 39/50 [00:44<00:21,  1.98s/it]2025-03-08 12:34:54,338 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:34:55,235 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:55,239 - INFO - API reconstruction successful
+2025-03-08 12:34:55,240 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:55,241 - INFO - Using default tokenizer.
+2025-03-08 12:34:55,268 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:55,871 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:55,876 - INFO - API reconstruction successful
+2025-03-08 12:34:55,876 - INFO - Using default tokenizer.
+2025-03-08 12:34:55,904 - INFO - Sample 40/50
+2025-03-08 12:34:55,904 - INFO - Original: Mrs Lynne , you are quite right and I shall check whether this has actually not been done .
+2025-03-08 12:34:55,904 - INFO - Semantic noisy: Mrs Lynne , ynu are quite dignt and I shall check whether tvks has actually not been done .
+2025-03-08 12:34:55,904 - INFO - Semantic reconstructed: Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
+2025-03-08 12:34:55,904 - INFO - Direct noisy: Mrs Lynne , you gqe quite right and I shall check whether this has actually not been done .
+2025-03-08 12:34:55,904 - INFO - Direct reconstructed: Mrs. Lynne, you are quite right, and I shall check whether this has actually not been done.
+2025-03-08 12:34:55,904 - INFO - Semantic BLEU: 0.7284, ROUGE-L: 1.0000, SEMANTIC: 1.0000
+2025-03-08 12:34:55,904 - INFO - Direct BLEU: 0.5602, ROUGE-L: 1.0000, SEMANTIC: 0.9699
+2025-03-08 12:34:55,904 - INFO - Current cost: $0.0611 of $2.00
+2025-03-08 12:34:55,904 - INFO - ---
+Processing samples:  80%|██████████████████▍    | 40/50 [00:46<00:18,  1.86s/it]2025-03-08 12:34:55,906 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:34:59,563 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:34:59,573 - INFO - API reconstruction successful
+2025-03-08 12:34:59,574 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:34:59,575 - INFO - Using default tokenizer.
+2025-03-08 12:34:59,606 - INFO - Saved enhanced RL agent state
+2025-03-08 12:34:59,606 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:35:00,337 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:35:00,342 - INFO - API reconstruction successful
+2025-03-08 12:35:00,342 - INFO - Using default tokenizer.
+Processing samples:  82%|██████████████████▊    | 41/50 [00:50<00:23,  2.63s/it]2025-03-08 12:35:00,370 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:35:01,062 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:35:01,069 - INFO - API reconstruction successful
+2025-03-08 12:35:01,069 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:35:01,071 - INFO - Using default tokenizer.
+2025-03-08 12:35:01,100 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:35:01,742 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:35:01,798 - INFO - API reconstruction successful
+2025-03-08 12:35:01,799 - INFO - Using default tokenizer.
+Processing samples:  84%|███████████████████▎   | 42/50 [00:52<00:18,  2.28s/it]2025-03-08 12:35:01,832 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:35:02,494 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:35:02,506 - INFO - API reconstruction successful
+2025-03-08 12:35:02,507 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:35:02,508 - INFO - Using default tokenizer.
+2025-03-08 12:35:02,540 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:35:03,174 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:35:03,178 - INFO - API reconstruction successful
+2025-03-08 12:35:03,179 - INFO - Using default tokenizer.
+Processing samples:  86%|███████████████████▊   | 43/50 [00:53<00:14,  2.01s/it]2025-03-08 12:35:03,209 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:35:04,020 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:35:04,033 - INFO - API reconstruction successful
+2025-03-08 12:35:04,034 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:35:04,035 - INFO - Using default tokenizer.
+2025-03-08 12:35:04,062 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:35:05,711 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:35:05,718 - INFO - API reconstruction successful
+2025-03-08 12:35:05,719 - INFO - Using default tokenizer.
+Processing samples:  88%|████████████████████▏  | 44/50 [00:56<00:13,  2.17s/it]2025-03-08 12:35:05,748 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:35:08,228 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:35:08,235 - INFO - API reconstruction successful
+2025-03-08 12:35:08,235 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:35:08,237 - INFO - Using default tokenizer.
+2025-03-08 12:35:08,265 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:35:08,266 - INFO - Using default tokenizer.
+Processing samples:  90%|████████████████████▋  | 45/50 [00:58<00:11,  2.28s/it]2025-03-08 12:35:08,281 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:35:09,406 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:35:09,412 - INFO - API reconstruction successful
+2025-03-08 12:35:09,413 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:35:09,414 - INFO - Using default tokenizer.
+2025-03-08 12:35:09,440 - INFO - RL agent chose basic reconstruction
+2025-03-08 12:35:09,440 - INFO - Using default tokenizer.
+Processing samples:  92%|█████████████████████▏ | 46/50 [01:00<00:07,  1.95s/it]2025-03-08 12:35:09,455 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:35:10,398 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:35:10,403 - INFO - API reconstruction successful
+2025-03-08 12:35:10,403 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:35:10,404 - INFO - Using default tokenizer.
+2025-03-08 12:35:10,432 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:35:11,160 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:35:11,164 - INFO - API reconstruction successful
+2025-03-08 12:35:11,165 - INFO - Using default tokenizer.
+Processing samples:  94%|█████████████████████▌ | 47/50 [01:01<00:05,  1.88s/it]2025-03-08 12:35:11,190 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:35:14,151 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:35:14,156 - INFO - API reconstruction successful
+2025-03-08 12:35:14,156 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:35:14,157 - INFO - Using default tokenizer.
+2025-03-08 12:35:14,185 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:35:15,419 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:35:15,458 - INFO - API reconstruction successful
+2025-03-08 12:35:15,459 - INFO - Using default tokenizer.
+Processing samples:  96%|██████████████████████ | 48/50 [01:06<00:05,  2.61s/it]2025-03-08 12:35:15,489 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:35:16,213 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:35:16,216 - INFO - API reconstruction successful
+2025-03-08 12:35:16,216 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:35:16,217 - INFO - Using default tokenizer.
+2025-03-08 12:35:16,236 - INFO - Making API call with model gpt-4-turbo...
+2025-03-08 12:35:18,387 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:35:18,392 - INFO - API reconstruction successful
+2025-03-08 12:35:18,393 - INFO - Using default tokenizer.
+Processing samples:  98%|██████████████████████▌| 49/50 [01:09<00:02,  2.71s/it]2025-03-08 12:35:18,421 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:35:19,006 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:35:19,023 - INFO - API reconstruction successful
+2025-03-08 12:35:19,023 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-03-08 12:35:19,024 - INFO - Using default tokenizer.
+2025-03-08 12:35:19,054 - INFO - Making API call with model gpt-3.5-turbo...
+2025-03-08 12:35:19,557 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-03-08 12:35:19,561 - INFO - API reconstruction successful
+2025-03-08 12:35:19,562 - INFO - Using default tokenizer.
+2025-03-08 12:35:19,590 - INFO - Sample 50/50
+2025-03-08 12:35:19,590 - INFO - Original: So Parliament should send a message , since that is the wish of the vast majority .
+2025-03-08 12:35:19,590 - INFO - Semantic noisy: So Parliament skoulx send a message , since that is the kilh of yhe vast majority .
+2025-03-08 12:35:19,590 - INFO - Semantic reconstructed: So Parliament should send a message, since that is the will of the vast majority.
+2025-03-08 12:35:19,590 - INFO - Direct noisy: So Parliament should send a message , since that is the wish of the vast majority .
+2025-03-08 12:35:19,590 - INFO - Direct reconstructed: So Parliament should send a message, since that is the wish of the vast majority.
+2025-03-08 12:35:19,590 - INFO - Semantic BLEU: 0.4319, ROUGE-L: 0.9333, SEMANTIC: 0.9866
+2025-03-08 12:35:19,590 - INFO - Direct BLEU: 0.6338, ROUGE-L: 1.0000, SEMANTIC: 1.0000
+2025-03-08 12:35:19,590 - INFO - Current cost: $0.0930 of $2.00
+2025-03-08 12:35:19,590 - INFO - ---
+Processing samples: 100%|███████████████████████| 50/50 [01:10<00:00,  1.40s/it]
+2025-03-08 12:35:19,598 - INFO - Saved enhanced RL agent state
+2025-03-08 12:35:19,646 - INFO - Total API cost: $0.0930 of $2.00 budget
+2025-03-08 12:35:19,646 - INFO - 
+=== Overall Results ===
+2025-03-08 12:35:19,646 - INFO - Semantic Reconstruction:
+2025-03-08 12:35:19,646 - INFO - Semantic Average BLEU: 0.6342
+2025-03-08 12:35:19,646 - INFO - Semantic Average ROUGE1: 0.9090
+2025-03-08 12:35:19,646 - INFO - Semantic Average ROUGEL: 0.9074
+2025-03-08 12:35:19,646 - INFO - Semantic Average METEOR: 0.7701
+2025-03-08 12:35:19,646 - INFO - Semantic Average SEMANTIC: 0.9465
+2025-03-08 12:35:19,646 - INFO - 
+Direct Reconstruction:
+2025-03-08 12:35:19,646 - INFO - Direct Average BLEU: 0.7294
+2025-03-08 12:35:19,646 - INFO - Direct Average ROUGE1: 0.9450
+2025-03-08 12:35:19,646 - INFO - Direct Average ROUGEL: 0.9435
+2025-03-08 12:35:19,646 - INFO - Direct Average METEOR: 0.8287
+2025-03-08 12:35:19,646 - INFO - Direct Average SEMANTIC: 0.9610
+2025-03-08 12:35:19,646 - INFO - 
+Total Cost: $0.0930 of $2.00 budget
+2025-03-08 12:35:19,646 - INFO - Results saved to C:\Users\Daud\SemanticCommTransmission\pythonProject/sem_com_results/enhanced_run_20250308-123408
+2025-03-08 12:35:20,103 - INFO - Visualizations saved to C:\Users\Daud\SemanticCommTransmission\pythonProject/sem_com_results/enhanced_run_20250308-123408
+
+====== Enhanced Semantic Communication Pipeline Complete ======
+Overall improvements:
+- Advanced Compression: Implemented VAE-based non-linear compression
+- Content-Adaptive Coding: Implemented content-aware protection strategies
+- Semantic Perceptual Loss: Added semantic similarity metrics and training
+- Enhanced RL Agent: Improved state representation with semantic features
+
+Final metrics:
+  semantic_avg_BLEU: 0.6342
+  semantic_avg_METEOR: 0.7701
+  semantic_avg_ROUGE1: 0.9090
+  semantic_avg_ROUGEL: 0.9074
+  semantic_avg_SEMANTIC: 0.9465
+
+Process finished with exit code 0
