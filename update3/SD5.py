@@ -1106,7 +1106,14 @@ def ensure_correct_embedding_shape(embedding, expected_dim=2):
 #################################################
 # Enhanced Main Pipeline Implementation
 #################################################
-
+def safe_copy(obj):
+    """Create a copy of an object that works for both NumPy arrays and PyTorch tensors."""
+    if isinstance(obj, torch.Tensor):
+        return obj.clone().detach().cpu().numpy()
+    elif isinstance(obj, np.ndarray):
+        return obj.copy()
+    else:
+        return obj  # For other types, return as is
 def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
                           use_api_pct=None, comparison_mode=None, use_self_supervised=None,
                           use_semantic_loss=None, use_vae_compression=None,
@@ -1399,13 +1406,17 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
                 # Convert to tensor
                 embedding_tensor = torch.tensor(embedding, dtype=torch.float32).to(device)
 
+                # Adapt the dimensions to match what the VAE expects (768)
+                target_dim = 768  # The dimension the VAE was trained on
+                embedding_tensor = adapt_dimensions(embedding_tensor, target_dim)
+
                 # Compress using VAE
                 with torch.no_grad():
                     compressed_embedding = vae_compressor.compress(embedding_tensor).cpu().numpy()
 
-                # Store original and compressed embeddings
-                sample_result["original_embedding"] = embedding.copy()
-                sample_result["compressed_embedding"] = compressed_embedding.copy()
+                # Store original and compressed embeddings using safe_copy
+                sample_result["original_embedding"] = safe_copy(embedding)
+                sample_result["compressed_embedding"] = safe_copy(compressed_embedding)
 
                 # Use compressed embedding for further processing
                 working_embedding = compressed_embedding
@@ -1419,7 +1430,7 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
             # Transmit through physical channel if enabled
             if ENABLE_PHYSICAL_CHANNEL and physical_channel_imported:
                 # Store semantic noisy embedding
-                sample_result["semantic_noisy_embedding"] = noisy_embedding.copy()
+                sample_result["semantic_noisy_embedding"] = safe_copy(noisy_embedding)
 
                 try:
                     # Transmit through physical channel
@@ -1430,7 +1441,7 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
                     # Continue with noisy embedding if transmission fails
 
                 # Store post-physical channel embedding
-                sample_result["physical_noisy_embedding"] = noisy_embedding.copy()
+                sample_result["physical_noisy_embedding"] = safe_copy(noisy_embedding)
 
             # Reconstruct embedding using enhanced MLPDenoisingVAE
             with torch.no_grad():
