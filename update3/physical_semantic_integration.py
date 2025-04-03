@@ -7,6 +7,7 @@ from physical_channel import PhysicalChannelLayer
 from content_adaptive_coding import ContentAdaptivePhysicalChannel  # Import new class
 from compression_vae import decompress_vae_embedding  # Import from new compression module
 from config_manager import ConfigManager
+from mlpdvae_utils import ensure_tensor_shape
 def timing_decorator(func):
     """Decorator to measure and log function execution time"""
     def wrapper(*args, **kwargs):
@@ -497,6 +498,10 @@ def transmit_through_physical_channel(embedding, debug=False, use_kb=True):
         original_embedding = embedding.copy()
         embedding_np = embedding
 
+    # Ensure proper shape
+    embedding_np = ensure_tensor_shape(embedding_np, expected_dim=2)
+    if len(embedding_np.shape) == 1:
+        embedding_np = np.expand_dims(embedding_np, 0)
     # Apply KB-guided importance weighting if knowledge base is available
     importance_weights = None
     if use_kb:
