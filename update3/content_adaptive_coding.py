@@ -6,6 +6,7 @@ import logging
 import os
 import json
 from tqdm import tqdm
+from mlpdvae_utils import ensure_tensor_shape
 
 # Set device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -59,13 +60,17 @@ class ContentClassifier(nn.Module):
 
     def classify(self, embedding):
         """Classify a single embedding and return content type"""
-        # Convert to tensor if needed
+        # Use utility function to ensure proper shape
         if isinstance(embedding, np.ndarray):
-            embedding = torch.tensor(embedding, dtype=torch.float32).to(device)
+            embedding_tensor = torch.tensor(embedding, dtype=torch.float32).to(device)
+        else:
+            embedding_tensor = embedding
+
+        embedding_tensor = ensure_tensor_shape(embedding_tensor, expected_dim=2)
 
         # Get probabilities
         with torch.no_grad():
-            probs = self.forward(embedding)
+            probs = self.forward(embedding_tensor)
 
         # Get predicted class
         class_idx = torch.argmax(probs, dim=1).item()
