@@ -1,5 +1,5 @@
-/home/ubuntu/anaconda3/bin/conda run -n myenv --no-capture-output python /tmp/pycharm_project_885/Europearl/SD5.py 
-2025-03-08 12:34:05,947 - INFO - Using device: cuda
+/home/ubuntu/anaconda3/bin/conda run -n myenv --no-capture-output python /tmp/pycharm_project_908/Europearl/SD5.py 
+2025-04-02 16:49:45,774 - INFO - Using device: cuda
 /home/ubuntu/.local/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
   warnings.warn(
 A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
@@ -54,12 +54,59 @@ A parameter name that contains `beta` will be renamed internally to `bias`. Plea
 A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
 A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
 A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-2025-03-08 12:34:07,242 - ERROR - Failed to initialize physical channel: __init__() got an unexpected keyword argument 'enable_content_adaptive_coding'
-2025-03-08 12:34:07,242 - INFO - Will collect up to 10000 transmission pairs
-2025-03-08 12:34:07,242 - INFO - Using device: cuda
-2025-03-08 12:34:08,407 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:08,413 - INFO - ✅ OpenAI API connection successful
-2025-03-08 12:34:08,414 - INFO - Initializing semantic loss with bert-base-uncased model
+2025-04-02 16:49:47,016 - ERROR - Failed to initialize physical channel: __init__() got an unexpected keyword argument 'enable_content_adaptive_coding'
+2025-04-02 16:49:47,016 - INFO - Will collect up to 10000 transmission pairs
+2025-04-02 16:49:47,017 - INFO - Using device: cuda
+2025-04-02 16:49:48,268 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:49:48,274 - INFO - ✅ OpenAI API connection successful
+
+===== SYSTEM COMPONENT TEST =====
+2025-04-02 16:49:48,275 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+Knowledge Base loaded with 41 terms
+
+Test Case 1: Mrs Lynne, you are quite right and I shall check whether this ocs actually not been done.
+1. KB Reconstruction (1 changes):
+   Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
+2025-04-02 16:49:48,283 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:48,289 - INFO - KB reconstruction made changes: 'Mrs Lynne, you are quite right and I shall check whether this ocs actually not been done.' -> 'Mrs Lynne, you are quite right and I shall check whether this has actually not been done.'
+2. Basic Reconstruction (1 changes):
+   Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
+2025-04-02 16:49:48,289 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:48,294 - INFO - Using KB reconstruction with confidence 0.92
+3. API Reconstruction (1 changes):
+   Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
+
+Test Case 2: The Parliamemt will now vote on the propofal from the Commissiob.
+1. KB Reconstruction (1 changes):
+   The Parliamemt will now vote on the proposal from the Commissiob.
+2025-04-02 16:49:48,294 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:48,294 - INFO - KB reconstruction made changes: 'The Parliamemt will now vote on the propofal from the Commissiob.' -> 'The Parliamemt will now vote on the proposal from the Commissiob.'
+2. Basic Reconstruction (1 changes):
+   The Parliamemt will now vote on the proposal from the Commissiob.
+2025-04-02 16:49:48,294 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:48,294 - INFO - Using KB reconstruction with confidence 0.90
+3. API Reconstruction (1 changes):
+   The Parliamemt will now vote on the proposal from the Commissiob.
+
+Test Case 3: In accordancg with Rule 143, I wkulz like your acvioe about this moetinp.
+1. KB Reconstruction (3 changes):
+   In accordance with Rule 143, I would like your advice about this moetinp.
+2025-04-02 16:49:48,294 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:48,294 - INFO - KB reconstruction made changes: 'In accordancg with Rule 143, I wkulz like your acvioe about this moetinp.' -> 'In accordance with Rule 143, I would like your advice about this moetinp.'
+2. Basic Reconstruction (3 changes):
+   In accordance with Rule 143, I would like your advice about this moetinp.
+2025-04-02 16:49:48,294 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:48,295 - INFO - Using KB reconstruction with confidence 0.72
+3. API Reconstruction (3 changes):
+   In accordance with Rule 143, I would like your advice about this moetinp.
+
+===== RESULTS =====
+Components tested: KB Reconstruction, Basic Reconstruction, API Reconstruction
+Test cases corrected: 3/3
+System status: ✓ FUNCTIONAL
+2025-04-02 16:49:48,295 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:48,295 - INFO - Knowledge base initialized successfully
+2025-04-02 16:49:48,295 - INFO - Initializing semantic loss with bert-base-uncased model
 /home/ubuntu/.local/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
   warnings.warn(
 A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
@@ -114,500 +161,641 @@ A parameter name that contains `beta` will be renamed internally to `bias`. Plea
 A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
 A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
 A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-2025-03-08 12:34:09,252 - INFO - Semantic perceptual loss initialized successfully
-2025-03-08 12:34:09,252 - INFO - Semantic perceptual loss initialized successfully
-2025-03-08 12:34:09,274 - INFO - Loaded 10000 items from compressed data
-2025-03-08 12:34:09,278 - INFO - Loaded 10000 original sentences
-2025-03-08 12:34:09,279 - INFO - Detected embedding dimension: 460
-2025-03-08 12:34:09,279 - WARNING - Error loading VAE compressor: load_or_train_vae_compressor() got an unexpected keyword argument 'input_dim'
-2025-03-08 12:34:09,279 - WARNING - Could not configure content-adaptive coding: 'NoneType' object has no attribute 'get_channel_info'
-2025-03-08 12:34:09,296 - INFO - Detected dimensions: input=460, hidden=920, latent=460
-2025-03-08 12:34:09,299 - INFO - Loading pre-trained enhanced MLPDenoisingVAE from ./models/enhanced_mlp_dvae_model.pth
-/tmp/pycharm_project_885/Europearl/semantic_mlpdvae.py:520: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+2025-04-02 16:49:49,126 - INFO - Semantic perceptual loss initialized successfully
+2025-04-02 16:49:49,126 - INFO - Semantic perceptual loss initialized successfully
+2025-04-02 16:49:49,147 - INFO - Loaded 10000 items from compressed data
+2025-04-02 16:49:49,151 - INFO - Loaded 10000 original sentences
+2025-04-02 16:49:49,152 - INFO - Detected embedding dimension: 460
+2025-04-02 16:49:49,152 - WARNING - Error loading VAE compressor: load_or_train_vae_compressor() got an unexpected keyword argument 'input_dim'
+2025-04-02 16:49:49,152 - WARNING - Could not configure content-adaptive coding: 'NoneType' object has no attribute 'get_channel_info'
+2025-04-02 16:49:49,170 - INFO - Detected dimensions: input=460, hidden=920, latent=460
+2025-04-02 16:49:49,172 - INFO - Loading pre-trained enhanced MLPDenoisingVAE from ./models/enhanced_mlp_dvae_model.pth
+/tmp/pycharm_project_908/Europearl/semantic_mlpdvae.py:692: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
   checkpoint = torch.load(full_model_path, map_location=device)
-2025-03-08 12:34:09,388 - INFO - Loaded model was trained with semantic perceptual loss
-2025-03-08 12:34:09,389 - INFO - Using enhanced RL agent for API optimization (exploration rate: 0.30)
-2025-03-08 12:34:09,389 - INFO - === Starting Enhanced Semantic Reconstruction Pipeline ===
-2025-03-08 12:34:09,389 - INFO - Noise level: 0.15, Noise type: gaussian
-2025-03-08 12:34:09,389 - INFO - OpenAI API available: True
-2025-03-08 12:34:09,389 - INFO - Physical channel enabled: True
-2025-03-08 12:34:09,389 - INFO - Using enhanced MLPDenoisingVAE: True
-2025-03-08 12:34:09,389 - INFO - Using semantic loss: True
-2025-03-08 12:34:09,389 - INFO - Using VAE compression: False
-2025-03-08 12:34:09,389 - INFO - Using content-adaptive coding: False
-Processing samples:   0%|                                | 0/50 [00:00<?, ?it/s]2025-03-08 12:34:09,409 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:10,109 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:10,113 - INFO - API reconstruction successful
-2025-03-08 12:34:10,113 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:10,116 - INFO - Using default tokenizer.
-2025-03-08 12:34:11,671 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:11,671 - INFO - Using default tokenizer.
-2025-03-08 12:34:11,684 - INFO - Sample 1/50
-2025-03-08 12:34:11,684 - INFO - Original: Although , as you will have seen , the dreaded ' millennium bug ' failed to materialise , still the people in a number of countries suffered a series of natural disasters that truly were dreadful .
-2025-03-08 12:34:11,684 - INFO - Semantic noisy: Although , as you will tave seen , xht dreaded ' millennium bug ' failed to materialise , still the people in a number of countries suffered a sefbes of nyturaf disxsders that truly were dreadful .
-2025-03-08 12:34:11,684 - INFO - Semantic reconstructed: Although, as you will have seen, the dreaded 'millennium bug' failed to materialize, still the people in a number of countries suffered a series of natural disasters that truly were dreadful.
-2025-03-08 12:34:11,684 - INFO - Direct noisy: Although , as you will have aeen , the dreaded ' millennium bug ' failed to materialise , still the people in a number of countries suffered a series of natural disabterr that truly were dreadful .
-2025-03-08 12:34:11,684 - INFO - Direct reconstructed: Although , as you will have aeen , the dreaded ' millennium bug ' failed to materialise , still the people in a number of countries suffered a series of natural disabterr that truly were dreadful .
-2025-03-08 12:34:11,684 - INFO - Semantic BLEU: 0.5347, ROUGE-L: 0.9677, SEMANTIC: 0.9983
-2025-03-08 12:34:11,684 - INFO - Direct BLEU: 0.8543, ROUGE-L: 0.9355, SEMANTIC: 0.9464
-2025-03-08 12:34:11,684 - INFO - Current cost: $0.0002 of $2.00
-2025-03-08 12:34:11,684 - INFO - ---
-Processing samples:   2%|▍                       | 1/50 [00:02<01:52,  2.29s/it]2025-03-08 12:34:11,685 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:12,228 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:12,234 - INFO - API reconstruction successful
-2025-03-08 12:34:12,234 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:12,235 - INFO - Using default tokenizer.
-2025-03-08 12:34:12,254 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:12,815 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:12,818 - INFO - API reconstruction successful
-2025-03-08 12:34:12,819 - INFO - Using default tokenizer.
-2025-03-08 12:34:12,845 - INFO - Sample 2/50
-2025-03-08 12:34:12,845 - INFO - Original: You have requested a debate on this subject in the course of the next few days , during this part-session .
-2025-03-08 12:34:12,845 - INFO - Semantic noisy: You have requested a debate on this subject in the nourse of the next vey days , during tlqs part-session .
-2025-03-08 12:34:12,846 - INFO - Semantic reconstructed: You have requested a debate on this subject in the course of the next few days, during this part-session.
-2025-03-08 12:34:12,846 - INFO - Direct noisy: You have requested a debate on this subject in the course of the next few days , during thiy part-mession .
-2025-03-08 12:34:12,846 - INFO - Direct reconstructed: You have requested a debate on this subject in the course of the next few days, during this part-session.
-2025-03-08 12:34:12,846 - INFO - Semantic BLEU: 0.7279, ROUGE-L: 1.0000, SEMANTIC: 1.0000
-2025-03-08 12:34:12,846 - INFO - Direct BLEU: 0.7279, ROUGE-L: 1.0000, SEMANTIC: 1.0000
-2025-03-08 12:34:12,846 - INFO - Current cost: $0.0005 of $2.00
-2025-03-08 12:34:12,846 - INFO - ---
-Processing samples:   4%|▉                       | 2/50 [00:03<01:18,  1.63s/it]2025-03-08 12:34:12,847 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:12,847 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:12,847 - INFO - Using default tokenizer.
-2025-03-08 12:34:12,864 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:12,864 - INFO - Using default tokenizer.
-2025-03-08 12:34:12,876 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:13,405 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:13,409 - INFO - API reconstruction successful
-2025-03-08 12:34:13,410 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:13,410 - INFO - Using default tokenizer.
-2025-03-08 12:34:13,439 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:13,986 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:13,990 - INFO - API reconstruction successful
-2025-03-08 12:34:13,991 - INFO - Using default tokenizer.
-Processing samples:   8%|█▉                      | 4/50 [00:04<00:44,  1.03it/s]2025-03-08 12:34:14,018 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:14,684 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:14,688 - INFO - API reconstruction successful
-2025-03-08 12:34:14,688 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:14,690 - INFO - Using default tokenizer.
-2025-03-08 12:34:14,784 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:15,465 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:15,475 - INFO - API reconstruction successful
-2025-03-08 12:34:15,475 - INFO - Using default tokenizer.
-Processing samples:  10%|██▍                     | 5/50 [00:06<00:50,  1.13s/it]2025-03-08 12:34:15,505 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:16,190 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:16,197 - INFO - API reconstruction successful
-2025-03-08 12:34:16,197 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:16,198 - INFO - Using default tokenizer.
-2025-03-08 12:34:16,226 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:16,871 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:16,875 - INFO - API reconstruction successful
-2025-03-08 12:34:16,876 - INFO - Using default tokenizer.
-Processing samples:  12%|██▉                     | 6/50 [00:07<00:53,  1.21s/it]2025-03-08 12:34:16,904 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:17,446 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:17,452 - INFO - API reconstruction successful
-2025-03-08 12:34:17,452 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:17,453 - INFO - Using default tokenizer.
-2025-03-08 12:34:17,480 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:17,481 - INFO - Using default tokenizer.
-Processing samples:  14%|███▎                    | 7/50 [00:08<00:44,  1.02s/it]2025-03-08 12:34:17,496 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:17,496 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:17,497 - INFO - Using default tokenizer.
-2025-03-08 12:34:17,509 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:17,509 - INFO - Using default tokenizer.
-2025-03-08 12:34:17,522 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:17,522 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:17,522 - INFO - Using default tokenizer.
-2025-03-08 12:34:17,533 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:17,533 - INFO - Using default tokenizer.
-2025-03-08 12:34:17,544 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:17,544 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:17,545 - INFO - Using default tokenizer.
-2025-03-08 12:34:17,556 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:17,556 - INFO - Using default tokenizer.
-2025-03-08 12:34:17,566 - INFO - Sample 10/50
-2025-03-08 12:34:17,566 - INFO - Original: I would like your advice about Rule 143 concerning inadmissibility .
-2025-03-08 12:34:17,566 - INFO - Semantic noisy: I would like your advice about Rule 143 concerning inadmissibility .
-2025-03-08 12:34:17,566 - INFO - Semantic reconstructed: I would like your advice about Rule 143 concerning inadmissibility .
-2025-03-08 12:34:17,566 - INFO - Direct noisy: I would like your advice about Rwlt 143 concerning inadmissibility .
-2025-03-08 12:34:17,566 - INFO - Direct reconstructed: I would like your advice about Rwlt 143 concerning inadmissibility .
-2025-03-08 12:34:17,567 - INFO - Semantic BLEU: 1.0000, ROUGE-L: 1.0000, SEMANTIC: 1.0000
-2025-03-08 12:34:17,567 - INFO - Direct BLEU: 0.7017, ROUGE-L: 0.9000, SEMANTIC: 0.9295
-2025-03-08 12:34:17,567 - INFO - Current cost: $0.0018 of $2.00
-2025-03-08 12:34:17,567 - INFO - ---
-2025-03-08 12:34:17,567 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:17,567 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:17,568 - INFO - Using default tokenizer.
-2025-03-08 12:34:17,579 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:18,507 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:18,511 - INFO - API reconstruction successful
-2025-03-08 12:34:18,512 - INFO - Using default tokenizer.
-Processing samples:  22%|█████                  | 11/50 [00:09<00:21,  1.85it/s]2025-03-08 12:34:18,540 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:19,223 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:19,226 - INFO - API reconstruction successful
-2025-03-08 12:34:19,226 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:19,228 - INFO - Using default tokenizer.
-2025-03-08 12:34:19,257 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:20,156 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:20,160 - INFO - API reconstruction successful
-2025-03-08 12:34:20,161 - INFO - Using default tokenizer.
-Processing samples:  24%|█████▌                 | 12/50 [00:10<00:28,  1.34it/s]2025-03-08 12:34:20,193 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:20,193 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:20,194 - INFO - Using default tokenizer.
-2025-03-08 12:34:20,207 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:20,207 - INFO - Using default tokenizer.
-2025-03-08 12:34:20,220 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:20,845 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:20,849 - INFO - API reconstruction successful
-2025-03-08 12:34:20,849 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:20,850 - INFO - Using default tokenizer.
-2025-03-08 12:34:20,879 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:21,545 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:21,549 - INFO - API reconstruction successful
-2025-03-08 12:34:21,550 - INFO - Using default tokenizer.
-Processing samples:  28%|██████▍                | 14/50 [00:12<00:26,  1.37it/s]2025-03-08 12:34:21,579 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:22,301 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:22,305 - INFO - API reconstruction successful
-2025-03-08 12:34:22,305 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:22,307 - INFO - Using default tokenizer.
-2025-03-08 12:34:22,335 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:23,099 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:23,105 - INFO - API reconstruction successful
-2025-03-08 12:34:23,106 - INFO - Using default tokenizer.
-Processing samples:  30%|██████▉                | 15/50 [00:13<00:31,  1.12it/s]2025-03-08 12:34:23,135 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:23,136 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:23,136 - INFO - Using default tokenizer.
-2025-03-08 12:34:23,150 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:23,150 - INFO - Using default tokenizer.
-2025-03-08 12:34:23,163 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:23,164 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:23,164 - INFO - Using default tokenizer.
-2025-03-08 12:34:23,175 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:23,176 - INFO - Using default tokenizer.
-2025-03-08 12:34:23,188 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:23,188 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:23,188 - INFO - Using default tokenizer.
-2025-03-08 12:34:23,199 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:23,199 - INFO - Using default tokenizer.
-2025-03-08 12:34:23,210 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:23,862 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:23,867 - INFO - API reconstruction successful
-2025-03-08 12:34:23,867 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:23,868 - INFO - Using default tokenizer.
-2025-03-08 12:34:23,895 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:23,896 - INFO - Using default tokenizer.
-Processing samples:  38%|████████▋              | 19/50 [00:14<00:16,  1.92it/s]2025-03-08 12:34:23,911 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:25,333 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:25,338 - INFO - API reconstruction successful
-2025-03-08 12:34:25,338 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:25,339 - INFO - Using default tokenizer.
-2025-03-08 12:34:25,366 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:25,854 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:25,858 - INFO - API reconstruction successful
-2025-03-08 12:34:25,859 - INFO - Using default tokenizer.
-2025-03-08 12:34:25,884 - INFO - Sample 20/50
-2025-03-08 12:34:25,885 - INFO - Original: This is all in accordance with the principles that we have always upheld .
-2025-03-08 12:34:25,885 - INFO - Semantic noisy: This is all in accordance with sse principles that we have always upheld .
-2025-03-08 12:34:25,885 - INFO - Semantic reconstructed: This is all in accordance with the principles that we have always upheld.
-2025-03-08 12:34:25,885 - INFO - Direct noisy: This is all in aucordarce weth the pxinciplqs that we have xxways upheld .
-2025-03-08 12:34:25,885 - INFO - Direct reconstructed: This is all in accordance with the principles that we have always upheld.
-2025-03-08 12:34:25,885 - INFO - Semantic BLEU: 0.8446, ROUGE-L: 1.0000, SEMANTIC: 1.0000
-2025-03-08 12:34:25,885 - INFO - Direct BLEU: 0.8446, ROUGE-L: 1.0000, SEMANTIC: 1.0000
-2025-03-08 12:34:25,885 - INFO - Current cost: $0.0093 of $2.00
-2025-03-08 12:34:25,885 - INFO - ---
-Processing samples:  40%|█████████▏             | 20/50 [00:16<00:22,  1.33it/s]2025-03-08 12:34:25,886 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:25,886 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:25,887 - INFO - Using default tokenizer.
-2025-03-08 12:34:25,900 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:25,900 - INFO - Using default tokenizer.
-2025-03-08 12:34:25,912 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:27,334 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:27,339 - INFO - API reconstruction successful
-2025-03-08 12:34:27,339 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:27,341 - INFO - Using default tokenizer.
-2025-03-08 12:34:27,369 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:27,369 - INFO - Using default tokenizer.
-Processing samples:  44%|██████████             | 22/50 [00:17<00:21,  1.33it/s]2025-03-08 12:34:27,385 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:27,987 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:27,991 - INFO - API reconstruction successful
-2025-03-08 12:34:27,992 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:27,993 - INFO - Using default tokenizer.
-2025-03-08 12:34:28,019 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:28,669 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:28,676 - INFO - API reconstruction successful
-2025-03-08 12:34:28,677 - INFO - Using default tokenizer.
-Processing samples:  46%|██████████▌            | 23/50 [00:19<00:23,  1.17it/s]2025-03-08 12:34:28,706 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:28,706 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:28,706 - INFO - Using default tokenizer.
-2025-03-08 12:34:28,719 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:28,719 - INFO - Using default tokenizer.
-2025-03-08 12:34:28,730 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:29,337 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:29,348 - INFO - API reconstruction successful
-2025-03-08 12:34:29,349 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:29,350 - INFO - Using default tokenizer.
-2025-03-08 12:34:29,377 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:29,999 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:30,006 - INFO - API reconstruction successful
-2025-03-08 12:34:30,007 - INFO - Using default tokenizer.
-Processing samples:  50%|███████████▌           | 25/50 [00:20<00:19,  1.27it/s]2025-03-08 12:34:30,036 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:30,036 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:30,036 - INFO - Using default tokenizer.
-2025-03-08 12:34:30,049 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:30,049 - INFO - Using default tokenizer.
-2025-03-08 12:34:30,062 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:31,268 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:31,274 - INFO - API reconstruction successful
-2025-03-08 12:34:31,274 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:31,275 - INFO - Using default tokenizer.
-2025-03-08 12:34:31,300 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:31,879 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:31,882 - INFO - API reconstruction successful
-2025-03-08 12:34:31,883 - INFO - Using default tokenizer.
-Processing samples:  54%|████████████▍          | 27/50 [00:22<00:19,  1.19it/s]2025-03-08 12:34:31,908 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:31,909 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:31,909 - INFO - Using default tokenizer.
-2025-03-08 12:34:31,920 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:31,921 - INFO - Using default tokenizer.
-2025-03-08 12:34:31,932 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:33,204 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:33,211 - INFO - API reconstruction successful
-2025-03-08 12:34:33,211 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:33,212 - INFO - Using default tokenizer.
-2025-03-08 12:34:33,239 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:34,079 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:34,086 - INFO - API reconstruction successful
-2025-03-08 12:34:34,086 - INFO - Using default tokenizer.
-Processing samples:  58%|█████████████▎         | 29/50 [00:24<00:19,  1.08it/s]2025-03-08 12:34:34,114 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:34,776 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:34,784 - INFO - API reconstruction successful
-2025-03-08 12:34:34,785 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:34,786 - INFO - Using default tokenizer.
-2025-03-08 12:34:34,814 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:35,461 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:35,467 - INFO - API reconstruction successful
-2025-03-08 12:34:35,468 - INFO - Using default tokenizer.
-2025-03-08 12:34:35,497 - INFO - Sample 30/50
-2025-03-08 12:34:35,497 - INFO - Original: Mrs Plooij-van Gorsel , I can tell you that this matter is on the agenda for the Quaestors ' meeting on Wednesday .
-2025-03-08 12:34:35,497 - INFO - Semantic noisy: Mrs Plooij-van Gorsel , I can tell you that this mattur is on the agenda for the Quaestors ' myetiwg on Wednesday .
-2025-03-08 12:34:35,497 - INFO - Semantic reconstructed: Mrs. Plooij-van Gorsel, I can tell you that this matter is on the agenda for the Quaestors' meeting on Wednesday.
-2025-03-08 12:34:35,497 - INFO - Direct noisy: Mrs dlojij-van Gorsel , I can tell you thso this matter is on the agenda for the Quaestors ' meeting on Wednesday .
-2025-03-08 12:34:35,497 - INFO - Direct reconstructed: Mrs. Dlojij-van Gorsel, I can tell you that this matter is on the agenda for the Quaestors' meeting on Wednesday.
-2025-03-08 12:34:35,497 - INFO - Semantic BLEU: 0.5732, ROUGE-L: 1.0000, SEMANTIC: 0.9931
-2025-03-08 12:34:35,497 - INFO - Direct BLEU: 0.5641, ROUGE-L: 0.9524, SEMANTIC: 0.9861
-2025-03-08 12:34:35,497 - INFO - Current cost: $0.0230 of $2.00
-2025-03-08 12:34:35,497 - INFO - ---
-Processing samples:  60%|█████████████▊         | 30/50 [00:26<00:20,  1.01s/it]2025-03-08 12:34:35,498 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:36,224 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:36,229 - INFO - API reconstruction successful
-2025-03-08 12:34:36,230 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:36,231 - INFO - Using default tokenizer.
-2025-03-08 12:34:36,258 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:37,524 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:37,528 - INFO - API reconstruction successful
-2025-03-08 12:34:37,529 - INFO - Using default tokenizer.
-Processing samples:  62%|██████████████▎        | 31/50 [00:28<00:23,  1.23s/it]2025-03-08 12:34:37,554 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:38,192 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:38,196 - INFO - API reconstruction successful
-2025-03-08 12:34:38,196 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:38,197 - INFO - Using default tokenizer.
-2025-03-08 12:34:38,223 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:38,791 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:38,796 - INFO - API reconstruction successful
-2025-03-08 12:34:38,796 - INFO - Using default tokenizer.
-Processing samples:  64%|██████████████▋        | 32/50 [00:29<00:22,  1.24s/it]2025-03-08 12:34:38,824 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:38,824 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:38,824 - INFO - Using default tokenizer.
-2025-03-08 12:34:38,837 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:40,456 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:40,461 - INFO - API reconstruction successful
-2025-03-08 12:34:40,461 - INFO - Using default tokenizer.
-Processing samples:  66%|███████████████▏       | 33/50 [00:31<00:22,  1.34s/it]2025-03-08 12:34:40,492 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:41,737 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:41,750 - INFO - API reconstruction successful
-2025-03-08 12:34:41,750 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:41,751 - INFO - Using default tokenizer.
-2025-03-08 12:34:41,777 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:42,687 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:42,691 - INFO - API reconstruction successful
-2025-03-08 12:34:42,691 - INFO - Using default tokenizer.
-Processing samples:  68%|███████████████▋       | 34/50 [00:33<00:25,  1.57s/it]2025-03-08 12:34:42,716 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:43,652 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:43,657 - INFO - API reconstruction successful
-2025-03-08 12:34:43,658 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:43,659 - INFO - Using default tokenizer.
-2025-03-08 12:34:43,685 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:43,685 - INFO - Using default tokenizer.
-Processing samples:  70%|████████████████       | 35/50 [00:34<00:21,  1.41s/it]2025-03-08 12:34:43,700 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:44,796 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:44,805 - INFO - API reconstruction successful
-2025-03-08 12:34:44,805 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:44,806 - INFO - Using default tokenizer.
-2025-03-08 12:34:44,835 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:48,162 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:48,166 - INFO - API reconstruction successful
-2025-03-08 12:34:48,167 - INFO - Using default tokenizer.
-Processing samples:  72%|████████████████▌      | 36/50 [00:38<00:31,  2.28s/it]2025-03-08 12:34:48,194 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:48,194 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:48,194 - INFO - Using default tokenizer.
-2025-03-08 12:34:48,208 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:51,448 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:51,454 - INFO - API reconstruction successful
-2025-03-08 12:34:51,454 - INFO - Using default tokenizer.
-Processing samples:  74%|█████████████████      | 37/50 [00:42<00:33,  2.56s/it]2025-03-08 12:34:51,475 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:52,229 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:52,235 - INFO - API reconstruction successful
-2025-03-08 12:34:52,235 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:52,236 - INFO - Using default tokenizer.
-2025-03-08 12:34:52,262 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:53,049 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:53,057 - INFO - API reconstruction successful
-2025-03-08 12:34:53,057 - INFO - Using default tokenizer.
-Processing samples:  76%|█████████████████▍     | 38/50 [00:43<00:27,  2.29s/it]2025-03-08 12:34:53,084 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:34:53,084 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:53,084 - INFO - Using default tokenizer.
-2025-03-08 12:34:53,098 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:54,303 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:54,307 - INFO - API reconstruction successful
-2025-03-08 12:34:54,308 - INFO - Using default tokenizer.
-Processing samples:  78%|█████████████████▉     | 39/50 [00:44<00:21,  1.98s/it]2025-03-08 12:34:54,338 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:34:55,235 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:55,239 - INFO - API reconstruction successful
-2025-03-08 12:34:55,240 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:55,241 - INFO - Using default tokenizer.
-2025-03-08 12:34:55,268 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:55,871 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:55,876 - INFO - API reconstruction successful
-2025-03-08 12:34:55,876 - INFO - Using default tokenizer.
-2025-03-08 12:34:55,904 - INFO - Sample 40/50
-2025-03-08 12:34:55,904 - INFO - Original: Mrs Lynne , you are quite right and I shall check whether this has actually not been done .
-2025-03-08 12:34:55,904 - INFO - Semantic noisy: Mrs Lynne , ynu are quite dignt and I shall check whether tvks has actually not been done .
-2025-03-08 12:34:55,904 - INFO - Semantic reconstructed: Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
-2025-03-08 12:34:55,904 - INFO - Direct noisy: Mrs Lynne , you gqe quite right and I shall check whether this has actually not been done .
-2025-03-08 12:34:55,904 - INFO - Direct reconstructed: Mrs. Lynne, you are quite right, and I shall check whether this has actually not been done.
-2025-03-08 12:34:55,904 - INFO - Semantic BLEU: 0.7284, ROUGE-L: 1.0000, SEMANTIC: 1.0000
-2025-03-08 12:34:55,904 - INFO - Direct BLEU: 0.5602, ROUGE-L: 1.0000, SEMANTIC: 0.9699
-2025-03-08 12:34:55,904 - INFO - Current cost: $0.0611 of $2.00
-2025-03-08 12:34:55,904 - INFO - ---
-Processing samples:  80%|██████████████████▍    | 40/50 [00:46<00:18,  1.86s/it]2025-03-08 12:34:55,906 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:34:59,563 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:34:59,573 - INFO - API reconstruction successful
-2025-03-08 12:34:59,574 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:34:59,575 - INFO - Using default tokenizer.
-2025-03-08 12:34:59,606 - INFO - Saved enhanced RL agent state
-2025-03-08 12:34:59,606 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:35:00,337 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:35:00,342 - INFO - API reconstruction successful
-2025-03-08 12:35:00,342 - INFO - Using default tokenizer.
-Processing samples:  82%|██████████████████▊    | 41/50 [00:50<00:23,  2.63s/it]2025-03-08 12:35:00,370 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:35:01,062 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:35:01,069 - INFO - API reconstruction successful
-2025-03-08 12:35:01,069 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:35:01,071 - INFO - Using default tokenizer.
-2025-03-08 12:35:01,100 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:35:01,742 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:35:01,798 - INFO - API reconstruction successful
-2025-03-08 12:35:01,799 - INFO - Using default tokenizer.
-Processing samples:  84%|███████████████████▎   | 42/50 [00:52<00:18,  2.28s/it]2025-03-08 12:35:01,832 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:35:02,494 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:35:02,506 - INFO - API reconstruction successful
-2025-03-08 12:35:02,507 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:35:02,508 - INFO - Using default tokenizer.
-2025-03-08 12:35:02,540 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:35:03,174 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:35:03,178 - INFO - API reconstruction successful
-2025-03-08 12:35:03,179 - INFO - Using default tokenizer.
-Processing samples:  86%|███████████████████▊   | 43/50 [00:53<00:14,  2.01s/it]2025-03-08 12:35:03,209 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:35:04,020 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:35:04,033 - INFO - API reconstruction successful
-2025-03-08 12:35:04,034 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:35:04,035 - INFO - Using default tokenizer.
-2025-03-08 12:35:04,062 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:35:05,711 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:35:05,718 - INFO - API reconstruction successful
-2025-03-08 12:35:05,719 - INFO - Using default tokenizer.
-Processing samples:  88%|████████████████████▏  | 44/50 [00:56<00:13,  2.17s/it]2025-03-08 12:35:05,748 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:35:08,228 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:35:08,235 - INFO - API reconstruction successful
-2025-03-08 12:35:08,235 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:35:08,237 - INFO - Using default tokenizer.
-2025-03-08 12:35:08,265 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:35:08,266 - INFO - Using default tokenizer.
-Processing samples:  90%|████████████████████▋  | 45/50 [00:58<00:11,  2.28s/it]2025-03-08 12:35:08,281 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:35:09,406 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:35:09,412 - INFO - API reconstruction successful
-2025-03-08 12:35:09,413 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:35:09,414 - INFO - Using default tokenizer.
-2025-03-08 12:35:09,440 - INFO - RL agent chose basic reconstruction
-2025-03-08 12:35:09,440 - INFO - Using default tokenizer.
-Processing samples:  92%|█████████████████████▏ | 46/50 [01:00<00:07,  1.95s/it]2025-03-08 12:35:09,455 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:35:10,398 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:35:10,403 - INFO - API reconstruction successful
-2025-03-08 12:35:10,403 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:35:10,404 - INFO - Using default tokenizer.
-2025-03-08 12:35:10,432 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:35:11,160 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:35:11,164 - INFO - API reconstruction successful
-2025-03-08 12:35:11,165 - INFO - Using default tokenizer.
-Processing samples:  94%|█████████████████████▌ | 47/50 [01:01<00:05,  1.88s/it]2025-03-08 12:35:11,190 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:35:14,151 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:35:14,156 - INFO - API reconstruction successful
-2025-03-08 12:35:14,156 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:35:14,157 - INFO - Using default tokenizer.
-2025-03-08 12:35:14,185 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:35:15,419 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:35:15,458 - INFO - API reconstruction successful
-2025-03-08 12:35:15,459 - INFO - Using default tokenizer.
-Processing samples:  96%|██████████████████████ | 48/50 [01:06<00:05,  2.61s/it]2025-03-08 12:35:15,489 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:35:16,213 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:35:16,216 - INFO - API reconstruction successful
-2025-03-08 12:35:16,216 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:35:16,217 - INFO - Using default tokenizer.
-2025-03-08 12:35:16,236 - INFO - Making API call with model gpt-4-turbo...
-2025-03-08 12:35:18,387 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:35:18,392 - INFO - API reconstruction successful
-2025-03-08 12:35:18,393 - INFO - Using default tokenizer.
-Processing samples:  98%|██████████████████████▌| 49/50 [01:09<00:02,  2.71s/it]2025-03-08 12:35:18,421 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:35:19,006 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:35:19,023 - INFO - API reconstruction successful
-2025-03-08 12:35:19,023 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
-2025-03-08 12:35:19,024 - INFO - Using default tokenizer.
-2025-03-08 12:35:19,054 - INFO - Making API call with model gpt-3.5-turbo...
-2025-03-08 12:35:19,557 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
-2025-03-08 12:35:19,561 - INFO - API reconstruction successful
-2025-03-08 12:35:19,562 - INFO - Using default tokenizer.
-2025-03-08 12:35:19,590 - INFO - Sample 50/50
-2025-03-08 12:35:19,590 - INFO - Original: So Parliament should send a message , since that is the wish of the vast majority .
-2025-03-08 12:35:19,590 - INFO - Semantic noisy: So Parliament skoulx send a message , since that is the kilh of yhe vast majority .
-2025-03-08 12:35:19,590 - INFO - Semantic reconstructed: So Parliament should send a message, since that is the will of the vast majority.
-2025-03-08 12:35:19,590 - INFO - Direct noisy: So Parliament should send a message , since that is the wish of the vast majority .
-2025-03-08 12:35:19,590 - INFO - Direct reconstructed: So Parliament should send a message, since that is the wish of the vast majority.
-2025-03-08 12:35:19,590 - INFO - Semantic BLEU: 0.4319, ROUGE-L: 0.9333, SEMANTIC: 0.9866
-2025-03-08 12:35:19,590 - INFO - Direct BLEU: 0.6338, ROUGE-L: 1.0000, SEMANTIC: 1.0000
-2025-03-08 12:35:19,590 - INFO - Current cost: $0.0930 of $2.00
-2025-03-08 12:35:19,590 - INFO - ---
-Processing samples: 100%|███████████████████████| 50/50 [01:10<00:00,  1.40s/it]
-2025-03-08 12:35:19,598 - INFO - Saved enhanced RL agent state
-2025-03-08 12:35:19,646 - INFO - Total API cost: $0.0930 of $2.00 budget
-2025-03-08 12:35:19,646 - INFO - 
+2025-04-02 16:49:49,303 - INFO - Loaded model was trained with semantic perceptual loss
+2025-04-02 16:49:49,304 - INFO - Loaded enhanced RL agent (exploration rate: 0.05)
+2025-04-02 16:49:49,304 - INFO - Using enhanced RL agent for API optimization (exploration rate: 0.05)
+2025-04-02 16:49:49,305 - INFO - === Starting Enhanced Semantic Reconstruction Pipeline ===
+2025-04-02 16:49:49,305 - INFO - Noise level: 0.15, Noise type: gaussian
+2025-04-02 16:49:49,305 - INFO - OpenAI API available: True
+2025-04-02 16:49:49,305 - INFO - Physical channel enabled: True
+2025-04-02 16:49:49,305 - INFO - Using enhanced MLPDenoisingVAE: True
+2025-04-02 16:49:49,305 - INFO - Using semantic loss: True
+2025-04-02 16:49:49,305 - INFO - Using VAE compression: False
+2025-04-02 16:49:49,305 - INFO - Using content-adaptive coding: False
+Processing samples:   0%|                                | 0/50 [00:00<?, ?it/s]2025-04-02 16:49:49,325 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:49,346 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:49,352 - INFO - Using KB reconstruction with confidence 0.91
+2025-04-02 16:49:49,352 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:49:49,353 - INFO - Using default tokenizer.
+2025-04-02 16:49:50,874 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:50,880 - INFO - Using KB reconstruction with confidence 0.91
+2025-04-02 16:49:50,880 - INFO - Using default tokenizer.
+2025-04-02 16:49:50,893 - INFO - Sample 1/50
+2025-04-02 16:49:50,893 - INFO - Original: Although , as you will have seen , the dreaded ' millennium bug ' failed to materialise , still the people in a number of countries suffered a series of natural disasters that truly were dreadful .
+2025-04-02 16:49:50,893 - INFO - Semantic noisy: Although , as you will have seen , the dreaded ' millennjum bug ' failed to materialise , xtili the people in a number of countries suffprhd a series of natural disasters that truly were dreadful .
+2025-04-02 16:49:50,893 - INFO - Semantic reconstructed: Although , as you will have seen , the dreaded ' millennjum bug ' failed to materialise , xtili the people in a number of countries suffprhd a series of natural disasters the you were dreadful .
+2025-04-02 16:49:50,893 - INFO - Direct noisy: Although , as you will have seen , the dreaded ' millennium bug ' failed to qbterialise , still the people in a number of cmunjries suffered a series of natural disasters that truly hege dreadful .
+2025-04-02 16:49:50,893 - INFO - Direct reconstructed: Although , as you will have seen , the dreaded ' millennium bug ' failed to qbterialise , still the people in a number of cmunjries suffered a series of natural disasters the you hege dreadful .
+2025-04-02 16:49:50,893 - INFO - Semantic BLEU: 0.6719, ROUGE-L: 0.8387, SEMANTIC: 0.8745
+2025-04-02 16:49:50,893 - INFO - Direct BLEU: 0.7306, ROUGE-L: 0.8387, SEMANTIC: 0.8714
+2025-04-02 16:49:50,893 - INFO - Current cost: $0.0000 of $2.00
+2025-04-02 16:49:50,893 - INFO - ---
+Processing samples:   2%|▍                       | 1/50 [00:01<01:17,  1.59s/it]2025-04-02 16:49:50,894 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:50,895 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:50,902 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:49:51,622 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:49:51,860 - INFO - Further enhanced API result with context
+2025-04-02 16:49:51,860 - INFO - API reconstruction successful
+2025-04-02 16:49:51,860 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:49:51,860 - INFO - Using default tokenizer.
+2025-04-02 16:49:51,937 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:51,944 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:49:52,538 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:49:52,776 - INFO - Further enhanced API result with context
+2025-04-02 16:49:52,776 - INFO - API reconstruction successful
+2025-04-02 16:49:52,777 - INFO - Using default tokenizer.
+2025-04-02 16:49:52,789 - INFO - Sample 2/50
+2025-04-02 16:49:52,789 - INFO - Original: You have requested a debate on this subject in the course of the next few days , during this part-session .
+2025-04-02 16:49:52,789 - INFO - Semantic noisy: You have requested a debate on this subject in the course of the next few days , during this part-session .
+2025-04-02 16:49:52,789 - INFO - Semantic reconstructed: you will have requested a debate on this subject , the course , the next few days, during this part-session.
+2025-04-02 16:49:52,789 - INFO - Direct noisy: You have requested a eebaie on this subject in bhe course of the next few days , dprilg this part-session .
+2025-04-02 16:49:52,789 - INFO - Direct reconstructed: you will have requested a debate on this subject , the course , the next few days during this part-session.
+2025-04-02 16:49:52,790 - INFO - Semantic BLEU: 0.3990, ROUGE-L: 0.9231, SEMANTIC: 0.9453
+2025-04-02 16:49:52,790 - INFO - Direct BLEU: 0.4564, ROUGE-L: 0.9231, SEMANTIC: 0.9444
+2025-04-02 16:49:52,790 - INFO - Current cost: $0.0004 of $2.00
+2025-04-02 16:49:52,790 - INFO - ---
+Processing samples:   4%|▉                       | 2/50 [00:03<01:24,  1.77s/it]2025-04-02 16:49:52,791 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:52,791 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:52,795 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:49:53,342 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:49:53,398 - INFO - Further enhanced API result with context
+2025-04-02 16:49:53,398 - INFO - API reconstruction successful
+2025-04-02 16:49:53,398 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:49:53,399 - INFO - Using default tokenizer.
+2025-04-02 16:49:53,418 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:53,422 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:49:53,915 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:49:53,973 - INFO - Further enhanced API result with context
+2025-04-02 16:49:53,973 - INFO - API reconstruction successful
+2025-04-02 16:49:53,973 - INFO - Using default tokenizer.
+Processing samples:   6%|█▍                      | 3/50 [00:04<01:10,  1.51s/it]2025-04-02 16:49:53,988 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:53,989 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:53,992 - INFO - Using KB reconstruction with confidence 0.91
+2025-04-02 16:49:53,992 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:49:53,992 - INFO - Using default tokenizer.
+2025-04-02 16:49:54,005 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:54,007 - INFO - Using KB reconstruction with confidence 0.91
+2025-04-02 16:49:54,008 - INFO - Using default tokenizer.
+2025-04-02 16:49:54,021 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:54,021 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:54,025 - INFO - Using KB reconstruction with confidence 0.88
+2025-04-02 16:49:54,025 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:49:54,026 - INFO - Using default tokenizer.
+2025-04-02 16:49:54,038 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:54,042 - INFO - Using KB reconstruction with confidence 0.88
+2025-04-02 16:49:54,042 - INFO - Using default tokenizer.
+2025-04-02 16:49:54,054 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:54,055 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:54,060 - INFO - Using KB reconstruction with confidence 0.92
+2025-04-02 16:49:54,060 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:49:54,060 - INFO - Using default tokenizer.
+2025-04-02 16:49:54,073 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:54,078 - INFO - Using KB reconstruction with confidence 0.92
+2025-04-02 16:49:54,078 - INFO - Using default tokenizer.
+Processing samples:  12%|██▉                     | 6/50 [00:04<00:23,  1.88it/s]2025-04-02 16:49:54,091 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:54,091 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:54,098 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:49:54,859 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:49:55,023 - INFO - Further enhanced API result with context
+2025-04-02 16:49:55,023 - INFO - API reconstruction successful
+2025-04-02 16:49:55,023 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:49:55,024 - INFO - Using default tokenizer.
+2025-04-02 16:49:55,036 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:55,042 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:49:55,749 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:49:55,918 - INFO - Further enhanced API result with context
+2025-04-02 16:49:55,918 - INFO - API reconstruction successful
+2025-04-02 16:49:55,918 - INFO - Using default tokenizer.
+2025-04-02 16:49:55,931 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:55,931 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:55,933 - INFO - Using KB reconstruction with confidence 0.86
+2025-04-02 16:49:55,933 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:49:55,933 - INFO - Using default tokenizer.
+2025-04-02 16:49:55,944 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:55,945 - INFO - Using KB reconstruction with confidence 0.77
+2025-04-02 16:49:55,946 - INFO - Using default tokenizer.
+Processing samples:  16%|███▊                    | 8/50 [00:06<00:28,  1.45it/s]2025-04-02 16:49:55,957 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:55,957 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:55,960 - INFO - Making API call with model gpt-4-turbo...
+2025-04-02 16:49:59,447 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:49:59,488 - INFO - API reconstruction successful
+2025-04-02 16:49:59,489 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:49:59,489 - INFO - Using default tokenizer.
+2025-04-02 16:49:59,504 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:49:59,506 - INFO - Making API call with model gpt-4-turbo...
+2025-04-02 16:50:00,501 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:00,541 - INFO - API reconstruction successful
+2025-04-02 16:50:00,541 - INFO - Using default tokenizer.
+Processing samples:  18%|████▎                   | 9/50 [00:11<01:02,  1.53s/it]2025-04-02 16:50:00,555 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:00,555 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:00,560 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:01,100 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:01,123 - INFO - Further enhanced API result with context
+2025-04-02 16:50:01,124 - INFO - API reconstruction successful
+2025-04-02 16:50:01,124 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:01,124 - INFO - Using default tokenizer.
+2025-04-02 16:50:01,144 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:01,148 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:02,061 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:02,097 - INFO - Further enhanced API result with context
+2025-04-02 16:50:02,097 - INFO - API reconstruction successful
+2025-04-02 16:50:02,098 - INFO - Using default tokenizer.
+2025-04-02 16:50:02,117 - INFO - Sample 10/50
+2025-04-02 16:50:02,118 - INFO - Original: I would like your advice about Rule 143 concerning inadmissibility .
+2025-04-02 16:50:02,118 - INFO - Semantic noisy: I wdnld like your advice about Rule 143 ctncerning bnadmissibolity .
+2025-04-02 16:50:02,118 - INFO - Semantic reconstructed: Madam President , , on on a a a a point point order . . .
+2025-04-02 16:50:02,118 - INFO - Direct noisy: I would like your advice about nnle 143 concerning inadmissibility .
+2025-04-02 16:50:02,118 - INFO - Direct reconstructed: Madam President , , on on a a a a point point order . . .
+2025-04-02 16:50:02,118 - INFO - Semantic BLEU: 0.0157, ROUGE-L: 0.0000, SEMANTIC: 0.6009
+2025-04-02 16:50:02,118 - INFO - Direct BLEU: 0.0157, ROUGE-L: 0.0000, SEMANTIC: 0.6009
+2025-04-02 16:50:02,118 - INFO - Current cost: $0.0077 of $2.00
+2025-04-02 16:50:02,118 - INFO - ---
+Processing samples:  20%|████▌                  | 10/50 [00:12<01:01,  1.54s/it]2025-04-02 16:50:02,119 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:02,120 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:02,123 - INFO - Using KB reconstruction with confidence 0.92
+2025-04-02 16:50:02,123 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:02,124 - INFO - Using default tokenizer.
+2025-04-02 16:50:02,137 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:02,140 - INFO - Using KB reconstruction with confidence 0.92
+2025-04-02 16:50:02,141 - INFO - Using default tokenizer.
+2025-04-02 16:50:02,154 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:02,154 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:02,162 - INFO - Using KB reconstruction with confidence 0.92
+2025-04-02 16:50:02,162 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:02,163 - INFO - Using default tokenizer.
+2025-04-02 16:50:02,177 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:02,184 - INFO - Using KB reconstruction with confidence 0.92
+2025-04-02 16:50:02,185 - INFO - Using default tokenizer.
+2025-04-02 16:50:02,199 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:02,199 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:02,379 - INFO - Using KB+context enhancement with confidence 0.61
+2025-04-02 16:50:02,379 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:02,379 - INFO - Using default tokenizer.
+2025-04-02 16:50:02,392 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:02,565 - INFO - Using KB+context enhancement with confidence 0.61
+2025-04-02 16:50:02,566 - INFO - Using default tokenizer.
+Processing samples:  26%|█████▉                 | 13/50 [00:13<00:31,  1.19it/s]2025-04-02 16:50:02,576 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:02,577 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:02,582 - INFO - Using KB reconstruction with confidence 0.83
+2025-04-02 16:50:02,582 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:02,582 - INFO - Using default tokenizer.
+2025-04-02 16:50:02,594 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:02,598 - INFO - Using KB reconstruction with confidence 0.88
+2025-04-02 16:50:02,599 - INFO - Using default tokenizer.
+2025-04-02 16:50:02,611 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:02,612 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:02,617 - INFO - Using KB reconstruction with confidence 0.92
+2025-04-02 16:50:02,617 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:02,618 - INFO - Using default tokenizer.
+2025-04-02 16:50:02,631 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:02,636 - INFO - Using KB reconstruction with confidence 0.88
+2025-04-02 16:50:02,637 - INFO - Using default tokenizer.
+2025-04-02 16:50:02,650 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:02,650 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:02,656 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:03,369 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:03,538 - INFO - Further enhanced API result with context
+2025-04-02 16:50:03,538 - INFO - API reconstruction successful
+2025-04-02 16:50:03,539 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:03,539 - INFO - Using default tokenizer.
+2025-04-02 16:50:03,552 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:03,555 - INFO - Using KB reconstruction with confidence 0.84
+2025-04-02 16:50:03,555 - INFO - Using default tokenizer.
+Processing samples:  32%|███████▎               | 16/50 [00:14<00:21,  1.59it/s]2025-04-02 16:50:03,569 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:03,569 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:03,570 - INFO - Using KB reconstruction with confidence 0.91
+2025-04-02 16:50:03,570 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:03,570 - INFO - Using default tokenizer.
+2025-04-02 16:50:03,581 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:03,585 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:03,587 - INFO - RL agent chose basic reconstruction
+2025-04-02 16:50:03,587 - INFO - Using default tokenizer.
+2025-04-02 16:50:03,598 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:03,598 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:03,599 - INFO - Using KB reconstruction with confidence 0.83
+2025-04-02 16:50:03,599 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:03,599 - INFO - Using default tokenizer.
+2025-04-02 16:50:03,610 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:03,612 - INFO - Making API call with model gpt-4-turbo...
+2025-04-02 16:50:05,019 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:05,049 - INFO - API reconstruction successful
+2025-04-02 16:50:05,050 - INFO - Using default tokenizer.
+Processing samples:  36%|████████▎              | 18/50 [00:15<00:21,  1.51it/s]2025-04-02 16:50:05,066 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:05,067 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:05,076 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:05,798 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:05,848 - INFO - API reconstruction successful
+2025-04-02 16:50:05,849 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:05,849 - INFO - Using default tokenizer.
+2025-04-02 16:50:05,864 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:05,873 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:06,608 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:06,657 - INFO - API reconstruction successful
+2025-04-02 16:50:06,658 - INFO - Using default tokenizer.
+Processing samples:  38%|████████▋              | 19/50 [00:17<00:25,  1.22it/s]2025-04-02 16:50:06,674 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:06,675 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:06,678 - INFO - Using KB reconstruction with confidence 0.79
+2025-04-02 16:50:06,678 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:06,678 - INFO - Using default tokenizer.
+2025-04-02 16:50:06,692 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:06,694 - INFO - Using KB reconstruction with confidence 0.79
+2025-04-02 16:50:06,694 - INFO - Using default tokenizer.
+2025-04-02 16:50:06,707 - INFO - Sample 20/50
+2025-04-02 16:50:06,707 - INFO - Original: This is all in accordance with the principles that we have always upheld .
+2025-04-02 16:50:06,707 - INFO - Semantic noisy: This is all in accordance with the principles that we hvvg always upheld .
+2025-04-02 16:50:06,707 - INFO - Semantic reconstructed: This is all in accordance whether the principles the we hvvg always upheld .
+2025-04-02 16:50:06,707 - INFO - Direct noisy: This is all in accordance with the principles that we have always upheld .
+2025-04-02 16:50:06,707 - INFO - Direct reconstructed: This is all in accordance whether the principles the we have always upheld .
+2025-04-02 16:50:06,707 - INFO - Semantic BLEU: 0.4002, ROUGE-L: 0.7692, SEMANTIC: 0.7956
+2025-04-02 16:50:06,707 - INFO - Direct BLEU: 0.5731, ROUGE-L: 0.8462, SEMANTIC: 0.9195
+2025-04-02 16:50:06,707 - INFO - Current cost: $0.0113 of $2.00
+2025-04-02 16:50:06,707 - INFO - ---
+2025-04-02 16:50:06,708 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:06,709 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:06,711 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:07,280 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:07,326 - INFO - Further enhanced API result with context
+2025-04-02 16:50:07,326 - INFO - API reconstruction successful
+2025-04-02 16:50:07,326 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:07,327 - INFO - Using default tokenizer.
+2025-04-02 16:50:07,349 - INFO - Saved enhanced RL agent state
+2025-04-02 16:50:07,349 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:07,358 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:08,205 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:08,260 - INFO - Further enhanced API result with context
+2025-04-02 16:50:08,260 - INFO - API reconstruction successful
+2025-04-02 16:50:08,260 - INFO - Using default tokenizer.
+Processing samples:  42%|█████████▋             | 21/50 [00:18<00:23,  1.23it/s]2025-04-02 16:50:08,275 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:08,276 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:08,279 - INFO - Using KB reconstruction with confidence 0.82
+2025-04-02 16:50:08,279 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:08,279 - INFO - Using default tokenizer.
+2025-04-02 16:50:08,292 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:08,294 - INFO - Using KB reconstruction with confidence 0.82
+2025-04-02 16:50:08,295 - INFO - Using default tokenizer.
+2025-04-02 16:50:08,307 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:08,308 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:08,316 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:08,952 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:09,064 - INFO - API reconstruction successful
+2025-04-02 16:50:09,064 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:09,065 - INFO - Using default tokenizer.
+2025-04-02 16:50:09,078 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:09,086 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:09,723 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:09,837 - INFO - API reconstruction successful
+2025-04-02 16:50:09,838 - INFO - Using default tokenizer.
+Processing samples:  46%|██████████▌            | 23/50 [00:20<00:21,  1.24it/s]2025-04-02 16:50:09,851 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:09,852 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:09,855 - INFO - Making API call with model gpt-4-turbo...
+2025-04-02 16:50:11,275 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:11,339 - INFO - Further enhanced API result with context
+2025-04-02 16:50:11,339 - INFO - API reconstruction successful
+2025-04-02 16:50:11,339 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:11,339 - INFO - Using default tokenizer.
+2025-04-02 16:50:11,353 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:11,356 - INFO - Making API call with model gpt-4-turbo...
+2025-04-02 16:50:12,512 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:12,578 - INFO - Further enhanced API result with context
+2025-04-02 16:50:12,578 - INFO - API reconstruction successful
+2025-04-02 16:50:12,578 - INFO - Using default tokenizer.
+Processing samples:  48%|███████████            | 24/50 [00:23<00:30,  1.16s/it]2025-04-02 16:50:12,592 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:12,593 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:12,598 - INFO - Using KB reconstruction with confidence 0.90
+2025-04-02 16:50:12,598 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:12,598 - INFO - Using default tokenizer.
+2025-04-02 16:50:12,611 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:12,616 - INFO - Using KB reconstruction with confidence 0.91
+2025-04-02 16:50:12,616 - INFO - Using default tokenizer.
+2025-04-02 16:50:12,629 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:12,629 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:12,637 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:19,061 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:19,249 - INFO - Further enhanced API result with context
+2025-04-02 16:50:19,249 - INFO - API reconstruction successful
+2025-04-02 16:50:19,249 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:19,250 - INFO - Using default tokenizer.
+2025-04-02 16:50:19,263 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:19,270 - INFO - Making API call with model gpt-4-turbo...
+2025-04-02 16:50:21,059 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:21,236 - INFO - Further enhanced API result with context
+2025-04-02 16:50:21,236 - INFO - API reconstruction successful
+2025-04-02 16:50:21,236 - INFO - Using default tokenizer.
+Processing samples:  52%|███████████▉           | 26/50 [00:31<00:54,  2.26s/it]2025-04-02 16:50:21,249 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:21,250 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:21,257 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:22,046 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:22,200 - INFO - Further enhanced API result with context
+2025-04-02 16:50:22,200 - INFO - API reconstruction successful
+2025-04-02 16:50:22,201 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:22,201 - INFO - Using default tokenizer.
+2025-04-02 16:50:22,215 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:22,222 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:23,420 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:23,563 - INFO - Further enhanced API result with context
+2025-04-02 16:50:23,563 - INFO - API reconstruction successful
+2025-04-02 16:50:23,564 - INFO - Using default tokenizer.
+Processing samples:  54%|████████████▍          | 27/50 [00:34<00:52,  2.27s/it]2025-04-02 16:50:23,577 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:23,578 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:23,580 - INFO - Using KB reconstruction with confidence 0.88
+2025-04-02 16:50:23,580 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:23,581 - INFO - Using default tokenizer.
+2025-04-02 16:50:23,592 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:23,596 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:24,250 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:24,352 - INFO - Further enhanced API result with context
+2025-04-02 16:50:24,353 - INFO - API reconstruction successful
+2025-04-02 16:50:24,353 - INFO - Using default tokenizer.
+Processing samples:  56%|████████████▉          | 28/50 [00:35<00:42,  1.95s/it]2025-04-02 16:50:24,369 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:24,370 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:24,372 - INFO - Using KB reconstruction with confidence 0.91
+2025-04-02 16:50:24,372 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:24,373 - INFO - Using default tokenizer.
+2025-04-02 16:50:24,384 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:24,387 - INFO - Using KB reconstruction with confidence 0.91
+2025-04-02 16:50:24,387 - INFO - Using default tokenizer.
+2025-04-02 16:50:24,399 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:24,399 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:24,403 - INFO - Using KB reconstruction with confidence 0.93
+2025-04-02 16:50:24,403 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:24,403 - INFO - Using default tokenizer.
+2025-04-02 16:50:24,415 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:24,419 - INFO - Using KB reconstruction with confidence 0.93
+2025-04-02 16:50:24,419 - INFO - Using default tokenizer.
+2025-04-02 16:50:24,430 - INFO - Sample 30/50
+2025-04-02 16:50:24,430 - INFO - Original: Mrs Plooij-van Gorsel , I can tell you that this matter is on the agenda for the Quaestors ' meeting on Wednesday .
+2025-04-02 16:50:24,430 - INFO - Semantic noisy: kry Plooij-van Gorsel , I fan tell you that this matter is on the agenda fpr xhg Quaestors ' meeting on Wednesday .
+2025-04-02 16:50:24,430 - INFO - Semantic reconstructed: kry Plooij-van Gorsel , I fan tell you the this matter is on the agenda fpr xhg Quaestors ' meeting on Wednesday .
+2025-04-02 16:50:24,430 - INFO - Direct noisy: zrm Plooij-van Gorsel , I can tell ypv that this matter is on the agenda for tye Quaestors ' meeting on Wednesday .
+2025-04-02 16:50:24,430 - INFO - Direct reconstructed: zrm Plooij-van Gorsel , I can tell ypv the this matter is on the agenda for tye Quaestors ' meeting on Wednesday .
+2025-04-02 16:50:24,430 - INFO - Semantic BLEU: 0.5441, ROUGE-L: 0.7619, SEMANTIC: 0.9014
+2025-04-02 16:50:24,430 - INFO - Direct BLEU: 0.6652, ROUGE-L: 0.8095, SEMANTIC: 0.9195
+2025-04-02 16:50:24,430 - INFO - Current cost: $0.0229 of $2.00
+2025-04-02 16:50:24,430 - INFO - ---
+2025-04-02 16:50:24,431 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:24,432 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:24,435 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:24,982 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:25,061 - INFO - API reconstruction successful
+2025-04-02 16:50:25,062 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:25,062 - INFO - Using default tokenizer.
+2025-04-02 16:50:25,074 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:25,077 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:25,634 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:25,710 - INFO - API reconstruction successful
+2025-04-02 16:50:25,710 - INFO - Using default tokenizer.
+Processing samples:  62%|██████████████▎        | 31/50 [00:36<00:23,  1.22s/it]2025-04-02 16:50:25,724 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:25,725 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:25,729 - INFO - Using KB reconstruction with confidence 0.94
+2025-04-02 16:50:25,729 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:25,730 - INFO - Using default tokenizer.
+2025-04-02 16:50:25,742 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:25,751 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:26,607 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:26,700 - INFO - API reconstruction successful
+2025-04-02 16:50:26,700 - INFO - Using default tokenizer.
+Processing samples:  64%|██████████████▋        | 32/50 [00:37<00:21,  1.18s/it]2025-04-02 16:50:26,715 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:26,716 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:26,718 - INFO - Using KB reconstruction with confidence 0.86
+2025-04-02 16:50:26,718 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:26,719 - INFO - Using default tokenizer.
+2025-04-02 16:50:26,731 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:26,734 - INFO - Using KB reconstruction with confidence 0.93
+2025-04-02 16:50:26,734 - INFO - Using default tokenizer.
+2025-04-02 16:50:26,747 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:26,748 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:26,750 - INFO - Using KB reconstruction with confidence 0.87
+2025-04-02 16:50:26,750 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:26,751 - INFO - Using default tokenizer.
+2025-04-02 16:50:26,762 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:26,765 - INFO - Using KB reconstruction with confidence 0.87
+2025-04-02 16:50:26,765 - INFO - Using default tokenizer.
+2025-04-02 16:50:26,777 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:26,778 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:26,781 - INFO - Using KB reconstruction with confidence 0.85
+2025-04-02 16:50:26,781 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:26,782 - INFO - Using default tokenizer.
+2025-04-02 16:50:26,794 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:26,797 - INFO - Using KB reconstruction with confidence 0.85
+2025-04-02 16:50:26,798 - INFO - Using default tokenizer.
+2025-04-02 16:50:26,810 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:26,810 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:26,811 - INFO - Using KB reconstruction with confidence 0.76
+2025-04-02 16:50:26,811 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:26,812 - INFO - Using default tokenizer.
+2025-04-02 16:50:26,822 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:26,823 - INFO - Using KB reconstruction with confidence 0.76
+2025-04-02 16:50:26,823 - INFO - Using default tokenizer.
+Processing samples:  72%|████████████████▌      | 36/50 [00:37<00:08,  1.72it/s]2025-04-02 16:50:26,834 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:26,834 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:26,838 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:27,334 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:27,356 - INFO - Further enhanced API result with context
+2025-04-02 16:50:27,356 - INFO - API reconstruction successful
+2025-04-02 16:50:27,357 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:27,357 - INFO - Using default tokenizer.
+2025-04-02 16:50:27,379 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:27,384 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:28,573 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:28,588 - INFO - Further enhanced API result with context
+2025-04-02 16:50:28,588 - INFO - API reconstruction successful
+2025-04-02 16:50:28,588 - INFO - Using default tokenizer.
+2025-04-02 16:50:28,610 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:28,611 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:28,612 - INFO - Using KB reconstruction with confidence 0.80
+2025-04-02 16:50:28,612 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:28,613 - INFO - Using default tokenizer.
+2025-04-02 16:50:28,625 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:28,627 - INFO - Using KB reconstruction with confidence 0.80
+2025-04-02 16:50:28,627 - INFO - Using default tokenizer.
+Processing samples:  76%|█████████████████▍     | 38/50 [00:39<00:08,  1.49it/s]2025-04-02 16:50:28,640 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:28,640 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:28,643 - INFO - Using KB reconstruction with confidence 0.91
+2025-04-02 16:50:28,643 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:28,643 - INFO - Using default tokenizer.
+2025-04-02 16:50:28,656 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:28,658 - INFO - Using KB reconstruction with confidence 0.91
+2025-04-02 16:50:28,659 - INFO - Using default tokenizer.
+2025-04-02 16:50:28,671 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:28,672 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:28,678 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:29,428 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:29,526 - INFO - Further enhanced API result with context
+2025-04-02 16:50:29,526 - INFO - API reconstruction successful
+2025-04-02 16:50:29,526 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:29,527 - INFO - Using default tokenizer.
+2025-04-02 16:50:29,541 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:29,548 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:30,268 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:30,368 - INFO - Further enhanced API result with context
+2025-04-02 16:50:30,368 - INFO - API reconstruction successful
+2025-04-02 16:50:30,369 - INFO - Using default tokenizer.
+2025-04-02 16:50:30,382 - INFO - Sample 40/50
+2025-04-02 16:50:30,382 - INFO - Original: Mrs Lynne , you are quite right and I shall check whether this has actually not been done .
+2025-04-02 16:50:30,382 - INFO - Semantic noisy: Mrs Lynne , you are quite right and I shall check whether this has actually not been done .
+2025-04-02 16:50:30,382 - INFO - Semantic reconstructed: Mrs. Lynne, you are quite right, and do shall check whether this has actually not been done.
+2025-04-02 16:50:30,382 - INFO - Direct noisy: nys Lynne , you mrw quite right and I shall chguk whether this zfs actually not been done .
+2025-04-02 16:50:30,382 - INFO - Direct reconstructed: Yes, Lynne, you are quite right, and do shall check whether this has actually not been done.
+2025-04-02 16:50:30,382 - INFO - Semantic BLEU: 0.4509, ROUGE-L: 0.9412, SEMANTIC: 0.9578
+2025-04-02 16:50:30,382 - INFO - Direct BLEU: 0.4509, ROUGE-L: 0.8824, SEMANTIC: 0.9427
+2025-04-02 16:50:30,382 - INFO - Current cost: $0.0241 of $2.00
+2025-04-02 16:50:30,382 - INFO - ---
+Processing samples:  80%|██████████████████▍    | 40/50 [00:41<00:07,  1.38it/s]2025-04-02 16:50:30,383 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:30,384 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:30,389 - INFO - Using KB reconstruction with confidence 0.85
+2025-04-02 16:50:30,389 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:30,390 - INFO - Using default tokenizer.
+2025-04-02 16:50:30,402 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:30,407 - INFO - Using KB reconstruction with confidence 0.87
+2025-04-02 16:50:30,407 - INFO - Using default tokenizer.
+2025-04-02 16:50:30,420 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:30,421 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:30,426 - INFO - Using KB reconstruction with confidence 0.96
+2025-04-02 16:50:30,426 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:30,426 - INFO - Using default tokenizer.
+2025-04-02 16:50:30,438 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:30,443 - INFO - Using KB reconstruction with confidence 0.96
+2025-04-02 16:50:30,443 - INFO - Using default tokenizer.
+2025-04-02 16:50:30,455 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:30,456 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:30,460 - INFO - Using KB reconstruction with confidence 0.94
+2025-04-02 16:50:30,460 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:30,460 - INFO - Using default tokenizer.
+2025-04-02 16:50:30,471 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:30,475 - INFO - Using KB reconstruction with confidence 0.94
+2025-04-02 16:50:30,475 - INFO - Using default tokenizer.
+Processing samples:  86%|███████████████████▊   | 43/50 [00:41<00:03,  2.14it/s]2025-04-02 16:50:30,487 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:30,488 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:30,490 - INFO - Using KB reconstruction with confidence 0.89
+2025-04-02 16:50:30,490 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:30,490 - INFO - Using default tokenizer.
+2025-04-02 16:50:30,501 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:30,503 - INFO - Using KB reconstruction with confidence 0.89
+2025-04-02 16:50:30,503 - INFO - Using default tokenizer.
+2025-04-02 16:50:30,514 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:30,515 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:30,520 - INFO - Using KB reconstruction with confidence 0.95
+2025-04-02 16:50:30,520 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:30,520 - INFO - Using default tokenizer.
+2025-04-02 16:50:30,532 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:30,538 - INFO - Using KB reconstruction with confidence 0.91
+2025-04-02 16:50:30,538 - INFO - Using default tokenizer.
+2025-04-02 16:50:30,550 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:30,551 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:30,555 - INFO - Making API call with model gpt-4-turbo...
+2025-04-02 16:50:31,867 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:31,948 - INFO - API reconstruction successful
+2025-04-02 16:50:31,948 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:31,948 - INFO - Using default tokenizer.
+2025-04-02 16:50:31,960 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:31,963 - INFO - Making API call with model gpt-4-turbo...
+2025-04-02 16:50:34,311 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:34,401 - INFO - API reconstruction successful
+2025-04-02 16:50:34,401 - INFO - Using default tokenizer.
+Processing samples:  92%|█████████████████████▏ | 46/50 [00:45<00:03,  1.32it/s]2025-04-02 16:50:34,414 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:34,415 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:34,417 - INFO - Using KB reconstruction with confidence 0.77
+2025-04-02 16:50:34,417 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:34,417 - INFO - Using default tokenizer.
+2025-04-02 16:50:34,428 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:34,430 - INFO - Using KB reconstruction with confidence 0.77
+2025-04-02 16:50:34,430 - INFO - Using default tokenizer.
+2025-04-02 16:50:34,441 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:34,442 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:34,444 - INFO - Using KB reconstruction with confidence 0.91
+2025-04-02 16:50:34,444 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:34,445 - INFO - Using default tokenizer.
+2025-04-02 16:50:34,455 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:34,457 - INFO - Using KB reconstruction with confidence 0.82
+2025-04-02 16:50:34,458 - INFO - Using default tokenizer.
+2025-04-02 16:50:34,469 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:34,469 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:34,475 - INFO - Making API call with model gpt-3.5-turbo...
+2025-04-02 16:50:35,647 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-02 16:50:35,745 - INFO - API reconstruction successful
+2025-04-02 16:50:35,745 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:35,745 - INFO - Using default tokenizer.
+2025-04-02 16:50:35,758 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:35,762 - INFO - Using KB reconstruction with confidence 0.90
+2025-04-02 16:50:35,762 - INFO - Using default tokenizer.
+Processing samples:  98%|██████████████████████▌| 49/50 [00:46<00:00,  1.52it/s]2025-04-02 16:50:35,774 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:35,775 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:35,777 - INFO - Using KB reconstruction with confidence 0.91
+2025-04-02 16:50:35,777 - WARNING - Embedding shapes don't match: torch.Size([460]) vs torch.Size([1, 460])
+2025-04-02 16:50:35,778 - INFO - Using default tokenizer.
+2025-04-02 16:50:35,789 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-02 16:50:35,792 - INFO - Using KB reconstruction with confidence 0.91
+2025-04-02 16:50:35,792 - INFO - Using default tokenizer.
+2025-04-02 16:50:35,803 - INFO - Sample 50/50
+2025-04-02 16:50:35,803 - INFO - Original: So Parliament should send a message , since that is the wish of the vast majority .
+2025-04-02 16:50:35,803 - INFO - Semantic noisy: So Parliament should send a message , since that is tmz wish of the ygst majority .
+2025-04-02 16:50:35,803 - INFO - Semantic reconstructed: So Parliament should send a message , since the is tmz wish of the ygst majority .
+2025-04-02 16:50:35,803 - INFO - Direct noisy: So Parliament should send a message , since that is the wish of the vcmt majority .
+2025-04-02 16:50:35,803 - INFO - Direct reconstructed: So Parliament should send a message , since the is the wish of the vcmt majority .
+2025-04-02 16:50:35,803 - INFO - Semantic BLEU: 0.5506, ROUGE-L: 0.8000, SEMANTIC: 0.8500
+2025-04-02 16:50:35,803 - INFO - Direct BLEU: 0.6675, ROUGE-L: 0.8667, SEMANTIC: 0.9429
+2025-04-02 16:50:35,803 - INFO - Current cost: $0.0311 of $2.00
+2025-04-02 16:50:35,803 - INFO - ---
+Processing samples: 100%|███████████████████████| 50/50 [00:46<00:00,  1.08it/s]
+2025-04-02 16:50:35,816 - INFO - Saved enhanced RL agent state
+2025-04-02 16:50:35,881 - INFO - Total API cost: $0.0311 of $2.00 budget
+2025-04-02 16:50:35,881 - INFO - 
 === Overall Results ===
-2025-03-08 12:35:19,646 - INFO - Semantic Reconstruction:
-2025-03-08 12:35:19,646 - INFO - Semantic Average BLEU: 0.6342
-2025-03-08 12:35:19,646 - INFO - Semantic Average ROUGE1: 0.9090
-2025-03-08 12:35:19,646 - INFO - Semantic Average ROUGEL: 0.9074
-2025-03-08 12:35:19,646 - INFO - Semantic Average METEOR: 0.7701
-2025-03-08 12:35:19,646 - INFO - Semantic Average SEMANTIC: 0.9465
-2025-03-08 12:35:19,646 - INFO - 
+2025-04-02 16:50:35,881 - INFO - Semantic Reconstruction:
+2025-04-02 16:50:35,881 - INFO - Semantic Average BLEU: 0.5191
+2025-04-02 16:50:35,881 - INFO - Semantic Average ROUGE1: 0.8340
+2025-04-02 16:50:35,882 - INFO - Semantic Average ROUGEL: 0.8296
+2025-04-02 16:50:35,882 - INFO - Semantic Average METEOR: 0.7280
+2025-04-02 16:50:35,882 - INFO - Semantic Average SEMANTIC: 0.9077
+2025-04-02 16:50:35,882 - INFO - 
 Direct Reconstruction:
-2025-03-08 12:35:19,646 - INFO - Direct Average BLEU: 0.7294
-2025-03-08 12:35:19,646 - INFO - Direct Average ROUGE1: 0.9450
-2025-03-08 12:35:19,646 - INFO - Direct Average ROUGEL: 0.9435
-2025-03-08 12:35:19,646 - INFO - Direct Average METEOR: 0.8287
-2025-03-08 12:35:19,646 - INFO - Direct Average SEMANTIC: 0.9610
-2025-03-08 12:35:19,646 - INFO - 
-Total Cost: $0.0930 of $2.00 budget
-2025-03-08 12:35:19,646 - INFO - Results saved to C:\Users\Daud\SemanticCommTransmission\pythonProject/sem_com_results/enhanced_run_20250308-123408
-2025-03-08 12:35:20,103 - INFO - Visualizations saved to C:\Users\Daud\SemanticCommTransmission\pythonProject/sem_com_results/enhanced_run_20250308-123408
+2025-04-02 16:50:35,882 - INFO - Direct Average BLEU: 0.4796
+2025-04-02 16:50:35,882 - INFO - Direct Average ROUGE1: 0.7938
+2025-04-02 16:50:35,882 - INFO - Direct Average ROUGEL: 0.7903
+2025-04-02 16:50:35,882 - INFO - Direct Average METEOR: 0.6939
+2025-04-02 16:50:35,882 - INFO - Direct Average SEMANTIC: 0.8780
+2025-04-02 16:50:35,882 - INFO - 
+Total Cost: $0.0311 of $2.00 budget
+2025-04-02 16:50:35,882 - INFO - Results saved to C:\Users\Daud\SemanticCommTransmission\pythonProject/sem_com_results/enhanced_run_20250402-164948
+2025-04-02 16:50:36,335 - INFO - Visualizations saved to C:\Users\Daud\SemanticCommTransmission\pythonProject/sem_com_results/enhanced_run_20250402-164948
+
+===== KNOWLEDGE BASE FUNCTIONALITY CHECK =====
+2025-04-02 16:50:36,338 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+✓ KB initialized successfully with 41 terms
+
+Test 1:
+  Input:      The Parliamemt will now vote on the propofal from the Commissiob.
+  Corrected:  The Parliamemt will now vote on the proposal from the Commissiob.
+  Corrections: 1/3 expected terms
+  Result:     ✓ KB applied corrections
+
+Test 2:
+  Input:      In accordancg with Rule 143, I wkulz like your acvioe.
+  Corrected:  In accordance with Rule 143, I would like your acvioe.
+  Corrections: 2/3 expected terms
+  Result:     ✓ KB applied corrections
+
+Test 3:
+  Input:      The Coupcil and Directave on environmentsl protrction.
+  Corrected:  The Coupcil and Directave on environmental protrction.
+  Corrections: 1/4 expected terms
+  Result:     ✓ KB applied corrections
+
+===== SUMMARY =====
+Tests passed: 3/3
+Total corrections made: 4
+KB Status: FUNCTIONING
 
 ====== Enhanced Semantic Communication Pipeline Complete ======
 Overall improvements:
@@ -617,10 +805,10 @@ Overall improvements:
 - Enhanced RL Agent: Improved state representation with semantic features
 
 Final metrics:
-  semantic_avg_BLEU: 0.6342
-  semantic_avg_METEOR: 0.7701
-  semantic_avg_ROUGE1: 0.9090
-  semantic_avg_ROUGEL: 0.9074
-  semantic_avg_SEMANTIC: 0.9465
+  semantic_avg_BLEU: 0.5191
+  semantic_avg_METEOR: 0.7280
+  semantic_avg_ROUGE1: 0.8340
+  semantic_avg_ROUGEL: 0.8296
+  semantic_avg_SEMANTIC: 0.9077
 
 Process finished with exit code 0
