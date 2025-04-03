@@ -27,7 +27,7 @@ from knowledge_base import get_or_create_knowledge_base
 from circuit_breaker import CircuitBreaker
 from semantic_mlpdvae import load_or_train_enhanced_mlp_dvae
 from mlpdvae_utils import (load_transmission_pairs, evaluate_reconstruction_with_semantics,
-                           compute_embedding_similarity, generate_text_from_embedding)
+                           compute_embedding_similarity, generate_text_from_embedding,ensure_tensor_shape)
 from semantic_loss import SemanticPerceptualLoss, evaluate_semantic_similarity
 from compression_vae import (EmbeddingCompressorVAE, decompress_vae_embedding,
                              load_or_train_vae_compressor)
@@ -77,6 +77,7 @@ try:
     TRANSMISSION_PAIRS_DIR = getattr(phy_config, 'TRANSMISSION_PAIRS_DIR', './transmission_pairs')
     # New configuration options
     ENABLE_VAE_COMPRESSION = getattr(phy_config, 'VAE_COMPRESSION', True)
+    VAE_COMPRESSION_FACTOR = getattr(phy_config, 'VAE_COMPRESSION_FACTOR', 0.6)  # Add this line
     ENABLE_CONTENT_ADAPTIVE_CODING = getattr(phy_config, 'ENABLE_CONTENT_ADAPTIVE_CODING', True)
 except ImportError:
     # Default configuration if not found
@@ -943,6 +944,12 @@ def apply_noise_to_embedding(embedding, noise_level=0.05, noise_type='gaussian')
     # Convert to numpy if tensor
     if isinstance(embedding, torch.Tensor):
         embedding = embedding.cpu().numpy()
+    # Ensure proper shape
+    if len(embedding.shape) == 1:
+        embedding = np.expand_dims(embedding, axis=0)
+        was_1d = True
+    else:
+        was_1d = False
 
     # Make a copy to avoid modifying the original
     noisy_embedding = embedding.copy()
@@ -968,7 +975,9 @@ def apply_noise_to_embedding(embedding, noise_level=0.05, noise_type='gaussian')
         # Randomly zero out elements (simulates packet loss)
         mask = np.random.random(embedding.shape) > noise_level
         noisy_embedding = embedding * mask
-
+    # Return to original shape if needed
+    if was_1d:
+        noisy_embedding = noisy_embedding.squeeze(0)
     return noisy_embedding
 
 
@@ -1789,15 +1798,41 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
     return results
 
 
+def adapt_dimensions(tensor, target_dim):
+    """Adapt tensor to target dimensions by padding or truncating"""
+    # Ensure tensor is 2D
+    if len(tensor.shape) == 1:
+        tensor = tensor.unsqueeze(0)
+
+    current_dim = tensor.shape[1]
+
+    # Return unchanged if dimensions already match
+    if current_dim == target_dim:
+        return tensor
+
+    # Handle dimension mismatch
+    if current_dim < target_dim:
+        # Pad with zeros
+        padding = torch.zeros(tensor.shape[0], target_dim - current_dim, device=tensor.device)
+        return torch.cat([tensor, padding], dim=1)
+    else:
+        # Truncate
+        return tensor[:, :target_dim]
+
+
 @timing_decorator
 def process_sample_with_vae(embedding, vae_compressor):
     """Process embedding with VAE compression"""
     # Convert to tensor
     embedding_tensor = torch.tensor(embedding, dtype=torch.float32).to(device)
 
+    # Adapt dimensions - fixed to 768 which is what the VAE expects
+    target_dim = 768  # Hardcode the expected dimension
+    adapted_tensor = adapt_dimensions(embedding_tensor, target_dim)
+
     # Compress using VAE
     with torch.no_grad():
-        compressed_embedding = vae_compressor.compress(embedding_tensor).cpu().numpy()
+        compressed_embedding = vae_compressor.compress(adapted_tensor).cpu().numpy()
 
     return compressed_embedding
 def test_system_components():
