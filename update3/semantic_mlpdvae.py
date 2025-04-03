@@ -107,8 +107,12 @@ class MLPDenoisingVAE(nn.Module):
 
     def encode(self, x):
         """Encode input to latent representation"""
-        # Use our utility function to ensure consistent shape
-        x = ensure_tensor_shape(x, add_batch_dim=True)
+        # Convert to tensor and ensure proper shape
+        if isinstance(x, np.ndarray):
+            x = torch.tensor(x, dtype=torch.float32).to(device)
+
+        # Use utility function to ensure consistent shape with batch dimension
+        x = ensure_tensor_shape(x, expected_dim=2)
 
         # Pass through encoder
         hidden = self.encoder(x)
@@ -127,8 +131,8 @@ class MLPDenoisingVAE(nn.Module):
 
     def decode(self, z, apply_kb=True):
         """Decode latent representation to reconstruction with KB enhancement"""
-        # Ensure z has batch dimension
-        z = ensure_tensor_shape(z, add_batch_dim=True)
+        # Use utility function to ensure proper shape with batch dimension
+        z = ensure_tensor_shape(z, expected_dim=2)
 
         # Initial projection
         hidden = self.decoder_input(z)
@@ -188,11 +192,15 @@ class MLPDenoisingVAE(nn.Module):
             if hasattr(self, 'get_text_embedding'):
                 hint_embedding = self.get_text_embedding(text_hint)
 
+                # Use utility function to ensure hint embedding has proper shape
+                hint_tensor = torch.tensor(hint_embedding, device=reconstructed.device)
+                hint_tensor = ensure_tensor_shape(hint_tensor, expected_dim=2)
+
+                # Ensure reconstructed has consistent shape for comparison
+                recon_tensor = ensure_tensor_shape(reconstructed, expected_dim=2)
+
                 # Calculate similarity between reconstruction and hint
-                sim = F.cosine_similarity(
-                    reconstructed.view(1, -1),
-                    torch.tensor(hint_embedding, device=reconstructed.device).view(1, -1)
-                )
+                sim = F.cosine_similarity(recon_tensor, hint_tensor)
 
                 # If similarity is already high, don't modify
                 if sim > 0.9:
@@ -200,10 +208,7 @@ class MLPDenoisingVAE(nn.Module):
 
                 # Otherwise, apply a small bias toward the hint
                 hint_weight = max(0.0, min(0.3, 0.8 - sim.item()))
-                adjusted = reconstructed + hint_weight * torch.tensor(
-                    hint_embedding,
-                    device=reconstructed.device
-                )
+                adjusted = reconstructed + hint_weight * hint_tensor.squeeze(0)
 
                 # Normalize to preserve norm
                 norm_factor = torch.norm(reconstructed) / torch.norm(adjusted)
@@ -283,9 +288,8 @@ class EnhancedMLPDenoisingVAE(MLPDenoisingVAE):
 
     def decode(self, z, text_hints=None, apply_kb=True):
         """Enhanced decode with knowledge guidance"""
-        # Ensure z has batch dimension
-        if len(z.shape) == 1:
-            z = z.unsqueeze(0)
+        # Use utility function to ensure proper shape with batch dimension
+        z = ensure_tensor_shape(z, expected_dim=2)
 
         # Calculate attention with context memory
         z_expanded = z.unsqueeze(1)  # [batch_size, 1, latent_dim]
