@@ -3,20 +3,27 @@ import numpy as np
 import torch
 import logging
 import time
-from physical_channel import PhysicalChannelLayer
-from content_adaptive_coding import ContentAdaptivePhysicalChannel  # Import new class
-from compression_vae import decompress_vae_embedding  # Import from new compression module
+from physical_channel import PhysicalChannelLayer, SemanticAwarePhysicalChannel
+from content_adaptive_coding import ContentAdaptivePhysicalChannel
+from compression_vae import decompress_vae_embedding
 from config_manager import ConfigManager
 from mlpdvae_utils import ensure_tensor_shape
+from knowledge_base import get_or_create_knowledge_base
+
+
 def timing_decorator(func):
     """Decorator to measure and log function execution time"""
+
     def wrapper(*args, **kwargs):
         start_time = time.time()
         result = func(*args, **kwargs)
         end_time = time.time()
         logger.debug(f"[TIMING] Function {func.__name__} took {end_time - start_time:.4f} seconds to execute")
         return result
+
     return wrapper
+
+
 # Import the configuration
 try:
     import physical_channel_config as config
@@ -42,6 +49,7 @@ except ImportError:
             self.VAE_COMPRESSION = config_manager.get("physical.vae_compression", True)
             self.CONTENT_CLASSIFIER_PATH = config_manager.get("physical.content_classifier_path",
                                                               "./models/content_classifier.pth")
+            self.SEMANTIC_PROTECTION = config_manager.get("physical.semantic_protection", True)
 
 
     config = DefaultConfig()
@@ -53,7 +61,7 @@ logger = logging.getLogger(__name__)
 class EnhancedPhysicalSemanticIntegration:
     """
     Enhanced integration layer between semantic and physical channels.
-    Supports VAE compression and content-adaptive coding.
+    Supports VAE compression, content-adaptive coding, and semantic-aware protection.
     """
 
     def __init__(self, channel_config=None):
@@ -76,6 +84,9 @@ class EnhancedPhysicalSemanticIntegration:
 
         # Check if we should use content-adaptive coding
         self.use_content_adaptive = getattr(self.config, 'ENABLE_CONTENT_ADAPTIVE_CODING', True)
+
+        # Check if we should use semantic-aware protection
+        self.use_semantic_protection = getattr(self.config, 'SEMANTIC_PROTECTION', True)
 
         if self.physical_enabled:
             self._init_physical_channel()
@@ -105,13 +116,26 @@ class EnhancedPhysicalSemanticIntegration:
         results_dir = getattr(self.config, 'CHANNEL_RESULTS_DIR', './channel_results')
         os.makedirs(results_dir, exist_ok=True)
 
+        # Cache for content classification
+        self.content_class_cache = {}
+
     def _init_physical_channel(self):
         """Initialize the physical channel based on configuration."""
         try:
-            # Use content-adaptive channel if enabled
-            if self.use_content_adaptive:
+            # Determine which channel type to use based on configuration
+            if self.use_semantic_protection:
+                # Use the new semantic-aware channel
+                self._physical_channel = SemanticAwarePhysicalChannel(
+                    snr_db=getattr(self.config, 'SNR_DB', 20.0),
+                    channel_type=getattr(self.config, 'CHANNEL_TYPE', 'awgn'),
+                    coding_scheme=getattr(self.config, 'CODING_TYPE', 'polar'),
+                    adaptive_modulation=getattr(self.config, 'ENABLE_ADAPTIVE_MODULATION', True),
+                    semantic_protection=True
+                )
+                logger.info("Initialized Enhanced Physical Channel with semantic-aware protection")
+            elif self.use_content_adaptive:
+                # Use content-adaptive channel
                 try:
-                    # Try to initialize with content-adaptive parameters
                     self._physical_channel = ContentAdaptivePhysicalChannel(
                         snr_db=getattr(self.config, 'SNR_DB', 20.0),
                         channel_type=getattr(self.config, 'CHANNEL_TYPE', 'awgn'),
@@ -123,18 +147,14 @@ class EnhancedPhysicalSemanticIntegration:
                         importance_weighting=getattr(self.config, 'USE_IMPORTANCE_WEIGHTING', True),
                         enable_adaptive_modulation=getattr(self.config, 'ENABLE_ADAPTIVE_MODULATION', True),
                         enable_unequal_error_protection=getattr(self.config, 'ENABLE_UNEQUAL_ERROR_PROTECTION', True),
-                        enable_content_adaptive_coding=getattr(self.config, 'ENABLE_CONTENT_ADAPTIVE_CODING', True),
+                        enable_content_adaptive_coding=True,
                         content_classifier_path=getattr(self.config, 'CONTENT_CLASSIFIER_PATH',
-                                                        './models/content_classifier.pth'),
-                        ofdm_carriers=getattr(self.config, 'OFDM_CARRIERS', 64),
-                        fading_param=(getattr(self.config, 'RICIAN_K_FACTOR', 4.0)
-                                      if getattr(self.config, 'CHANNEL_TYPE', 'awgn') == 'rician'
-                                      else getattr(self.config, 'RAYLEIGH_VARIANCE', 1.0))
+                                                        './models/content_classifier.pth')
                     )
-                    logger.info("Enhanced content-adaptive physical channel initialized")
-                except TypeError:
-                    logger.warning(
-                        "ContentAdaptivePhysicalChannel initialization failed with TypeError. Falling back to standard channel")
+                    logger.info("Initialized Enhanced Physical Channel with content-adaptive coding")
+                except Exception as e:
+                    logger.warning(f"Could not initialize content-adaptive channel: {e}")
+                    logger.info("Falling back to standard physical channel")
                     # Fall back to standard channel
                     self._physical_channel = PhysicalChannelLayer(
                         snr_db=getattr(self.config, 'SNR_DB', 20.0),
@@ -146,15 +166,10 @@ class EnhancedPhysicalSemanticIntegration:
                         use_channel_coding=getattr(self.config, 'USE_CHANNEL_CODING', True),
                         importance_weighting=getattr(self.config, 'USE_IMPORTANCE_WEIGHTING', True),
                         enable_adaptive_modulation=getattr(self.config, 'ENABLE_ADAPTIVE_MODULATION', True),
-                        enable_unequal_error_protection=getattr(self.config, 'ENABLE_UNEQUAL_ERROR_PROTECTION', True),
-                        ofdm_carriers=getattr(self.config, 'OFDM_CARRIERS', 64),
-                        fading_param=(getattr(self.config, 'RICIAN_K_FACTOR', 4.0)
-                                      if getattr(self.config, 'CHANNEL_TYPE', 'awgn') == 'rician'
-                                      else getattr(self.config, 'RAYLEIGH_VARIANCE', 1.0))
+                        enable_unequal_error_protection=getattr(self.config, 'ENABLE_UNEQUAL_ERROR_PROTECTION', True)
                     )
-                    logger.info("Fallback to standard physical channel successful")
             else:
-                # Use original physical channel
+                # Use standard physical channel
                 self._physical_channel = PhysicalChannelLayer(
                     snr_db=getattr(self.config, 'SNR_DB', 20.0),
                     channel_type=getattr(self.config, 'CHANNEL_TYPE', 'awgn'),
@@ -165,13 +180,31 @@ class EnhancedPhysicalSemanticIntegration:
                     use_channel_coding=getattr(self.config, 'USE_CHANNEL_CODING', True),
                     importance_weighting=getattr(self.config, 'USE_IMPORTANCE_WEIGHTING', True),
                     enable_adaptive_modulation=getattr(self.config, 'ENABLE_ADAPTIVE_MODULATION', True),
-                    enable_unequal_error_protection=getattr(self.config, 'ENABLE_UNEQUAL_ERROR_PROTECTION', True),
-                    ofdm_carriers=getattr(self.config, 'OFDM_CARRIERS', 64),
-                    fading_param=(getattr(self.config, 'RICIAN_K_FACTOR', 4.0)
-                                  if getattr(self.config, 'CHANNEL_TYPE', 'awgn') == 'rician'
-                                  else getattr(self.config, 'RAYLEIGH_VARIANCE', 1.0))
+                    enable_unequal_error_protection=getattr(self.config, 'ENABLE_UNEQUAL_ERROR_PROTECTION', True)
                 )
-                logger.info("Standard physical channel initialized")
+                logger.info("Initialized standard physical channel")
+
+            # Log channel info
+            channel_info = self._physical_channel.get_channel_info()
+            logger.info(
+                f"Initialized Enhanced Physical Channel with {channel_info.get('channel_type', 'unknown')} channel, "
+                f"{channel_info.get('modulation', 'unknown')}-{channel_info.get('modulation_order', '')} modulation, "
+                f"SNR={channel_info.get('snr_db', '?')}dB")
+
+            # Log additional features
+            thresholds = []
+            if hasattr(self._physical_channel, 'snr_threshold_low') and hasattr(self._physical_channel,
+                                                                                'snr_threshold_high'):
+                thresholds = [self._physical_channel.snr_threshold_low, self._physical_channel.snr_threshold_high]
+
+            if getattr(self.config, 'ENABLE_ADAPTIVE_MODULATION', True) and thresholds:
+                logger.info(
+                    f"Adaptive modulation enabled: thresholds at {thresholds[0]:.1f}dB and {thresholds[1]:.1f}dB")
+
+            if getattr(self.config, 'ENABLE_UNEQUAL_ERROR_PROTECTION', True):
+                protection_levels = 3  # Default in most implementations
+                logger.info(f"Unequal error protection enabled with {protection_levels} protection levels")
+
         except Exception as e:
             logger.error(f"Failed to initialize physical channel: {e}")
             self.physical_enabled = False
@@ -254,18 +287,28 @@ class EnhancedPhysicalSemanticIntegration:
                     if p < weights.shape[0]:
                         weights[p] *= 1.15
 
+            # Content-based adjustment if we have a content classifier
+            if hasattr(self, '_get_content_weights'):
+                content_weights = self._get_content_weights(embedding)
+                if content_weights is not None:
+                    # Apply content-specific weight pattern
+                    if is_batch:
+                        for i in range(weights.shape[0]):
+                            weights[i] = weights[i] * content_weights
+                    else:
+                        weights = weights * content_weights
+
             # Normalize weights to reasonable range
             if is_batch:
                 for i in range(weights.shape[0]):
                     weights[i] = 0.5 + 0.5 * (weights[i] - weights[i].min()) / (
-                                weights[i].max() - weights[i].min() + 1e-10)
+                            weights[i].max() - weights[i].min() + 1e-10)
             else:
                 weights = 0.5 + 0.5 * (weights - weights.min()) / (weights.max() - weights.min() + 1e-10)
 
             return weights
 
         # For VAE-compressed embeddings, we can use specialized methods
-        # FIXED: Use self.use_vae_compression instead of global variable
         if self.use_vae_compression and method == 'semantic':
             # In VAE space, dimensions are already optimized for importance
             # Use a gradient-based approach where earlier dimensions are more important
@@ -360,6 +403,51 @@ class EnhancedPhysicalSemanticIntegration:
 
         return weights
 
+    def _get_content_weights(self, embedding):
+        """Get importance weights specific to content type"""
+        # Use content classifier if available
+        if hasattr(self._physical_channel, 'content_classifier'):
+            try:
+                # Get embedding hash for caching
+                if isinstance(embedding, np.ndarray):
+                    emb_hash = hash(embedding.tobytes())
+                else:
+                    emb_hash = hash(embedding.detach().cpu().numpy().tobytes())
+
+                # Check cache first
+                if emb_hash in self.content_class_cache:
+                    content_type = self.content_class_cache[emb_hash]
+                else:
+                    # Use content classifier to determine content type
+                    content_type, _ = self._physical_channel.content_classifier.classify(embedding)
+                    # Cache for future use
+                    self.content_class_cache[emb_hash] = content_type
+
+                # Define content-specific weight patterns
+                content_weights = {
+                    'procedural': np.linspace(0.9, 0.3, embedding.shape[-1]),  # Decline with dimension
+                    'legislative': np.ones(embedding.shape[-1]),  # Uniform importance
+                    'factual': np.concatenate([
+                        np.ones(int(embedding.shape[-1] * 0.3)),  # Full weight to first 30%
+                        np.linspace(1.0, 0.5, embedding.shape[-1] - int(embedding.shape[-1] * 0.3))  # Decay after
+                    ]),
+                    'argumentative': np.concatenate([
+                        np.linspace(0.7, 1.0, int(embedding.shape[-1] * 0.2)),  # Increasing for first 20%
+                        np.ones(int(embedding.shape[-1] * 0.6)),  # Maintain for middle 60%
+                        np.linspace(1.0, 0.7, embedding.shape[-1] - int(embedding.shape[-1] * 0.8))  # Decay at end
+                    ])
+                }
+
+                # Return weights for detected content type
+                if content_type in content_weights:
+                    return content_weights[content_type]
+
+            except Exception as e:
+                logger.debug(f"Error in content-based weighting: {e}")
+
+        # Default: no content-specific weights
+        return None
+
     def _save_transmission_pair(self, original, received):
         """
         Save original-received embedding pairs for self-supervised learning.
@@ -425,7 +513,6 @@ class EnhancedPhysicalSemanticIntegration:
         importance_weights = None
         if use_kb:
             try:
-                from knowledge_base import get_or_create_knowledge_base
                 kb = get_or_create_knowledge_base()
 
                 # Apply semantic-aware importance weighting
@@ -465,6 +552,8 @@ class EnhancedPhysicalSemanticIntegration:
         # Apply post-transmission KB enhancement if available
         if use_kb:
             try:
+                kb = get_or_create_knowledge_base()
+
                 if hasattr(kb, 'enhance_embedding'):
                     # Use KB to enhance the received embedding based on semantic knowledge
                     enhanced = kb.enhance_embedding(received_embedding, None)  # No text available here
@@ -503,8 +592,88 @@ class EnhancedPhysicalSemanticIntegration:
         Returns:
             Dictionary of results
         """
-        # This method is unchanged - it already works with new features
-        pass
+        if not self.physical_enabled or self._physical_channel is None:
+            logger.warning("[PHYSICAL] Physical channel disabled, cannot run sweep")
+            return None
+
+        # Set default values if not provided
+        if snr_range is None:
+            snr_range = [5.0, 10.0, 15.0, 20.0, 25.0, 30.0]
+
+        if channel_types is None:
+            channel_types = ['awgn', 'rayleigh', 'rician']
+
+        # Store original SNR and channel type
+        original_snr = self._physical_channel.snr_db
+        original_channel = getattr(self._physical_channel, 'channel_type', 'awgn')
+
+        results = {
+            'snr_values': snr_range,
+            'channel_types': channel_types,
+            'metrics': {}
+        }
+
+        # Convert embedding to numpy if needed
+        if isinstance(embedding, torch.Tensor):
+            embedding_np = embedding.detach().cpu().numpy()
+        else:
+            embedding_np = embedding
+
+        # Ensure proper shape
+        embedding_np = ensure_tensor_shape(embedding_np, expected_dim=2)
+        if len(embedding_np.shape) == 1:
+            embedding_np = np.expand_dims(embedding_np, 0)
+
+        # Run sweep for each channel type
+        for channel_type in channel_types:
+            # Set channel type
+            if hasattr(self._physical_channel, 'channel_type'):
+                self._physical_channel.channel_type = channel_type
+            elif hasattr(self._physical_channel, 'set_channel_type'):
+                self._physical_channel.set_channel_type(channel_type)
+            else:
+                logger.warning(f"[PHYSICAL] Cannot set channel type to {channel_type}, skipping")
+                continue
+
+            # Initialize metrics for this channel
+            results['metrics'][channel_type] = {
+                'mse': [],
+                'sim': [],
+                'error_rate': []
+            }
+
+            # Test each SNR value
+            for snr in snr_range:
+                # Set SNR
+                self._physical_channel.snr_db = snr
+
+                # Transmit embedding with debug info
+                received, debug_info = self._physical_channel.transmit(
+                    embedding_np, debug=True)
+
+                # Calculate metrics
+                mse = np.mean((embedding_np - received) ** 2)
+                # Use cosine similarity
+                sim = np.dot(embedding_np.flatten(), received.flatten()) / (
+                        np.linalg.norm(embedding_np) * np.linalg.norm(received))
+                error_rate = debug_info.get('error_rate', 0.0)
+
+                # Store metrics
+                results['metrics'][channel_type]['mse'].append(float(mse))
+                results['metrics'][channel_type]['sim'].append(float(sim))
+                results['metrics'][channel_type]['error_rate'].append(float(error_rate))
+
+                logger.info(
+                    f"[PHYSICAL] Channel sweep: {channel_type}, SNR={snr}dB, MSE={mse:.6f}, Similarity={sim:.4f}")
+
+        # Restore original values
+        self._physical_channel.snr_db = original_snr
+        if hasattr(self._physical_channel, 'channel_type'):
+            self._physical_channel.channel_type = original_channel
+        elif hasattr(self._physical_channel, 'set_channel_type'):
+            self._physical_channel.set_channel_type(original_channel)
+
+        return results
 
     def log_transmission_metrics(self, original, received, semantic_score=None):
         """
@@ -515,13 +684,63 @@ class EnhancedPhysicalSemanticIntegration:
             received: Received embedding
             semantic_score: Optional semantic similarity score
         """
-        # This method is unchanged - it already works with new features
-        pass
+        if not self.physical_enabled:
+            return
+
+        # Extract SNR from physical channel
+        snr = getattr(self._physical_channel, 'snr_db', 0.0)
+
+        # Calculate MSE
+        mse = np.mean((original - received) ** 2)
+
+        # Calculate BER if available
+        ber = 0.0
+        if hasattr(self._physical_channel, 'get_error_rate'):
+            ber = self._physical_channel.get_error_rate()
+        elif hasattr(self._physical_channel, 'error_rate'):
+            ber = self._physical_channel.error_rate
+        elif hasattr(self._physical_channel, 'channel_stats') and 'error_rate' in self._physical_channel.channel_stats:
+            ber = self._physical_channel.channel_stats['error_rate']
+
+        # Store metrics
+        self.metrics['snr_values'].append(snr)
+        self.metrics['mse_values'].append(mse)
+        self.metrics['ber_values'].append(ber)
+        if semantic_score is not None:
+            self.metrics['semantic_scores'].append(semantic_score)
 
     def _plot_metrics(self):
         """Plot the accumulated metrics."""
-        # This method is unchanged - it already works with new features
-        pass
+        try:
+            import matplotlib.pyplot as plt
+
+            # Create figure
+            fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5))
+
+            # Plot BER vs SNR
+            if len(self.metrics['snr_values']) > 0:
+                ax1.semilogy(self.metrics['snr_values'], self.metrics['ber_values'], 'o-')
+                ax1.set_xlabel('SNR (dB)')
+                ax1.set_ylabel('Bit Error Rate')
+                ax1.set_title('BER vs SNR')
+                ax1.grid(True)
+
+            # Plot MSE vs SNR
+            if len(self.metrics['snr_values']) > 0:
+                ax2.semilogy(self.metrics['snr_values'], self.metrics['mse_values'], 'o-')
+                ax2.set_xlabel('SNR (dB)')
+                ax2.set_ylabel('Mean Squared Error')
+                ax2.set_title('MSE vs SNR')
+                ax2.grid(True)
+
+            # Save figure
+            fig.tight_layout()
+            plt.savefig('./channel_results/physical_channel_metrics.png')
+            plt.close()
+
+            logger.info("[PHYSICAL] Plotted metrics to ./channel_results/physical_channel_metrics.png")
+        except Exception as e:
+            logger.warning(f"[PHYSICAL] Failed to plot metrics: {e}")
 
     def get_channel_info(self):
         """Get information about the physical channel configuration."""
@@ -533,6 +752,12 @@ class EnhancedPhysicalSemanticIntegration:
 
         # Add VAE compression info
         info["vae_compression"] = self.use_vae_compression
+
+        # Add semantic protection info
+        info["semantic_protection"] = self.use_semantic_protection
+
+        # Add content adaptive info
+        info["content_adaptive_coding"] = self.use_content_adaptive
 
         return info
 
@@ -549,11 +774,20 @@ class EnhancedPhysicalSemanticIntegration:
 # Create an instance of the integration layer for easy import
 physical_semantic_bridge = EnhancedPhysicalSemanticIntegration()
 
+
 @timing_decorator
 def transmit_through_physical_channel(embedding, debug=False, use_kb=True):
     """
     Convenience function to transmit through the physical channel.
     This function is intended to be imported and used in the semantic communication pipeline.
+
+    Args:
+        embedding: The embedding to transmit
+        debug: Whether to return debug information
+        use_kb: Whether to use KB for enhanced transmission
+
+    Returns:
+        The transmitted embedding, optionally with debug info
     """
     if not physical_semantic_bridge.physical_enabled or physical_semantic_bridge._physical_channel is None:
         return embedding  # Pass through if physical channel is disabled
@@ -570,11 +804,11 @@ def transmit_through_physical_channel(embedding, debug=False, use_kb=True):
     embedding_np = ensure_tensor_shape(embedding_np, expected_dim=2)
     if len(embedding_np.shape) == 1:
         embedding_np = np.expand_dims(embedding_np, 0)
+
     # Apply KB-guided importance weighting if knowledge base is available
     importance_weights = None
     if use_kb:
         try:
-            from knowledge_base import get_or_create_knowledge_base
             kb = get_or_create_knowledge_base()
 
             # Apply semantic-aware importance weighting
@@ -592,11 +826,11 @@ def transmit_through_physical_channel(embedding, debug=False, use_kb=True):
 
     # Transmit through physical channel
     if debug:
-        # Change this line to call the transmit method on the physical channel directly
+        # Call the transmit method on the physical channel directly
         received_embedding, debug_info = physical_semantic_bridge._physical_channel.transmit(
             embedding_np, importance_weights, debug=True)
     else:
-        # Change this line to call the transmit method on the physical channel directly
+        # Call the transmit method on the physical channel directly
         received_embedding = physical_semantic_bridge._physical_channel.transmit(
             embedding_np, importance_weights, debug=False)
 
@@ -611,7 +845,6 @@ def transmit_through_physical_channel(embedding, debug=False, use_kb=True):
     # Apply post-transmission KB enhancement if available
     if use_kb:
         try:
-            from knowledge_base import get_or_create_knowledge_base
             kb = get_or_create_knowledge_base()
 
             if hasattr(kb, 'enhance_embedding'):
