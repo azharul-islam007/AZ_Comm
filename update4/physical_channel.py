@@ -12,7 +12,83 @@ logger = logging.getLogger(__name__)
 
 class PhysicalChannelLayer:
     """Base class for physical channel layers"""
-    pass  # Kept for backward compatibility
+
+    def __init__(self,
+                 snr_db=20.0,
+                 channel_type='awgn',
+                 modulation='qam',
+                 modulation_order=16,
+                 coding_rate=0.75,
+                 coding_type='repetition',
+                 use_channel_coding=True,
+                 importance_weighting=True,
+                 enable_adaptive_modulation=True,
+                 enable_unequal_error_protection=True,
+                 ofdm_carriers=64,
+                 fading_param=1.0):
+        """Initialize the physical channel layer with parameters"""
+        # Store parameters
+        self.snr_db = snr_db
+        self.channel_type = channel_type
+        self.modulation = modulation
+        self.modulation_order = modulation_order
+        self.coding_rate = coding_rate
+        self.coding_type = coding_type
+        self.use_channel_coding = use_channel_coding
+        self.importance_weighting = importance_weighting
+        self.enable_adaptive_modulation = enable_adaptive_modulation
+        self.enable_unequal_error_protection = enable_unequal_error_protection
+        self.ofdm_carriers = ofdm_carriers
+        self.fading_param = fading_param
+
+        # Set thresholds for adaptive modulation
+        self.snr_threshold_low = 15.0
+        self.snr_threshold_high = 25.0
+
+        # Channel statistics
+        self.channel_stats = {
+            'error_rate': 0.0,
+            'estimated_snr': snr_db,
+            'transmission_count': 0
+        }
+
+        # Initialize other components as needed
+        self._init_channel_components()
+
+    def _init_channel_components(self):
+        """Initialize channel-specific components"""
+        # Add your implementation here
+        pass
+
+    def transmit(self, embedding, importance_weights=None, debug=False):
+        """
+        Transmit embedding through the physical channel
+
+        Args:
+            embedding: Input embedding to transmit
+            importance_weights: Optional weights for unequal error protection
+            debug: Whether to return debug information
+
+        Returns:
+            Received embedding after transmission through the channel
+        """
+        # Add your implementation here
+        pass
+
+    def get_channel_info(self):
+        """Return information about the physical channel"""
+        return {
+            'channel_type': self.channel_type,
+            'modulation': f"{self.modulation}-{self.modulation_order}",
+            'snr_db': self.snr_db,
+            'coding_rate': self.coding_rate,
+            'coding_type': self.coding_type,
+            'use_channel_coding': self.use_channel_coding,
+            'importance_weighting': self.importance_weighting,
+            'enable_adaptive_modulation': self.enable_adaptive_modulation,
+            'enable_unequal_error_protection': self.enable_unequal_error_protection,
+            'error_rate': self.channel_stats.get('error_rate', 0.0)
+        }
 
 
 class SemanticAwarePhysicalChannel:
