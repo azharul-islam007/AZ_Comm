@@ -367,17 +367,59 @@ def decompress_vae_embedding(compressed_embedding):
         return decompressed_np
     except Exception as e:
         logger.error(f"Error decompressing with VAE: {e}")
-        # Return the input as fallback
-        return compressed_embedding
+
+        # If decompression fails, we need to adapt the compressed embedding
+        # to the expected output dimension (typically 768 or 460)
+        try:
+            # Attempt to adapt dimensions directly
+            if isinstance(compressed_embedding, np.ndarray):
+                # Determine target dimension from original VAE compressor
+                target_dim = 768  # Default
+                try:
+                    # Try to load the target dimension from the checkpoint
+                    if os.path.exists(VAE_COMPRESSOR_PATH):
+                        info = torch.load(VAE_COMPRESSOR_PATH, map_location='cpu')
+                        if 'input_dim' in info:
+                            target_dim = info['input_dim']
+                except:
+                    pass
+
+                # Create a properly sized array
+                if len(compressed_embedding.shape) == 1:
+                    # Single embedding
+                    result = np.zeros(target_dim)
+                    # Copy as much as we can
+                    copy_len = min(len(compressed_embedding), target_dim)
+                    result[:copy_len] = compressed_embedding[:copy_len]
+                else:
+                    # Batch of embeddings
+                    result = np.zeros((compressed_embedding.shape[0], target_dim))
+                    # Copy as much as we can
+                    copy_len = min(compressed_embedding.shape[1], target_dim)
+                    result[:, :copy_len] = compressed_embedding[:, :copy_len]
+
+                return result
+            elif isinstance(compressed_embedding, torch.Tensor):
+                # For tensors, use the adapt_dimensions function
+                from mlpdvae_utils import adapt_dimensions
+                target_dim = 768  # Default target dimension
+                return adapt_dimensions(compressed_embedding, target_dim).cpu().numpy()
+            else:
+                return compressed_embedding
+        except Exception as fallback_error:
+            logger.error(f"Dimension adaptation fallback also failed: {fallback_error}")
+            # Return the input as absolute last resort
+            return compressed_embedding
 
 
-def load_or_train_vae_compressor(compression_factor=VAE_COMPRESSION_FACTOR, embedding_dim=None):
+def load_or_train_vae_compressor(compression_factor=VAE_COMPRESSION_FACTOR, embedding_dim=None, output_dim=None):
     """
     Load existing VAE compressor or train a new one.
 
     Args:
         compression_factor: Factor to determine compressed dimension size
-        embedding_dim: Optional explicit dimension for the embedding
+        embedding_dim: Optional explicit dimension for the input embedding
+        output_dim: Optional explicit dimension for the output compressed embedding
 
     Returns:
         Trained VAE compressor model
@@ -395,6 +437,11 @@ def load_or_train_vae_compressor(compression_factor=VAE_COMPRESSION_FACTOR, embe
             vae.load_state_dict(checkpoint['model_state_dict'])
             vae.eval()
             logger.info(f"VAE compressor loaded: {checkpoint['input_dim']} → {checkpoint['compressed_dim']} dimensions")
+
+            # Store dimensions for reference
+            vae.input_dim = checkpoint['input_dim']
+            vae.compressed_dim = checkpoint['compressed_dim']
+
             return vae
         except Exception as e:
             logger.error(f"Error loading VAE compressor: {e}")
@@ -427,10 +474,25 @@ def load_or_train_vae_compressor(compression_factor=VAE_COMPRESSION_FACTOR, embe
 
             # Determine target compressed dimension
             input_dim = embedding_dim if embedding_dim is not None else embeddings.shape[1]
-            compressed_dim = max(int(input_dim * compression_factor), 50)
+
+            # Either use specified output_dim or calculate from compression factor
+            if output_dim is not None:
+                compressed_dim = output_dim
+            else:
+                compressed_dim = max(int(input_dim * compression_factor), 50)
+
+            # Make sure the compressed dimension is 460 to match physical channel expectations
+            if abs(compressed_dim - 460) <= 50:  # If it's close, just use 460
+                compressed_dim = 460
+                logger.info(f"Adjusted compressed dimension to 460 to match physical channel")
 
             # Train VAE compressor
             vae = train_vae_compressor(embeddings, compressed_dim)
+
+            # Store dimensions for reference
+            vae.input_dim = input_dim
+            vae.compressed_dim = compressed_dim
+
             return vae
         else:
             logger.error(f"No processed data found at {PROCESSED_DATA_PATH}")
