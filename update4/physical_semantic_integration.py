@@ -800,11 +800,26 @@ def transmit_through_physical_channel(embedding, debug=False, use_kb=True):
         original_embedding = embedding.copy()
         embedding_np = embedding
 
-    # Ensure proper shape
+    # Use utility function to ensure proper shape with batch dimension
     embedding_np = ensure_tensor_shape(embedding_np, expected_dim=2)
-    if len(embedding_np.shape) == 1:
-        embedding_np = np.expand_dims(embedding_np, 0)
 
+    # Check dimension and adapt if necessary
+    # The physical channel expects embeddings of a specific dimension (e.g., 460)
+    expected_dim = 460
+
+    if embedding_np.shape[1] != expected_dim:
+        logger.info(f"[PHYSICAL] Adjusting embedding dimension from {embedding_np.shape[1]} to {expected_dim}")
+        # Create a new array of the correct dimension
+        adjusted_embedding = np.zeros((embedding_np.shape[0], expected_dim))
+
+        # Copy data from original embedding, up to the minimum dimension
+        min_dim = min(embedding_np.shape[1], expected_dim)
+        adjusted_embedding[:, :min_dim] = embedding_np[:, :min_dim]
+
+        # Use the adjusted embedding
+        embedding_np = adjusted_embedding
+
+    # Continue with existing code...
     # Apply KB-guided importance weighting if knowledge base is available
     importance_weights = None
     if use_kb:
@@ -825,46 +840,51 @@ def transmit_through_physical_channel(embedding, debug=False, use_kb=True):
         )
 
     # Transmit through physical channel
-    if debug:
-        # Call the transmit method on the physical channel directly
-        received_embedding, debug_info = physical_semantic_bridge._physical_channel.transmit(
-            embedding_np, importance_weights, debug=True)
-    else:
-        # Call the transmit method on the physical channel directly
-        received_embedding = physical_semantic_bridge._physical_channel.transmit(
-            embedding_np, importance_weights, debug=False)
+    try:
+        if debug:
+            # Call the transmit method on the physical channel directly
+            received_embedding, debug_info = physical_semantic_bridge._physical_channel.transmit(
+                embedding_np, importance_weights, debug=True)
+        else:
+            # Call the transmit method on the physical channel directly
+            received_embedding = physical_semantic_bridge._physical_channel.transmit(
+                embedding_np, importance_weights, debug=False)
 
-    # Save transmission pair for self-supervised learning
-    if physical_semantic_bridge.collect_transmission_data:
-        physical_semantic_bridge._save_transmission_pair(original_embedding, received_embedding)
+        # Save transmission pair for self-supervised learning
+        if physical_semantic_bridge.collect_transmission_data:
+            physical_semantic_bridge._save_transmission_pair(original_embedding, received_embedding)
 
-    # Record metrics if requested
-    if hasattr(physical_semantic_bridge, 'log_transmission_metrics'):
-        physical_semantic_bridge.log_transmission_metrics(embedding_np, received_embedding)
+        # Record metrics if requested
+        if hasattr(physical_semantic_bridge, 'log_transmission_metrics'):
+            physical_semantic_bridge.log_transmission_metrics(embedding_np, received_embedding)
 
-    # Apply post-transmission KB enhancement if available
-    if use_kb:
-        try:
-            kb = get_or_create_knowledge_base()
+        # Apply post-transmission KB enhancement if available
+        if use_kb:
+            try:
+                kb = get_or_create_knowledge_base()
 
-            if hasattr(kb, 'enhance_embedding'):
-                # Use KB to enhance the received embedding based on semantic knowledge
-                enhanced = kb.enhance_embedding(received_embedding, None)  # No text available here
+                if hasattr(kb, 'enhance_embedding'):
+                    # Use KB to enhance the received embedding based on semantic knowledge
+                    enhanced = kb.enhance_embedding(received_embedding, None)  # No text available here
 
-                # Apply a limited blend to avoid over-correction (80% received, 20% enhancement)
-                blend_factor = 0.2
-                received_embedding = (1.0 - blend_factor) * received_embedding + blend_factor * enhanced
-                logger.debug("Applied post-transmission KB enhancement")
-        except Exception as e:
-            logger.debug(f"Post-transmission KB enhancement failed: {e}")
+                    # Apply a limited blend to avoid over-correction (80% received, 20% enhancement)
+                    blend_factor = 0.2
+                    received_embedding = (1.0 - blend_factor) * received_embedding + blend_factor * enhanced
+                    logger.debug("Applied post-transmission KB enhancement")
+            except Exception as e:
+                logger.debug(f"Post-transmission KB enhancement failed: {e}")
 
-    # Convert back to torch tensor if the input was a torch tensor
-    if isinstance(embedding, torch.Tensor):
-        device = embedding.device
-        received_embedding = torch.tensor(received_embedding, dtype=torch.float32).to(device)
+        # Convert back to torch tensor if the input was a torch tensor
+        if isinstance(embedding, torch.Tensor):
+            device = embedding.device
+            received_embedding = torch.tensor(received_embedding, dtype=torch.float32).to(device)
 
-    # Return the received embedding
-    if debug:
-        return received_embedding, debug_info
-    else:
-        return received_embedding
+        # Return the received embedding
+        if debug:
+            return received_embedding, debug_info
+        else:
+            return received_embedding
+    except Exception as e:
+        logger.warning(f"[PHYSICAL] Physical channel transmission failed: {e}")
+        # In case of failure, return original embedding
+        return embedding
