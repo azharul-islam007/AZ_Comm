@@ -72,8 +72,109 @@ class PhysicalChannelLayer:
         Returns:
             Received embedding after transmission through the channel
         """
-        # Add your implementation here
-        pass
+        # Convert torch tensor to numpy if needed
+        original_tensor = False
+        original_device = None
+        if isinstance(embedding, torch.Tensor):
+            original_tensor = True
+            original_device = embedding.device
+            embedding = embedding.detach().cpu().numpy()
+
+        # Save original shape for reconstruction
+        original_shape = embedding.shape
+
+        # Ensure embedding is 2D (batch_size, features)
+        if len(original_shape) == 1:
+            # Single embedding, add batch dimension
+            embedding = embedding.reshape(1, -1)
+
+        # Check expected dimension (physical channel expects 460)
+        expected_dim = 460
+
+        # Handle dimension mismatch
+        current_dim = embedding.shape[1]
+        if current_dim != expected_dim:
+            # Create a properly sized array
+            adjusted_embedding = np.zeros((embedding.shape[0], expected_dim))
+            # Copy as much data as possible
+            min_dim = min(current_dim, expected_dim)
+            adjusted_embedding[:, :min_dim] = embedding[:, :min_dim]
+            embedding = adjusted_embedding
+
+        # Flatten for processing
+        flattened = embedding.flatten()
+
+        # Apply importance weighting if provided
+        weighted = flattened
+        actual_weights = np.ones_like(flattened)
+
+        if self.importance_weighting and importance_weights is not None:
+            if isinstance(importance_weights, torch.Tensor):
+                importance_weights = importance_weights.detach().cpu().numpy()
+
+            # Reshape weights if needed
+            if importance_weights.shape != flattened.shape:
+                # Try to adapt the weights to match embedding shape
+                if len(importance_weights.shape) == 1 and len(flattened.shape) == 2:
+                    # Broadcast 1D weights to match 2D embeddings
+                    importance_weights = np.tile(importance_weights, (flattened.shape[0], 1))
+                elif len(importance_weights.shape) == 2 and len(flattened.shape) == 1:
+                    # Use first row of 2D weights for 1D embedding
+                    importance_weights = importance_weights[0]
+                else:
+                    # Fallback to uniform weights
+                    importance_weights = np.ones_like(flattened)
+
+            # Apply weighting
+            weighted = flattened * importance_weights
+            actual_weights = importance_weights
+
+        # Convert vector to bits
+        bits = self._vector_to_bits(weighted)
+
+        # Apply channel coding
+        encoded_bits = self._apply_channel_coding(bits)
+
+        # Store original bits for error rate estimation
+        original_bits = encoded_bits.copy()
+
+        # Map bits to symbols, apply OFDM, and transmit through channel
+        symbols = self._bits_to_symbols(encoded_bits)
+        signal = self._apply_ofdm_modulation(symbols)
+        received_signal = self._apply_channel_effects(signal)
+        received_symbols = self._apply_ofdm_demodulation(received_signal)
+        received_bits = self._symbols_to_bits(received_symbols)
+
+        # Apply channel decoding
+        decoded_bits = self._decode_channel_coding(received_bits)
+
+        # Convert bits back to vector
+        received_vector = self._bits_to_vector(decoded_bits, original_shape)
+
+        # If importance weighting was applied, unapply it
+        if self.importance_weighting and np.any(actual_weights != 1.0):
+            # Avoid division by zero
+            safe_weights = np.where(actual_weights > 1e-10, actual_weights, 1.0)
+            received_vector = received_vector / safe_weights
+
+        # Convert back to torch tensor if input was a tensor
+        if original_tensor:
+            received_vector = torch.tensor(received_vector, device=original_device)
+
+        # Return the received embedding and debug info if requested
+        if debug:
+            debug_info = {
+                'bits': bits,
+                'encoded_bits': encoded_bits,
+                'symbols': symbols,
+                'received_symbols': received_symbols,
+                'decoded_bits': decoded_bits,
+                'error_rate': self._estimate_error_rate(original_bits, received_bits),
+                'estimated_snr': self.channel_stats.get('estimated_snr', self.snr_db)
+            }
+            return received_vector, debug_info
+        else:
+            return received_vector
 
     def get_channel_info(self):
         """Return information about the physical channel"""
@@ -604,14 +705,30 @@ class SemanticAwarePhysicalChannel:
         if isinstance(embedding, torch.Tensor):
             embedding = embedding.detach().cpu().numpy()
 
-        # Flatten if multidimensional
+        # Record original shape and type
         original_shape = embedding.shape
-        flattened = embedding.flatten()
+        original_is_1d = len(original_shape) == 1
 
-        # Convert to bits (simplified)
-        # In a real system, proper quantization would be applied
+        # Convert 1D array to 2D with a batch dimension
+        if original_is_1d:
+            embedding = embedding.reshape(1, -1)
+
+        # Handle dimension mismatch - we need feature dim to be exactly 460
+        current_feature_dim = embedding.shape[1]
+        expected_feature_dim = 460
+
+        if current_feature_dim != expected_feature_dim:
+            # Create properly sized array
+            adjusted_embedding = np.zeros((embedding.shape[0], expected_feature_dim))
+            # Copy as much as we can from the original
+            copy_dim = min(current_feature_dim, expected_feature_dim)
+            adjusted_embedding[:, :copy_dim] = embedding[:, :copy_dim]
+            embedding = adjusted_embedding
+
+        # Convert embeddings to bits
+        # First normalize to quantization range
         quantization_levels = 256
-        quantized = np.round((flattened + 1) * (quantization_levels / 2)).astype(int)
+        quantized = np.round((embedding + 1) * (quantization_levels / 2)).astype(int)
         quantized = np.clip(quantized, 0, quantization_levels - 1)
 
         # Convert to bits (8 bits per value for 256 levels)
@@ -642,13 +759,11 @@ class SemanticAwarePhysicalChannel:
         received_bits = self._symbols_to_bits(received_symbols, self.current_modulation)
 
         # Decode channel coding
-        # In a full implementation, we'd need to track which coding was applied to each segment
-        # This is simplified for demonstration
         if self.coding_scheme == 'repetition':
             decoded_bits = self._decode_repetition_code(received_bits)
         else:
-            # For other coding schemes, we'd apply their specific decoders
-            # For now, just take the bits with appropriate truncation
+            # For other coding schemes, use appropriate decoders
+            # Here we just take the first bits
             decoded_bits = received_bits[:len(bits)]
 
         # Store original bits for error rate estimation
@@ -669,11 +784,21 @@ class SemanticAwarePhysicalChannel:
         # Convert back to float range
         float_values = (decoded_values / (quantization_levels / 2)) - 1
 
-        # Reshape to original dimensions
-        received_embedding = float_values[:np.prod(original_shape)].reshape(original_shape)
+        # Reshape to match embedding dimensions
+        received_embedding = float_values[:embedding.size].reshape(embedding.shape)
+
+        # Restore original shape if needed
+        if original_is_1d:
+            # If original was 1D, remove batch dimension
+            received_embedding = received_embedding.squeeze(0)
+
+            # If dimensions were expanded, trim to original size
+            if received_embedding.size > original_shape[0]:
+                received_embedding = received_embedding[:original_shape[0]]
 
         # Update channel statistics
         self.channel_stats['transmission_count'] += 1
+        self.channel_stats['error_rate'] = 0.9 * self.channel_stats.get('error_rate', 0) + 0.1 * error_rate
 
         # Return received embedding and debug info if requested
         if debug:
@@ -685,7 +810,7 @@ class SemanticAwarePhysicalChannel:
                 'error_rate': error_rate,
                 'symbols_transmitted': len(symbols),
                 'bits_transmitted': len(coded_bits),
-                'estimated_snr': self.channel_stats['estimated_snr']
+                'estimated_snr': self.channel_stats.get('estimated_snr', self.snr_db)
             }
             return received_embedding, debug_info
 
