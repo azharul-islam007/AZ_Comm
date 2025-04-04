@@ -10,6 +10,7 @@ from knowledge_base import get_or_create_knowledge_base
 from mlpdvae_utils import ensure_tensor_shape, compute_embedding_similarity, generate_text_from_embedding
 import time
 import json
+import math
 from tqdm import tqdm
 from collections import deque
 
@@ -47,10 +48,78 @@ os.makedirs(DATA_DIR, exist_ok=True)
 os.makedirs(MODELS_DIR, exist_ok=True)
 
 
+# New attention layer for enhanced VAE
+class SelfAttention(nn.Module):
+    """Self-attention mechanism for embedding enhancement"""
+
+    def __init__(self, input_dim, num_heads=2):
+        super().__init__()
+        self.input_dim = input_dim
+        self.num_heads = num_heads
+        self.head_dim = input_dim // num_heads
+
+        # Linear projections for Q, K, V
+        self.query = nn.Linear(input_dim, input_dim)
+        self.key = nn.Linear(input_dim, input_dim)
+        self.value = nn.Linear(input_dim, input_dim)
+
+        # Output projection
+        self.out_proj = nn.Linear(input_dim, input_dim)
+
+    def forward(self, x):
+        # Handle single-dimension input
+        batch_size = x.shape[0]
+
+        # Add a sequence dimension if it's missing
+        # Shape: [batch, features] -> [batch, 1, features]
+        if len(x.shape) == 2:
+            x = x.unsqueeze(1)
+            seq_len = 1
+        else:
+            seq_len = x.shape[1]
+
+        # Linear projections
+        q = self.query(x)  # [batch, seq, features]
+        k = self.key(x)  # [batch, seq, features]
+        v = self.value(x)  # [batch, seq, features]
+
+        # Reshape for multi-head attention
+        # Shape: [batch, seq, features] -> [batch, seq, num_heads, head_dim]
+        q = q.view(batch_size, seq_len, self.num_heads, self.head_dim)
+        k = k.view(batch_size, seq_len, self.num_heads, self.head_dim)
+        v = v.view(batch_size, seq_len, self.num_heads, self.head_dim)
+
+        # Transpose to [batch, num_heads, seq, head_dim]
+        q = q.transpose(1, 2)
+        k = k.transpose(1, 2)
+        v = v.transpose(1, 2)
+
+        # Compute attention scores
+        scores = torch.matmul(q, k.transpose(-2, -1)) / math.sqrt(self.head_dim)
+        attn_weights = F.softmax(scores, dim=-1)
+
+        # Apply attention weights
+        context = torch.matmul(attn_weights, v)  # [batch, num_heads, seq, head_dim]
+
+        # Reshape back
+        context = context.transpose(1, 2).contiguous()  # [batch, seq, num_heads, head_dim]
+        context = context.view(batch_size, seq_len, -1)  # [batch, seq, features]
+
+        # Final projection
+        out = self.out_proj(context)  # [batch, seq, features]
+
+        # If original input had no sequence dimension, remove it
+        if len(x.shape) == 3 and x.shape[1] == 1:
+            out = out.squeeze(1)
+
+        return out
+
+
 class MLPDenoisingVAE(nn.Module):
     """
     MLP-based Denoising Variational Autoencoder for semantic embeddings reconstruction.
     Uses a simpler but more effective architecture than transformers for this specific task.
+    Enhanced with attention mechanisms and hierarchical structure.
     """
 
     def __init__(self, input_dim, hidden_dim, latent_dim, dropout=0.1):
@@ -74,12 +143,18 @@ class MLPDenoisingVAE(nn.Module):
             nn.Dropout(dropout)
         )
 
+        # NEW: Add self-attention to encoder
+        self.encoder_attention = SelfAttention(hidden_dim, num_heads=2)
+
         # VAE components
         self.fc_mu = nn.Linear(hidden_dim, latent_dim)
         self.fc_logvar = nn.Linear(hidden_dim, latent_dim)
 
         # Decoder layers
         self.decoder_input = nn.Linear(latent_dim, hidden_dim)
+
+        # NEW: Add self-attention to decoder
+        self.decoder_attention = SelfAttention(hidden_dim, num_heads=2)
 
         self.decoder = nn.Sequential(
             nn.Linear(hidden_dim, hidden_dim),
@@ -97,6 +172,11 @@ class MLPDenoisingVAE(nn.Module):
 
         # Weight initialization
         self.apply(self._init_weights)
+
+        # NEW: Add memory bank for context-aware decoding
+        self.memory_size = 16
+        self.memory_dim = latent_dim
+        self.memory_bank = nn.Parameter(torch.randn(self.memory_size, self.memory_dim))
 
     def _init_weights(self, module):
         """Initialize weights with Xavier/Glorot initialization"""
@@ -117,6 +197,9 @@ class MLPDenoisingVAE(nn.Module):
         # Pass through encoder
         hidden = self.encoder(x)
 
+        # NEW: Apply self-attention for enhanced encoding
+        hidden = self.encoder_attention(hidden)
+
         # Get mean and logvar for VAE
         mu = self.fc_mu(hidden)
         logvar = self.fc_logvar(hidden)
@@ -129,14 +212,43 @@ class MLPDenoisingVAE(nn.Module):
         eps = torch.randn_like(std)
         return mu + eps * std
 
+    def _apply_memory_attention(self, z):
+        """NEW: Apply attention over memory bank for context-enriched latent"""
+        batch_size = z.shape[0]
+
+        # Calculate attention scores between z and memory
+        # Shape: [batch, latent] x [memory, latent]T -> [batch, memory]
+        z_expanded = z.unsqueeze(1)  # [batch, 1, latent]
+        memory_expanded = self.memory_bank.unsqueeze(0)  # [1, memory, latent]
+
+        # Calculate attention
+        attn_scores = torch.bmm(z_expanded, memory_expanded.transpose(1, 2))  # [batch, 1, memory]
+        attn_weights = F.softmax(attn_scores, dim=2)  # [batch, 1, memory]
+
+        # Apply attention to get context-enhanced latent
+        context = torch.bmm(attn_weights, memory_expanded)  # [batch, 1, latent]
+        context = context.squeeze(1)  # [batch, latent]
+
+        # Blend with original latent (gated residual)
+        gate = torch.sigmoid(z.mean(dim=1, keepdim=True))  # [batch, 1]
+        enhanced_z = z + gate * context
+
+        return enhanced_z
+
     def decode(self, z, apply_kb=True):
         """Decode latent representation to reconstruction with KB enhancement"""
         # Use utility function to ensure proper shape with batch dimension
         z = ensure_tensor_shape(z, expected_dim=2)
 
+        # NEW: Apply memory attention for context enrichment
+        z = self._apply_memory_attention(z)
+
         # Initial projection
         hidden = self.decoder_input(z)
         hidden = F.leaky_relu(hidden, 0.2)
+
+        # NEW: Apply self-attention for enhanced decoding
+        hidden = self.decoder_attention(hidden)
 
         # Pass through decoder
         reconstructed = self.decoder(hidden)
@@ -243,6 +355,45 @@ class EnhancedMLPDenoisingVAE(MLPDenoisingVAE):
         self.context_memory_size = 32
         self.context_memory = nn.Parameter(torch.randn(self.context_memory_size, latent_dim))
 
+        # NEW: Add hierarchical latent structure
+        self.latent_levels = 2
+        self.latent_dims = [latent_dim, latent_dim // 2]
+
+        # Hierarchical encoding layers
+        self.hierarchical_encoders = nn.ModuleList()
+        self.hierarchical_mu = nn.ModuleList()
+        self.hierarchical_logvar = nn.ModuleList()
+
+        for i in range(1, self.latent_levels):
+            # Encoder from previous level to this level
+            self.hierarchical_encoders.append(
+                nn.Sequential(
+                    nn.Linear(self.latent_dims[i - 1], self.latent_dims[i - 1] // 2),
+                    nn.LayerNorm(self.latent_dims[i - 1] // 2),
+                    nn.LeakyReLU(0.2),
+                    nn.Dropout(dropout)
+                )
+            )
+
+            # Mean and logvar for this level
+            self.hierarchical_mu.append(nn.Linear(self.latent_dims[i - 1] // 2, self.latent_dims[i]))
+            self.hierarchical_logvar.append(nn.Linear(self.latent_dims[i - 1] // 2, self.latent_dims[i]))
+
+        # Hierarchical decoding layers
+        self.hierarchical_decoders = nn.ModuleList()
+
+        for i in range(self.latent_levels - 1, 0, -1):
+            # Decoder from this level to previous level
+            self.hierarchical_decoders.append(
+                nn.Sequential(
+                    nn.Linear(self.latent_dims[i], self.latent_dims[i - 1] // 2),
+                    nn.LayerNorm(self.latent_dims[i - 1] // 2),
+                    nn.LeakyReLU(0.2),
+                    nn.Dropout(dropout),
+                    nn.Linear(self.latent_dims[i - 1] // 2, self.latent_dims[i - 1])
+                )
+            )
+
         # If KB is enabled, initialize the enhanced decoder
         if use_kb:
             try:
@@ -286,6 +437,65 @@ class EnhancedMLPDenoisingVAE(MLPDenoisingVAE):
             logger.warning(f"Could not initialize KB with data: {e}")
             return False
 
+    def hierarchical_encode(self, z_base):
+        """NEW: Encode through the hierarchical latent structure"""
+        latent_zs = [z_base]
+        latent_mus = []
+        latent_logvars = []
+
+        # Encode through hierarchy
+        current_z = z_base
+        for i in range(self.latent_levels - 1):
+            # Encode
+            hidden = self.hierarchical_encoders[i](current_z)
+
+            # Get parameters
+            mu = self.hierarchical_mu[i](hidden)
+            logvar = self.hierarchical_logvar[i](hidden)
+
+            # Sample
+            std = torch.exp(0.5 * logvar)
+            eps = torch.randn_like(std)
+            z = mu + eps * std
+
+            # Store and update
+            latent_mus.append(mu)
+            latent_logvars.append(logvar)
+            latent_zs.append(z)
+            current_z = z
+
+        return latent_zs, latent_mus, latent_logvars
+
+    def hierarchical_decode(self, latent_zs):
+        """NEW: Decode through the hierarchical structure"""
+        # Start with the highest level
+        current_z = latent_zs[-1]
+
+        # Decode back through hierarchy
+        for i, decoder in enumerate(self.hierarchical_decoders):
+            current_z = decoder(current_z)
+
+            # Add residual connection if level exists
+            level_idx = self.latent_levels - 2 - i
+            if level_idx >= 0 and level_idx < len(latent_zs):
+                # Residual connection with gating
+                gate = torch.sigmoid(current_z.mean(dim=1, keepdim=True))
+                current_z = current_z + gate * latent_zs[level_idx]
+
+        return current_z
+
+    def encode(self, x):
+        """Enhanced encode with hierarchical structure"""
+        # Get base latent representation
+        mu_base, logvar_base = super().encode(x)
+        z_base = self.reparameterize(mu_base, logvar_base)
+
+        # Get hierarchical representation
+        latent_zs, latent_mus, latent_logvars = self.hierarchical_encode(z_base)
+
+        # Return all levels of representation
+        return (mu_base, logvar_base, z_base), (latent_zs, latent_mus, latent_logvars)
+
     def decode(self, z, text_hints=None, apply_kb=True):
         """Enhanced decode with knowledge guidance"""
         # Use utility function to ensure proper shape with batch dimension
@@ -306,8 +516,17 @@ class EnhancedMLPDenoisingVAE(MLPDenoisingVAE):
         # Blend with original latent
         z_enhanced = z + 0.1 * context_vector
 
+        # NEW: Create fake hierarchical structure for decoding
+        latent_zs = [z_enhanced]
+        for i in range(1, self.latent_levels):
+            # Project to next level
+            latent_zs.append(z_enhanced[:, :self.latent_dims[i]])
+
+        # Decode through hierarchy
+        z_hierarchical = self.hierarchical_decode(latent_zs)
+
         # Initial projection
-        hidden = self.decoder_input(z_enhanced)
+        hidden = self.decoder_input(z_hierarchical)
         hidden = F.leaky_relu(hidden, 0.2)
 
         # Pass through decoder
@@ -322,6 +541,18 @@ class EnhancedMLPDenoisingVAE(MLPDenoisingVAE):
                 logger.debug(f"KB enhancement failed: {e}")
 
         return reconstructed
+
+    def forward(self, x):
+        """Forward pass with hierarchical VAE structure"""
+        # Encode
+        (mu_base, logvar_base, z_base), (latent_zs, latent_mus, latent_logvars) = self.encode(x)
+
+        # Decode using hierarchical structure
+        reconstructed = self.decode(z_base)
+
+        return reconstructed, mu_base, logvar_base
+
+
 def train_mlp_dvae_with_semantic_loss(compressed_data, sentences, transmission_pairs=None,
                                       input_dim=None, hidden_dim=None, latent_dim=None,
                                       epochs=20, batch_size=64, learning_rate=1e-3,
