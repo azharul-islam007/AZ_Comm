@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 _GLOBAL_KB_INSTANCE = None
 _KB_LOAD_COUNT = 0
 
+
 class TextEmbeddingMapper:
     """Maps between text and embedding spaces using reference examples and nearest neighbors"""
 
@@ -309,19 +310,30 @@ class KnowledgeEnhancedDecoder(nn.Module):
         final_output = embedding_batch + output
 
         return final_output
+
+
 class SemanticKnowledgeBase:
     """
     Knowledge base for semantic communication with synchronized encoder/decoder terminology.
     Supports term definitions, contextual relationships, and fuzzy matching.
+    Enhanced with hierarchical structures and contextual awareness.
     """
 
     def __init__(self, domain="europarl", kb_path=None, initialize=True):
         """Initialize knowledge base with optional domain-specific data"""
         self.domain = domain
+
+        # Base KB components
         self.term_dict = {}  # Direct term mappings
         self.context_rules = {}  # Context-based corrections
         self.term_embeddings = {}  # Semantic embeddings of terms
         self.semantic_relations = {}  # Related terms
+
+        # Enhanced components (NEW)
+        self.hierarchical_concepts = {}  # Hierarchical concept organization
+        self.contextual_patterns = {}  # Contextual disambiguation patterns
+        self.confidence_scores = {}  # Confidence in corrections
+        self.semantic_graph = {}  # Graph of semantic relationships
 
         # Set default path if not provided
         if kb_path is None:
@@ -342,6 +354,13 @@ class SemanticKnowledgeBase:
                     self.context_rules = kb_data.get("context_rules", {})
                     self.term_embeddings = kb_data.get("term_embeddings", {})
                     self.semantic_relations = kb_data.get("semantic_relations", {})
+
+                    # Load enhanced components if available
+                    self.hierarchical_concepts = kb_data.get("hierarchical_concepts", {})
+                    self.contextual_patterns = kb_data.get("contextual_patterns", {})
+                    self.confidence_scores = kb_data.get("confidence_scores", {})
+                    self.semantic_graph = kb_data.get("semantic_graph", {})
+
                 logger.info(f"Loaded knowledge base from {self.kb_path} with {len(self.term_dict)} terms")
                 return True
             except Exception as e:
@@ -356,7 +375,6 @@ class SemanticKnowledgeBase:
 
         return self.save()
 
-    # Update in knowledge_base.py - add to _initialize_europarl_kb method
     def _initialize_europarl_kb(self):
         """Initialize with expanded Europarl-specific knowledge"""
         logger.info("Initializing expanded Europarl knowledge base")
@@ -447,6 +465,44 @@ class SemanticKnowledgeBase:
         # Add new context rules
         self.context_rules.update(additional_context_rules)
 
+        # Initialize hierarchical concepts (NEW)
+        self.hierarchical_concepts = {
+            "legislation": {
+                "parent": None,
+                "children": ["directive", "regulation", "decision", "report", "proposal"],
+                "attributes": ["legal", "binding", "official"]
+            },
+            "directive": {
+                "parent": "legislation",
+                "children": [],
+                "attributes": ["implementation", "deadline", "transposition"]
+            },
+            "regulation": {
+                "parent": "legislation",
+                "children": [],
+                "attributes": ["directly applicable", "binding", "complete"]
+            },
+            "institution": {
+                "parent": None,
+                "children": ["parliament", "commission", "council"],
+                "attributes": ["european", "official", "authority"]
+            }
+        }
+
+        # Initialize contextual patterns (NEW)
+        self.contextual_patterns = {
+            "rule": {
+                "followed_by": ["number", "of", "procedure"],
+                "preceded_by": ["according to", "under", "following"],
+                "collocations": ["rule of law", "rules of procedure"]
+            },
+            "report": {
+                "followed_by": ["on", "about", "concerning", "rapporteur"],
+                "preceded_by": ["committee", "draft", "final", "adopt"],
+                "collocations": ["report on", "committee report"]
+            }
+        }
+
         logger.info(
             f"Initialized Europarl KB with {len(self.term_dict)} terms, {len(self.context_rules)} context rules")
 
@@ -461,7 +517,11 @@ class SemanticKnowledgeBase:
                 "term_dict": self.term_dict,
                 "context_rules": self.context_rules,
                 "term_embeddings": self.term_embeddings,
-                "semantic_relations": self.semantic_relations
+                "semantic_relations": self.semantic_relations,
+                "hierarchical_concepts": self.hierarchical_concepts,
+                "contextual_patterns": self.contextual_patterns,
+                "confidence_scores": self.confidence_scores,
+                "semantic_graph": self.semantic_graph
             }
 
             with open(self.kb_path, "wb") as f:
@@ -601,6 +661,43 @@ class SemanticKnowledgeBase:
 
         return best_match, best_score
 
+    def _fuzzy_match_with_context(self, word, context_window, position, threshold=0.7):
+        """Enhanced fuzzy matching that considers surrounding context"""
+        # First, try standard fuzzy match
+        best_match, best_score = self._fuzzy_match(word, threshold)
+
+        # If we got a very confident match, return it
+        if best_score > 0.9:
+            return best_match, best_score
+
+        # Otherwise, enhance matching with context
+        context_str = ' '.join(context_window)
+        context_boost = 0.0
+
+        # Check if we have any contextual patterns that apply
+        if best_match and best_match.lower() in self.contextual_patterns:
+            pattern = self.contextual_patterns[best_match.lower()]
+
+            # Check for collocations (fixed phrases)
+            for collocation in pattern.get('collocations', []):
+                if collocation in context_str:
+                    context_boost += 0.1  # Boost confidence based on collocation
+
+            # Check for typical words that follow this term
+            next_word = context_window[position + 1] if position + 1 < len(context_window) else ""
+            if next_word and next_word in pattern.get('followed_by', []):
+                context_boost += 0.05
+
+            # Check for typical words that precede this term
+            prev_word = context_window[position - 1] if position - 1 >= 0 else ""
+            if prev_word and prev_word in pattern.get('preceded_by', []):
+                context_boost += 0.05
+
+        # Apply context boost with a cap
+        enhanced_score = min(0.99, best_score + context_boost)
+
+        return best_match, enhanced_score
+
     def _pattern_based_correction(self, word):
         """Apply pattern-based corrections for words not caught by other methods"""
         vowels = "aeiou"
@@ -645,6 +742,7 @@ class SemanticKnowledgeBase:
                         return self.term_dict[test_word]
 
         return None
+
     def predict_from_context(self, tokens, target_idx, window_size=3):
         """Predict word based on surrounding context"""
         # Get context window
@@ -717,6 +815,7 @@ class SemanticKnowledgeBase:
                     fixed_text = fixed_text.replace(variant, correct)
 
         return fixed_text
+
     def kb_guided_reconstruction(self, noisy_text):
         """Reconstruct text using knowledge base guidance with multiple correction strategies"""
         # Stage 1: Direct dictionary lookup
@@ -724,10 +823,20 @@ class SemanticKnowledgeBase:
         corrected_words = []
         changes_made = False
 
+        # NEW: Track context for better disambiguation
+        context_window = []
+        confidence_scores = []
+
         for i, word in enumerate(words):
+            # Update context window (NEW)
+            context_window.append(word)
+            if len(context_window) > 5:  # Keep a 5-word context
+                context_window.pop(0)
+
             # Skip very short words and punctuation
             if len(word) <= 2 or all(c in '.,;:!?()[]{}"\'' for c in word):
                 corrected_words.append(word)
+                confidence_scores.append(1.0)  # Perfect confidence for unchanged
                 continue
 
             # Try exact match in dictionary (case-insensitive)
@@ -738,12 +847,13 @@ class SemanticKnowledgeBase:
                 else:
                     corrected = self.term_dict[word.lower()]
                 corrected_words.append(corrected)
+                confidence_scores.append(1.0)  # High confidence for direct match
                 changes_made = True
                 continue
 
-            # Try fuzzy matching with lower threshold for longer words
+            # Try context-aware fuzzy matching (NEW)
             threshold = max(0.65, 0.8 - (len(word) * 0.01))  # Lower threshold for longer words
-            best_match, score = self._fuzzy_match(word, threshold=threshold)
+            best_match, score = self._fuzzy_match_with_context(word, context_window, i, threshold=threshold)
 
             if best_match and score > threshold:
                 # Preserve capitalization
@@ -752,6 +862,7 @@ class SemanticKnowledgeBase:
                 else:
                     corrected = best_match
                 corrected_words.append(corrected)
+                confidence_scores.append(score)  # Store match confidence
                 changes_made = True
                 continue
 
@@ -759,6 +870,7 @@ class SemanticKnowledgeBase:
             correction = self._pattern_based_correction(word)
             if correction:
                 corrected_words.append(correction)
+                confidence_scores.append(0.8)  # Medium-high confidence for pattern match
                 changes_made = True
                 continue
 
@@ -772,16 +884,22 @@ class SemanticKnowledgeBase:
                     else:
                         corrected = context_correction
                     corrected_words.append(corrected)
+                    confidence_scores.append(context_score)
                     changes_made = True
                     continue
 
             # Keep original if no correction found
             corrected_words.append(word)
+            confidence_scores.append(1.0)  # Perfect confidence for unchanged
 
         # Apply final phase - check for multi-word terms that might have been missed
         result = " ".join(corrected_words)
         # Apply phrase pattern corrections
         result = self._check_phrase_patterns(result)
+
+        # Store confidence scores (NEW)
+        self.confidence_scores[noisy_text] = np.mean(confidence_scores)
+
         # Check if any corrections were applied
         if not changes_made:
             # Try more aggressive fuzzy matching as a fallback
@@ -828,6 +946,7 @@ class SemanticKnowledgeBase:
         self.kb_mapper.fit(embeddings, texts)
         logger.info(f"Initialized KB embedding mapper with {len(embeddings)} examples")
         return True
+
     def get_importance_weights(self, embedding):
         """Get importance weights for embedding dimensions based on KB knowledge"""
         # Default implementation - more sophisticated in practice
@@ -864,6 +983,7 @@ class SemanticKnowledgeBase:
                 logger.debug(f"Error generating importance weights: {e}")
 
         return weights
+
     def enhance_with_context(self, text, context):
         """Enhance text reconstruction using surrounding context"""
         import difflib
@@ -906,9 +1026,6 @@ class SemanticKnowledgeBase:
             text_tokens[start:end + 1] = replacement.split()
 
         return ' '.join(text_tokens)
-def get_or_create_knowledge_base(domain="europarl", kb_path=None):
-    """Get or create a knowledge base for the specified domain"""
-    return SemanticKnowledgeBase(domain=domain, kb_path=kb_path)
 
 
 def get_or_create_knowledge_base(domain="europarl", kb_path=None):
@@ -931,6 +1048,8 @@ def get_or_create_knowledge_base(domain="europarl", kb_path=None):
             logger.debug(f"Knowledge base access count: {_KB_LOAD_COUNT}")
 
     return _GLOBAL_KB_INSTANCE
+
+
 def test_kb_integration():
     """Test the knowledge base integration"""
     print("=== Testing Knowledge Base Integration ===")
