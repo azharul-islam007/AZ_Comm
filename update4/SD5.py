@@ -1798,7 +1798,23 @@ def safe_copy(obj):
     else:
         return obj  # For other types, return as is
 
+def process_sample_with_correct_dimensions(embedding, vae_compressor):
+    """Process embedding with VAE compression and correct dimensions"""
+    # Convert to tensor
+    embedding_tensor = torch.tensor(embedding, dtype=torch.float32).to(device)
 
+    # Adapt dimensions to what the VAE expects (460 or 768)
+    target_dim = vae_compressor.input_dim  # This should be the dimension the VAE was trained on
+    adapted_tensor = adapt_dimensions(embedding_tensor, target_dim)
+
+    # Compress using VAE
+    with torch.no_grad():
+        compressed_embedding = vae_compressor.compress(adapted_tensor).cpu().numpy()
+
+    # The compressed embedding will have fewer dimensions (e.g., 154)
+    # When it goes to the physical channel, we'll need to adapt it back
+
+    return compressed_embedding
 def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
                           use_api_pct=None, comparison_mode=None, use_self_supervised=None,
                           use_semantic_loss=None, use_vae_compression=None,
@@ -1952,7 +1968,11 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
     if use_vae_compression:
         try:
             # Fix the parameter name to embedding_dim
-            vae_compressor = load_or_train_vae_compressor(compression_factor=VAE_COMPRESSION_FACTOR)
+            vae_compressor = load_or_train_vae_compressor(
+                compression_factor=VAE_COMPRESSION_FACTOR,
+                embedding_dim=embedding_dim,
+                output_dim=460  # Explicitly set output_dim to match physical channel
+            )
             if vae_compressor:
                 logger.info("[PIPELINE] VAE compressor loaded successfully")
             else:
@@ -2159,23 +2179,19 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
             # === Embedding-based reconstruction ===
             # Apply VAE compression if enabled
             if use_vae_compression and vae_compressor:
-                # Convert to tensor
-                embedding_tensor = torch.tensor(embedding, dtype=torch.float32).to(device)
+                # Use the improved function for compression with dimension handling
+                try:
+                    compressed_embedding = process_sample_with_correct_dimensions(embedding, vae_compressor)
 
-                # Adapt the dimensions to match what the VAE expects (768)
-                target_dim = 768  # The dimension the VAE was trained on
-                embedding_tensor = adapt_dimensions(embedding_tensor, target_dim)
+                    # Store original and compressed embeddings using safe_copy
+                    sample_result["original_embedding"] = safe_copy(embedding)
+                    sample_result["compressed_embedding"] = safe_copy(compressed_embedding)
 
-                # Compress using VAE
-                with torch.no_grad():
-                    compressed_embedding = vae_compressor.compress(embedding_tensor).cpu().numpy()
-
-                # Store original and compressed embeddings using safe_copy
-                sample_result["original_embedding"] = safe_copy(embedding)
-                sample_result["compressed_embedding"] = safe_copy(compressed_embedding)
-
-                # Use compressed embedding for further processing
-                working_embedding = compressed_embedding
+                    # Use compressed embedding for further processing
+                    working_embedding = compressed_embedding
+                except Exception as e:
+                    logger.warning(f"[PIPELINE] VAE compression failed: {e}, using original embedding")
+                    working_embedding = embedding
             else:
                 # Use original embedding
                 working_embedding = embedding
@@ -2189,9 +2205,32 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
                 sample_result["semantic_noisy_embedding"] = safe_copy(noisy_embedding)
 
                 try:
-                    # Transmit through physical channel
-                    noisy_embedding = transmit_through_physical_channel(noisy_embedding, debug=False,
-                                                                        use_kb=use_knowledge_base)
+                    # IMPORTANT: Ensure proper dimensions for physical channel
+                    # Convert to 2D if it's 1D
+                    if len(noisy_embedding.shape) == 1:
+                        noisy_embedding_2d = noisy_embedding.reshape(1, -1)
+                    else:
+                        noisy_embedding_2d = noisy_embedding
+
+                    # If dimension doesn't match physical channel expectations, adapt it
+                    if hasattr(noisy_embedding_2d, 'shape') and len(noisy_embedding_2d.shape) > 1 and \
+                            noisy_embedding_2d.shape[1] != 460:
+                        # Create a properly sized array
+                        adapted_embedding = np.zeros((noisy_embedding_2d.shape[0], 460))
+                        # Copy as much data as possible
+                        min_dim = min(noisy_embedding_2d.shape[1], 460)
+                        adapted_embedding[:, :min_dim] = noisy_embedding_2d[:, :min_dim]
+                        noisy_embedding_2d = adapted_embedding
+
+                    # Transmit through physical channel using the adapted embedding
+                    transmitted = transmit_through_physical_channel(noisy_embedding_2d, debug=False,
+                                                                    use_kb=use_knowledge_base)
+
+                    # Reshape back to original shape if needed
+                    if len(noisy_embedding.shape) == 1 and len(transmitted.shape) > 1:
+                        noisy_embedding = transmitted.squeeze(0)
+                    else:
+                        noisy_embedding = transmitted
                 except Exception as e:
                     logger.warning(f"[PIPELINE] Physical channel transmission failed: {e}")
                     # Continue with noisy embedding if transmission fails
@@ -2226,9 +2265,20 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
             # Decompress with VAE if compression was used
             if use_vae_compression and vae_compressor:
                 try:
+                    # Ensure reconstructed_embedding is 2D
+                    if len(reconstructed_embedding.shape) == 1:
+                        reconstructed_embedding_2d = reconstructed_embedding.reshape(1, -1)
+                    else:
+                        reconstructed_embedding_2d = reconstructed_embedding
+
                     # Decompress back to original embedding space
-                    decompressed_embedding = decompress_vae_embedding(reconstructed_embedding)
-                    sample_result["decompressed_embedding"] = decompressed_embedding.copy()
+                    decompressed_embedding = decompress_vae_embedding(reconstructed_embedding_2d)
+
+                    # Reshape back to original shape if needed
+                    if len(reconstructed_embedding.shape) == 1 and len(decompressed_embedding.shape) > 1:
+                        decompressed_embedding = decompressed_embedding.squeeze(0)
+
+                    sample_result["decompressed_embedding"] = safe_copy(decompressed_embedding)
 
                     # Use decompressed embedding for further processing
                     final_embedding = decompressed_embedding
