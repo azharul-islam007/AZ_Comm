@@ -1,477 +1,505 @@
+# physical_channel.py
 import numpy as np
-import matplotlib.pyplot as plt
-from scipy import signal
 import torch
+from scipy import signal
+import matplotlib.pyplot as plt
 import logging
-import os
 
 # Configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
 
 class PhysicalChannelLayer:
+    """Base class for physical channel layers"""
+    pass  # Kept for backward compatibility
+
+
+class SemanticAwarePhysicalChannel:
     """
-    Enhanced Physical channel layer for semantic communication systems.
-    Implements adaptive modulation & coding and advanced error protection.
+    Advanced physical channel with semantic-aware protection strategies
     """
 
     def __init__(self,
                  snr_db=20.0,
-                 channel_type='awgn',
-                 modulation='qam',
-                 modulation_order=16,
-                 fading_param=1.0,
-                 coding_rate=0.75,
-                 coding_type='repetition',
-                 use_channel_coding=True,
-                 block_size=1024,
-                 importance_weighting=True,
-                 enable_adaptive_modulation=True,
-                 enable_unequal_error_protection=True,
-                 ofdm_carriers=64):
+                 channel_type='time_varying',
+                 coding_scheme='polar',
+                 adaptive_modulation=True,
+                 semantic_protection=True):
 
         self.snr_db = snr_db
         self.channel_type = channel_type
-        self.modulation = modulation
-        self.modulation_order = modulation_order
-        self.fading_param = fading_param
-        self.coding_rate = coding_rate
-        self.coding_type = coding_type
-        self.use_channel_coding = use_channel_coding
-        self.block_size = block_size
-        self.importance_weighting = importance_weighting
-        self.ofdm_carriers = ofdm_carriers
+        self.coding_scheme = coding_scheme
+        self.adaptive_modulation = adaptive_modulation
+        self.semantic_protection = semantic_protection
 
-        # New adaptive features
-        self.enable_adaptive_modulation = enable_adaptive_modulation
-        self.enable_unequal_error_protection = enable_unequal_error_protection
-        self.snr_threshold_high = 25.0
-        self.snr_threshold_low = 15.0
-        self.protection_levels = 3
+        # Channel models
+        self.channel_models = {
+            'awgn': self._apply_awgn,
+            'rayleigh': self._apply_rayleigh,
+            'rician': self._apply_rician,
+            'frequency_selective': self._apply_frequency_selective,
+            'time_varying': self._apply_time_varying
+        }
 
-        # Track channel statistics
+        # Coding schemes
+        self.coding_schemes = {
+            'repetition': self._apply_repetition_code,
+            'hamming': self._apply_hamming_code,
+            'ldpc': self._apply_ldpc_code,
+            'polar': self._apply_polar_code,
+            'rateless': self._apply_rateless_code
+        }
+
+        # Modulation schemes with bits per symbol
+        self.modulation_schemes = {
+            'bpsk': 1,
+            'qpsk': 2,
+            'qam16': 4,
+            'qam64': 6,
+            'qam256': 8
+        }
+
+        # Default modulation
+        self.current_modulation = 'qam16'
+
+        # Initialize channel state
+        self._init_channel_state()
+
+    def _init_channel_state(self):
+        """Initialize channel state for time-varying channels"""
+        # For time-varying channel
+        self.doppler_frequency = 0.01  # Normalized Doppler (0.01 = moderate mobility)
+        self.coherence_time = int(0.423 / self.doppler_frequency)  # in symbols
+
+        # For frequency-selective channel
+        self.delay_spread = 5  # in symbols
+        self.coherence_bandwidth = 1.0 / self.delay_spread  # normalized
+
+        # Channel coefficient memory
+        self.channel_coefs = None
+
+        # Channel statistics
         self.channel_stats = {
-            'estimated_snr': snr_db,
+            'ber': [],
+            'snr_estimates': [],
+            'channel_capacity': [],
+            'estimated_snr': self.snr_db,
             'error_rate': 0.0,
             'transmission_count': 0
         }
 
-        # Calculate bits per symbol based on modulation order
-        self.bits_per_symbol = int(np.log2(modulation_order))
-
-        # Initialize constellation mapper
-        self._init_constellation()
-
-        # Create directory for channel state information if not exists
-        os.makedirs('./channel_data', exist_ok=True)
-
-        logger.info(f"Initialized Enhanced Physical Channel with {channel_type} channel, "
-                    f"{modulation}-{modulation_order} modulation, SNR={snr_db}dB")
-
-        if enable_adaptive_modulation:
-            logger.info(
-                f"Adaptive modulation enabled: thresholds at {self.snr_threshold_low}dB and {self.snr_threshold_high}dB")
-
-        if enable_unequal_error_protection:
-            logger.info(f"Unequal error protection enabled with {self.protection_levels} protection levels")
-
-    def _init_constellation(self):
-        """Initialize the constellation mapping based on modulation scheme."""
-        if self.modulation == 'qam':
-            # QAM constellation (square)
-            m = int(np.sqrt(self.modulation_order))
-            real_parts = np.linspace(-1, 1, m)
-            imag_parts = np.linspace(-1, 1, m)
-            self.constellation = np.array([(r + 1j * i) for r in real_parts for i in imag_parts])
-
-            # Normalize constellation to unit energy
-            energy = np.mean(np.abs(self.constellation) ** 2)
-            self.constellation /= np.sqrt(energy)
-
-        elif self.modulation == 'psk':
-            # PSK constellation (circle)
-            angles = np.linspace(0, 2 * np.pi, self.modulation_order, endpoint=False)
-            self.constellation = np.exp(1j * angles)
-
-        else:  # OFDM uses QAM per subcarrier
-            m = int(np.sqrt(self.modulation_order))
-            real_parts = np.linspace(-1, 1, m)
-            imag_parts = np.linspace(-1, 1, m)
-            self.constellation = np.array([(r + 1j * i) for r in real_parts for i in imag_parts])
-            energy = np.mean(np.abs(self.constellation) ** 2)
-            self.constellation /= np.sqrt(energy)
-
-    def adapt_to_channel_conditions(self, estimated_snr=None):
-        """
-        NEW: Adapt modulation and coding based on channel conditions.
-
-        Args:
-            estimated_snr: Estimated SNR in dB, if None uses the current channel stats
-        """
-        if not self.enable_adaptive_modulation:
-            return
-
-        # Use provided SNR or current estimate
-        snr = estimated_snr if estimated_snr is not None else self.channel_stats['estimated_snr']
-
-        # Adapt modulation order and coding rate based on SNR
-        if snr > self.snr_threshold_high:  # Excellent conditions
-            new_modulation_order = 64
-            new_coding_rate = 0.9
-            logger.info(f"Channel conditions excellent (SNR: {snr:.1f}dB): Using 64-QAM with coding rate 0.9")
-        elif snr > self.snr_threshold_low:  # Good conditions
-            new_modulation_order = 16
-            new_coding_rate = 0.75
-            logger.info(f"Channel conditions good (SNR: {snr:.1f}dB): Using 16-QAM with coding rate 0.75")
-        else:  # Poor conditions
-            new_modulation_order = 4
-            new_coding_rate = 0.5
-            logger.info(f"Channel conditions poor (SNR: {snr:.1f}dB): Using QPSK with coding rate 0.5")
-
-        # Update parameters
-        if self.modulation_order != new_modulation_order:
-            self.modulation_order = new_modulation_order
-            self.bits_per_symbol = int(np.log2(new_modulation_order))
-            self._init_constellation()
-
-        self.coding_rate = new_coding_rate
-
-    def _vector_to_bits(self, vector):
-        """Convert a continuous vector to bits based on quantization."""
-        # Normalize vector to [-1, 1]
-        vec_min, vec_max = vector.min(), vector.max()
-        if vec_max > vec_min:  # Avoid division by zero
-            normalized = -1 + 2 * (vector - vec_min) / (vec_max - vec_min)
-        else:
-            normalized = np.zeros_like(vector)
-
-        # Calculate number of levels and quantize
-        levels = 2 ** self.bits_per_symbol
-        quantized = np.floor((normalized + 1) / 2 * (levels - 1)).astype(int)
-
-        # Convert to bits
-        bits = []
-        for q in quantized:
-            # Convert integer to binary string of the right length, then to list of integers
-            bits.extend([int(b) for b in format(q, f'0{self.bits_per_symbol}b')])
-
-        return np.array(bits)
-
-    def _bits_to_vector(self, bits, original_shape):
-        """Convert bits back to a continuous vector through dequantization."""
-        # Calculate number of values in the original vector
-        num_values = np.prod(original_shape)
-
-        # Reshape bits into groups and convert to integers
-        bit_groups = bits.reshape(-1, self.bits_per_symbol)
-        values = []
-        for group in bit_groups:
-            # Convert bit group to integer
-            value = int(''.join(map(str, group)), 2)
-            values.append(value)
-
-        # Truncate or pad to match original shape
-        values = values[:num_values]
-        if len(values) < num_values:
-            values.extend([0] * (num_values - len(values)))
-
-        # Dequantize to continuous values
-        levels = 2 ** self.bits_per_symbol
-        normalized = np.array(values) / (levels - 1) * 2 - 1
-
-        # Reshape to original shape
-        return normalized.reshape(original_shape)
-
-    def _apply_channel_coding(self, bits, protection_level=1):
-        """
-        Enhanced: Apply forward error correction with support for unequal protection.
-
-        Args:
-            bits: Input bits to encode
-            protection_level: Protection level (1-3, where 3 is highest protection)
-        """
-        if not self.use_channel_coding:
-            return bits
-
-        # Adjust coding parameters based on protection level if unequal protection is enabled
-        if self.enable_unequal_error_protection:
-            if protection_level == 3:  # High protection
-                effective_coding_rate = max(0.3, self.coding_rate - 0.2)
-            elif protection_level == 2:  # Medium protection
-                effective_coding_rate = self.coding_rate
-            else:  # Low protection
-                effective_coding_rate = min(0.9, self.coding_rate + 0.1)
-        else:
-            effective_coding_rate = self.coding_rate
-
-        # Select coding scheme based on coding_type
-        if self.coding_type == 'repetition':
-            # Simple repetition code
-            repetition = int(1 / effective_coding_rate)
-            encoded = np.repeat(bits, repetition)
-
-            # Ensure the encoded bits have the correct length
-            target_length = len(bits)
-            if len(encoded) < target_length:
-                encoded = np.pad(encoded, (0, target_length - len(encoded)), 'constant')
-            else:
-                encoded = encoded[:target_length]
-
-        elif self.coding_type == 'ldpc':
-            # Placeholder for LDPC coding (would require an actual LDPC implementation)
-            # For now, we'll use a more advanced repetition scheme as a placeholder
-            k = int(len(bits) * effective_coding_rate)
-            encoded = np.zeros(len(bits), dtype=int)
-
-            # Encode most important bits with more repetition
-            high_prot_bits = bits[:k // 3]
-            med_prot_bits = bits[k // 3:2 * k // 3]
-            low_prot_bits = bits[2 * k // 3:k]
-
-            # Apply different levels of repetition
-            encoded[:len(high_prot_bits) * 3] = np.repeat(high_prot_bits, 3)
-            encoded[len(high_prot_bits) * 3:len(high_prot_bits) * 3 + len(med_prot_bits) * 2] = np.repeat(med_prot_bits,
-                                                                                                          2)
-            encoded[len(high_prot_bits) * 3 + len(med_prot_bits) * 2:k] = low_prot_bits
-
-            # Fill the rest with original bits
-            if k < len(bits):
-                encoded[k:] = bits[k:]
-
-        elif self.coding_type == 'turbo':
-            # Placeholder for Turbo coding
-            # Similar placeholder as LDPC for now
-            encoded = self._apply_channel_coding(bits, protection_level)  # Reuse repetition for now
-
-        else:
-            # Unknown coding type, fall back to repetition
-            encoded = self._apply_channel_coding(bits, protection_level)
-
-        return encoded
-
-    def _decode_channel_coding(self, bits):
-        """
-        Enhanced: Decode forward error correction.
-
-        Args:
-            bits: Received bits to decode
-        """
-        if not self.use_channel_coding:
-            return bits
-
-        # Basic decoding for repetition code
-        if self.coding_type == 'repetition':
-            repetition = int(1 / self.coding_rate)
-
-            # Reshape to get each group of repeated bits
-            if repetition > 1 and len(bits) >= repetition:
-                # Reshape safely accounting for possible truncation
-                num_complete_groups = len(bits) // repetition
-                reshaped = bits[:num_complete_groups * repetition].reshape(-1, repetition)
-
-                # Majority vote for each group
-                decoded = np.array([1 if np.sum(group) > repetition / 2 else 0 for group in reshaped])
-
-                # Append any remaining bits
-                if len(bits) > num_complete_groups * repetition:
-                    remaining = bits[num_complete_groups * repetition:]
-                    decoded = np.concatenate([decoded, remaining])
-            else:
-                decoded = bits
-
-        elif self.coding_type in ['ldpc', 'turbo']:
-            # Placeholder for more advanced decoders
-            # For now, we'll use a basic scheme similar to repetition
-            decoded = self._decode_channel_coding(bits)  # Recursively use repetition decoder
-
-        else:
-            # Unknown coding type, fall back to simple decoding
-            decoded = bits
-
-        return decoded
-
-    def _bits_to_symbols(self, bits):
-        """Map bits to complex symbols from the constellation."""
-        # Group bits into chunks of bits_per_symbol
-        bit_groups = [bits[i:i + self.bits_per_symbol] for i in range(0, len(bits), self.bits_per_symbol)]
-
-        # If the last group is incomplete, pad with zeros
-        if len(bit_groups[-1]) < self.bits_per_symbol:
-            bit_groups[-1] = np.pad(bit_groups[-1], (0, self.bits_per_symbol - len(bit_groups[-1])), 'constant')
-
-        # Convert each group to integer to index the constellation
-        symbols = []
-        for group in bit_groups:
-            idx = int(''.join(map(str, group)), 2)
-            symbols.append(self.constellation[idx % len(self.constellation)])
-
-        return np.array(symbols)
-
-    def _symbols_to_bits(self, symbols):
-        """Map complex symbols back to bits."""
-        bits = []
-
-        # For each symbol, find the closest constellation point
-        for s in symbols:
-            distances = np.abs(self.constellation - s)
-            idx = np.argmin(distances)
-
-            # Convert index to binary representation
-            bit_string = format(idx, f'0{self.bits_per_symbol}b')
-            bits.extend([int(b) for b in bit_string])
-
-        return np.array(bits)
-
-    def _apply_ofdm_modulation(self, symbols):
-        """Apply OFDM modulation to the symbols."""
-        # No changes to OFDM implementation
-        # If not using OFDM, just return the symbols
-        if self.modulation != 'ofdm':
-            return symbols
-
-        # Reshape symbols into OFDM symbols
-        num_symbols = len(symbols)
-        num_ofdm_symbols = int(np.ceil(num_symbols / self.ofdm_carriers))
-
-        # Pad to fit a whole number of OFDM symbols
-        padded_symbols = np.pad(symbols, (0, num_ofdm_symbols * self.ofdm_carriers - num_symbols), 'constant')
-
-        # Reshape and apply IFFT
-        ofdm_data = padded_symbols.reshape(num_ofdm_symbols, self.ofdm_carriers)
-        time_signal = np.fft.ifft(ofdm_data, axis=1)
-
-        # Add cyclic prefix (25% of symbol length)
-        cp_len = self.ofdm_carriers // 4
-        ofdm_signal = np.zeros((num_ofdm_symbols, self.ofdm_carriers + cp_len), dtype=complex)
-
-        for i in range(num_ofdm_symbols):
-            # Copy the end part to the beginning (cyclic prefix)
-            ofdm_signal[i, :cp_len] = time_signal[i, -cp_len:]
-            # Copy the rest of the symbol
-            ofdm_signal[i, cp_len:] = time_signal[i, :]
-
-        # Flatten the signal
-        return ofdm_signal.flatten()
-
-    def _apply_ofdm_demodulation(self, received_signal):
-        """Apply OFDM demodulation to the received signal."""
-        # No changes to OFDM demodulation
-        # If not using OFDM, just return the signal
-        if self.modulation != 'ofdm':
-            return received_signal
-
-        # Parameters
-        cp_len = self.ofdm_carriers // 4
-        symbol_len = self.ofdm_carriers + cp_len
-
-        # Calculate the number of complete OFDM symbols
-        num_ofdm_symbols = len(received_signal) // symbol_len
-
-        # Reshape to separate the OFDM symbols
-        ofdm_signal = received_signal[:num_ofdm_symbols * symbol_len].reshape(num_ofdm_symbols, symbol_len)
-
-        # Remove cyclic prefix and extract data
-        time_signal = np.zeros((num_ofdm_symbols, self.ofdm_carriers), dtype=complex)
-        for i in range(num_ofdm_symbols):
-            time_signal[i] = ofdm_signal[i, cp_len:]
-
-        # Apply FFT to get back to frequency domain
-        freq_domain = np.fft.fft(time_signal, axis=1)
-
-        # Flatten and return
-        return freq_domain.flatten()
-
-    def _apply_channel_effects(self, signal):
-        """Apply channel effects (AWGN, fading, etc.) to the transmitted signal."""
+    def _apply_awgn(self, signal, snr_db):
+        """Apply AWGN channel effects"""
         # Calculate noise power from SNR
         signal_power = np.mean(np.abs(signal) ** 2)
-        noise_power = signal_power / (10 ** (self.snr_db / 10))
+        noise_power = signal_power / (10 ** (snr_db / 10))
 
         # Generate complex Gaussian noise
-        noise = np.sqrt(noise_power / 2) * (np.random.randn(len(signal)) + 1j * np.random.randn(len(signal)))
+        noise = np.sqrt(noise_power / 2) * (
+                np.random.randn(len(signal)) +
+                1j * np.random.randn(len(signal))
+        )
 
-        # Apply channel effects based on channel type - no changes to these implementations
-        if self.channel_type == 'awgn':
-            # Just add noise for AWGN channel
-            received = signal + noise
+        # Add noise to signal
+        received = signal + noise
 
-        elif self.channel_type == 'rayleigh':
-            # Generate Rayleigh fading coefficients
-            h = np.sqrt(self.fading_param / 2) * (np.random.randn(len(signal)) + 1j * np.random.randn(len(signal)))
-
-            # Apply fading and add noise
-            received = h * signal + noise
-
-        elif self.channel_type == 'rician':
-            # Generate Rician fading with K-factor (fading_param)
-            K = self.fading_param
-
-            # LOS component (deterministic)
-            los = np.sqrt(K / (K + 1))
-
-            # NLOS component (random)
-            nlos_var = 1 / (K + 1)
-            nlos = np.sqrt(nlos_var / 2) * (np.random.randn(len(signal)) + 1j * np.random.randn(len(signal)))
-
-            # Combined channel
-            h = los + nlos
-
-            # Apply fading and add noise
-            received = h * signal + noise
-
-        elif self.channel_type == 'frequency_selective':
-            # Apply multipath with delay spread
-            num_taps = 5  # Number of channel taps
-
-            # Generate random channel taps
-            taps = np.sqrt(1 / num_taps) * (np.random.randn(num_taps) + 1j * np.random.randn(num_taps))
-
-            # Apply multipath channel through convolution
-            # Use scipy.signal.convolve instead of expecting signal to be the module
-            from scipy import signal as sp_signal
-            received = sp_signal.convolve(signal, taps, mode='same') + noise
-
-        else:
-            # Unknown channel type, default to AWGN
-            logger.warning(f"Unknown channel type: {self.channel_type}. Using AWGN instead.")
-            received = signal + noise
-
-        # NEW: Estimate SNR from received signal for adaptive modulation
+        # Update estimated SNR
         estimated_noise_power = np.mean(np.abs(received - signal) ** 2)
         estimated_snr = 10 * np.log10(signal_power / max(estimated_noise_power, 1e-10))
-
-        # Update channel statistics
         self.channel_stats['estimated_snr'] = estimated_snr
-        self.channel_stats['transmission_count'] += 1
-
-        # Store some channel state information periodically
-        if self.channel_stats['transmission_count'] % 50 == 0:
-            self._save_channel_state()
 
         return received
 
-    def _save_channel_state(self):
-        """
-        NEW: Save channel state information for analysis and training.
-        """
-        try:
-            filename = f"./channel_data/channel_state_{self.channel_stats['transmission_count']}.npz"
-            np.savez(
-                filename,
-                estimated_snr=self.channel_stats['estimated_snr'],
-                error_rate=self.channel_stats['error_rate'],
-                modulation_order=self.modulation_order,
-                coding_rate=self.coding_rate,
-                channel_type=self.channel_type
-            )
-            logger.debug(f"Saved channel state to {filename}")
-        except Exception as e:
-            logger.warning(f"Failed to save channel state: {e}")
+    def _apply_rayleigh(self, signal, snr_db):
+        """Apply Rayleigh fading channel effects"""
+        # Generate Rayleigh fading coefficients
+        h = np.sqrt(1 / 2) * (
+                np.random.randn(len(signal)) +
+                1j * np.random.randn(len(signal))
+        )
+
+        # Apply fading to signal
+        faded_signal = h * signal
+
+        # Add AWGN
+        return self._apply_awgn(faded_signal, snr_db)
+
+    def _apply_rician(self, signal, snr_db, k_factor=4.0):
+        """Apply Rician fading channel effects"""
+        # K-factor: ratio of direct path power to scattered path power
+        k = k_factor
+
+        # Generate fading coefficients
+        direct_path = np.sqrt(k / (k + 1))  # LOS component
+        scattered_path = np.sqrt(1 / (k + 1)) * (
+                np.random.randn(len(signal)) +
+                1j * np.random.randn(len(signal))
+        )
+
+        h = direct_path + scattered_path
+
+        # Apply fading to signal
+        faded_signal = h * signal
+
+        # Add AWGN
+        return self._apply_awgn(faded_signal, snr_db)
+
+    def _apply_frequency_selective(self, signal, snr_db):
+        """Apply frequency selective fading channel effects"""
+        # Generate multipath channel taps
+        num_taps = self.delay_spread
+
+        # Power delay profile (exponentially decaying)
+        pdp = np.exp(-np.arange(num_taps) / 2)
+        pdp = pdp / np.sum(pdp)  # Normalize
+
+        # Generate complex channel taps
+        h_taps = np.sqrt(pdp / 2) * (
+                np.random.randn(num_taps) +
+                1j * np.random.randn(num_taps)
+        )
+
+        # Apply multipath channel through convolution
+        faded_signal = signal.convolve(signal, h_taps, mode='same')
+
+        # Add AWGN
+        return self._apply_awgn(faded_signal, snr_db)
+
+    def _apply_time_varying(self, signal, snr_db):
+        """Apply time-varying channel effects with realistic modeling"""
+        # Generate/update channel coefficients using Jakes' model
+        n_samples = len(signal)
+
+        if self.channel_coefs is None or len(self.channel_coefs) != n_samples:
+            # Need to generate new coefficients
+
+            # Number of oscillators for Jakes' model
+            n_osc = 20
+
+            # Generate arrival angles
+            theta = np.random.uniform(0, 2 * np.pi, n_osc)
+
+            # Initialize coefficients
+            t = np.arange(n_samples)
+            h_real = np.zeros(n_samples)
+            h_imag = np.zeros(n_samples)
+
+            # Generate using sum of oscillators
+            for i in range(n_osc):
+                # Calculate Doppler shift for each path
+                doppler_shift = self.doppler_frequency * np.cos(theta[i])
+
+                # Add contribution to channel coefficients
+                h_real += np.cos(2 * np.pi * doppler_shift * t + np.random.uniform(0, 2 * np.pi))
+                h_imag += np.sin(2 * np.pi * doppler_shift * t + np.random.uniform(0, 2 * np.pi))
+
+            # Normalize and combine
+            h_real = h_real / np.sqrt(n_osc)
+            h_imag = h_imag / np.sqrt(n_osc)
+
+            self.channel_coefs = h_real + 1j * h_imag
+
+        # Apply time-varying fading
+        faded_signal = self.channel_coefs * signal
+
+        # Add AWGN
+        return self._apply_awgn(faded_signal, snr_db)
+
+    def _apply_repetition_code(self, bits, rate=1 / 3):
+        """Apply simple repetition code"""
+        # Repeat each bit by the inverse of the rate
+        repeat_count = int(1 / rate)
+        coded_bits = np.repeat(bits, repeat_count)
+        return coded_bits
+
+    def _decode_repetition_code(self, bits, rate=1 / 3):
+        """Decode repetition code using majority voting"""
+        repeat_count = int(1 / rate)
+
+        # Reshape bits into groups for voting
+        remainder = len(bits) % repeat_count
+        if remainder != 0:
+            # Pad if necessary
+            bits = np.append(bits, np.zeros(repeat_count - remainder))
+
+        groups = bits.reshape(-1, repeat_count)
+
+        # Majority vote decoding
+        decoded = (np.sum(groups, axis=1) > repeat_count / 2).astype(int)
+
+        return decoded
+
+    def _apply_hamming_code(self, bits, code_type='7,4'):
+        """Apply Hamming code"""
+        # Implementation of Hamming encoder would go here
+        # This is a simplified placeholder
+        if code_type == '7,4':
+            # Hamming(7,4) code
+            # In a real implementation, apply proper encoding matrix
+            padded_bits = np.pad(bits, (0, (-len(bits) % 4)), 'constant')
+            coded_bits = np.repeat(padded_bits, 7 / 4)  # Simplified
+            return coded_bits
+        else:
+            return self._apply_repetition_code(bits)  # Fallback
+
+    def _apply_ldpc_code(self, bits, rate=1 / 2):
+        """Apply LDPC code"""
+        # LDPC would require a full library implementation
+        # This is a simplified placeholder
+
+        # Create a random parity-check matrix for demonstration
+        n = len(bits)
+        k = int(n * rate)
+        m = n - k
+
+        # Generate a random sparse parity-check matrix
+        H = np.random.randint(0, 2, (m, n))
+        H = H * (np.random.rand(m, n) < 0.05)  # Make it sparse
+
+        # Simple encoding (in reality would use proper LDPC encoder)
+        encoded = np.zeros(n + m, dtype=int)
+        encoded[:n] = bits
+
+        # Create parity bits (simplified)
+        for i in range(m):
+            encoded[n + i] = np.sum(bits * H[i, :]) % 2
+
+        return encoded
+
+    def _apply_polar_code(self, bits, rate=1 / 2):
+        """Apply Polar code"""
+        # Polar codes would require a full implementation
+        # This is a simplified placeholder showing the concept
+
+        # Determine N (power of 2)
+        k = len(bits)
+        n = 1
+        while n < k:
+            n *= 2
+
+        N = n * 2  # Code length
+
+        # Pad input if needed
+        if k < n:
+            padded_bits = np.pad(bits, (0, n - k), 'constant')
+        else:
+            padded_bits = bits[:n]
+
+        # In a real implementation, we would:
+        # 1. Choose the most reliable bit positions
+        # 2. Apply the polar transform recursively
+        # 3. Return the encoded codeword
+
+        # Simplified placeholder
+        coded_bits = np.zeros(N, dtype=int)
+        coded_bits[::2] = padded_bits  # Information bits
+        coded_bits[1::2] = np.cumsum(padded_bits) % 2  # Simple "polar-like" transform
+
+        return coded_bits
+
+    def _apply_rateless_code(self, bits, overhead=0.1):
+        """Apply a rateless (fountain) code like LT codes"""
+        # Rateless codes would require a full implementation
+        # This is a simplified placeholder
+
+        k = len(bits)
+        n = int(k * (1 + overhead))
+
+        # Create a random generator matrix
+        # In a real implementation, this would follow specific degree distributions
+        G = np.random.randint(0, 2, (n, k))
+
+        # Apply generator matrix
+        coded_bits = np.zeros(n, dtype=int)
+        for i in range(n):
+            # XOR the selected input bits
+            selected = bits[G[i, :] == 1]
+            coded_bits[i] = np.sum(selected) % 2
+
+        return coded_bits
+
+    def _select_optimal_modulation(self, snr_db):
+        """Select optimal modulation based on SNR"""
+        if snr_db < 6:
+            return 'bpsk'  # Most robust
+        elif snr_db < 12:
+            return 'qpsk'
+        elif snr_db < 18:
+            return 'qam16'
+        elif snr_db < 24:
+            return 'qam64'
+        else:
+            return 'qam256'  # Highest capacity
+
+    def _bits_to_symbols(self, bits, modulation=None):
+        """Convert bits to symbols using the specified modulation"""
+        if modulation is None:
+            modulation = self.current_modulation
+
+        if modulation == 'bpsk':
+            # BPSK: 0 -> -1, 1 -> 1
+            return 2 * bits.astype(float) - 1
+
+        elif modulation == 'qpsk':
+            # QPSK: 2 bits per symbol
+            # Reshape to groups of 2 bits
+            padded_bits = np.pad(bits, (0, (-len(bits) % 2)), 'constant')
+            bit_groups = padded_bits.reshape(-1, 2)
+
+            # Convert to complex symbols
+            symbols = np.zeros(len(bit_groups), dtype=complex)
+            for i, group in enumerate(bit_groups):
+                if np.array_equal(group, [0, 0]):
+                    symbols[i] = complex(1, 1) / np.sqrt(2)
+                elif np.array_equal(group, [0, 1]):
+                    symbols[i] = complex(1, -1) / np.sqrt(2)
+                elif np.array_equal(group, [1, 0]):
+                    symbols[i] = complex(-1, 1) / np.sqrt(2)
+                else:  # [1, 1]
+                    symbols[i] = complex(-1, -1) / np.sqrt(2)
+
+            return symbols
+
+        elif modulation == 'qam16':
+            # 16-QAM: 4 bits per symbol
+            # Implementation would construct proper 16-QAM constellation
+            # Simplified version:
+            padded_bits = np.pad(bits, (0, (-len(bits) % 4)), 'constant')
+            bit_groups = padded_bits.reshape(-1, 4)
+
+            # Convert first two bits to real part, last two to imaginary
+            real_parts = 2 * (bit_groups[:, 0] * 2 + bit_groups[:, 1]) - 3
+            imag_parts = 2 * (bit_groups[:, 2] * 2 + bit_groups[:, 3]) - 3
+
+            # Normalize energy
+            symbols = (real_parts + 1j * imag_parts) / np.sqrt(10)
+            return symbols
+
+        else:
+            # Default: treat as QPSK for unimplemented schemes
+            return self._bits_to_symbols(bits, 'qpsk')
+
+    def _symbols_to_bits(self, symbols, modulation=None):
+        """Convert symbols back to bits"""
+        if modulation is None:
+            modulation = self.current_modulation
+
+        if modulation == 'bpsk':
+            # BPSK: negative -> 0, positive -> 1
+            return (np.real(symbols) > 0).astype(int)
+
+        elif modulation == 'qpsk':
+            # QPSK: 2 bits per symbol
+            bits = np.zeros(len(symbols) * 2, dtype=int)
+
+            for i, symbol in enumerate(symbols):
+                # Decision based on quadrant
+                real_part = np.real(symbol)
+                imag_part = np.imag(symbol)
+
+                # First bit based on real part
+                bits[2 * i] = 0 if real_part > 0 else 1
+
+                # Second bit based on imaginary part
+                bits[2 * i + 1] = 0 if imag_part > 0 else 1
+
+            return bits
+
+        elif modulation == 'qam16':
+            # 16-QAM: 4 bits per symbol
+            bits = np.zeros(len(symbols) * 4, dtype=int)
+
+            for i, symbol in enumerate(symbols):
+                # Scale to correct range
+                real_part = np.round(np.real(symbol) * np.sqrt(10))
+                imag_part = np.round(np.imag(symbol) * np.sqrt(10))
+
+                # Map to bit patterns (simplified)
+                real_idx = int((real_part + 3) / 2)
+                imag_idx = int((imag_part + 3) / 2)
+
+                # Clamp to valid range
+                real_idx = max(0, min(3, real_idx))
+                imag_idx = max(0, min(3, imag_idx))
+
+                # Extract bit patterns
+                real_bits = [real_idx // 2, real_idx % 2]
+                imag_bits = [imag_idx // 2, imag_idx % 2]
+
+                # Assign bits
+                bits[4 * i:4 * i + 2] = real_bits
+                bits[4 * i + 2:4 * i + 4] = imag_bits
+
+            return bits
+
+        else:
+            # Default for unimplemented schemes
+            return self._symbols_to_bits(symbols, 'qpsk')
+
+    def _apply_semantic_protection(self, bits, importance_profile):
+        """Apply unequal error protection based on semantic importance"""
+        if not self.semantic_protection or importance_profile is None:
+            return self._apply_coding(bits)
+
+        # Determine number of protection levels (simplifying to 3 levels)
+        n_bits = len(bits)
+
+        # Rescale importance profile and quantize to 3 levels
+        if len(importance_profile) > n_bits:
+            importance_profile = importance_profile[:n_bits]
+        elif len(importance_profile) < n_bits:
+            # Repeat or interpolate profile
+            ratio = n_bits / len(importance_profile)
+            importance_profile = np.repeat(importance_profile, ratio)[:n_bits]
+
+        # Normalize to [0, 1]
+        scaled_profile = (importance_profile - np.min(importance_profile)) / (
+                np.max(importance_profile) - np.min(importance_profile) + 1e-10)
+
+        # Quantize to 3 levels
+        protection_levels = np.zeros(n_bits, dtype=int)
+        protection_levels[scaled_profile > 0.66] = 2  # High protection
+        protection_levels[(scaled_profile > 0.33) & (scaled_profile <= 0.66)] = 1  # Medium
+
+        # Apply different coding rates based on protection level
+        coded_bits = []
+
+        # High protection segments
+        high_mask = protection_levels == 2
+        high_bits = bits[high_mask]
+        if len(high_bits) > 0:
+            high_coded = self._apply_coding(high_bits, rate=1 / 3)
+            coded_bits.append(high_coded)
+
+        # Medium protection segments
+        medium_mask = protection_levels == 1
+        medium_bits = bits[medium_mask]
+        if len(medium_bits) > 0:
+            medium_coded = self._apply_coding(medium_bits, rate=1 / 2)
+            coded_bits.append(medium_coded)
+
+        # Low protection segments
+        low_mask = protection_levels == 0
+        low_bits = bits[low_mask]
+        if len(low_bits) > 0:
+            low_coded = self._apply_coding(low_bits, rate=3 / 4)
+            coded_bits.append(low_coded)
+
+        # Combine all coded segments
+        return np.concatenate(coded_bits)
+
+    def _apply_coding(self, bits, rate=1 / 2):
+        """Apply the selected coding scheme"""
+        coding_func = self.coding_schemes.get(
+            self.coding_scheme,
+            self._apply_repetition_code  # Default
+        )
+
+        return coding_func(bits, rate)
 
     def _estimate_error_rate(self, original_bits, received_bits):
-        """
-        NEW: Estimate bit error rate from a sample comparison.
-        """
+        """Estimate bit error rate from sample comparison"""
         min_len = min(len(original_bits), len(received_bits))
         if min_len == 0:
             return 0.0
@@ -484,180 +512,127 @@ class PhysicalChannelLayer:
 
         return error_rate
 
-    def transmit(self, embedding, importance_weights=None, debug=False):
+    def transmit(self, embedding, importance_profile=None, debug=False):
         """
-        Enhanced: Transmit a semantic embedding through the physical channel.
-        Now supports adaptive modulation and unequal error protection.
+        Transmit embedding through the channel with semantic protection.
 
         Args:
-            embedding: Numpy array or torch tensor containing the semantic embedding
-            importance_weights: Optional weights to prioritize important dimensions
-            debug: If True, plot constellation diagrams and return extra info
+            embedding: Embedding vector to transmit
+            importance_profile: Optional profile indicating semantic importance
+            debug: Whether to return debug information
 
         Returns:
-            Received embedding after transmission through the physical channel
+            Received embedding after channel effects
         """
-        # Adapt to current channel conditions if adaptive modulation is enabled
-        if self.enable_adaptive_modulation:
-            self.adapt_to_channel_conditions()
-
-        # Convert torch tensor to numpy if needed
+        # Ensure embedding is a numpy array
         if isinstance(embedding, torch.Tensor):
             embedding = embedding.detach().cpu().numpy()
 
-        # Save original shape for reconstruction
+        # Flatten if multidimensional
         original_shape = embedding.shape
         flattened = embedding.flatten()
 
-        # Apply importance weighting if provided
-        weighted = flattened
-        actual_weights = np.ones_like(flattened)
+        # Convert to bits (simplified)
+        # In a real system, proper quantization would be applied
+        quantization_levels = 256
+        quantized = np.round((flattened + 1) * (quantization_levels / 2)).astype(int)
+        quantized = np.clip(quantized, 0, quantization_levels - 1)
 
-        if self.importance_weighting and importance_weights is not None:
-            if isinstance(importance_weights, torch.Tensor):
-                importance_weights = importance_weights.detach().cpu().numpy()
+        # Convert to bits (8 bits per value for 256 levels)
+        bits = np.unpackbits(quantized.astype(np.uint8))
 
-            # Reshape weights if needed
-            if importance_weights.shape != flattened.shape:
-                importance_weights = np.ones_like(flattened)
-
-            # Apply weighting
-            weighted = flattened * importance_weights
-            actual_weights = importance_weights
-
-        # Convert vector to bits
-        bits = self._vector_to_bits(weighted)
-
-        # Split bits into protection groups if using unequal error protection
-        if self.enable_unequal_error_protection and len(bits) > 0:
-            # Determine protection levels based on importance weights
-            if self.importance_weighting and importance_weights is not None:
-                # Flatten and normalize weights to 0-1 range for easy thresholding
-                flat_weights = importance_weights.flatten()
-                if len(flat_weights) > 0:  # Check if we have weights
-                    weight_min, weight_max = flat_weights.min(), flat_weights.max()
-                    if weight_max > weight_min:  # Avoid division by zero
-                        norm_weights = (flat_weights - weight_min) / (weight_max - weight_min)
-                    else:
-                        norm_weights = np.zeros_like(flat_weights)
-
-                    # Determine how to divide dimensions into protection groups
-                    third_point = 2 / 3
-                    two_third_point = 1 / 3
-
-                    # Assign protection levels based on importance
-                    high_prot_indices = np.where(norm_weights >= third_point)[0]
-                    med_prot_indices = np.where((norm_weights < third_point) & (norm_weights >= two_third_point))[0]
-                    low_prot_indices = np.where(norm_weights < two_third_point)[0]
-
-                    # Apply different protection levels to bits
-                    # Since we can't directly map dimension indices to bit indices easily,
-                    # we'll use a simplified approach based on bit position
-                    total_bit_len = len(bits)
-                    high_prot_len = int(total_bit_len * len(high_prot_indices) / len(norm_weights)) if len(
-                        norm_weights) > 0 else 0
-                    med_prot_len = int(total_bit_len * len(med_prot_indices) / len(norm_weights)) if len(
-                        norm_weights) > 0 else 0
-
-                    # Apply channel coding to each segment
-                    encoded_high = self._apply_channel_coding(bits[:high_prot_len], 3)
-                    encoded_med = self._apply_channel_coding(bits[high_prot_len:high_prot_len + med_prot_len], 2)
-                    encoded_low = self._apply_channel_coding(bits[high_prot_len + med_prot_len:], 1)
-
-                    # Recombine encoded bits
-                    encoded_bits = np.concatenate([encoded_high, encoded_med, encoded_low])
-                else:
-                    # Fall back to uniform protection if no valid weights
-                    encoded_bits = self._apply_channel_coding(bits, 2)  # Medium protection
-            else:
-                # No weights or unequal protection disabled - use uniform protection
-                encoded_bits = self._apply_channel_coding(bits, 2)  # Medium protection
+        # Apply semantic-aware coding if enabled
+        if self.semantic_protection and importance_profile is not None:
+            coded_bits = self._apply_semantic_protection(bits, importance_profile)
         else:
-            # Standard channel coding
-            encoded_bits = self._apply_channel_coding(bits)
+            coded_bits = self._apply_coding(bits)
 
-        # Map bits to symbols
-        symbols = self._bits_to_symbols(encoded_bits)
+        # Choose modulation scheme based on SNR if adaptive
+        if self.adaptive_modulation:
+            self.current_modulation = self._select_optimal_modulation(self.snr_db)
 
-        # Apply OFDM modulation if selected
-        signal = self._apply_ofdm_modulation(symbols)
+        # Convert bits to symbols
+        symbols = self._bits_to_symbols(coded_bits, self.current_modulation)
+
+        # Apply channel effects
+        channel_func = self.channel_models.get(
+            self.channel_type,
+            self._apply_awgn  # Default to AWGN
+        )
+
+        received_symbols = channel_func(symbols, self.snr_db)
+
+        # Convert received symbols back to bits
+        received_bits = self._symbols_to_bits(received_symbols, self.current_modulation)
+
+        # Decode channel coding
+        # In a full implementation, we'd need to track which coding was applied to each segment
+        # This is simplified for demonstration
+        if self.coding_scheme == 'repetition':
+            decoded_bits = self._decode_repetition_code(received_bits)
+        else:
+            # For other coding schemes, we'd apply their specific decoders
+            # For now, just take the bits with appropriate truncation
+            decoded_bits = received_bits[:len(bits)]
 
         # Store original bits for error rate estimation
-        original_bits = encoded_bits.copy()
+        original_bits = coded_bits.copy()
 
-        # Transmit through the physical channel (apply channel effects)
-        received_signal = self._apply_channel_effects(signal)
-
-        # Apply OFDM demodulation if needed
-        received_symbols = self._apply_ofdm_demodulation(received_signal)
-
-        # Map symbols back to bits
-        received_bits = self._symbols_to_bits(received_symbols)
-
-        # Estimate error rate
+        # Calculate error rate
         error_rate = self._estimate_error_rate(original_bits, received_bits)
+
+        # Convert bits back to values
+        # Reshape to 8 bits per value
+        padded_length = ((len(decoded_bits) + 7) // 8) * 8
+        if len(decoded_bits) < padded_length:
+            decoded_bits = np.pad(decoded_bits, (0, padded_length - len(decoded_bits)), 'constant')
+
+        # Convert bit groups to values
+        decoded_values = np.packbits(decoded_bits.reshape(-1, 8))
+
+        # Convert back to float range
+        float_values = (decoded_values / (quantization_levels / 2)) - 1
+
+        # Reshape to original dimensions
+        received_embedding = float_values[:np.prod(original_shape)].reshape(original_shape)
+
+        # Update channel statistics
+        self.channel_stats['transmission_count'] += 1
+
+        # Return received embedding and debug info if requested
         if debug:
-            logger.debug(f"Transmission BER: {error_rate:.4f}")
-
-        # Apply channel decoding
-        decoded_bits = self._decode_channel_coding(received_bits)
-
-        # Convert bits back to vector
-        received_vector = self._bits_to_vector(decoded_bits, original_shape)
-
-        # If importance weighting was applied, unapply it
-        if self.importance_weighting and np.any(actual_weights != 1.0):
-            # Avoid division by zero
-            safe_weights = np.where(actual_weights > 1e-10, actual_weights, 1.0)
-            received_vector = received_vector / safe_weights
-
-        # Return the received embedding and debug info if requested
-        if debug:
-            return received_vector, {
-                'bits': bits,
-                'encoded_bits': encoded_bits,
-                'symbols': symbols,
-                'received_symbols': received_symbols,
-                'decoded_bits': decoded_bits,
+            debug_info = {
+                'snr_db': self.snr_db,
+                'modulation': self.current_modulation,
+                'channel_type': self.channel_type,
+                'coding_scheme': self.coding_scheme,
                 'error_rate': error_rate,
+                'symbols_transmitted': len(symbols),
+                'bits_transmitted': len(coded_bits),
                 'estimated_snr': self.channel_stats['estimated_snr']
             }
-        else:
-            return received_vector
+            return received_embedding, debug_info
 
-    def get_ber(self, original_bits, received_bits):
-        """Calculate Bit Error Rate."""
-        # Unchanged
-        min_len = min(len(original_bits), len(received_bits))
-        errors = np.sum(original_bits[:min_len] != received_bits[:min_len])
-        return errors / min_len
+        return received_embedding
 
     def get_channel_info(self):
-        """
-        Enhanced: Return information about the channel configuration and statistics.
-        """
+        """Return information about channel configuration and statistics"""
         return {
             'channel_type': self.channel_type,
-            'modulation': f"{self.modulation}-{self.modulation_order}",
+            'modulation': f"{self.current_modulation}",
             'snr_db': self.snr_db,
             'estimated_snr': self.channel_stats['estimated_snr'],
-            'coding_rate': self.coding_rate,
-            'bits_per_symbol': self.bits_per_symbol,
-            'adaptive_modulation': self.enable_adaptive_modulation,
-            'unequal_error_protection': self.enable_unequal_error_protection,
+            'coding_scheme': self.coding_scheme,
+            'coding_rate': self.coding_rate if hasattr(self, 'coding_rate') else 0.5,
+            'adaptive_modulation': self.adaptive_modulation,
+            'semantic_protection': self.semantic_protection,
             'error_rate': self.channel_stats['error_rate']
         }
 
-    def configure(self, **kwargs):
-        """Update channel configuration parameters."""
-        # Unchanged
-        for key, value in kwargs.items():
-            if hasattr(self, key):
-                setattr(self, key, value)
-                if key in ['modulation', 'modulation_order']:
-                    self._init_constellation()  # Reinitialize constellation if modulation changes
-            else:
-                logger.warning(f"Unknown parameter: {key}")
 
-        logger.info(f"Reconfigured Physical Channel: {self.channel_type} channel, "
-                    f"{self.modulation}-{self.modulation_order} modulation, SNR={self.snr_db}dB")
+# Backwards compatibility for existing code
+class ContentAdaptivePhysicalChannel(SemanticAwarePhysicalChannel):
+    """Alias class for backwards compatibility"""
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
