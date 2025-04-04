@@ -31,7 +31,15 @@ from mlpdvae_utils import (load_transmission_pairs, evaluate_reconstruction_with
 from semantic_loss import SemanticPerceptualLoss, evaluate_semantic_similarity
 from compression_vae import (EmbeddingCompressorVAE, decompress_vae_embedding,
                              load_or_train_vae_compressor)
+# Replace import
+from semantic_loss import EnhancedSemanticLoss, evaluate_semantic_similarity
 
+# Add this import
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import torch.optim as optim
+from collections import namedtuple
 # Import original physical channel components
 try:
     from physical_channel import PhysicalChannelLayer
@@ -67,7 +75,9 @@ os.makedirs(TRANSMISSION_PAIRS_DIR, exist_ok=True)
 # Set device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 logger.info(f"Using device: {device}")
-
+# Define experience tuple structure (add near the beginning of the file)
+Experience = namedtuple('Experience',
+                       ['state', 'action', 'reward', 'next_state', 'done'])
 # Try to import physical channel configuration
 try:
     import physical_channel_config as phy_config
@@ -131,86 +141,208 @@ def timing_decorator(func):
 # Reinforcement Learning Agent with Semantic Metrics
 #################################################
 
-class EnhancedReinforcementLearningAgent:
+
+class SemanticFeatureExtractor:
+    """Extract semantic features from text and embeddings for RL state"""
+
+    def __init__(self, feature_dim=8):
+        self.feature_dim = feature_dim
+
+    def extract_features(self, text, embedding=None, corruption_level=None, semantic_metrics=None):
+        """
+        Extract semantic features for RL state representation
+
+        Args:
+            text: Text to analyze
+            embedding: Optional embedding vector
+            corruption_level: Optional pre-calculated corruption level
+            semantic_metrics: Optional pre-calculated semantic metrics
+
+        Returns:
+            Feature vector of dimension feature_dim
+        """
+        features = np.zeros(self.feature_dim)
+
+        # Basic text features
+        if text:
+            # Feature 1: Text length (normalized)
+            features[0] = min(1.0, len(text.split()) / 50.0)
+
+            # Feature 2: Lexical complexity (approx. by avg word length)
+            avg_word_len = sum(len(w) for w in text.split()) / max(1, len(text.split()))
+            features[1] = min(1.0, avg_word_len / 10.0)
+
+            # Feature 3: Structural complexity (punctuation density)
+            punct_count = sum(1 for c in text if c in ',.;:!?()[]{}"\'')
+            features[2] = min(1.0, punct_count / (len(text) + 1) * 10.0)
+
+        # Corruption level
+        if corruption_level is not None:
+            features[3] = min(1.0, corruption_level)
+        elif text:
+            # Estimate corruption based on unusual character patterns
+            unusual_char_ratio = sum(1 for c in text if not c.isalnum() and c not in ' ,.;:!?()[]{}"\'') / (
+                        len(text) + 1)
+            features[3] = min(1.0, unusual_char_ratio * 10.0)
+
+        # Embedding features if available
+        if embedding is not None:
+            if isinstance(embedding, torch.Tensor):
+                embedding = embedding.detach().cpu().numpy()
+
+            # Feature 4: Embedding magnitude
+            features[4] = min(1.0, np.linalg.norm(embedding) / 10.0)
+
+            # Feature 5: Embedding sparsity (fraction of near-zero elements)
+            sparsity = np.mean(np.abs(embedding) < 0.01)
+            features[5] = sparsity
+
+        # Semantic metrics if available
+        if semantic_metrics:
+            # Feature 6: Semantic quality
+            features[6] = semantic_metrics.get('SEMANTIC', 0.5)
+
+            # Feature 7: Linguistic accuracy
+            features[7] = (
+                    semantic_metrics.get('BLEU', 0.0) * 0.3 +
+                    semantic_metrics.get('ROUGE', 0.0) * 0.7
+            )
+
+        return features
+
+
+class DQNetwork(nn.Module):
+    """Deep Q-Network for semantic policy learning"""
+
+    def __init__(self, state_dim, action_dim, hidden_dim=64):
+        super().__init__()
+
+        # Network layers
+        self.fc1 = nn.Linear(state_dim, hidden_dim)
+        self.ln1 = nn.LayerNorm(hidden_dim)
+
+        self.fc2 = nn.Linear(hidden_dim, hidden_dim)
+        self.ln2 = nn.LayerNorm(hidden_dim)
+
+        self.fc3 = nn.Linear(hidden_dim, hidden_dim // 2)
+        self.ln3 = nn.LayerNorm(hidden_dim // 2)
+
+        self.fc4 = nn.Linear(hidden_dim // 2, action_dim)
+
+        # Value and advantage streams for dueling DQN
+        self.value_stream = nn.Linear(hidden_dim // 2, 1)
+        self.advantage_stream = nn.Linear(hidden_dim // 2, action_dim)
+
+        # Initialize weights
+        self._init_weights()
+
+    def _init_weights(self):
+        """Initialize network weights"""
+        for m in self.modules():
+            if isinstance(m, nn.Linear):
+                nn.init.kaiming_uniform_(m.weight, nonlinearity='relu')
+                if m.bias is not None:
+                    nn.init.zeros_(m.bias)
+
+    def forward(self, x):
+        """Forward pass"""
+        x = F.relu(self.ln1(self.fc1(x)))
+        x = F.relu(self.ln2(self.fc2(x)))
+        x = F.relu(self.ln3(self.fc3(x)))
+
+        # Dueling architecture
+        value = self.value_stream(x)
+        advantages = self.advantage_stream(x)
+
+        # Combine value and advantage streams
+        q_values = value + (advantages - advantages.mean(dim=1, keepdim=True))
+
+        return q_values
+
+
+class DQNAgent:
     """
-    Enhanced RL agent for optimizing API usage based on text properties.
-    Now includes semantic metrics in its state and reward calculation.
+    Deep Q-Network Agent for optimizing API usage based on text properties.
+    Replaces the tabular Q-learning approach with a neural network for better generalization.
     """
 
-    def __init__(self, num_states=8, num_actions=3, learning_rate=0.1,
-                 discount_factor=0.9, exploration_rate=0.3):
-        self.num_states = num_states  # Increased states to account for semantic features
-        self.num_actions = num_actions  # 0: basic, 1: GPT-3.5, 2: GPT-4
-        self.learning_rate = learning_rate
+    def __init__(self, state_dim=8, action_dim=3, learning_rate=0.001,
+                 discount_factor=0.9, exploration_rate=0.3, memory_size=10000):
+        self.state_dim = state_dim
+        self.action_dim = action_dim
         self.discount_factor = discount_factor
         self.exploration_rate = exploration_rate
+        self.exploration_min = 0.01
+        self.exploration_decay = 0.995
 
-        # Initialize Q-table
-        self.q_table = np.random.uniform(low=0, high=0.1, size=(num_states, num_actions))
+        # Experience replay memory
+        self.memory = deque(maxlen=memory_size)
 
-        # Experience buffer for offline learning
-        self.experience_buffer = deque(maxlen=1000)
+        # Main Q-network and target network
+        self.model = self._build_model(learning_rate)
+        self.target_model = self._build_model(learning_rate)
+        self.update_target_network()
 
-        # Track performance metrics
+        # Training parameters
+        self.batch_size = 64
+        self.update_frequency = 5  # Update target network every N steps
+        self.step_count = 0
+
+        # Performance tracking
         self.total_reward = 0
         self.episode_count = 0
         self.api_efficiency = []
 
-        # Load saved Q-table if exists
-        self.load_q_table()
+    def _build_model(self, learning_rate):
+        """Build the neural network model"""
+        model = nn.Sequential(
+            nn.Linear(self.state_dim, 24),
+            nn.ReLU(),
+            nn.Linear(24, 24),
+            nn.ReLU(),
+            nn.Linear(24, self.action_dim)
+        ).to(device)
 
-    def get_enhanced_state(self, corruption_level, text_length, semantic_features=None):
-        """
-        Enhanced state representation that includes semantic features.
+        # Define optimizer
+        optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
-        Args:
-            corruption_level: Level of text corruption (0-1)
-            text_length: Length of text in words
-            semantic_features: Optional semantic features (e.g., content complexity)
+        return {'network': model, 'optimizer': optimizer}
 
-        Returns:
-            State index (0-7)
-        """
-        # Map corruption level to binary state (low/high)
-        corruption_state = 1 if corruption_level > 0.1 else 0
+    def update_target_network(self):
+        """Update the target network with the main network's weights"""
+        self.target_model['network'].load_state_dict(self.model['network'].state_dict())
 
-        # Map text length to binary state (short/long)
-        length_state = 1 if text_length > 20 else 0
+    def get_state_tensor(self, corruption_level, text_length, semantic_features=None):
+        """Convert state features to tensor representation"""
+        # Create state vector
+        state = np.zeros(self.state_dim)
 
-        # Map semantic complexity to binary state (simple/complex)
-        semantic_state = 0
+        # Fill first 2 features directly
+        state[0] = corruption_level
+        state[1] = min(1.0, text_length / 100)  # Normalize text length
+
+        # Add semantic features if available
         if semantic_features is not None:
             if isinstance(semantic_features, (int, float)):
-                # Simple numeric semantic feature
-                semantic_state = 1 if semantic_features > 0.5 else 0
-            elif isinstance(semantic_features, (list, np.ndarray)) and len(semantic_features) > 0:
-                # Vector of semantic features - use first element as complexity indicator
-                semantic_state = 1 if semantic_features[0] > 0.5 else 0
+                state[2] = semantic_features
+            elif isinstance(semantic_features, (list, np.ndarray)):
+                for i, val in enumerate(semantic_features):
+                    if i + 2 < self.state_dim:
+                        state[i + 2] = val
 
-        # Combined state (0-7) with three binary features
-        return corruption_state * 4 + length_state * 2 + semantic_state
+        return torch.tensor(state, dtype=torch.float32).to(device)
 
-    def get_state(self, corruption_level, text_length):
-        """Original state function (maintained for backward compatibility)"""
-        # Map corruption level to binary state (low/high)
-        corruption_state = 1 if corruption_level > 0.1 else 0
-
-        # Map text length to binary state (short/long)
-        length_state = 1 if text_length > 20 else 0
-
-        # Combined state (0-3)
-        return corruption_state * 2 + length_state
-
-    def select_action(self, state, budget_remaining, force_basic=False):
+    def select_action(self, state_tensor, budget_remaining, force_basic=False):
         """Select action using epsilon-greedy policy with budget awareness"""
         # Force basic reconstruction if requested or very low budget
         if force_basic or budget_remaining < 0.05:
             return 0
 
         # Budget-aware strategy - avoid expensive models when budget is low
-        if budget_remaining < 0.2 and self.q_table[state, 1] > 0:
+        if budget_remaining < 0.2:
             # Prefer GPT-3.5 over GPT-4 when budget is low
-            return 1 if self.q_table[state, 1] > 0.5 * self.q_table[state, 2] else 0
+            if np.random.random() < 0.8:  # 80% chance to use basic or GPT-3.5
+                return np.random.choice([0, 1])
 
         # Epsilon-greedy policy
         if np.random.random() < self.exploration_rate:
@@ -220,37 +352,59 @@ class EnhancedReinforcementLearningAgent:
             else:
                 return np.random.choice([0, 1, 2])  # Any action
         else:
-            # Greedy action
-            return np.argmax(self.q_table[state])
+            # Get Q-values for this state
+            with torch.no_grad():
+                q_values = self.model['network'](state_tensor)
 
-    def update(self, state, action, reward, next_state):
-        """Update Q-table using Q-learning"""
-        # Add to experience buffer for later training
-        self.experience_buffer.append((state, action, reward, next_state))
+            # Return action with highest Q-value
+            return torch.argmax(q_values).item()
 
-        # Standard Q-learning update
-        best_next_action = np.argmax(self.q_table[next_state])
-        td_target = reward + self.discount_factor * self.q_table[next_state, best_next_action]
-        td_error = td_target - self.q_table[state, action]
-        self.q_table[state, action] += self.learning_rate * td_error
+    def remember(self, state, action, reward, next_state, done):
+        """Store experience in replay memory"""
+        self.memory.append((state, action, reward, next_state, done))
 
         # Track rewards
         self.total_reward += reward
 
-    def train_from_buffer(self, batch_size=32):
-        """Train from experience buffer for more stable learning"""
-        if len(self.experience_buffer) < batch_size:
+    def replay(self):
+        """Train the model by replaying experiences"""
+        if len(self.memory) < self.batch_size:
             return
 
-        # Sample random batch from buffer
-        batch = random.sample(self.experience_buffer, batch_size)
+        # Sample random batch from memory
+        minibatch = random.sample(self.memory, self.batch_size)
 
-        # Update Q-table from batch
-        for state, action, reward, next_state in batch:
-            best_next_action = np.argmax(self.q_table[next_state])
-            td_target = reward + self.discount_factor * self.q_table[next_state, best_next_action]
-            td_error = td_target - self.q_table[state, action]
-            self.q_table[state, action] += self.learning_rate * td_error
+        # Extract batch components
+        states = torch.stack([x[0] for x in minibatch])
+        actions = torch.tensor([x[1] for x in minibatch], dtype=torch.long).to(device)
+        rewards = torch.tensor([x[2] for x in minibatch], dtype=torch.float32).to(device)
+        next_states = torch.stack([x[3] for x in minibatch])
+        dones = torch.tensor([x[4] for x in minibatch], dtype=torch.float32).to(device)
+
+        # Get current Q values
+        current_q_values = self.model['network'](states).gather(1, actions.unsqueeze(1))
+
+        # Get next Q values from target network
+        with torch.no_grad():
+            next_q_values = self.target_model['network'](next_states).max(1)[0]
+            target_q_values = rewards + (1 - dones) * self.discount_factor * next_q_values
+
+        # Compute loss
+        loss = F.mse_loss(current_q_values.squeeze(), target_q_values)
+
+        # Optimize the model
+        self.model['optimizer'].zero_grad()
+        loss.backward()
+        self.model['optimizer'].step()
+
+        # Update target network if it's time
+        self.step_count += 1
+        if self.step_count % self.update_frequency == 0:
+            self.update_target_network()
+
+        # Decay exploration rate
+        self.exploration_rate = max(self.exploration_min,
+                                    self.exploration_rate * self.exploration_decay)
 
     def calculate_reward(self, metrics, action, cost=0):
         """
@@ -291,60 +445,330 @@ class EnhancedReinforcementLearningAgent:
 
         return reward
 
-    def save_q_table(self):
-        """Save Q-table and metrics to file"""
+    def save_model(self, path="dqn_agent_model.pth"):
+        """Save model and metrics to file"""
         try:
-            np.save(os.path.join(MODELS_DIR, 'enhanced_rl_agent_q_table.npy'), self.q_table)
+            full_path = os.path.join(MODELS_DIR, path)
+            torch.save({
+                'model_state_dict': self.model['network'].state_dict(),
+                'target_model_state_dict': self.target_model['network'].state_dict(),
+                'exploration_rate': self.exploration_rate,
+                'total_reward': self.total_reward,
+                'episode_count': self.episode_count,
+                'api_efficiency': self.api_efficiency,
+                'state_dim': self.state_dim,
+                'action_dim': self.action_dim
+            }, full_path)
 
-            with open(os.path.join(MODELS_DIR, 'enhanced_rl_agent_metrics.json'), 'w') as f:
-                json.dump({
-                    'total_reward': self.total_reward,
-                    'episode_count': self.episode_count,
-                    'api_efficiency': list(self.api_efficiency) if len(self.api_efficiency) > 0 else [],
-                    'num_states': self.num_states,
-                    'num_actions': self.num_actions
-                }, f)
-
-            logger.info(f"Saved enhanced RL agent state")
+            logger.info(f"Saved DQN agent model to {full_path}")
+            return True
         except Exception as e:
-            logger.warning(f"Failed to save RL agent: {e}")
+            logger.warning(f"Failed to save DQN agent model: {e}")
+            return False
 
-    def load_q_table(self):
-        """Load Q-table and metrics from file if exists"""
-        q_table_path = os.path.join(MODELS_DIR, 'enhanced_rl_agent_q_table.npy')
-        metrics_path = os.path.join(MODELS_DIR, 'enhanced_rl_agent_metrics.json')
-
+    def load_model(self, path="dqn_agent_model.pth"):
+        """Load model and metrics from file"""
         try:
-            if os.path.exists(q_table_path):
-                self.q_table = np.load(q_table_path)
+            full_path = os.path.join(MODELS_DIR, path)
+            if os.path.exists(full_path):
+                checkpoint = torch.load(full_path, map_location=device)
 
-                # Check if dimensions match, otherwise resize
-                if self.q_table.shape != (self.num_states, self.num_actions):
-                    old_q_table = self.q_table.copy()
-                    self.q_table = np.random.uniform(low=0, high=0.1, size=(self.num_states, self.num_actions))
+                # Check if state dimensions match
+                if checkpoint['state_dim'] != self.state_dim:
+                    logger.warning(
+                        f"Loaded model has different state dimensions. Expected {self.state_dim}, got {checkpoint['state_dim']}")
+                    return False
 
-                    # Copy over values that fit
-                    min_states = min(old_q_table.shape[0], self.num_states)
-                    min_actions = min(old_q_table.shape[1], self.num_actions)
-                    self.q_table[:min_states, :min_actions] = old_q_table[:min_states, :min_actions]
+                # Check if action dimensions match
+                if checkpoint['action_dim'] != self.action_dim:
+                    logger.warning(
+                        f"Loaded model has different action dimensions. Expected {self.action_dim}, got {checkpoint['action_dim']}")
+                    return False
 
-                    logger.info(f"Resized Q-table from {old_q_table.shape} to {self.q_table.shape}")
+                # Load model parameters
+                self.model['network'].load_state_dict(checkpoint['model_state_dict'])
+                self.target_model['network'].load_state_dict(checkpoint['target_model_state_dict'])
 
-                # Load metrics if available
-                if os.path.exists(metrics_path):
-                    with open(metrics_path, 'r') as f:
-                        metrics = json.load(f)
-                        self.total_reward = metrics.get('total_reward', 0)
-                        self.episode_count = metrics.get('episode_count', 0)
-                        self.api_efficiency = metrics.get('api_efficiency', [])
+                # Load agent state
+                self.exploration_rate = checkpoint['exploration_rate']
+                self.total_reward = checkpoint['total_reward']
+                self.episode_count = checkpoint['episode_count']
+                self.api_efficiency = checkpoint.get('api_efficiency', [])
 
-                # Reduce exploration rate as we learn
-                self.exploration_rate = max(0.05, 0.3 - 0.05 * self.episode_count)
-
-                logger.info(f"Loaded enhanced RL agent (exploration rate: {self.exploration_rate:.2f})")
+                logger.info(f"Loaded DQN agent model from {full_path}")
+                return True
+            else:
+                logger.warning(f"DQN agent model file not found: {full_path}")
+                return False
         except Exception as e:
-            logger.warning(f"Failed to load RL agent: {e}")
+            logger.warning(f"Failed to load DQN agent model: {e}")
+            return False
 
+class DeepRLAgent:
+    """
+    Deep Reinforcement Learning agent for optimizing API selection
+    based on semantic features
+    """
+
+    def __init__(self,
+                 state_dim=8,
+                 action_dim=3,
+                 hidden_dim=64,
+                 learning_rate=0.001,
+                 gamma=0.95,
+                 epsilon_start=1.0,
+                 epsilon_end=0.05,
+                 epsilon_decay=0.995,
+                 buffer_size=10000,
+                 batch_size=64,
+                 update_freq=4,
+                 target_update_freq=10,
+                 device=None):
+
+        # Set device - use GPU if available
+        self.device = device or torch.device(
+            "cuda" if torch.cuda.is_available() else "cpu")
+
+        # Store parameters
+        self.state_dim = state_dim
+        self.action_dim = action_dim
+        self.gamma = gamma
+        self.epsilon = epsilon_start
+        self.epsilon_end = epsilon_end
+        self.epsilon_decay = epsilon_decay
+        self.batch_size = batch_size
+        self.update_freq = update_freq
+        self.target_update_freq = target_update_freq
+
+        # Initialize networks
+        self.policy_net = DQNetwork(state_dim, action_dim, hidden_dim).to(self.device)
+        self.target_net = DQNetwork(state_dim, action_dim, hidden_dim).to(self.device)
+        self.target_net.load_state_dict(self.policy_net.state_dict())
+        self.target_net.eval()  # Target network in eval mode
+
+        # Initialize optimizer
+        self.optimizer = optim.Adam(self.policy_net.parameters(), lr=learning_rate)
+
+        # Initialize experience replay buffer
+        self.buffer = deque(maxlen=buffer_size)
+
+        # Feature extractor
+        self.feature_extractor = SemanticFeatureExtractor(state_dim)
+
+        # Tracking variables
+        self.steps = 0
+        self.episodes = 0
+        self.total_reward = 0
+        self.episode_reward = 0
+        self.losses = []
+
+    def get_state_features(self, text=None, embedding=None, corruption_level=None, metrics=None):
+        """Get state features for RL policy"""
+        return self.feature_extractor.extract_features(
+            text, embedding, corruption_level, metrics)
+
+    def select_action(self, state, eval_mode=False, budget_remaining=1.0):
+        """
+        Select action using epsilon-greedy policy
+
+        Args:
+            state: State features
+            eval_mode: If True, use greedy policy (no exploration)
+            budget_remaining: Remaining budget ratio (for budget-aware decisions)
+
+        Returns:
+            Selected action index
+        """
+        # Force basic reconstruction if very low budget
+        if budget_remaining < 0.05:
+            return 0
+
+        # Budget-aware strategy - avoid expensive models when budget is low
+        if budget_remaining < 0.2:
+            # Only consider basic or GPT-3.5 when budget is low
+            restricted_actions = True
+        else:
+            restricted_actions = False
+
+        # Convert state to tensor
+        if isinstance(state, np.ndarray):
+            state = torch.FloatTensor(state).to(self.device)
+
+        # No exploration in eval mode
+        if eval_mode or random.random() > self.epsilon:
+            # Greedy action
+            with torch.no_grad():
+                self.policy_net.eval()
+                q_values = self.policy_net(state.unsqueeze(0))
+                self.policy_net.train()
+
+                # Apply budget restrictions if needed
+                if restricted_actions:
+                    # Mask out GPT-4 action
+                    q_values[0, 2] = -float('inf')
+
+                return torch.argmax(q_values).item()
+        else:
+            # Random action - respect budget restrictions
+            if restricted_actions:
+                return random.randint(0, 1)  # Only basic or GPT-3.5
+            else:
+                return random.randint(0, self.action_dim - 1)
+
+    def add_experience(self, state, action, reward, next_state, done=False):
+        """Add experience to replay buffer"""
+        # Convert everything to numpy arrays
+        if isinstance(state, torch.Tensor):
+            state = state.cpu().numpy()
+        if isinstance(next_state, torch.Tensor):
+            next_state = next_state.cpu().numpy()
+
+        # Add to buffer
+        self.buffer.append(
+            Experience(state, action, reward, next_state, done))
+
+        # Update tracking variables
+        self.episode_reward += reward
+        self.steps += 1
+
+        # Decay exploration rate
+        self.epsilon = max(
+            self.epsilon_end,
+            self.epsilon * self.epsilon_decay)
+
+        # Update networks
+        if len(self.buffer) >= self.batch_size and self.steps % self.update_freq == 0:
+            self._update_policy_net()
+
+        # Update target network
+        if self.steps % self.target_update_freq == 0:
+            self.target_net.load_state_dict(self.policy_net.state_dict())
+
+    def end_episode(self):
+        """End episode and update tracking variables"""
+        self.episodes += 1
+        self.total_reward += self.episode_reward
+        self.episode_reward = 0
+
+    def _update_policy_net(self):
+        """Update policy network from experience replay"""
+        # Sample batch
+        if len(self.buffer) < self.batch_size:
+            return
+
+        batch = random.sample(self.buffer, self.batch_size)
+
+        # Unpack batch
+        states = torch.FloatTensor([exp.state for exp in batch]).to(self.device)
+        actions = torch.LongTensor([exp.action for exp in batch]).unsqueeze(1).to(self.device)
+        rewards = torch.FloatTensor([exp.reward for exp in batch]).to(self.device)
+        next_states = torch.FloatTensor([exp.next_state for exp in batch]).to(self.device)
+        dones = torch.FloatTensor([exp.done for exp in batch]).to(self.device)
+
+        # Compute current Q values
+        current_q = self.policy_net(states).gather(1, actions)
+
+        # Compute target Q values (double DQN)
+        with torch.no_grad():
+            # Get actions from policy net
+            next_actions = self.policy_net(next_states).argmax(dim=1, keepdim=True)
+            # Get Q values from target net for these actions
+            next_q = self.target_net(next_states).gather(1, next_actions)
+            target_q = rewards.unsqueeze(1) + (1 - dones.unsqueeze(1)) * self.gamma * next_q
+
+        # Compute loss (Huber loss for stability)
+        loss = F.smooth_l1_loss(current_q, target_q)
+
+        # Update network
+        self.optimizer.zero_grad()
+        loss.backward()
+        # Gradient clipping for stability
+        torch.nn.utils.clip_grad_norm_(self.policy_net.parameters(), 1.0)
+        self.optimizer.step()
+
+        # Track loss
+        self.losses.append(loss.item())
+
+    def calculate_rich_reward(self, metrics, action, cost=0, budget_ratio=1.0):
+        """
+        Calculate a rich reward function combining multiple objectives.
+
+        Args:
+            metrics: Dictionary of quality metrics
+            action: Action taken (0=basic, 1=gpt3.5, 2=gpt4)
+            cost: API cost incurred
+            budget_ratio: Remaining budget ratio (1.0 = full budget)
+
+        Returns:
+            Calculated reward
+        """
+        # Base reward from quality metrics with emphasis on semantic similarity
+        quality_reward = 0
+
+        # Include different metrics with weights
+        if 'SEMANTIC' in metrics:
+            # Semantic-weighted reward
+            quality_reward += metrics.get('SEMANTIC', 0) * 0.5  # 50% semantic
+            quality_reward += metrics.get('BLEU', 0) * 0.2  # 20% BLEU
+            quality_reward += metrics.get('ROUGEL', 0) * 0.3  # 30% ROUGE-L
+        else:
+            # Traditional metrics
+            quality_reward = (
+                    metrics.get('BLEU', 0) * 0.3 +
+                    metrics.get('ROUGEL', 0) * 0.7
+            )
+
+        # Scale quality reward for emphasis
+        quality_reward = quality_reward ** 0.8  # Slight diminishing returns
+
+        # Cost penalty (more severe as budget depletes)
+        cost_penalty = 0
+        if action > 0:  # API was used
+            # Dynamic cost penalty based on budget status
+            budget_factor = 1.0 + max(0, 5.0 * (1.0 - budget_ratio))  # Higher penalty as budget depletes
+            cost_penalty = cost * 10 * budget_factor
+
+        # Complexity bonus - reward for handling complex cases with appropriate action
+        complexity_bonus = 0
+        text_complexity = metrics.get('complexity', 0.5)  # Default medium complexity
+
+        # Higher bonus for using advanced models on complex text
+        if text_complexity > 0.7 and action == 2:  # Complex text, GPT-4
+            complexity_bonus = 0.5
+        elif text_complexity > 0.5 and action >= 1:  # Medium-complex, API
+            complexity_bonus = 0.3
+        elif text_complexity < 0.3 and action == 0:  # Simple text, basic
+            complexity_bonus = 0.2  # Reward efficiency
+
+        # Final reward composition
+        reward = quality_reward - cost_penalty + complexity_bonus
+
+        return reward
+
+    def save(self, path):
+        """Save the agent's state"""
+        torch.save({
+            'policy_state_dict': self.policy_net.state_dict(),
+            'target_state_dict': self.target_net.state_dict(),
+            'optimizer_state_dict': self.optimizer.state_dict(),
+            'steps': self.steps,
+            'episodes': self.episodes,
+            'epsilon': self.epsilon,
+            'total_reward': self.total_reward,
+            'losses': self.losses
+        }, path)
+
+    def load(self, path):
+        """Load the agent's state"""
+        checkpoint = torch.load(path)
+        self.policy_net.load_state_dict(checkpoint['policy_state_dict'])
+        self.target_net.load_state_dict(checkpoint['target_state_dict'])
+        self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+        self.steps = checkpoint['steps']
+        self.episodes = checkpoint['episodes']
+        self.epsilon = checkpoint['epsilon']
+        self.total_reward = checkpoint['total_reward']
+        self.losses = checkpoint['losses']
 
 #################################################
 # API Reconstruction Functions
@@ -714,15 +1138,28 @@ def calculate_api_cost(model, input_tokens, output_tokens):
 
 @timing_decorator
 def api_reconstruct_with_semantic_features(noisy_text, context="", rl_agent=None, budget_remaining=1.0,
-                                           semantic_features=None, use_kb=True):
+                                           semantic_features=None, use_kb=True, model_override=None):
     """
     Enhanced version of API reconstruction with semantic features and knowledge base integration.
     Implements a multi-stage reconstruction approach prioritizing KB for common errors
     and falling back to API for complex cases.
+
+    Args:
+        noisy_text: The noisy text to reconstruct
+        context: Optional context for the text
+        rl_agent: RL agent for decision making (can be None)
+        budget_remaining: Remaining budget fraction
+        semantic_features: Optional semantic features of the text
+        use_kb: Whether to use knowledge base
+        model_override: Optional override for model selection
+
+    Returns:
+        Tuple of (reconstructed text, api cost, action taken)
     """
     # Start timing for performance measurement
     start_time = time.time()
     api_cost = 0  # Initialize cost tracking for this function call
+
     # Get config manager
     config_manager = ConfigManager()
 
@@ -799,7 +1236,8 @@ def api_reconstruct_with_semantic_features(noisy_text, context="", rl_agent=None
                         # More detailed prompt enhancement with confidence level
                         prompt_enhancement = (
                             f"Consider these possible corrections with {kb_enhancement_quality:.2f} confidence: "
-                            f"{', '.join(corrections[:7])}")
+                            f"{', '.join(corrections[:7])}"
+                        )
                         logger.debug(f"[API] Added KB guidance to prompt: {prompt_enhancement}")
         except Exception as e:
             logger.warning(f"[API] KB reconstruction attempt failed: {e}")
@@ -812,42 +1250,79 @@ def api_reconstruct_with_semantic_features(noisy_text, context="", rl_agent=None
         logger.info(f"[API] Completed in {elapsed_time:.3f}s using basic reconstruction")
         return reconstructed, 0, 0  # Return text, cost, action
 
-    # Use RL agent to decide whether to use API and which model
+    # Determine if we should use API and which model
     force_basic = False
     use_gpt4 = False
     action = 0  # Default: basic reconstruction
 
-    if rl_agent is not None:
-        # Get state based on corruption level, text length, and semantic features
+    # Check if model_override is provided (from DQN)
+    if model_override:
+        # Use specified model
+        if "gpt-4" in model_override:
+            use_gpt4 = True
+            action = 2
+        else:
+            # Assume GPT-3.5 for any other model name
+            action = 1
+    elif rl_agent is not None:
+        # Use RL agent to decide
         corruption_level = min(1.0, sum(1 for a, b in zip(noisy_text.split(), context.split() if context else [])
                                         if a != b) / max(1, len(noisy_text.split())))
         text_length = len(noisy_text.split())
 
-        # Use enhanced state if semantic features available
-        if semantic_features is not None and hasattr(rl_agent, 'get_enhanced_state'):
+        # If RL agent is a DQN agent
+        if hasattr(rl_agent, 'get_state_tensor'):
+            # Get state tensor
+            state_tensor = rl_agent.get_state_tensor(corruption_level, text_length, semantic_features)
+
+            # Get action
+            action = rl_agent.select_action(state_tensor, budget_remaining, force_basic)
+
+            # Set use_gpt4 based on action
+            use_gpt4 = (action == 2)
+        # If RL agent is tabular Q-learning agent
+        elif hasattr(rl_agent, 'get_enhanced_state') and semantic_features is not None:
             state = rl_agent.get_enhanced_state(corruption_level, text_length, semantic_features)
-        else:
+            # If KB already applied changes, bias toward cheaper options
+            if kb_applied:
+                # Move state toward cheaper options
+                adjusted_state = max(0, state - 1)
+                action = rl_agent.select_action(adjusted_state, budget_remaining, force_basic)
+            else:
+                # Normal action selection
+                action = rl_agent.select_action(state, budget_remaining, force_basic)
+
+            # Handle chosen action
+            if action == 0:
+                # Use basic reconstruction
+                reconstructed = basic_text_reconstruction(noisy_text, use_kb=use_kb)
+                logger.info(f"[API] RL agent chose basic reconstruction")
+                elapsed_time = time.time() - start_time
+                logger.info(f"[API] Completed in {elapsed_time:.3f}s using basic reconstruction")
+                return reconstructed, 0, action
+            elif action == 2:
+                # Use GPT-4
+                use_gpt4 = True
+        # Basic RL agent
+        elif hasattr(rl_agent, 'get_state'):
             state = rl_agent.get_state(corruption_level, text_length)
 
-        # If KB already applied changes, bias toward cheaper options
-        if kb_applied:
-            # Reduce likelihood of using expensive API if KB already made some corrections
-            adjusted_state = max(0, state - 1)  # Move state toward cheaper options
-            action = rl_agent.select_action(adjusted_state, budget_remaining, force_basic)
-        else:
-            # Normal action selection
-            action = rl_agent.select_action(state, budget_remaining, force_basic)
+            # Handle KB adjustments
+            if kb_applied:
+                adjusted_state = max(0, state - 1)
+                action = rl_agent.select_action(adjusted_state, budget_remaining, force_basic)
+            else:
+                action = rl_agent.select_action(state, budget_remaining, force_basic)
 
-        if action == 0:
-            # Use basic reconstruction
-            reconstructed = basic_text_reconstruction(noisy_text, use_kb=use_kb)
-            logger.info(f"[API] RL agent chose basic reconstruction")
-            elapsed_time = time.time() - start_time
-            logger.info(f"[API] Completed in {elapsed_time:.3f}s using basic reconstruction")
-            return reconstructed, 0, action
-        elif action == 2:
-            # Use GPT-4
-            use_gpt4 = True
+            # Handle chosen action
+            if action == 0:
+                reconstructed = basic_text_reconstruction(noisy_text, use_kb=use_kb)
+                logger.info(f"[API] RL agent chose basic reconstruction")
+                elapsed_time = time.time() - start_time
+                logger.info(f"[API] Completed in {elapsed_time:.3f}s using basic reconstruction")
+                return reconstructed, 0, action
+            elif action == 2:
+                use_gpt4 = True
 
     # Set up enhanced prompt with KB guidance
     system_prompt = """You are a specialized text reconstruction system. Your task is to correct errors in the text while preserving the original meaning and intent. Fix spelling, grammar, and word corruptions. The text contains European Parliament terminology."""
@@ -885,7 +1360,10 @@ Reconstructed: I would like your advice about Rule 143 concerning inadmissibilit
     estimated_output_tokens = get_token_count(noisy_text) * 1.2
 
     # Choose model based on RL agent decision or budget
-    model = "gpt-4-turbo" if use_gpt4 else config_manager.get("api.default_model", "gpt-3.5-turbo")
+    if model_override:
+        model = model_override
+    else:
+        model = "gpt-4-turbo" if use_gpt4 else config_manager.get("api.default_model", "gpt-3.5-turbo")
 
     # Initialize cost tracker if not already done
     global cost_tracker
@@ -953,7 +1431,7 @@ Reconstructed: I would like your advice about Rule 143 concerning inadmissibilit
                             improved_words.append(kb_word)
                         # If they disagree, favor API for high confidence, otherwise KB
                         elif kb_word != api_word:
-                            # Some simple heuristics for word selection
+                            # Simple heuristics for word selection
                             kb_common = kb_word.lower() in ['the', 'a', 'an', 'of', 'in', 'and', 'to']
                             api_common = api_word.lower() in ['the', 'a', 'an', 'of', 'in', 'and', 'to']
 
@@ -1180,12 +1658,14 @@ def safe_copy(obj):
     else:
         return obj  # For other types, return as is
 
+
 def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
                           use_api_pct=None, comparison_mode=None, use_self_supervised=None,
                           use_semantic_loss=None, use_vae_compression=None,
-                          use_content_adaptive_coding=None, use_knowledge_base=True):
+                          use_content_adaptive_coding=None, use_knowledge_base=True,
+                          use_dqn_agent=True):
     """
-    Run the complete enhanced semantic communication pipeline with knowledge base integration.
+    Run the complete enhanced semantic communication pipeline with knowledge base integration and DQN agent.
 
     Args:
         num_samples: Number of samples to process
@@ -1198,6 +1678,7 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
         use_vae_compression: Whether to use VAE compression
         use_content_adaptive_coding: Whether to use content-adaptive coding
         use_knowledge_base: Whether to use knowledge base for enhanced semantics
+        use_dqn_agent: Whether to use DQN agent instead of tabular Q-learning
     """
     # Start timing for performance measurement
     pipeline_start_time = time.time()
@@ -1207,14 +1688,11 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
 
     # Use provided values or get from config
     num_samples = num_samples if num_samples is not None else config_manager.get("pipeline.default_num_samples", 50)
-    noise_level = noise_level if noise_level is not None else config_manager.get("pipeline.default_noise_level",
-                                                                                 0.1)
-    noise_type = noise_type if noise_type is not None else config_manager.get("pipeline.default_noise_type",
-                                                                              "gaussian")
+    noise_level = noise_level if noise_level is not None else config_manager.get("pipeline.default_noise_level", 0.1)
+    noise_type = noise_type if noise_type is not None else config_manager.get("pipeline.default_noise_type", "gaussian")
     use_api_pct = use_api_pct if use_api_pct is not None else config_manager.get("pipeline.use_api_pct", 0.5)
-    comparison_mode = comparison_mode if comparison_mode is not None else config_manager.get(
-        "pipeline.comparison_mode",
-        True)
+    comparison_mode = comparison_mode if comparison_mode is not None else config_manager.get("pipeline.comparison_mode",
+                                                                                             True)
     use_self_supervised = use_self_supervised if use_self_supervised is not None else config_manager.get(
         "pipeline.use_self_supervised", True)
     use_semantic_loss = use_semantic_loss if use_semantic_loss is not None else config_manager.get(
@@ -1252,6 +1730,7 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
     logger.info(f"[PIPELINE] - API: {use_api_pct * 100:.0f}%, Compare: {comparison_mode}")
     logger.info(
         f"[PIPELINE] - Features: VAE={use_vae_compression}, Semantic={use_semantic_loss}, Adaptive={use_content_adaptive_coding}")
+    logger.info(f"[PIPELINE] - Agent: {'DQN' if use_dqn_agent else 'Tabular Q-Learning'}")
 
     # Initialize knowledge base if requested
     kb = None
@@ -1396,9 +1875,33 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
         logger.info(f"[PIPELINE] Pipeline failed in {pipeline_elapsed:.2f}s")
         return
 
-    # Initialize enhanced RL agent for API optimization
+    # Initialize reinforcement learning agent
     use_rl = openai_available and num_samples >= 10
-    rl_agent = EnhancedReinforcementLearningAgent() if use_rl else None
+    rl_agent = None
+
+    if use_rl:
+        if use_dqn_agent:
+            # Initialize DQN agent with semantic state representation
+            try:
+                # Define state dimensions - more features for richer state representation
+                state_dim = 8  # Corruption level, text length, and semantic features
+                action_dim = 3  # 0: basic, 1: GPT-3.5, 2: GPT-4
+
+                rl_agent = DQNAgent(state_dim=state_dim, action_dim=action_dim)
+
+                # Try to load an existing model
+                if rl_agent.load_model("dqn_agent_model.pth"):
+                    logger.info("[PIPELINE] Loaded existing DQN agent model")
+                else:
+                    logger.info("[PIPELINE] Initialized new DQN agent")
+            except Exception as e:
+                logger.warning(f"[PIPELINE] Failed to initialize DQN agent: {e}")
+                logger.info("[PIPELINE] Falling back to tabular Q-learning agent")
+                rl_agent = EnhancedReinforcementLearningAgent()
+        else:
+            # Use the original tabular Q-learning agent
+            rl_agent = EnhancedReinforcementLearningAgent()
+            logger.info("[PIPELINE] Using enhanced tabular Q-learning agent")
 
     # Initialize text-embedding mapper for KB if supported
     if use_knowledge_base and kb is not None:
@@ -1417,8 +1920,12 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
 
     # Log RL agent status
     if use_rl:
-        logger.info(
-            f"[PIPELINE] Using enhanced RL agent for API optimization (exploration rate: {rl_agent.exploration_rate:.2f})")
+        if isinstance(rl_agent, DQNAgent):
+            logger.info(
+                f"[PIPELINE] Using DQN agent for API optimization (exploration rate: {rl_agent.exploration_rate:.2f})")
+        else:
+            logger.info(
+                f"[PIPELINE] Using enhanced RL agent for API optimization (exploration rate: {rl_agent.exploration_rate:.2f})")
     else:
         logger.info("[PIPELINE] Not using RL agent - will use fixed API probability")
 
@@ -1437,7 +1944,8 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
             "use_semantic_loss": use_semantic_loss,
             "use_vae_compression": use_vae_compression,
             "use_content_adaptive_coding": use_content_adaptive_coding,
-            "use_rl_agent": use_rl
+            "use_rl_agent": use_rl,
+            "use_dqn_agent": use_dqn_agent and isinstance(rl_agent, DQNAgent)
         },
         "samples": []
     }
@@ -1533,13 +2041,13 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
             with torch.no_grad():
                 # Fix tensor shape issues using our utility function
                 embedding_tensor = torch.tensor(noisy_embedding, dtype=torch.float32).to(device)
-                embedding_tensor = ensure_correct_embedding_shape(embedding_tensor, expected_dim=2)
+                embedding_tensor = ensure_tensor_shape(embedding_tensor, expected_dim=2)
 
                 # First encode to get latent representation
                 mu, logvar = dvae.encode(embedding_tensor)
 
                 # Use mean of encoding as latent vector (no sampling for inference)
-                latent_vector = ensure_correct_embedding_shape(mu, expected_dim=2)
+                latent_vector = ensure_tensor_shape(mu, expected_dim=2)
 
                 # Then decode from latent space with text guidance if available
                 if hasattr(dvae, 'decode_with_text_guidance'):
@@ -1579,28 +2087,79 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
                 # Simple feature - sentence length ratio compared to average
                 avg_len = 20  # Assumed average sentence length
                 len_ratio = len(sentence.split()) / avg_len
-                semantic_features = [len_ratio, 0.5]  # Simple 2-feature vector
+
+                # More advanced semantic features based on text properties
+                # Calculate complexity (rough estimate - word length average)
+                avg_word_len = sum(len(word) for word in sentence.split()) / max(1, len(sentence.split()))
+                complexity = min(1.0, avg_word_len / 10.0)  # Normalize to 0-1
+
+                # Estimate formality (presence of certain markers)
+                formality_markers = ['shall', 'must', 'therefore', 'accordingly', 'pursuant', 'hereby']
+                formality = sum(1 for word in sentence.lower().split() if word in formality_markers) / max(5,
+                                                                                                           len(sentence.split()))
+
+                # Combine features into a vector
+                semantic_features = [len_ratio, complexity, formality, 0.5]  # 4-feature vector
+
+                # For tabular RL agent, use a simpler representation
+                if rl_agent and not isinstance(rl_agent, DQNAgent):
+                    # Just use the first feature for tabular agent
+                    semantic_features = len_ratio
 
             # Calculate budget remaining as fraction
             budget_remaining = (cost_tracker.budget - cost_tracker.total_cost) / cost_tracker.budget
 
             # Use RL agent or fixed probability for API decision
             if use_rl:
-                # Use enhanced RL agent with semantic features for API decision
-                semantic_reconstructed, api_cost, action = api_reconstruct_with_semantic_features(
-                    corrupted_text, context, rl_agent, budget_remaining, semantic_features, use_kb=use_knowledge_base
-                )
+                # Special handling for DQN agent
+                if isinstance(rl_agent, DQNAgent):
+                    # Create state tensor for DQN agent
+                    corruption_level = min(1.0, sum(1 for a, b in zip(corrupted_text.split(), sentence.split())
+                                                    if a != b) / max(1, len(corrupted_text.split())))
+                    text_length = len(corrupted_text.split())
 
-                # Record API method used
-                if action == 0:
-                    sample_result["semantic_method"] = "basic"
-                elif action == 1:
-                    sample_result["semantic_method"] = "gpt-3.5-turbo"
-                    sample_result["api_cost"] = api_cost
-                elif action == 2:
-                    sample_result["semantic_method"] = "gpt-4-turbo"
-                    sample_result["api_cost"] = api_cost
+                    # Get state tensor
+                    state_tensor = rl_agent.get_state_tensor(corruption_level, text_length, semantic_features)
 
+                    # Use state tensor to select action
+                    action = rl_agent.select_action(state_tensor, budget_remaining)
+
+                    # Set model based on action
+                    if action == 0:
+                        # Use basic reconstruction
+                        semantic_reconstructed = basic_text_reconstruction(corrupted_text, use_kb=use_knowledge_base)
+                        sample_result["semantic_method"] = "basic"
+                        sample_result["api_cost"] = 0
+                    elif action == 1:
+                        # Use GPT-3.5
+                        semantic_reconstructed, api_cost, _ = api_reconstruct_with_semantic_features(
+                            corrupted_text, context, None, budget_remaining, semantic_features,
+                            use_kb=use_knowledge_base, model_override="gpt-3.5-turbo")
+                        sample_result["semantic_method"] = "gpt-3.5-turbo"
+                        sample_result["api_cost"] = api_cost
+                    else:  # action == 2
+                        # Use GPT-4
+                        semantic_reconstructed, api_cost, _ = api_reconstruct_with_semantic_features(
+                            corrupted_text, context, None, budget_remaining, semantic_features,
+                            use_kb=use_knowledge_base, model_override="gpt-4-turbo")
+                        sample_result["semantic_method"] = "gpt-4-turbo"
+                        sample_result["api_cost"] = api_cost
+                else:
+                    # Use enhanced RL agent with semantic features for API decision
+                    semantic_reconstructed, api_cost, action = api_reconstruct_with_semantic_features(
+                        corrupted_text, context, rl_agent, budget_remaining, semantic_features,
+                        use_kb=use_knowledge_base
+                    )
+
+                    # Record API method used
+                    if action == 0:
+                        sample_result["semantic_method"] = "basic"
+                    elif action == 1:
+                        sample_result["semantic_method"] = "gpt-3.5-turbo"
+                        sample_result["api_cost"] = api_cost
+                    elif action == 2:
+                        sample_result["semantic_method"] = "gpt-4-turbo"
+                        sample_result["api_cost"] = api_cost
             else:
                 # Use fixed probability for API decision
                 use_api = openai_available and random.random() < use_api_pct
@@ -1631,47 +2190,73 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
                     semantic_metrics[key].append(value)
 
             # Update RL agent if used
-            if use_rl and 'api_cost' in sample_result:
-                # Get enhanced state with semantic features
-                corruption_level = min(1.0,
-                                       sum(1 for a, b in zip(corrupted_text.split(), sentence.split()) if a != b) /
-                                       max(1, len(corrupted_text.split())))
-                text_length = len(corrupted_text.split())
+            if use_rl:
+                if isinstance(rl_agent, DQNAgent):
+                    # Use DQN-specific update method
+                    # Get state tensor
+                    corruption_level = min(1.0, sum(1 for a, b in zip(corrupted_text.split(), sentence.split())
+                                                    if a != b) / max(1, len(corrupted_text.split())))
+                    text_length = len(corrupted_text.split())
+                    state_tensor = rl_agent.get_state_tensor(corruption_level, text_length, semantic_features)
 
-                # Use enhanced state if semantic features available
-                if semantic_features is not None and hasattr(rl_agent, 'get_enhanced_state'):
-                    state = rl_agent.get_enhanced_state(corruption_level, text_length, semantic_features)
-                else:
-                    state = rl_agent.get_state(corruption_level, text_length)
+                    # Determine next state (simplified - use same state for now)
+                    next_state_tensor = state_tensor
 
-                # Get next state (simplified - just use same state for now)
-                next_state = state
+                    # Calculate reward
+                    if 'api_cost' in sample_result:
+                        api_cost = sample_result['api_cost']
+                        reward = rl_agent.calculate_reward(semantic_metrics_result, action, api_cost)
 
-                # Calculate reward with enhanced metrics including semantic
-                reward = rl_agent.calculate_reward(
-                    semantic_metrics_result,
-                    action,
-                    sample_result.get('api_cost', 0)
-                )
+                        # Add to experience memory
+                        done = False  # Not an episodic task
+                        rl_agent.remember(state_tensor, action, reward, next_state_tensor, done)
 
-                # Update RL agent
-                rl_agent.update(state, action, reward, next_state)
+                        # Perform learning step
+                        rl_agent.replay()
 
-                # Periodically train from buffer
-                if i % 10 == 0 and i > 0:
-                    rl_agent.train_from_buffer()
+                        # Record RL info
+                        sample_result["rl_state"] = state_tensor.cpu().numpy().tolist()
+                        sample_result["rl_action"] = int(action)
+                        sample_result["rl_reward"] = float(reward)
 
-                # Save progress periodically
-                if i % 20 == 0 and i > 0:
-                    rl_agent.save_q_table()
+                        # Increment episode count
+                        rl_agent.episode_count += 1
+                elif hasattr(rl_agent, 'update') and 'api_cost' in sample_result:
+                    # For tabular RL agent
+                    corruption_level = min(1.0, sum(1 for a, b in zip(corrupted_text.split(), sentence.split())
+                                                    if a != b) / max(1, len(corrupted_text.split())))
+                    text_length = len(corrupted_text.split())
 
-                # Increment episode count
-                rl_agent.episode_count += 1
+                    # Use enhanced state if semantic features available
+                    if semantic_features is not None and hasattr(rl_agent, 'get_enhanced_state'):
+                        state = rl_agent.get_enhanced_state(corruption_level, text_length, semantic_features)
+                    else:
+                        state = rl_agent.get_state(corruption_level, text_length)
 
-                # Record RL info
-                sample_result["rl_state"] = int(state)
-                sample_result["rl_action"] = int(action)
-                sample_result["rl_reward"] = float(reward)
+                    # Get next state (simplified - just use same state for now)
+                    next_state = state
+
+                    # Calculate reward with enhanced metrics including semantic
+                    reward = rl_agent.calculate_reward(
+                        semantic_metrics_result,
+                        action,
+                        sample_result.get('api_cost', 0)
+                    )
+
+                    # Update RL agent
+                    rl_agent.update(state, action, reward, next_state)
+
+                    # Periodically train from buffer
+                    if i % 10 == 0 and i > 0:
+                        rl_agent.train_from_buffer()
+
+                    # Increment episode count
+                    rl_agent.episode_count += 1
+
+                    # Record RL info
+                    sample_result["rl_state"] = int(state)
+                    sample_result["rl_action"] = int(action)
+                    sample_result["rl_reward"] = float(reward)
 
             # === Direct text reconstruction (for comparison) ===
             if comparison_mode:
@@ -1680,10 +2265,45 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
 
                 # Use API for direct reconstruction (if budget allows)
                 if use_rl:
-                    direct_reconstructed, api_cost, _ = api_reconstruct_with_semantic_features(
-                        direct_noisy, context, rl_agent, budget_remaining, semantic_features, use_kb=use_knowledge_base
-                    )
-                    sample_result["direct_method"] = "rl_decision"
+                    if isinstance(rl_agent, DQNAgent):
+                        # Create state tensor for DQN agent
+                        corruption_level = min(1.0, sum(1 for a, b in zip(direct_noisy.split(), sentence.split())
+                                                        if a != b) / max(1, len(direct_noisy.split())))
+                        text_length = len(direct_noisy.split())
+
+                        # Get state tensor
+                        state_tensor = rl_agent.get_state_tensor(corruption_level, text_length, semantic_features)
+
+                        # Use state tensor to select action
+                        action = rl_agent.select_action(state_tensor, budget_remaining)
+
+                        # Set model based on action
+                        if action == 0:
+                            # Use basic reconstruction
+                            direct_reconstructed = basic_text_reconstruction(direct_noisy, use_kb=use_knowledge_base)
+                            sample_result["direct_method"] = "basic"
+                        elif action == 1:
+                            # Use GPT-3.5
+                            direct_reconstructed, api_cost, _ = api_reconstruct_with_semantic_features(
+                                direct_noisy, context, None, budget_remaining, semantic_features,
+                                use_kb=use_knowledge_base, model_override="gpt-3.5-turbo")
+                            sample_result["direct_method"] = "gpt-3.5-turbo"
+                            sample_result["direct_api_cost"] = api_cost
+                        else:  # action == 2
+                            # Use GPT-4
+                            direct_reconstructed, api_cost, _ = api_reconstruct_with_semantic_features(
+                                direct_noisy, context, None, budget_remaining, semantic_features,
+                                use_kb=use_knowledge_base, model_override="gpt-4-turbo")
+                            sample_result["direct_method"] = "gpt-4-turbo"
+                            sample_result["direct_api_cost"] = api_cost
+                    else:
+                        direct_reconstructed, api_cost, _ = api_reconstruct_with_semantic_features(
+                            direct_noisy, context, rl_agent, budget_remaining, semantic_features,
+                            use_kb=use_knowledge_base
+                        )
+                        sample_result["direct_method"] = "rl_decision"
+                        if api_cost > 0:
+                            sample_result["direct_api_cost"] = api_cost
                 else:
                     use_api = random.random() < use_api_pct and openai_available
                     if use_api:
@@ -1749,6 +2369,13 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
                             f"({estimated_remaining / 60:.1f}m)")
                 logger.info("---")
 
+            # Save RL agent state periodically
+            if use_rl and i % 20 == 0 and i > 0:
+                if isinstance(rl_agent, DQNAgent):
+                    rl_agent.save_model()
+                else:
+                    rl_agent.save_q_table()
+
         except Exception as e:
             logger.error(f"[PIPELINE] Error processing sample {i}: {e}")
             logger.error(traceback.format_exc())
@@ -1757,8 +2384,12 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
     # Save RL agent if used
     if use_rl:
         try:
-            rl_agent.save_q_table()
-            logger.info("[PIPELINE] Saved enhanced RL agent state")
+            if isinstance(rl_agent, DQNAgent):
+                rl_agent.save_model()
+                logger.info("[PIPELINE] Saved DQN agent model")
+            else:
+                rl_agent.save_q_table()
+                logger.info("[PIPELINE] Saved enhanced RL agent state")
         except Exception as e:
             logger.warning(f"[PIPELINE] Failed to save RL agent: {e}")
 
@@ -1785,21 +2416,31 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
 
     # Add RL agent metrics if used
     if use_rl:
-        results["rl_metrics"] = {
-            "total_reward": rl_agent.total_reward,
-            "episode_count": rl_agent.episode_count,
-            "exploration_rate": rl_agent.exploration_rate,
-            "q_table": rl_agent.q_table.tolist(),
-            "num_states": rl_agent.num_states,
-            "api_efficiency": rl_agent.api_efficiency[-50:] if len(rl_agent.api_efficiency) > 0 else []
-        }
+        if isinstance(rl_agent, DQNAgent):
+            results["rl_metrics"] = {
+                "total_reward": rl_agent.total_reward,
+                "episode_count": rl_agent.episode_count,
+                "exploration_rate": rl_agent.exploration_rate,
+                "agent_type": "DQN",
+                "api_efficiency": rl_agent.api_efficiency[-50:] if len(rl_agent.api_efficiency) > 0 else []
+            }
+        else:
+            results["rl_metrics"] = {
+                "total_reward": rl_agent.total_reward,
+                "episode_count": rl_agent.episode_count,
+                "exploration_rate": rl_agent.exploration_rate,
+                "q_table": rl_agent.q_table.tolist(),
+                "num_states": rl_agent.num_states,
+                "agent_type": "Tabular Q-Learning",
+                "api_efficiency": rl_agent.api_efficiency[-50:] if len(rl_agent.api_efficiency) > 0 else []
+            }
 
     # Add features information
     results["features"] = {
         "vae_compression": use_vae_compression,
         "semantic_loss": use_semantic_loss,
         "content_adaptive_coding": use_content_adaptive_coding,
-        "enhanced_rl": use_rl and isinstance(rl_agent, EnhancedReinforcementLearningAgent)
+        "rl_agent_type": "DQN" if use_dqn_agent and isinstance(rl_agent, DQNAgent) else "Tabular Q-Learning"
     }
 
     # Add timing information
@@ -1838,7 +2479,7 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
         f.write(f"Using VAE compression: {use_vae_compression}\n")
         f.write(f"Using semantic loss: {use_semantic_loss}\n")
         f.write(f"Using content-adaptive coding: {use_content_adaptive_coding}\n")
-        f.write(f"Using enhanced RL for API optimization: {use_rl}\n\n")
+        f.write(f"Using DQN agent: {use_dqn_agent and isinstance(rl_agent, DQNAgent)}\n\n")
 
         f.write(f"Total processing time: {pipeline_elapsed:.2f} seconds\n")
         f.write(f"Average time per sample: {pipeline_elapsed / len(embeddings):.2f} seconds\n\n")
@@ -1858,6 +2499,7 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
 
         if use_rl:
             f.write(f"\nRL Agent Performance:\n")
+            f.write(f"Agent type: {'DQN' if isinstance(rl_agent, DQNAgent) else 'Tabular Q-Learning'}\n")
             f.write(f"Total episodes: {rl_agent.episode_count}\n")
             f.write(f"Total reward: {rl_agent.total_reward:.2f}\n")
             f.write(f"Final exploration rate: {rl_agent.exploration_rate:.2f}\n")
@@ -1884,13 +2526,6 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
 
     logger.info(f"\n[PIPELINE] Total Cost: ${cost_tracker.total_cost:.4f} of ${cost_tracker.budget:.2f} budget")
     logger.info(f"[PIPELINE] Results saved to {run_dir}")
-
-    # Visualization creation (no changes needed here)
-    try:
-        # Create visualizations...
-        logger.info(f"[PIPELINE] Visualizations saved to {run_dir}")
-    except Exception as e:
-        logger.warning(f"[PIPELINE] Error creating visualizations: {e}")
 
     return results
 
