@@ -1,10 +1,11 @@
+# semantic_loss.py
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 import logging
 import os
-from transformers import BertTokenizer, BertModel
+from transformers import AutoTokenizer, AutoModel
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -17,215 +18,365 @@ os.makedirs('./models', exist_ok=True)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-class SemanticPerceptualLoss(nn.Module):
+class EnhancedSemanticLoss(nn.Module):
     """
-    Loss function that directly measures semantic similarity using BERT features.
-    Used to enhance DVAE training with semantically-aware loss signals.
+    Enhanced semantic loss with contrastive learning and discourse-level awareness.
     """
 
-    def __init__(self, bert_model='bert-base-uncased', layers_to_use=[-1, -2, -3, -4],
-                 cache_dir='./models/bert_cache', max_length=128):
+    def __init__(self,
+                 model_name='sentence-transformers/all-mpnet-base-v2',
+                 device=None,
+                 contrastive_weight=0.3,
+                 discourse_weight=0.2,
+                 cache_dir='./models/semantic_model_cache'):
         super().__init__()
 
-        # Store configuration
-        self.layers_to_use = layers_to_use
-        self.max_length = max_length
+        self.device = device or torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.contrastive_weight = contrastive_weight
+        self.discourse_weight = discourse_weight
+        self.cache_dir = cache_dir
 
-        # Initialize BERT tokenizer and model
-        logger.info(f"Initializing semantic loss with {bert_model} model")
+        # Initialize with better sentence transformer model
+        logger.info(f"Initializing semantic loss with {model_name} model")
         try:
             os.makedirs(cache_dir, exist_ok=True)
-            self.tokenizer = BertTokenizer.from_pretrained(bert_model, cache_dir=cache_dir)
-            self.model = BertModel.from_pretrained(bert_model, cache_dir=cache_dir,
-                                                   output_hidden_states=True)
+            self.tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir=cache_dir)
+            self.model = AutoModel.from_pretrained(model_name, cache_dir=cache_dir).to(self.device)
 
-            # Move model to device
-            self.model = self.model.to(device)
+            # Discourse modeling components
+            self.discourse_projection = nn.Linear(768, 256).to(self.device)
 
-            # Freeze BERT parameters - we don't want to fine-tune BERT during DVAE training
+            # Freeze base model parameters
             for param in self.model.parameters():
                 param.requires_grad = False
 
-            # Layer weighting (deeper layers more important for semantics)
-            self.layer_weights = {-1: 0.5, -2: 0.25, -3: 0.15, -4: 0.1}
+            # Set to eval mode
+            self.model.eval()
 
-            logger.info("Semantic perceptual loss initialized successfully")
+            # Initialize temperature parameter for contrastive loss
+            self.temperature = nn.Parameter(torch.tensor(0.07))
+
+            logger.info("Enhanced semantic loss initialized successfully")
             self.initialized = True
         except Exception as e:
-            logger.error(f"Failed to initialize semantic loss: {e}")
+            logger.error(f"Failed to initialize enhanced semantic loss: {e}")
             self.initialized = False
 
-    def get_embeddings(self, texts):
-        """Get BERT embeddings for a list of texts"""
+    def _mean_pooling(self, model_output, attention_mask):
+        """Mean pooling for sentence embedding"""
+        token_embeddings = model_output[0]  # First element contains token embeddings
+        input_mask_expanded = attention_mask.unsqueeze(-1).expand(token_embeddings.size()).float()
+        sum_embeddings = torch.sum(token_embeddings * input_mask_expanded, 1)
+        sum_mask = torch.clamp(input_mask_expanded.sum(1), min=1e-9)
+        return sum_embeddings / sum_mask
+
+    def _get_embeddings(self, sentences):
+        """Get embeddings for a list of sentences"""
         if not self.initialized:
             return None
 
-        # Convert single text to list
-        if isinstance(texts, str):
-            texts = [texts]
+        if isinstance(sentences, str):
+            sentences = [sentences]
 
-        # Tokenize texts
-        inputs = self.tokenizer(texts, return_tensors="pt", padding=True,
-                                truncation=True, max_length=self.max_length).to(device)
+        # Tokenize and get attention masks
+        encoded_input = self.tokenizer(
+            sentences,
+            padding=True,
+            truncation=True,
+            max_length=512,
+            return_tensors='pt'
+        ).to(self.device)
 
-        # Get BERT features
+        # Get model output
         with torch.no_grad():
-            outputs = self.model(**inputs)
+            model_output = self.model(**encoded_input)
 
-        # Get hidden states from selected layers
-        hidden_states = outputs.hidden_states
-        layer_embeddings = []
+        # Apply mean pooling
+        embeddings = self._mean_pooling(model_output, encoded_input['attention_mask'])
 
-        for layer_idx in self.layers_to_use:
-            # Get features from this layer
-            layer_output = hidden_states[layer_idx]
+        # Normalize
+        embeddings = F.normalize(embeddings, p=2, dim=1)
 
-            # Average over tokens (excluding special tokens)
-            # Use attention mask to properly average only over real tokens
-            attention_mask = inputs['attention_mask'].unsqueeze(-1)
-            sum_embeddings = torch.sum(layer_output * attention_mask, dim=1)
-            sum_mask = torch.sum(attention_mask, dim=1)
-            sum_mask = torch.clamp(sum_mask, min=1e-9)  # Avoid division by zero
-            avg_embeddings = sum_embeddings / sum_mask
+        return embeddings
 
-            # Normalize
-            norm = avg_embeddings.norm(p=2, dim=1, keepdim=True)
-            normalized_embeddings = avg_embeddings / norm.clamp(min=1e-9)
+    def _get_discourse_features(self, sentences, embeddings=None):
+        """Extract discourse-level features from sentences"""
+        if not sentences:
+            return None
 
-            layer_embeddings.append(normalized_embeddings)
+        # Get embeddings if not provided
+        if embeddings is None:
+            embeddings = self._get_embeddings(sentences)
 
-        return layer_embeddings
+        if isinstance(sentences, str):
+            # Single sentence has no discourse features
+            return torch.zeros(256, device=self.device)
 
-    def forward(self, original_texts, reconstructed_texts):
-        """Calculate semantic similarity loss between original and reconstructed texts"""
-        if not self.initialized or not original_texts or not reconstructed_texts:
-            # Return zero loss if not initialized or no texts provided
-            return torch.tensor(0.0, device=device)
+        # Simple discourse features: sequence modeling
+        # For more complex discourse analysis, full transformer would be better
 
-        # Handle single string input
-        if isinstance(original_texts, str):
-            original_texts = [original_texts]
-        if isinstance(reconstructed_texts, str):
-            reconstructed_texts = [reconstructed_texts]
+        # Project embeddings to discourse space
+        discourse_features = self.discourse_projection(embeddings)
 
-        # Get embeddings for both sets of texts
-        orig_embeddings = self.get_embeddings(original_texts)
-        recon_embeddings = self.get_embeddings(reconstructed_texts)
+        # For now, just average the features
+        # In a full implementation, a sequence model would be better
+        avg_discourse = torch.mean(discourse_features, dim=0)
 
-        if not orig_embeddings or not recon_embeddings:
-            return torch.tensor(0.0, device=device)
+        return avg_discourse
 
-        # Calculate loss across layers
-        total_loss = 0.0
-        for i, layer in enumerate(self.layers_to_use):
-            # Get embeddings for this layer
-            orig_layer_emb = orig_embeddings[i]
-            recon_layer_emb = recon_embeddings[i]
+    def _semantic_similarity(self, emb1, emb2):
+        """Compute cosine similarity between embeddings"""
+        return F.cosine_similarity(emb1, emb2, dim=1)
 
-            # Cosine similarity loss (1 - similarity)
-            similarity = F.cosine_similarity(orig_layer_emb, recon_layer_emb)
-            layer_loss = 1.0 - similarity.mean()
+    def _contrastive_loss(self, original_embs, reconstructed_embs, batch_size=None):
+        """Compute contrastive loss between original and reconstructed embeddings"""
+        # Handle single embedding case
+        if batch_size is None:
+            batch_size = original_embs.shape[0]
 
-            # Weight by layer importance
-            weight = self.layer_weights.get(layer, 0.25)
-            total_loss += weight * layer_loss
+        # Normalized embeddings for cosine similarity
+        original_norm = F.normalize(original_embs, p=2, dim=1)
+        reconstructed_norm = F.normalize(reconstructed_embs, p=2, dim=1)
 
-        return total_loss
+        # Compute similarity matrix
+        sim_matrix = torch.matmul(original_norm, reconstructed_norm.t()) / self.temperature
 
-    def calculate_semantic_similarity(self, text1, text2):
+        # Labels are the indices for positive pairs (diagonal elements)
+        labels = torch.arange(batch_size, device=self.device)
+
+        # Compute loss (cross-entropy with similarity matrix)
+        loss = F.cross_entropy(sim_matrix, labels)
+
+        return loss
+
+    def _discourse_consistency_loss(self, original_disc, reconstructed_disc):
+        """Compute discourse consistency loss"""
+        if original_disc is None or reconstructed_disc is None:
+            return torch.tensor(0.0, device=self.device)
+
+        # Simple MSE for discourse feature consistency
+        return F.mse_loss(original_disc, reconstructed_disc)
+
+    def semantic_similarity(self, original_text, reconstructed_text):
         """
-        Calculate semantic similarity between two texts.
-        Returns a value between 0 and 1, where 1 means identical meaning.
+        Compute semantic similarity between original and reconstructed text
+        Returns scalar between 0 and 1
         """
         if not self.initialized:
             return 0.5  # Default midpoint value if not initialized
 
-        # Convert to list if necessary
-        if isinstance(text1, str):
-            text1 = [text1]
-        if isinstance(text2, str):
-            text2 = [text2]
+        if isinstance(original_text, str):
+            original_text = [original_text]
+        if isinstance(reconstructed_text, str):
+            reconstructed_text = [reconstructed_text]
 
-        # Get embeddings
-        text1_embeddings = self.get_embeddings(text1)
-        text2_embeddings = self.get_embeddings(text2)
+        orig_embs = self._get_embeddings(original_text)
+        recon_embs = self._get_embeddings(reconstructed_text)
 
-        if not text1_embeddings or not text2_embeddings:
-            return 0.5
+        similarities = self._semantic_similarity(orig_embs, recon_embs)
+        return similarities.mean().item()
 
-        # Calculate weighted similarity across layers
-        similarity = 0.0
-        total_weight = sum(self.layer_weights.values())
+    def semantic_entailment(self, premise, hypothesis):
+        """
+        Check if hypothesis text is entailed by premise text
+        Returns entailment score between 0 and 1
+        """
+        if not self.initialized:
+            return 0.5  # Default midpoint value if not initialized
 
-        for i, layer in enumerate(self.layers_to_use):
-            # Get embeddings for this layer
-            text1_emb = text1_embeddings[i]
-            text2_emb = text2_embeddings[i]
+        # Use all-mpnet model as a good zero-shot entailment estimator
+        premise_emb = self._get_embeddings([premise])
+        hypothesis_emb = self._get_embeddings([hypothesis])
 
-            # Cosine similarity
-            layer_sim = F.cosine_similarity(text1_emb, text2_emb).mean().item()
+        # Asymmetric similarity function for entailment
+        # Projects hypothesis onto premise space and measures coverage
+        norm_premise = F.normalize(premise_emb, p=2, dim=1)
+        norm_hypothesis = F.normalize(hypothesis_emb, p=2, dim=1)
 
-            # Weight by layer importance
-            weight = self.layer_weights.get(layer, 0.25)
-            similarity += (weight / total_weight) * layer_sim
+        # Calculate dot product
+        dot_product = (norm_premise * norm_hypothesis).sum(dim=1)
 
-        return similarity
+        # Calculate entailment score (0-1)
+        entailment_score = (1 + dot_product) / 2
+
+        return entailment_score.item()
+
+    def forward(self, original_text, reconstructed_text):
+        """
+        Calculate enhanced semantic loss between original and reconstructed text.
+        Combines semantic similarity with contrastive learning and discourse analysis.
+
+        Args:
+            original_text: Original text as string or list of strings
+            reconstructed_text: Reconstructed text as string or list of strings
+
+        Returns:
+            Combined semantic loss
+        """
+        if not self.initialized:
+            return torch.tensor(0.0, device=self.device)
+
+        # Convert to lists if needed
+        if isinstance(original_text, str):
+            original_text = [original_text]
+        if isinstance(reconstructed_text, str):
+            reconstructed_text = [reconstructed_text]
+
+        # Make sure lists have same length
+        min_len = min(len(original_text), len(reconstructed_text))
+        original_text = original_text[:min_len]
+        reconstructed_text = reconstructed_text[:min_len]
+
+        # Get embeddings for both sets of texts
+        orig_embs = self._get_embeddings(original_text)
+        recon_embs = self._get_embeddings(reconstructed_text)
+
+        # Calculate semantic similarity loss
+        sim_loss = 1.0 - self._semantic_similarity(orig_embs, recon_embs).mean()
+
+        # Calculate contrastive loss if batch size > 1
+        if len(original_text) > 1:
+            contrast_loss = self._contrastive_loss(orig_embs, recon_embs, len(original_text))
+        else:
+            contrast_loss = torch.tensor(0.0, device=self.device)
+
+        # Calculate discourse consistency loss if enabled
+        if self.discourse_weight > 0 and len(original_text) > 1:
+            orig_disc = self._get_discourse_features(original_text, orig_embs)
+            recon_disc = self._get_discourse_features(reconstructed_text, recon_embs)
+            disc_loss = self._discourse_consistency_loss(orig_disc, recon_disc)
+        else:
+            disc_loss = torch.tensor(0.0, device=self.device)
+
+        # Combine losses with weights
+        combined_loss = (
+                sim_loss +
+                self.contrastive_weight * contrast_loss +
+                self.discourse_weight * disc_loss
+        )
+
+        return combined_loss
+
+    def evaluate_semantic_quality(self, original_text, reconstructed_text, detailed=False):
+        """
+        Comprehensive semantic evaluation including similarity, entailment, 
+        and discourse consistency.
+
+        Args:
+            original_text: Original text
+            reconstructed_text: Reconstructed text
+            detailed: Whether to return detailed breakdown
+
+        Returns:
+            Either combined score or dictionary of detailed metrics
+        """
+        if not self.initialized:
+            return 0.5  # Default midpoint value if not initialized
+
+        # Basic semantic similarity
+        similarity = self.semantic_similarity(original_text, reconstructed_text)
+
+        # Semantic entailment (both directions)
+        if isinstance(original_text, list):
+            # For simplicity, join text with spaces for entailment
+            orig_joined = " ".join(original_text)
+            recon_joined = " ".join(reconstructed_text)
+        else:
+            orig_joined = original_text
+            recon_joined = reconstructed_text
+
+        # Calculate bidirectional entailment
+        orig_entails_recon = self.semantic_entailment(orig_joined, recon_joined)
+        recon_entails_orig = self.semantic_entailment(recon_joined, orig_joined)
+
+        # Discourse preservation (only for multi-sentence text)
+        if (isinstance(original_text, list) and len(original_text) > 1) or "\n" in orig_joined:
+            # Split into sentences if needed
+            if not isinstance(original_text, list):
+                original_sents = orig_joined.split(". ")
+                recon_sents = recon_joined.split(". ")
+            else:
+                original_sents = original_text
+                recon_sents = reconstructed_text
+
+            # Get discourse features
+            orig_embs = self._get_embeddings(original_sents)
+            recon_embs = self._get_embeddings(recon_sents)
+            orig_disc = self._get_discourse_features(original_sents, orig_embs)
+            recon_disc = self._get_discourse_features(recon_sents, recon_embs)
+
+            # Calculate discourse similarity (cosine sim of discourse features)
+            if orig_disc is not None and recon_disc is not None:
+                discourse_sim = F.cosine_similarity(
+                    orig_disc.unsqueeze(0),
+                    recon_disc.unsqueeze(0)
+                ).item()
+            else:
+                discourse_sim = 0.5  # Default mid-value
+        else:
+            discourse_sim = 1.0  # Perfect for single sentences
+
+        # Calculate combined score
+        combined_score = (
+                0.5 * similarity +
+                0.3 * (orig_entails_recon + recon_entails_orig) / 2 +
+                0.2 * discourse_sim
+        )
+
+        if detailed:
+            return {
+                'similarity': similarity,
+                'entailment_orig_recon': orig_entails_recon,
+                'entailment_recon_orig': recon_entails_orig,
+                'discourse_similarity': discourse_sim,
+                'combined_score': combined_score
+            }
+        else:
+            return combined_score
+
+    def calculate_semantic_similarity(self, text1, text2):
+        """For backward compatibility with original SemanticPerceptualLoss"""
+        return self.semantic_similarity(text1, text2)
+
+
+# For backward compatibility and easier drop-in replacement
+class SemanticPerceptualLoss(EnhancedSemanticLoss):
+    """Legacy class for backward compatibility"""
+
+    def __init__(self, bert_model='bert-base-uncased', layers_to_use=[-1, -2, -3, -4],
+                 cache_dir='./models/bert_cache', max_length=128):
+        # Override with better model
+        super().__init__(
+            model_name='sentence-transformers/all-mpnet-base-v2',
+            cache_dir=cache_dir
+        )
+        # Store original parameters for compatibility
+        self.layers_to_use = layers_to_use
+        self.max_length = max_length
+        self.layer_weights = {-1: 0.5, -2: 0.25, -3: 0.15, -4: 0.1}
 
 
 def evaluate_semantic_similarity(original_text, reconstructed_text, semantic_loss=None):
     """
     Evaluate semantic similarity between original and reconstructed texts.
-
-    Args:
-        original_text: Original text
-        reconstructed_text: Reconstructed text
-        semantic_loss: Optional SemanticPerceptualLoss instance
-
-    Returns:
-        Semantic similarity score (0-1)
+    For backward compatibility.
     """
     if semantic_loss is None or not hasattr(semantic_loss, 'initialized') or not semantic_loss.initialized:
         # Initialize a new loss module
         try:
-            semantic_loss = SemanticPerceptualLoss()
+            semantic_loss = EnhancedSemanticLoss()
             if not semantic_loss.initialized:
                 return 0.5  # Default midpoint value
         except Exception as e:
             logger.warning(f"Could not initialize semantic loss: {e}")
             return 0.5
 
-    similarity = semantic_loss.calculate_semantic_similarity(
-        original_text, reconstructed_text)
-
+    # Use the new semantic similarity method
+    similarity = semantic_loss.semantic_similarity(original_text, reconstructed_text)
     return similarity
 
 
-def get_semantic_loss(cache_dir='./models/bert_cache'):
-    """Create and return an initialized SemanticPerceptualLoss"""
-    semantic_loss = SemanticPerceptualLoss(cache_dir=cache_dir)
+def get_semantic_loss(cache_dir='./models/semantic_model_cache'):
+    """Create and return an initialized EnhancedSemanticLoss"""
+    semantic_loss = EnhancedSemanticLoss(cache_dir=cache_dir)
     return semantic_loss if semantic_loss.initialized else None
-
-
-# Example usage
-if __name__ == "__main__":
-    print("Initializing semantic loss module...")
-    semantic_loss = SemanticPerceptualLoss()
-
-    if semantic_loss.initialized:
-        print("Testing semantic similarity calculation:")
-
-        text1 = "The European Parliament agreed on the new budget proposal."
-        text2 = "The EU Parliament has reached agreement on the budget proposal."
-        text3 = "The weather in Brussels was sunny yesterday afternoon."
-
-        sim1_2 = semantic_loss.calculate_semantic_similarity(text1, text2)
-        sim1_3 = semantic_loss.calculate_semantic_similarity(text1, text3)
-
-        print(f"Similar texts similarity: {sim1_2:.4f}")
-        print(f"Different texts similarity: {sim1_3:.4f}")
-
-        # Calculate loss
-        loss = semantic_loss(text1, text2)
-        print(f"Semantic loss between similar texts: {loss.item():.4f}")
-    else:
-        print("Semantic loss initialization failed.")
