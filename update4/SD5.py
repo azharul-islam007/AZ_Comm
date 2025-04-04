@@ -1577,6 +1577,146 @@ def apply_noise_to_text(text, noise_level=0.05, noise_type='character'):
     return ' '.join(noisy_words)
 
 
+class EnhancedReinforcementLearningAgent:
+    """
+    A tabular Q-learning agent for optimizing API usage based on text properties.
+    Provides a simple but effective fallback when DQN is not available.
+    """
+
+    def __init__(self, num_states=10, num_actions=3, learning_rate=0.1, discount_factor=0.95, exploration_rate=0.3):
+        """Initialize the reinforcement learning agent with tabular Q-learning"""
+        # Create empty q-table
+        self.q_table = np.zeros((num_states, num_actions))
+        self.num_states = num_states
+        self.num_actions = num_actions
+        self.learning_rate = learning_rate
+        self.discount_factor = discount_factor
+        self.exploration_rate = exploration_rate
+
+        # For tracking performance
+        self.total_reward = 0
+        self.episode_count = 0
+        self.api_efficiency = []
+
+    def get_state(self, corruption_level, text_length):
+        """Convert features to state index for tabular representation"""
+        # Simplified state mapping
+        if corruption_level < 0.3:
+            state = 0
+        elif corruption_level < 0.6:
+            state = 1
+        else:
+            state = 2
+
+        if text_length < 10:
+            state += 0
+        elif text_length < 30:
+            state += 3
+        else:
+            state += 6
+
+        return state
+
+    def get_enhanced_state(self, corruption_level, text_length, semantic_feature):
+        """Get state with additional semantic feature"""
+        base_state = self.get_state(corruption_level, text_length)
+
+        # Adjust for semantic feature
+        if isinstance(semantic_feature, (int, float)):
+            if semantic_feature > 0.7:  # High semantic complexity
+                return min(base_state + 1, self.num_states - 1)
+            elif semantic_feature < 0.3:  # Low semantic complexity
+                return max(base_state - 1, 0)
+
+        return base_state
+
+    def select_action(self, state, budget_remaining=1.0, force_basic=False):
+        """Select action using epsilon-greedy policy with budget awareness"""
+        # Force basic reconstruction if requested or very low budget
+        if force_basic or budget_remaining < 0.05:
+            return 0
+
+        # Budget-aware strategy - avoid expensive models when budget is low
+        if budget_remaining < 0.2:
+            # Prefer GPT-3.5 over GPT-4 when budget is low
+            if np.random.random() < 0.8:  # 80% chance to use basic or GPT-3.5
+                return np.random.choice([0, 1])
+
+        # Epsilon-greedy policy
+        if np.random.random() < self.exploration_rate:
+            # Random action with budget constraints
+            if budget_remaining < 0.5:
+                return np.random.choice([0, 1])  # Only basic or GPT-3.5
+            else:
+                return np.random.choice([0, 1, 2])  # Any action
+        else:
+            # Use q-table for action selection
+            return np.argmax(self.q_table[state])
+
+    def update(self, state, action, reward, next_state):
+        """Update Q-table using Q-learning update rule"""
+        # Update q-table
+        self.q_table[state, action] = self.q_table[state, action] + self.learning_rate * (
+                reward + self.discount_factor * np.max(self.q_table[next_state]) - self.q_table[state, action]
+        )
+
+        # Track reward
+        self.total_reward += reward
+
+    def train_from_buffer(self):
+        """Train from experience buffer (not used in tabular approach)"""
+        # This is just a placeholder for compatibility with the DQN agent interface
+        pass
+
+    def calculate_reward(self, metrics, action, cost=0):
+        """Calculate reward based on metrics and action"""
+        # Base reward from quality metrics with emphasis on semantic similarity
+        quality_reward = 0
+
+        # Include SEMANTIC metric if available
+        if 'SEMANTIC' in metrics:
+            quality_reward += metrics.get('SEMANTIC', 0) * 0.5  # 50% weight to semantic
+            quality_reward += metrics.get('BLEU', 0) * 0.2  # 20% weight to BLEU
+            quality_reward += metrics.get('ROUGEL', 0) * 0.3  # 30% weight to ROUGE-L
+        else:
+            # Traditional metrics if semantic not available
+            quality_reward = metrics.get('BLEU', 0) * 0.3 + metrics.get('ROUGEL', 0) * 0.7
+
+        # Cost penalty for API usage
+        cost_penalty = 0
+        if action > 0:  # API was used
+            # Scale cost_penalty based on the budget
+            cost_penalty = cost * 10  # Penalize more for higher costs
+
+            # Track API efficiency
+            efficiency = quality_reward / (cost + 0.001)  # Avoid division by zero
+            self.api_efficiency.append(efficiency)
+
+        # Final reward
+        reward = quality_reward - cost_penalty
+
+        return reward
+
+    def save_q_table(self, filename="rl_agent_qtable.npy"):
+        """Save Q-table to file"""
+        np.save(os.path.join(MODELS_DIR, filename), self.q_table)
+        logger.info(f"Saved enhanced RL agent state")
+        return True
+
+    def load_q_table(self, filename="rl_agent_qtable.npy"):
+        """Load Q-table from file"""
+        try:
+            filepath = os.path.join(MODELS_DIR, filename)
+            if os.path.exists(filepath):
+                self.q_table = np.load(filepath)
+                logger.info(f"Loaded enhanced RL agent state from {filepath}")
+                return True
+            else:
+                logger.warning(f"Q-table file not found: {filepath}")
+                return False
+        except Exception as e:
+            logger.warning(f"Failed to load Q-table: {e}")
+            return False
 def make_api_call_with_retry(model, messages, max_retries=3, backoff_factor=2):
     """
     Make an API call with retry logic for better error recovery.
@@ -1880,26 +2020,45 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
     rl_agent = None
 
     if use_rl:
+        # Determine which type of agent to use
         if use_dqn_agent:
-            # Initialize DQN agent with semantic state representation
             try:
                 # Define state dimensions - more features for richer state representation
                 state_dim = 8  # Corruption level, text length, and semantic features
                 action_dim = 3  # 0: basic, 1: GPT-3.5, 2: GPT-4
 
-                rl_agent = DQNAgent(state_dim=state_dim, action_dim=action_dim)
+                # First try to use the more advanced DeepRLAgent
+                try:
+                    rl_agent = DeepRLAgent(
+                        state_dim=state_dim,
+                        action_dim=action_dim,
+                        hidden_dim=64,
+                        learning_rate=0.001,
+                        gamma=0.95,
+                        device=device
+                    )
+                    # Try to load saved model (no method provided, would need to be added)
+                    # For now, just use newly initialized model
+                    logger.info("[PIPELINE] Using advanced DeepRLAgent for API optimization")
+                except Exception as e:
+                    logger.warning(f"[PIPELINE] Failed to initialize DeepRLAgent: {e}")
+                    logger.info("[PIPELINE] Falling back to standard DQNAgent")
 
-                # Try to load an existing model
-                if rl_agent.load_model("dqn_agent_model.pth"):
-                    logger.info("[PIPELINE] Loaded existing DQN agent model")
-                else:
-                    logger.info("[PIPELINE] Initialized new DQN agent")
+                    # Fall back to standard DQNAgent
+                    rl_agent = DQNAgent(state_dim=state_dim, action_dim=action_dim)
+
+                    # Try to load an existing model
+                    if rl_agent.load_model("dqn_agent_model.pth"):
+                        logger.info("[PIPELINE] Loaded existing DQN agent model")
+                    else:
+                        logger.info("[PIPELINE] Initialized new DQN agent")
+
             except Exception as e:
-                logger.warning(f"[PIPELINE] Failed to initialize DQN agent: {e}")
+                logger.warning(f"[PIPELINE] Failed to initialize neural RL agents: {e}")
                 logger.info("[PIPELINE] Falling back to tabular Q-learning agent")
                 rl_agent = EnhancedReinforcementLearningAgent()
         else:
-            # Use the original tabular Q-learning agent
+            # Use the tabular Q-learning agent as explicitly requested
             rl_agent = EnhancedReinforcementLearningAgent()
             logger.info("[PIPELINE] Using enhanced tabular Q-learning agent")
 
@@ -1920,10 +2079,13 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
 
     # Log RL agent status
     if use_rl:
-        if isinstance(rl_agent, DQNAgent):
+        if isinstance(rl_agent, DeepRLAgent):
+            logger.info(
+                f"[PIPELINE] Using advanced DeepRLAgent for API optimization (exploration rate: {rl_agent.epsilon:.2f})")
+        elif isinstance(rl_agent, DQNAgent):
             logger.info(
                 f"[PIPELINE] Using DQN agent for API optimization (exploration rate: {rl_agent.exploration_rate:.2f})")
-        else:
+        else:  # Must be EnhancedReinforcementLearningAgent
             logger.info(
                 f"[PIPELINE] Using enhanced RL agent for API optimization (exploration rate: {rl_agent.exploration_rate:.2f})")
     else:
@@ -2373,7 +2535,11 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
             if use_rl and i % 20 == 0 and i > 0:
                 if isinstance(rl_agent, DQNAgent):
                     rl_agent.save_model()
-                else:
+                elif isinstance(rl_agent, DeepRLAgent):
+                    # DeepRLAgent uses save() method
+                    save_path = os.path.join(MODELS_DIR, "deeprl_agent_model.pth")
+                    rl_agent.save(save_path)
+                else:  # Must be EnhancedReinforcementLearningAgent
                     rl_agent.save_q_table()
 
         except Exception as e:
@@ -2387,7 +2553,12 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
             if isinstance(rl_agent, DQNAgent):
                 rl_agent.save_model()
                 logger.info("[PIPELINE] Saved DQN agent model")
-            else:
+            elif isinstance(rl_agent, DeepRLAgent):
+                # DeepRLAgent uses save() method
+                save_path = os.path.join(MODELS_DIR, "deeprl_agent_model.pth")
+                rl_agent.save(save_path)
+                logger.info("[PIPELINE] Saved DeepRL agent model")
+            else:  # Must be EnhancedReinforcementLearningAgent
                 rl_agent.save_q_table()
                 logger.info("[PIPELINE] Saved enhanced RL agent state")
         except Exception as e:
@@ -2416,24 +2587,72 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
 
     # Add RL agent metrics if used
     if use_rl:
-        if isinstance(rl_agent, DQNAgent):
+        if isinstance(rl_agent, DeepRLAgent):
+            # Safely build metrics for DeepRLAgent
+            metrics_dict = {
+                "agent_type": "DeepRL",
+                "exploration_rate": rl_agent.epsilon,
+                "episodes": rl_agent.episodes
+            }
+
+            # Safely add total_reward
+            if hasattr(rl_agent, 'total_reward'):
+                metrics_dict["total_reward"] = float(rl_agent.total_reward)
+            elif hasattr(rl_agent, 'rewards') and isinstance(rl_agent.rewards, list):
+                metrics_dict["total_reward"] = float(sum(rl_agent.rewards))
+            else:
+                metrics_dict["total_reward"] = 0.0
+
+            # Safely add api_efficiency (empty by default)
+            metrics_dict["api_efficiency"] = []
+            if hasattr(rl_agent, 'api_efficiency') and isinstance(rl_agent.api_efficiency, list):
+                if len(rl_agent.api_efficiency) > 0:
+                    metrics_dict["api_efficiency"] = rl_agent.api_efficiency[-50:]
+
+            # Assign to results
+            results["rl_metrics"] = metrics_dict
+
+        elif isinstance(rl_agent, DQNAgent):
+            # Build metrics for DQNAgent
             results["rl_metrics"] = {
-                "total_reward": rl_agent.total_reward,
+                "total_reward": float(rl_agent.total_reward),
                 "episode_count": rl_agent.episode_count,
-                "exploration_rate": rl_agent.exploration_rate,
+                "exploration_rate": float(rl_agent.exploration_rate),
                 "agent_type": "DQN",
-                "api_efficiency": rl_agent.api_efficiency[-50:] if len(rl_agent.api_efficiency) > 0 else []
+                "api_efficiency": []
             }
+
+            # Add api_efficiency if available
+            if hasattr(rl_agent, 'api_efficiency') and isinstance(rl_agent.api_efficiency, list):
+                if len(rl_agent.api_efficiency) > 0:
+                    results["rl_metrics"]["api_efficiency"] = rl_agent.api_efficiency[-50:]
+
         else:
+            # Must be EnhancedReinforcementLearningAgent
             results["rl_metrics"] = {
-                "total_reward": rl_agent.total_reward,
+                "total_reward": float(rl_agent.total_reward),
                 "episode_count": rl_agent.episode_count,
-                "exploration_rate": rl_agent.exploration_rate,
-                "q_table": rl_agent.q_table.tolist(),
-                "num_states": rl_agent.num_states,
+                "exploration_rate": float(rl_agent.exploration_rate),
                 "agent_type": "Tabular Q-Learning",
-                "api_efficiency": rl_agent.api_efficiency[-50:] if len(rl_agent.api_efficiency) > 0 else []
+                "api_efficiency": []
             }
+
+            # Add q_table if available
+            if hasattr(rl_agent, 'q_table'):
+                if hasattr(rl_agent.q_table, 'tolist'):
+                    results["rl_metrics"]["q_table"] = rl_agent.q_table.tolist()
+                else:
+                    # Convert to list safely
+                    results["rl_metrics"]["q_table"] = list(rl_agent.q_table)
+
+            # Add num_states if available
+            if hasattr(rl_agent, 'num_states'):
+                results["rl_metrics"]["num_states"] = rl_agent.num_states
+
+            # Add api_efficiency if available
+            if hasattr(rl_agent, 'api_efficiency') and isinstance(rl_agent.api_efficiency, list):
+                if len(rl_agent.api_efficiency) > 0:
+                    results["rl_metrics"]["api_efficiency"] = rl_agent.api_efficiency[-50:]
 
     # Add features information
     results["features"] = {
@@ -2499,11 +2718,28 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
 
         if use_rl:
             f.write(f"\nRL Agent Performance:\n")
-            f.write(f"Agent type: {'DQN' if isinstance(rl_agent, DQNAgent) else 'Tabular Q-Learning'}\n")
-            f.write(f"Total episodes: {rl_agent.episode_count}\n")
-            f.write(f"Total reward: {rl_agent.total_reward:.2f}\n")
-            f.write(f"Final exploration rate: {rl_agent.exploration_rate:.2f}\n")
-            api_eff = np.mean(rl_agent.api_efficiency[-20:]) if len(rl_agent.api_efficiency) > 20 else 'N/A'
+            if isinstance(rl_agent, DeepRLAgent):
+                f.write(f"Agent type: DeepRL\n")
+                f.write(f"Total episodes: {rl_agent.episodes}\n")
+                f.write(
+                    f"Total reward: {getattr(rl_agent, 'total_reward', sum(rl_agent.rewards) if hasattr(rl_agent, 'rewards') and rl_agent.rewards else 0):.2f}\n")
+                f.write(f"Final exploration rate: {rl_agent.epsilon:.2f}\n")
+            elif isinstance(rl_agent, DQNAgent):
+                f.write(f"Agent type: DQN\n")
+                f.write(f"Total episodes: {rl_agent.episode_count}\n")
+                f.write(f"Total reward: {rl_agent.total_reward:.2f}\n")
+                f.write(f"Final exploration rate: {rl_agent.exploration_rate:.2f}\n")
+            else:  # EnhancedReinforcementLearningAgent
+                f.write(f"Agent type: Tabular Q-Learning\n")
+                f.write(f"Total episodes: {rl_agent.episode_count}\n")
+                f.write(f"Total reward: {rl_agent.total_reward:.2f}\n")
+                f.write(f"Final exploration rate: {rl_agent.exploration_rate:.2f}\n")
+
+            # This api_efficiency section is common to all agent types
+            api_eff = "N/A"
+            if hasattr(rl_agent, 'api_efficiency') and isinstance(rl_agent.api_efficiency, list):
+                if len(rl_agent.api_efficiency) > 20:
+                    api_eff = np.mean(rl_agent.api_efficiency[-20:])
             f.write(f"API efficiency: {api_eff}\n")
 
     # Save cost log
