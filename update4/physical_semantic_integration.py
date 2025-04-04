@@ -800,26 +800,27 @@ def transmit_through_physical_channel(embedding, debug=False, use_kb=True):
         original_embedding = embedding.copy()
         embedding_np = embedding
 
-    # Use utility function to ensure proper shape with batch dimension
-    embedding_np = ensure_tensor_shape(embedding_np, expected_dim=2)
+    # Get original shape and type for consistency in return
+    original_shape = embedding_np.shape
+    is_1d = len(original_shape) == 1
 
-    # Check dimension and adapt if necessary
-    # The physical channel expects embeddings of a specific dimension (e.g., 460)
-    expected_dim = 460
+    # Explicitly handle 1D arrays by converting to 2D
+    if is_1d:
+        embedding_np = embedding_np.reshape(1, -1)
 
-    if embedding_np.shape[1] != expected_dim:
-        logger.info(f"[PHYSICAL] Adjusting embedding dimension from {embedding_np.shape[1]} to {expected_dim}")
-        # Create a new array of the correct dimension
-        adjusted_embedding = np.zeros((embedding_np.shape[0], expected_dim))
+    # Handle dimension mismatch - ensure feature dim is 460
+    expected_feature_dim = 460
+    if embedding_np.shape[1] != expected_feature_dim:
+        # Create a new array with the right dimensions
+        adjusted = np.zeros((embedding_np.shape[0], expected_feature_dim))
+        # Copy valid portion of the data
+        copy_dim = min(embedding_np.shape[1], expected_feature_dim)
+        adjusted[:, :copy_dim] = embedding_np[:, :copy_dim]
+        embedding_np = adjusted
 
-        # Copy data from original embedding, up to the minimum dimension
-        min_dim = min(embedding_np.shape[1], expected_dim)
-        adjusted_embedding[:, :min_dim] = embedding_np[:, :min_dim]
+    # Log what we're doing
+    logger.debug(f"[PHYSICAL] Transmitting embedding with shape {embedding_np.shape}")
 
-        # Use the adjusted embedding
-        embedding_np = adjusted_embedding
-
-    # Continue with existing code...
     # Apply KB-guided importance weighting if knowledge base is available
     importance_weights = None
     if use_kb:
@@ -835,18 +836,20 @@ def transmit_through_physical_channel(embedding, debug=False, use_kb=True):
 
     # If no KB weights, use default method
     if importance_weights is None:
-        importance_weights = physical_semantic_bridge._calculate_importance_weights(
-            embedding_np, method=getattr(physical_semantic_bridge.config, 'WEIGHT_METHOD', 'semantic')
-        )
+        try:
+            importance_weights = physical_semantic_bridge._calculate_importance_weights(
+                embedding_np, method=getattr(physical_semantic_bridge.config, 'WEIGHT_METHOD', 'semantic')
+            )
+        except Exception as e:
+            logger.debug(f"Importance weight calculation failed: {e}, using uniform weights")
+            importance_weights = np.ones_like(embedding_np)
 
     # Transmit through physical channel
     try:
         if debug:
-            # Call the transmit method on the physical channel directly
             received_embedding, debug_info = physical_semantic_bridge._physical_channel.transmit(
                 embedding_np, importance_weights, debug=True)
         else:
-            # Call the transmit method on the physical channel directly
             received_embedding = physical_semantic_bridge._physical_channel.transmit(
                 embedding_np, importance_weights, debug=False)
 
@@ -874,16 +877,22 @@ def transmit_through_physical_channel(embedding, debug=False, use_kb=True):
             except Exception as e:
                 logger.debug(f"Post-transmission KB enhancement failed: {e}")
 
+        # Ensure output has the same shape as input
+        if is_1d and len(received_embedding.shape) > 1:
+            # If input was 1D but output is 2D, squeeze back to 1D
+            received_embedding = received_embedding.squeeze(0)
+
+            # If dimensions were expanded, trim to original size if needed
+            if len(original_shape) == 1 and len(received_embedding) > original_shape[0]:
+                received_embedding = received_embedding[:original_shape[0]]
+
         # Convert back to torch tensor if the input was a torch tensor
         if isinstance(embedding, torch.Tensor):
             device = embedding.device
             received_embedding = torch.tensor(received_embedding, dtype=torch.float32).to(device)
 
-        # Return the received embedding
-        if debug:
-            return received_embedding, debug_info
-        else:
-            return received_embedding
+        return received_embedding if not debug else (received_embedding, debug_info)
+
     except Exception as e:
         logger.warning(f"[PHYSICAL] Physical channel transmission failed: {e}")
         # In case of failure, return original embedding
