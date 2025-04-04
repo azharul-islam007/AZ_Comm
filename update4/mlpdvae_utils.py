@@ -180,6 +180,7 @@ def adapt_dimensions(tensor, target_dim):
     else:
         # Truncate
         return tensor[:, :target_dim]
+
 def generate_text_from_embedding(embedding, sentence_lookup=None):
     """
     A utility function to generate text from embeddings for semantic evaluation.
