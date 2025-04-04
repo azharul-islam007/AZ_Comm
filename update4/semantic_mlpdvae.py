@@ -219,7 +219,9 @@ class MLPDenoisingVAE(nn.Module):
         # Calculate attention scores between z and memory
         # Shape: [batch, latent] x [memory, latent]T -> [batch, memory]
         z_expanded = z.unsqueeze(1)  # [batch, 1, latent]
-        memory_expanded = self.memory_bank.unsqueeze(0)  # [1, memory, latent]
+
+        # This is the key fix - expand memory to match batch size
+        memory_expanded = self.memory_bank.unsqueeze(0).expand(batch_size, -1, -1)  # [batch, memory, latent]
 
         # Calculate attention
         attn_scores = torch.bmm(z_expanded, memory_expanded.transpose(1, 2))  # [batch, 1, memory]
@@ -499,11 +501,12 @@ class EnhancedMLPDenoisingVAE(MLPDenoisingVAE):
     def decode(self, z, text_hints=None, apply_kb=True):
         """Enhanced decode with knowledge guidance"""
         # Use utility function to ensure proper shape with batch dimension
+        batch_size = z.shape[0]
         z = ensure_tensor_shape(z, expected_dim=2)
 
         # Calculate attention with context memory
         z_expanded = z.unsqueeze(1)  # [batch_size, 1, latent_dim]
-        memory_expanded = self.context_memory.unsqueeze(0)  # [1, memory_size, latent_dim]
+        memory_expanded = self.context_memory.unsqueeze(0).expand(batch_size, -1, -1)
 
         # Calculate attention weights
         attn_scores = torch.bmm(z_expanded, memory_expanded.transpose(1, 2))  # [batch_size, 1, memory_size]
@@ -772,7 +775,13 @@ def train_mlp_dvae_with_semantic_loss(compressed_data, sentences, transmission_p
                 # Forward pass on received embeddings
                 t_recon_batch, _, _ = dvae(t_received_tensor)
 
-                # Reconstruction loss against original embeddings
+                # Ensure shapes match by squeezing or unsqueezing as needed
+                if t_recon_batch.dim() > t_originals_tensor.dim():
+                    t_recon_batch = t_recon_batch.squeeze(1)  # Remove extra dimension
+                elif t_recon_batch.dim() < t_originals_tensor.dim():
+                    t_originals_tensor = t_originals_tensor.unsqueeze(1)  # Add missing dimension
+
+                # Now calculate SSL loss with matching shapes
                 ssl_loss = F.mse_loss(t_recon_batch, t_originals_tensor)
 
                 # Add to total loss with self-supervised learning weight
