@@ -1,5 +1,5 @@
 /home/ubuntu/anaconda3/bin/conda run -n myenv --no-capture-output python /tmp/pycharm_project_908/Europearl/SD5.py 
-2025-04-05 09:56:09,910 - INFO - Using device: cuda
+2025-04-05 10:10:31,970 - INFO - Using device: cuda
 /home/ubuntu/.local/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
   warnings.warn(
 A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
@@ -54,70 +54,76 @@ A parameter name that contains `beta` will be renamed internally to `bias`. Plea
 A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
 A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
 A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-2025-04-05 09:56:11,448 - INFO - Initialized Enhanced Physical Channel with awgn channel, qam-16 modulation, SNR=20.0dB
-2025-04-05 09:56:11,448 - INFO - Adaptive modulation enabled: thresholds at 15.0dB and 25.0dB
-2025-04-05 09:56:11,448 - INFO - Unequal error protection enabled with 3 protection levels
+2025-04-05 10:10:33,882 - INFO - Initialized Enhanced Physical Channel with awgn channel, qam-16 modulation, SNR=20.0dB
+2025-04-05 10:10:33,883 - INFO - Adaptive modulation enabled: thresholds at 15.0dB and 25.0dB
+2025-04-05 10:10:33,883 - INFO - Unequal error protection enabled with 3 protection levels
 /tmp/pycharm_project_908/Europearl/content_adaptive_coding.py:318: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
   checkpoint = torch.load(self.content_classifier_path, map_location=device)
-2025-04-05 09:56:11,451 - ERROR - Error loading content classifier: Expected state_dict to be dict-like, got <class 'NoneType'>.
-2025-04-05 09:56:11,451 - INFO - Content-Adaptive Physical Channel initialized
-2025-04-05 09:56:11,451 - INFO - Enhanced content-adaptive physical channel initialized
-2025-04-05 09:56:11,451 - INFO - Will collect up to 10000 transmission pairs
-2025-04-05 09:56:11,451 - INFO - Using device: cuda
-2025-04-05 09:56:11,990 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 401 Unauthorized"
-2025-04-05 09:56:11,991 - ERROR - ❌ Error initializing OpenAI client: Error code: 401 - {'error': {'message': 'Incorrect API key provided: -proj-LM******************************************************************************************************************************************************3Z8A. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
-2025-04-05 09:56:11,993 - ERROR - Traceback (most recent call last):
-  File "/tmp/pycharm_project_908/Europearl/SD5.py", line 103, in <module>
-    test_response = openai_client.chat.completions.create(
-  File "/home/ubuntu/anaconda3/envs/myenv/lib/python3.8/site-packages/openai/_utils/_utils.py", line 299, in wrapper
-    return func(*args, **kwargs)
-  File "/home/ubuntu/anaconda3/envs/myenv/lib/python3.8/site-packages/openai/resources/chat/completions.py", line 594, in create
-    return self._post(
-  File "/home/ubuntu/anaconda3/envs/myenv/lib/python3.8/site-packages/openai/_base_client.py", line 1055, in post
-    return cast(ResponseT, self.request(cast_to, opts, stream=stream, stream_cls=stream_cls))
-  File "/home/ubuntu/anaconda3/envs/myenv/lib/python3.8/site-packages/openai/_base_client.py", line 834, in request
-    return self._request(
-  File "/home/ubuntu/anaconda3/envs/myenv/lib/python3.8/site-packages/openai/_base_client.py", line 877, in _request
-    raise self._make_status_error_from_response(err.response) from None
-openai.AuthenticationError: Error code: 401 - {'error': {'message': 'Incorrect API key provided: -proj-LM******************************************************************************************************************************************************3Z8A. You can find your API key at https://platform.openai.com/account/api-keys.', 'type': 'invalid_request_error', 'param': None, 'code': 'invalid_api_key'}}
-
+2025-04-05 10:10:33,885 - ERROR - Error loading content classifier: Expected state_dict to be dict-like, got <class 'NoneType'>.
+2025-04-05 10:10:33,885 - INFO - Content-Adaptive Physical Channel initialized
+2025-04-05 10:10:33,885 - INFO - Enhanced content-adaptive physical channel initialized
+2025-04-05 10:10:33,885 - INFO - Will collect up to 10000 transmission pairs
+2025-04-05 10:10:33,885 - INFO - Using device: cuda
+2025-04-05 10:10:34,638 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:34,648 - INFO - ✅ OpenAI API connection successful
 
 ===== SYSTEM COMPONENT TEST =====
-2025-04-05 09:56:11,994 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
-2025-04-05 09:56:11,994 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms (load #1)
+2025-04-05 10:10:34,648 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-05 10:10:34,649 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms (load #1)
 Knowledge Base loaded with 41 terms
 
 Test Case 1: Mrs Lynne, you are quite right and I shall check whether this ocs actually not been done.
 1. KB Reconstruction (1 changes):
    Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
-2025-04-05 09:56:12,012 - INFO - KB reconstruction made changes: 'Mrs Lynne, you are quite right and I shall check whether this ocs actually not been done.' -> 'Mrs Lynne, you are quite right and I shall check whether this has actually not been done.'
+2025-04-05 10:10:34,667 - INFO - KB reconstruction made changes: 'Mrs Lynne, you are quite right and I shall check whether this ocs actually not been done.' -> 'Mrs Lynne, you are quite right and I shall check whether this has actually not been done.'
 2. Basic Reconstruction (1 changes):
+   Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
+2025-04-05 10:10:34,667 - INFO - [API] Starting reconstruction of text: 'Mrs Lynne, you are quite right...'
+2025-04-05 10:10:34,673 - INFO - [API] Using KB reconstruction with confidence 0.92
+2025-04-05 10:10:34,673 - INFO - [API] Completed in 0.006s using method: kb
+3. API Reconstruction (1 changes):
    Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
 
 Test Case 2: The Parliamemt will now vote on the propofal from the Commissiob.
 1. KB Reconstruction (3 changes):
    The Parliament will now vote on the proposal from the Commission
-2025-04-05 09:56:12,019 - INFO - KB reconstruction made changes: 'The Parliamemt will now vote on the propofal from the Commissiob.' -> 'The Parliament will now vote on the proposal from the Commission'
+2025-04-05 10:10:34,680 - INFO - KB reconstruction made changes: 'The Parliamemt will now vote on the propofal from the Commissiob.' -> 'The Parliament will now vote on the proposal from the Commission'
 2. Basic Reconstruction (3 changes):
    The Parliament will now vote on the proposal from the Commission
+2025-04-05 10:10:34,680 - INFO - [API] Starting reconstruction of text: 'The Parliamemt will now vote o...'
+2025-04-05 10:10:34,682 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:10:35,433 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:35,441 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:35,441 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:10:35,441 - INFO - [API] Completed in 0.762s using api_gpt-3.5-turbo
+3. API Reconstruction (3 changes):
+   The Parliament will now vote on the proposal from the Commission.
 
 Test Case 3: In accordancg with Rule 143, I wkulz like your acvioe about this moetinp.
 1. KB Reconstruction (4 changes):
    In accordance with Rule 143, I would like your advice about this meeting
-2025-04-05 09:56:12,024 - INFO - KB reconstruction made changes: 'In accordancg with Rule 143, I wkulz like your acvioe about this moetinp.' -> 'In accordance with Rule 143, I would like your advice about this meeting'
+2025-04-05 10:10:35,456 - INFO - KB reconstruction made changes: 'In accordancg with Rule 143, I wkulz like your acvioe about this moetinp.' -> 'In accordance with Rule 143, I would like your advice about this meeting'
 2. Basic Reconstruction (4 changes):
    In accordance with Rule 143, I would like your advice about this meeting
+2025-04-05 10:10:35,456 - INFO - [API] Starting reconstruction of text: 'In accordancg with Rule 143, I...'
+2025-04-05 10:10:35,461 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:10:36,103 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:36,110 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:36,110 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:10:36,111 - INFO - [API] Completed in 0.655s using api_gpt-3.5-turbo
+3. API Reconstruction (4 changes):
+   In accordance with Rule 143, I would like your advice about this meeting.
 
 ===== RESULTS =====
-Components tested: KB Reconstruction, Basic Reconstruction
+Components tested: KB Reconstruction, Basic Reconstruction, API Reconstruction
 Test cases corrected: 3/3
 System status: ✓ FUNCTIONAL
-2025-04-05 09:56:12,024 - INFO - [PIPELINE] Starting enhanced pipeline with parameters:
-2025-04-05 09:56:12,024 - INFO - [PIPELINE] - samples: 50, noise: 0.15/gaussian
-2025-04-05 09:56:12,024 - INFO - [PIPELINE] - API: 50%, Compare: True
-2025-04-05 09:56:12,024 - INFO - [PIPELINE] - Features: VAE=True, Semantic=True, Adaptive=True
-2025-04-05 09:56:12,024 - INFO - [PIPELINE] Knowledge base initialized successfully
-2025-04-05 09:56:12,024 - INFO - Initializing semantic loss with bert-base-uncased model
+2025-04-05 10:10:36,111 - INFO - [PIPELINE] Starting enhanced pipeline with parameters:
+2025-04-05 10:10:36,111 - INFO - [PIPELINE] - samples: 50, noise: 0.15/gaussian
+2025-04-05 10:10:36,111 - INFO - [PIPELINE] - API: 50%, Compare: True
+2025-04-05 10:10:36,111 - INFO - [PIPELINE] - Features: VAE=True, Semantic=True, Adaptive=True
+2025-04-05 10:10:36,111 - INFO - [PIPELINE] Knowledge base initialized successfully
+2025-04-05 10:10:36,112 - INFO - Initializing semantic loss with bert-base-uncased model
 /home/ubuntu/.local/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
   warnings.warn(
 A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
@@ -172,459 +178,723 @@ A parameter name that contains `beta` will be renamed internally to `bias`. Plea
 A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
 A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
 A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-2025-04-05 09:56:12,966 - INFO - Semantic perceptual loss initialized successfully
-2025-04-05 09:56:12,967 - INFO - [PIPELINE] Semantic perceptual loss initialized successfully
-2025-04-05 09:56:12,987 - INFO - [PIPELINE] Loaded 10000 items from compressed data
-2025-04-05 09:56:12,991 - INFO - [PIPELINE] Loaded 10000 original sentences
-2025-04-05 09:56:12,991 - INFO - [PIPELINE] Detected embedding dimension: 460
-2025-04-05 09:56:12,991 - INFO - Loading existing VAE compressor from ./data/vae_compressor.pth
+2025-04-05 10:10:37,041 - INFO - Semantic perceptual loss initialized successfully
+2025-04-05 10:10:37,041 - INFO - [PIPELINE] Semantic perceptual loss initialized successfully
+2025-04-05 10:10:37,062 - INFO - [PIPELINE] Loaded 10000 items from compressed data
+2025-04-05 10:10:37,066 - INFO - [PIPELINE] Loaded 10000 original sentences
+2025-04-05 10:10:37,066 - INFO - [PIPELINE] Detected embedding dimension: 460
+2025-04-05 10:10:37,066 - INFO - Loading existing VAE compressor from ./data/vae_compressor.pth
 /tmp/pycharm_project_908/Europearl/compression_vae.py:389: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
   checkpoint = torch.load(VAE_COMPRESSOR_PATH, map_location=device)
-2025-04-05 09:56:13,031 - INFO - VAE compressor loaded: 768 → 460 dimensions
-2025-04-05 09:56:13,031 - INFO - [PIPELINE] VAE compressor loaded successfully
-2025-04-05 09:56:13,031 - INFO - Initialized Enhanced Physical Channel with awgn channel, qam-16 modulation, SNR=20.0dB
-2025-04-05 09:56:13,031 - INFO - Adaptive modulation enabled: thresholds at 15.0dB and 25.0dB
-2025-04-05 09:56:13,031 - INFO - Unequal error protection enabled with 3 protection levels
+2025-04-05 10:10:37,106 - INFO - VAE compressor loaded: 768 → 460 dimensions
+2025-04-05 10:10:37,106 - INFO - [PIPELINE] VAE compressor loaded successfully
+2025-04-05 10:10:37,107 - INFO - Initialized Enhanced Physical Channel with awgn channel, qam-16 modulation, SNR=20.0dB
+2025-04-05 10:10:37,107 - INFO - Adaptive modulation enabled: thresholds at 15.0dB and 25.0dB
+2025-04-05 10:10:37,107 - INFO - Unequal error protection enabled with 3 protection levels
 /tmp/pycharm_project_908/Europearl/content_adaptive_coding.py:318: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
   checkpoint = torch.load(self.content_classifier_path, map_location=device)
-2025-04-05 09:56:13,033 - ERROR - Error loading content classifier: Expected state_dict to be dict-like, got <class 'NoneType'>.
-2025-04-05 09:56:13,033 - INFO - Content-Adaptive Physical Channel initialized
-2025-04-05 09:56:13,033 - INFO - [PIPELINE] Physical channel upgraded to content-adaptive version
-2025-04-05 09:56:13,050 - INFO - Detected dimensions: input=460, hidden=920, latent=460
-2025-04-05 09:56:13,052 - INFO - Loading pre-trained enhanced MLPDenoisingVAE from ./models/enhanced_mlp_dvae_model.pth
+2025-04-05 10:10:37,108 - ERROR - Error loading content classifier: Expected state_dict to be dict-like, got <class 'NoneType'>.
+2025-04-05 10:10:37,108 - INFO - Content-Adaptive Physical Channel initialized
+2025-04-05 10:10:37,108 - INFO - [PIPELINE] Physical channel upgraded to content-adaptive version
+2025-04-05 10:10:37,125 - INFO - Detected dimensions: input=460, hidden=920, latent=460
+2025-04-05 10:10:37,127 - INFO - Loading pre-trained enhanced MLPDenoisingVAE from ./models/enhanced_mlp_dvae_model.pth
 /tmp/pycharm_project_908/Europearl/semantic_mlpdvae.py:695: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
   checkpoint = torch.load(full_model_path, map_location=device)
-2025-04-05 09:56:13,183 - WARNING - Could not load model: Error(s) in loading state_dict for MLPDenoisingVAE:
-	Unexpected key(s) in state_dict: "memory_bank", "encoder_attention.query.weight", "encoder_attention.query.bias", "encoder_attention.key.weight", "encoder_attention.key.bias", "encoder_attention.value.weight", "encoder_attention.value.bias", "encoder_attention.out_proj.weight", "encoder_attention.out_proj.bias", "decoder_attention.query.weight", "decoder_attention.query.bias", "decoder_attention.key.weight", "decoder_attention.key.bias", "decoder_attention.value.weight", "decoder_attention.value.bias", "decoder_attention.out_proj.weight", "decoder_attention.out_proj.bias". 
-2025-04-05 09:56:13,183 - WARNING - Will train a new model
-2025-04-05 09:56:13,183 - INFO - Training new enhanced MLPDenoisingVAE model
-2025-04-05 09:56:13,201 - INFO - Loaded 10000 compressed embeddings and 10000 sentences
-Loading transmission pairs: 100%|█████████████| 50/50 [00:00<00:00, 2392.83it/s]
-2025-04-05 09:56:13,223 - INFO - Loaded 50 transmission pairs for self-supervised learning
-2025-04-05 09:56:13,467 - INFO - Initializing semantic loss with bert-base-uncased model
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
-A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
-2025-04-05 09:56:14,367 - INFO - Semantic perceptual loss initialized successfully
-2025-04-05 09:56:14,368 - INFO - Semantic perceptual loss initialized
-2025-04-05 09:56:14,378 - INFO - Using 50 transmission pairs for self-supervised learning
-2025-04-05 09:56:33,746 - INFO - Epoch 1/20, Train Loss: 0.060770, Val Loss: 0.002365, Recon: 0.034569, KL: 15.829179, SSL: 0.034572 (weight: 0.30), Semantic: 0.321521
-2025-04-05 09:56:33,836 - INFO - Saved best model (epoch 1) with validation loss 0.002365
-2025-04-05 09:56:52,477 - INFO - Epoch 2/20, Train Loss: 0.042234, Val Loss: 0.000857, Recon: 0.005188, KL: 2.709571, SSL: 0.005320 (weight: 0.32), Semantic: 0.326561
-2025-04-05 09:56:52,554 - INFO - Saved best model (epoch 2) with validation loss 0.000857
-2025-04-05 09:57:11,149 - INFO - Epoch 3/20, Train Loss: 0.052107, Val Loss: 0.000392, Recon: 0.001509, KL: 1.393845, SSL: 0.001606 (weight: 0.33), Semantic: 0.324479
-2025-04-05 09:57:11,220 - INFO - Saved best model (epoch 3) with validation loss 0.000392
-2025-04-05 09:57:29,424 - INFO - Epoch 4/20, Train Loss: 0.067397, Val Loss: 0.000233, Recon: 0.000403, KL: 0.739514, SSL: 0.000475 (weight: 0.35), Semantic: 0.330448
-2025-04-05 09:57:29,507 - INFO - Saved best model (epoch 4) with validation loss 0.000233
-2025-04-05 09:57:47,700 - INFO - Epoch 5/20, Train Loss: 0.082495, Val Loss: 0.000161, Recon: 0.000165, KL: 0.379945, SSL: 0.000234 (weight: 0.36), Semantic: 0.327459
-2025-04-05 09:57:47,777 - INFO - Saved best model (epoch 5) with validation loss 0.000161
-2025-04-05 09:58:06,087 - INFO - Epoch 6/20, Train Loss: 0.097166, Val Loss: 0.000103, Recon: 0.000091, KL: 0.224127, SSL: 0.000164 (weight: 0.38), Semantic: 0.322627
-2025-04-05 09:58:06,171 - INFO - Saved best model (epoch 6) with validation loss 0.000103
-2025-04-05 09:58:24,673 - INFO - Epoch 7/20, Train Loss: 0.099045, Val Loss: 0.000068, Recon: 0.000059, KL: 0.133400, SSL: 0.000133 (weight: 0.39), Semantic: 0.329334
-2025-04-05 09:58:24,749 - INFO - Saved best model (epoch 7) with validation loss 0.000068
-2025-04-05 09:58:42,945 - INFO - Epoch 8/20, Train Loss: 0.097046, Val Loss: 0.000047, Recon: 0.000041, KL: 0.077009, SSL: 0.000114 (weight: 0.41), Semantic: 0.322936
-2025-04-05 09:58:43,017 - INFO - Saved best model (epoch 8) with validation loss 0.000047
-2025-04-05 09:59:01,587 - INFO - Epoch 9/20, Train Loss: 0.099261, Val Loss: 0.000034, Recon: 0.000029, KL: 0.051900, SSL: 0.000101 (weight: 0.43), Semantic: 0.330456
-2025-04-05 09:59:01,670 - INFO - Saved best model (epoch 9) with validation loss 0.000034
-2025-04-05 09:59:19,872 - INFO - Epoch 10/20, Train Loss: 0.097582, Val Loss: 0.000024, Recon: 0.000022, KL: 0.038773, SSL: 0.000092 (weight: 0.44), Semantic: 0.324933
-2025-04-05 09:59:19,956 - INFO - Saved best model (epoch 10) with validation loss 0.000024
-2025-04-05 09:59:38,456 - INFO - Epoch 11/20, Train Loss: 0.097902, Val Loss: 0.000017, Recon: 0.000018, KL: 0.024013, SSL: 0.000087 (weight: 0.46), Semantic: 0.326067
-2025-04-05 09:59:38,531 - INFO - Saved best model (epoch 11) with validation loss 0.000017
-2025-04-05 09:59:57,107 - INFO - Epoch 12/20, Train Loss: 0.097944, Val Loss: 0.000015, Recon: 0.000015, KL: 0.018594, SSL: 0.000083 (weight: 0.47), Semantic: 0.326237
-2025-04-05 09:59:57,191 - INFO - Saved best model (epoch 12) with validation loss 0.000015
-2025-04-05 10:00:16,098 - INFO - Epoch 13/20, Train Loss: 0.099349, Val Loss: 0.000012, Recon: 0.000013, KL: 0.015549, SSL: 0.000080 (weight: 0.49), Semantic: 0.330937
-2025-04-05 10:00:16,168 - INFO - Saved best model (epoch 13) with validation loss 0.000012
-2025-04-05 10:00:35,632 - INFO - Epoch 14/20, Train Loss: 0.098529, Val Loss: 0.000010, Recon: 0.000012, KL: 0.012407, SSL: 0.000078 (weight: 0.51), Semantic: 0.328216
-2025-04-05 10:00:35,702 - INFO - Saved best model (epoch 14) with validation loss 0.000010
-2025-04-05 10:00:55,551 - INFO - Epoch 15/20, Train Loss: 0.096882, Val Loss: 0.000008, Recon: 0.000012, KL: 0.012344, SSL: 0.000077 (weight: 0.52), Semantic: 0.322728
-2025-04-05 10:00:55,621 - INFO - Saved best model (epoch 15) with validation loss 0.000008
-2025-04-05 10:01:15,203 - INFO - Epoch 16/20, Train Loss: 0.098055, Val Loss: 0.000009, Recon: 0.000011, KL: 0.009148, SSL: 0.000075 (weight: 0.54), Semantic: 0.326650
-2025-04-05 10:01:35,336 - INFO - Epoch 17/20, Train Loss: 0.096703, Val Loss: 0.000008, Recon: 0.000010, KL: 0.009781, SSL: 0.000074 (weight: 0.55), Semantic: 0.322140
-2025-04-05 10:01:35,410 - INFO - Saved best model (epoch 17) with validation loss 0.000008
-2025-04-05 10:01:54,938 - INFO - Epoch 18/20, Train Loss: 0.100349, Val Loss: 0.000007, Recon: 0.000010, KL: 0.007691, SSL: 0.000073 (weight: 0.57), Semantic: 0.334299
-2025-04-05 10:01:55,020 - INFO - Saved best model (epoch 18) with validation loss 0.000007
-2025-04-05 10:02:14,238 - INFO - Epoch 19/20, Train Loss: 0.097344, Val Loss: 0.000006, Recon: 0.000010, KL: 0.007460, SSL: 0.000072 (weight: 0.58), Semantic: 0.324282
-2025-04-05 10:02:14,308 - INFO - Saved best model (epoch 19) with validation loss 0.000006
-2025-04-05 10:02:33,786 - INFO - Epoch 20/20, Train Loss: 0.098157, Val Loss: 0.000007, Recon: 0.000009, KL: 0.006831, SSL: 0.000072 (weight: 0.60), Semantic: 0.326993
-/tmp/pycharm_project_908/Europearl/semantic_mlpdvae.py:651: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
-  checkpoint = torch.load(os.path.join(MODELS_DIR, model_path))
-2025-04-05 10:02:33,821 - INFO - Training complete. Best validation loss: 0.000006
-2025-04-05 10:02:33,827 - INFO - [PIPELINE] Not using RL agent - will use fixed API probability
-2025-04-05 10:02:33,828 - INFO - === Starting Enhanced Semantic Reconstruction Pipeline ===
-2025-04-05 10:02:33,828 - INFO - [PIPELINE] Noise level: 0.15, Noise type: gaussian
-2025-04-05 10:02:33,828 - INFO - [PIPELINE] OpenAI API available: False
-2025-04-05 10:02:33,828 - INFO - [PIPELINE] Physical channel enabled: True
+2025-04-05 10:10:37,221 - INFO - Loaded model was trained with semantic perceptual loss
+2025-04-05 10:10:37,222 - INFO - Loaded enhanced RL agent (exploration rate: 0.05)
+2025-04-05 10:10:37,222 - INFO - [PIPELINE] Using enhanced RL agent for API optimization (exploration rate: 0.05)
+2025-04-05 10:10:37,222 - INFO - === Starting Enhanced Semantic Reconstruction Pipeline ===
+2025-04-05 10:10:37,222 - INFO - [PIPELINE] Noise level: 0.15, Noise type: gaussian
+2025-04-05 10:10:37,222 - INFO - [PIPELINE] OpenAI API available: True
+2025-04-05 10:10:37,222 - INFO - [PIPELINE] Physical channel enabled: True
 Processing samples:   0%|                                | 0/50 [00:00<?, ?it/s]/tmp/pycharm_project_908/Europearl/SD5.py:1449: UserWarning: To copy construct from a tensor, it is recommended to use sourceTensor.clone().detach() or sourceTensor.clone().detach().requires_grad_(True), rather than torch.tensor(sourceTensor).
   embedding_tensor = torch.tensor(noisy_embedding, dtype=torch.float32).to(device)
 /tmp/pycharm_project_908/Europearl/compression_vae.py:339: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
   checkpoint = torch.load(VAE_COMPRESSOR_PATH, map_location=device)
-2025-04-05 10:02:33,924 - INFO - KB reconstruction made changes: 'Altzough , as wnu will have seen , the dreaded ' millennium bug ' failed to materialise , still the ecople in a number of cohptries suffered a series of natural disasters that truly were drealhul .' -> 'Altzough , as wnu will have seen , the dreaded ' millennium bug ' failed to materialise , still the ecople in a number of cohptries suffered a series of natural disasters the truly were drealhul .'
-2025-04-05 10:02:33,925 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:33,925 - INFO - Using default tokenizer.
-2025-04-05 10:02:35,127 - INFO - KB reconstruction made changes: 'igthough , as you will have seen , twm dreadey ' millennium bug ' failed to materialise , still ute peopex in a number of countries suffered a series of natural disasters that truly were dreadful .' -> 'igthough , as you will have seen , twm dreadey ' millennium bug ' failed to materialise , still ute peopex in a number of countries suffered a series of natural disasters the truly were dreadful .'
-2025-04-05 10:02:35,127 - INFO - Using default tokenizer.
-2025-04-05 10:02:35,186 - INFO - [PIPELINE] Sample 1/50 (processed in 1.36s)
-2025-04-05 10:02:35,187 - INFO - [PIPELINE] Original: Although , as you will have seen , the dreaded ' millennium bug ' failed to materialise , still the people in a number of countries suffered a series of natural disasters that truly were dreadful .
-2025-04-05 10:02:35,187 - INFO - [PIPELINE] Semantic noisy: Altzough , as wnu will have seen , the dreaded ' millennium bug ' failed to materialise , still the ecople in a number of cohptries suffered a series of natural disasters that truly were drealhul .
-2025-04-05 10:02:35,187 - INFO - [PIPELINE] Semantic reconstructed: Altzough , as wnu will have seen , the dreaded ' millennium bug ' failed to materialise , still the ecople in a number of cohptries suffered a series of natural disasters the truly were drealhul .
-2025-04-05 10:02:35,187 - INFO - [PIPELINE] Direct noisy: igthough , as you will have seen , twm dreadey ' millennium bug ' failed to materialise , still ute peopex in a number of countries suffered a series of natural disasters that truly were dreadful .
-2025-04-05 10:02:35,187 - INFO - [PIPELINE] Direct reconstructed: igthough , as you will have seen , twm dreadey ' millennium bug ' failed to materialise , still ute peopex in a number of countries suffered a series of natural disasters the truly were dreadful .
-2025-04-05 10:02:35,187 - INFO - [PIPELINE] Semantic BLEU: 0.6385, ROUGE-L: 0.8065, SEMANTIC: 0.8317
-2025-04-05 10:02:35,187 - INFO - [PIPELINE] Direct BLEU: 0.6986, ROUGE-L: 0.8065, SEMANTIC: 0.8564
-2025-04-05 10:02:35,187 - INFO - [PIPELINE] Current cost: $0.0000 of $2.00
-2025-04-05 10:02:35,187 - INFO - [PIPELINE] Progress: 1/50 samples. Est. remaining: 18775.0s (312.9m)
-2025-04-05 10:02:35,187 - INFO - ---
-Processing samples:   2%|▍                       | 1/50 [00:01<01:06,  1.36s/it]2025-04-05 10:02:35,260 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:35,261 - INFO - Using default tokenizer.
-2025-04-05 10:02:35,281 - INFO - Using default tokenizer.
-2025-04-05 10:02:35,291 - INFO - [PIPELINE] Sample 2/50 (processed in 0.10s)
-2025-04-05 10:02:35,291 - INFO - [PIPELINE] Original: You have requested a debate on this subject in the course of the next few days , during this part-session .
-2025-04-05 10:02:35,291 - INFO - [PIPELINE] Semantic noisy: You haee requssttd a debate on this subject in the course of the next few nkys , during this partasbssion .
-2025-04-05 10:02:35,291 - INFO - [PIPELINE] Semantic reconstructed: You haee requssttd a debate on this subject in the course of the next few nkys , during this partasbssion .
-2025-04-05 10:02:35,291 - INFO - [PIPELINE] Direct noisy: You have recuisted a mebste on thlo subject in the course of the next few days , quling this part-session .
-2025-04-05 10:02:35,291 - INFO - [PIPELINE] Direct reconstructed: You have recuisted a mebste on thlo subject in the course of the next few days , quling this part-session .
-2025-04-05 10:02:35,291 - INFO - [PIPELINE] Semantic BLEU: 0.6247, ROUGE-L: 0.7692, SEMANTIC: 0.7441
-2025-04-05 10:02:35,291 - INFO - [PIPELINE] Direct BLEU: 0.5469, ROUGE-L: 0.8000, SEMANTIC: 0.8276
-2025-04-05 10:02:35,291 - INFO - [PIPELINE] Current cost: $0.0000 of $2.00
-2025-04-05 10:02:35,291 - INFO - [PIPELINE] Progress: 2/50 samples. Est. remaining: 9198.4s (153.3m)
-2025-04-05 10:02:35,291 - INFO - ---
-Processing samples:   4%|▉                       | 2/50 [00:01<00:29,  1.61it/s]2025-04-05 10:02:35,342 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:35,343 - INFO - Using default tokenizer.
-2025-04-05 10:02:35,358 - INFO - Using default tokenizer.
-2025-04-05 10:02:35,423 - INFO - KB reconstruction made changes: '( The House rose and observed a minute ' s silence ) Maiam President , on a point of order .' -> '( The Has rose and observed a minute ' s silence ) Maiam Parliament , on a point of order .'
-2025-04-05 10:02:35,423 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:35,423 - INFO - Using default tokenizer.
-2025-04-05 10:02:35,442 - INFO - KB reconstruction made changes: '( The House rose and observed a minute ' s silence ) Madam President , on a point of order .' -> '( The Has rose and observed a minute ' s silence ) Madam Parliament , on a point of order .'
-2025-04-05 10:02:35,442 - INFO - Using default tokenizer.
-Processing samples:   8%|█▉                      | 4/50 [00:01<00:12,  3.54it/s]2025-04-05 10:02:35,511 - INFO - KB reconstruction made changes: 'You will be aware from the press and television txst there have been a number of bomb explosions and killings in Sri Lanka .' -> 'You will be aware from the press and television txst whether have been a number of bomb explosions and killings in Sri Lanka .'
-2025-04-05 10:02:35,511 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:35,511 - INFO - Using default tokenizer.
-2025-04-05 10:02:35,533 - INFO - KB reconstruction made changes: 'You will be aware from the press aoz television tvat there have been a number of bknb explosions and killings in Sri Lanka .' -> 'You will be aware from the press aoz television tvat whether have been a number of bknb explosions and killings in Sri Lanka .'
-2025-04-05 10:02:35,533 - INFO - Using default tokenizer.
-2025-04-05 10:02:35,596 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:35,596 - INFO - Using default tokenizer.
-2025-04-05 10:02:35,615 - INFO - Using default tokenizer.
-Processing samples:  12%|██▉                     | 6/50 [00:01<00:08,  5.27it/s]2025-04-05 10:02:35,676 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:35,676 - INFO - Using default tokenizer.
-2025-04-05 10:02:35,692 - INFO - Using default tokenizer.
-2025-04-05 10:02:35,751 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:35,752 - INFO - Using default tokenizer.
-2025-04-05 10:02:35,765 - INFO - Using default tokenizer.
-Processing samples:  16%|███▊                    | 8/50 [00:01<00:06,  6.98it/s]2025-04-05 10:02:35,823 - INFO - KB reconstruction made changes: 'Madam President , on a pging of order .' -> 'Madam Parliament , on a pging of order .'
-2025-04-05 10:02:35,823 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:35,823 - INFO - Using default tokenizer.
-2025-04-05 10:02:35,836 - INFO - KB reconstruction made changes: 'Madam President , on a point of order .' -> 'Madam Parliament , on a point of order .'
-2025-04-05 10:02:35,836 - INFO - Using default tokenizer.
-2025-04-05 10:02:35,894 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:35,894 - INFO - Using default tokenizer.
-2025-04-05 10:02:35,907 - INFO - Using default tokenizer.
-2025-04-05 10:02:35,917 - INFO - [PIPELINE] Sample 10/50 (processed in 0.07s)
-2025-04-05 10:02:35,917 - INFO - [PIPELINE] Original: I would like your advice about Rule 143 concerning inadmissibility .
-2025-04-05 10:02:35,917 - INFO - [PIPELINE] Semantic noisy: I would like your advice about Rule 143 concerning inadmissibility .
-2025-04-05 10:02:35,917 - INFO - [PIPELINE] Semantic reconstructed: I would like your advice about Rule 143 concerning inadmissibility .
-2025-04-05 10:02:35,917 - INFO - [PIPELINE] Direct noisy: I would like your advice about Rule 143 concerning inadmissibility .
-2025-04-05 10:02:35,917 - INFO - [PIPELINE] Direct reconstructed: I would like your advice about Rule 143 concerning inadmissibility .
-2025-04-05 10:02:35,917 - INFO - [PIPELINE] Semantic BLEU: 1.0000, ROUGE-L: 1.0000, SEMANTIC: 1.0000
-2025-04-05 10:02:35,917 - INFO - [PIPELINE] Direct BLEU: 1.0000, ROUGE-L: 1.0000, SEMANTIC: 1.0000
-2025-04-05 10:02:35,917 - INFO - [PIPELINE] Current cost: $0.0000 of $2.00
-2025-04-05 10:02:35,917 - INFO - [PIPELINE] Progress: 10/50 samples. Est. remaining: 1535.6s (25.6m)
-2025-04-05 10:02:35,917 - INFO - ---
-Processing samples:  20%|████▌                  | 10/50 [00:02<00:04,  8.55it/s]2025-04-05 10:02:35,967 - INFO - KB reconstruction made changes: 'My question relates to something that hill come up on Thursday and which I will then raise again .' -> 'My question relates to something the hill come up on Thursday and which I will then raise again .'
-2025-04-05 10:02:35,967 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:35,967 - INFO - Using default tokenizer.
-2025-04-05 10:02:35,991 - INFO - KB reconstruction made changes: 'My question relates to soiedhing that walc come up on Thursday and which I wdla then raise again .' -> 'My question relates to soiedhing the walc come up on Thursday and which I wdla then raise again .'
-2025-04-05 10:02:35,991 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,061 - INFO - KB reconstruction made changes: 'The Cunha reevrt on multiannual quidanne programmes comes before Parliament on Thursday and contains a proposal in paragraph 6 that a form of quota penaltigs should be introduced for countries which fail to meet theip fleet reduction targets annually .' -> 'The Cunha reevrt on multiannual quidanne programmes comes before Parliament on Thursday and contains a proposal in paragraph 6 the a form of quota penaltigs should be introduced for countries which fail to meet theip fleet reduction targets annually .'
-2025-04-05 10:02:36,061 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:36,062 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,086 - INFO - KB reconstruction made changes: 'The Cunha report on multiannual guidance programmes comes before Parliament on Thursday and contains a proposal in paragraph 6 that a form of quota penalties should be introduced for countries which fail to meet their fleet reduction targets annually .' -> 'The Cunha report on multiannual guidance programmes comes before Parliament on Thursday and contains a proposal in paragraph 6 the a form of quota penalties should be introduced for countries which fail to meet their fleet reduction targets annually .'
-2025-04-05 10:02:36,086 - INFO - Using default tokenizer.
-Processing samples:  24%|█████▌                 | 12/50 [00:02<00:04,  9.26it/s]2025-04-05 10:02:36,147 - INFO - KB reconstruction made changes: 'It says that this should be done despite the principle of relative stability .' -> 'It says the this should be done debate the principles of relative stability .'
-2025-04-05 10:02:36,148 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:36,148 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,161 - INFO - KB reconstruction made changes: 'It says that this should be done despite the principle of relative stability .' -> 'It says the this should be done debate the principles of relative stability .'
-2025-04-05 10:02:36,161 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,222 - INFO - KB reconstruction made changes: 'I bejgeve that the prigcipfe of relative stability is a fundamental legal wrincxple of the common fisheries policy and a proposal to subvert it would be legally inadmissible .' -> 'I bejgeve the the prigcipfe of relative stability is a fundamental legal wrincxple of the common fisheries policy and a proposal to subvert it would be legally inadmissible .'
-2025-04-05 10:02:36,223 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:36,223 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,242 - INFO - KB reconstruction made changes: 'I believe that the principle of relative stability is a fundamental legal principle of the common fisheries polufy and a proposal to subvert it snuld be legally inadmissible .' -> 'I believe the the principles of relative stability is a fundamental legal principles of the common fisheries polufy and a proposal to subvert it snuld be legally inadmissible .'
-2025-04-05 10:02:36,242 - INFO - Using default tokenizer.
-Processing samples:  28%|██████▍                | 14/50 [00:02<00:03, 10.21it/s]2025-04-05 10:02:36,306 - INFO - KB reconstruction made changes: 'I want to know whether one can raise an objection of tbgt kind to what is merely a report , not a legislative proposal , ngd ckether thoo is something I cah competently do on Tmdrsday .' -> 'I want to know whether one can raise an objection of tbgt kind to what is merely a report , not a legislation proposal , ngd whether thoo is something I cah competently do on Tmdrsday .'
-2025-04-05 10:02:36,307 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:36,307 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,326 - INFO - KB reconstruction made changes: 'I want to know whether one can raise an ozjiction of that kind to khat is merely a repizt , not a legislative proposal , and whether thaw is rkmething I can competently do on Thursday .' -> 'I want to know whether one can raise an ozjiction of the kind to khat is merely a repizt , not a legislation proposal , and whether thaw is rkmething I can competently do on Thursday .'
-2025-04-05 10:02:36,327 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,388 - INFO - KB reconstruction made changes: 'That is nrecisely the time when you may , if you wish , raise this question , i.e.' -> 'The is nrecisely the time when you may , if you wish , raise this question , i.e.'
-2025-04-05 10:02:36,388 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:36,388 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,402 - INFO - KB reconstruction made changes: 'That is precisedy wce time whek you may , if you wish , raise this questidj , i.km' -> 'The is precisedy wce time whek you may , if you wish , raise this question , i.km'
-2025-04-05 10:02:36,403 - INFO - Using default tokenizer.
-Processing samples:  32%|███████▎               | 16/50 [00:02<00:03, 10.86it/s]2025-04-05 10:02:36,463 - INFO - KB reconstruction made changes: 'on Thursday prior to the start of the presentation of the weporb .' -> 'on Thursday prior to the start of the protection of the weporb .'
-2025-04-05 10:02:36,463 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:36,463 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,478 - INFO - KB reconstruction made changes: 'on Thursday pcikr to the start of the presentation of tbn repoiq .' -> 'on Thursday pcikr to the start of the protection of tbn repoiq .'
-2025-04-05 10:02:36,478 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,535 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:36,536 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,547 - INFO - Using default tokenizer.
-Processing samples:  36%|████████▎              | 18/50 [00:02<00:02, 11.66it/s]2025-04-05 10:02:36,615 - INFO - KB reconstruction made changes: 'At the request of a French Member , Mr Zimeray , a petition has already been presented , which many people signed , including myself .' -> 'At the request of a French Member , Mr Zimeray , a protection has already been Parliament , which many people signed , including myself .'
-2025-04-05 10:02:36,615 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:36,615 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,639 - INFO - KB reconstruction made changes: 'At the request of a French Mrmxer , Mr Zimeray , a petition has already been presented , which many people signed , including myself .' -> 'At the request of a French Mrmxer , Mr Zimeray , a protection has already been Parliament , which many people signed , including myself .'
-2025-04-05 10:02:36,639 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,701 - INFO - KB reconstruction made changes: 'This is alq in accordance with the principles that we have always upheld .' -> 'This is alq in accordance with the principles the we have always upheld .'
-2025-04-05 10:02:36,701 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:36,702 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,717 - INFO - KB reconstruction made changes: 'This is all in accordance with the principles that we have always upheld .' -> 'This is all in accordance with the principles the we have always upheld .'
-2025-04-05 10:02:36,717 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,727 - INFO - [PIPELINE] Sample 20/50 (processed in 0.08s)
-2025-04-05 10:02:36,727 - INFO - [PIPELINE] Original: This is all in accordance with the principles that we have always upheld .
-2025-04-05 10:02:36,727 - INFO - [PIPELINE] Semantic noisy: This is alq in accordance with the principles that we have always upheld .
-2025-04-05 10:02:36,727 - INFO - [PIPELINE] Semantic reconstructed: This is alq in accordance with the principles the we have always upheld .
-2025-04-05 10:02:36,727 - INFO - [PIPELINE] Direct noisy: This is all in accordance with the principles that we have always upheld .
-2025-04-05 10:02:36,727 - INFO - [PIPELINE] Direct reconstructed: This is all in accordance with the principles the we have always upheld .
-2025-04-05 10:02:36,727 - INFO - [PIPELINE] Semantic BLEU: 0.5731, ROUGE-L: 0.8462, SEMANTIC: 0.9241
-2025-04-05 10:02:36,727 - INFO - [PIPELINE] Direct BLEU: 0.7825, ROUGE-L: 0.9231, SEMANTIC: 0.9867
-2025-04-05 10:02:36,727 - INFO - [PIPELINE] Current cost: $0.0000 of $2.00
-2025-04-05 10:02:36,727 - INFO - [PIPELINE] Progress: 20/50 samples. Est. remaining: 577.1s (9.6m)
-2025-04-05 10:02:36,727 - INFO - ---
-Processing samples:  40%|█████████▏             | 20/50 [00:02<00:02, 11.69it/s]2025-04-05 10:02:36,776 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:36,776 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,788 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,852 - INFO - KB reconstruction made changes: 'Indeed , it is quite in keeping with the positions this House has always adkoted .' -> 'Indeed , it is quite in keeping whether the protection this Has has always adkoted .'
-2025-04-05 10:02:36,852 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:36,852 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,871 - INFO - KB reconstruction made changes: 'Indeed , it is quite in keeping with the positions this House has alkacs adopted .' -> 'Indeed , it is quite in keeping whether the protection this Has has alkacs adopted .'
-2025-04-05 10:02:36,871 - INFO - Using default tokenizer.
-Processing samples:  44%|██████████             | 22/50 [00:03<00:02, 12.04it/s]2025-04-05 10:02:36,932 - INFO - Basic reconstruction made changes: 'Mhdal President , I shohld like to draw your attention to a case in which this Parliament has consistently shown an interest .' -> 'Mhdal President , I shohld like to draw your attention to a case in which this Parliament has consishenhly consistently shown an interest .'
-2025-04-05 10:02:36,933 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:36,933 - INFO - Using default tokenizer.
-2025-04-05 10:02:36,954 - INFO - KB reconstruction made changes: 'Manav President , I should likv to draw your attention to a case in which this farlipment has consistently shown an interest .' -> 'Manav Parliament , I should likv to draw your attention to a case in which this Parliament has consistently shown an interest .'
-2025-04-05 10:02:36,954 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,013 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:37,013 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,026 - INFO - Using default tokenizer.
-Processing samples:  48%|███████████            | 24/50 [00:03<00:02, 12.30it/s]2025-04-05 10:02:37,088 - INFO - KB reconstruction made changes: 'All of us here are pleased that the courts have acquitted him and malr it clear that in Russia , too , kccess to environmental information is a constitutional right .' -> 'All of us here are pleased the the courts have acquitted him and malr it clear the in Russia , too , kccess to environmental information is a constitutional right .'
-2025-04-05 10:02:37,088 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:37,089 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,107 - INFO - KB reconstruction made changes: 'All of us here are paeased that the courts have acquitted him and made it clear bxat in Russia , too , access to environmental information is a constitutional right .' -> 'All of us here are paeased the the courts have acquitted him and made it clear bxat in Russia , too , access to environmental information is a constitutional right .'
-2025-04-05 10:02:37,107 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,172 - INFO - KB reconstruction made changes: 'Now , however , he is to go before the courts once more because tyr public prosecutor is appealing .' -> 'Now , whether , he is to go before the course once more because tyr public prosecutor is appealing .'
-2025-04-05 10:02:37,173 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:37,173 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,193 - INFO - KB reconstruction made changes: 'Now , however , he is to go before the courts once more because the public prosecutor is appealing .' -> 'Now , whether , he is to go before the course once more because the public prosecutor is appealing .'
-2025-04-05 10:02:37,193 - INFO - Using default tokenizer.
-Processing samples:  52%|███████████▉           | 26/50 [00:03<00:01, 12.18it/s]2025-04-05 10:02:37,257 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:37,257 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,274 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,339 - INFO - KB reconstruction made changes: 'But , Madam sresbdent , my personal request has not been met .' -> 'But , Madam sresbdent , my proposal request has not been met .'
-2025-04-05 10:02:37,339 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:37,339 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,356 - INFO - KB reconstruction made changes: 'But , Madam cresmdent , my personal request has not been met .' -> 'But , Madam cresmdent , my proposal request has not been met .'
-2025-04-05 10:02:37,356 - INFO - Using default tokenizer.
-Processing samples:  56%|████████████▉          | 28/50 [00:03<00:01, 12.23it/s]2025-04-05 10:02:37,415 - INFO - KB reconstruction made changes: 'I would therefore once more lsc you to ensure that we get a Dutch channel as well .' -> 'I would therefore once more lsc you to ensure the we get a Dutch channel as well .'
-2025-04-05 10:02:37,415 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:37,416 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,430 - INFO - KB reconstruction made changes: 'I would therefore encz more ask you to ensuae that we get a Dutch channel as wwls .' -> 'I would therefore encz more ask you to ensuae the we get a Dutch channel as wwls .'
-2025-04-05 10:02:37,430 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,490 - INFO - KB reconstruction made changes: 'Mrs Plooajgvan Gorsel , I can tell you that this matter is on the agenda mor the Quaestors ' pgeting on Wednesday .' -> 'Mrs Plooij-van Gorsel , I can tell you the this matter is on the agenda mor the Quaestors ' pgeting on Wednesday .'
-2025-04-05 10:02:37,490 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:37,490 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,506 - INFO - KB reconstruction made changes: 'Mrs Plooij-van Gorsel , I can tell you that this aatter is on the agenda toy the Quaestors ' meeting on Wednesday .' -> 'Mrs Plooij-van Gorsel , I can tell you the this aatter is on the agenda toy the Quaestors ' meeting on Wednesday .'
-2025-04-05 10:02:37,506 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,517 - INFO - [PIPELINE] Sample 30/50 (processed in 0.08s)
-2025-04-05 10:02:37,517 - INFO - [PIPELINE] Original: Mrs Plooij-van Gorsel , I can tell you that this matter is on the agenda for the Quaestors ' meeting on Wednesday .
-2025-04-05 10:02:37,517 - INFO - [PIPELINE] Semantic noisy: Mrs Plooajgvan Gorsel , I can tell you that this matter is on the agenda mor the Quaestors ' pgeting on Wednesday .
-2025-04-05 10:02:37,517 - INFO - [PIPELINE] Semantic reconstructed: Mrs Plooij-van Gorsel , I can tell you the this matter is on the agenda mor the Quaestors ' pgeting on Wednesday .
-2025-04-05 10:02:37,517 - INFO - [PIPELINE] Direct noisy: Mrs Plooij-van Gorsel , I can tell you that this aatter is on the agenda toy the Quaestors ' meeting on Wednesday .
-2025-04-05 10:02:37,517 - INFO - [PIPELINE] Direct reconstructed: Mrs Plooij-van Gorsel , I can tell you the this aatter is on the agenda toy the Quaestors ' meeting on Wednesday .
-2025-04-05 10:02:37,517 - INFO - [PIPELINE] Semantic BLEU: 0.6166, ROUGE-L: 0.8571, SEMANTIC: 0.9575
-2025-04-05 10:02:37,517 - INFO - [PIPELINE] Direct BLEU: 0.6652, ROUGE-L: 0.8571, SEMANTIC: 0.9483
-2025-04-05 10:02:37,517 - INFO - [PIPELINE] Current cost: $0.0000 of $2.00
-2025-04-05 10:02:37,517 - INFO - [PIPELINE] Progress: 30/50 samples. Est. remaining: 257.0s (4.3m)
-2025-04-05 10:02:37,517 - INFO - ---
-Processing samples:  60%|█████████████▊         | 30/50 [00:03<00:01, 12.52it/s]2025-04-05 10:02:37,566 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:37,566 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,580 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,641 - INFO - KB reconstruction made changes: 'Madam uresidenk , can you tflr me why this Parliament does not adhfre to the health and safety legislation that it actually passes ?' -> 'Madam uresidenk , can you tflr me why this Parliament does not adhfre to the health and safety legislation the it actually passes ?'
-2025-04-05 10:02:37,641 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:37,642 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,658 - INFO - KB reconstruction made changes: 'Madam President , can you tell me why this Parliament does not adhere to the health and eafetf legislation that it actually passes ?' -> 'Madam President , can you tell me why this Parliament does not adhere to the health and eafetf legislation the it actually passes ?'
-2025-04-05 10:02:37,658 - INFO - Using default tokenizer.
-Processing samples:  64%|██████████████▋        | 32/50 [00:03<00:01, 12.71it/s]2025-04-05 10:02:37,720 - INFO - KB reconstruction made changes: 'Why has no his quality test been done on this particular building since we were elected ?' -> 'Why has no this quality test been done on this particular building since we were elected ?'
-2025-04-05 10:02:37,720 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:37,720 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,736 - INFO - KB reconstruction made changes: 'Why has no air quality test been done on this particular bunldyng srmce we were elected ?' -> 'Why has no are quality test been done on this particular bunldyng srmce we were elected ?'
-2025-04-05 10:02:37,736 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,800 - INFO - KB reconstruction made changes: 'Why has there been no Hearth and Safety Committee qeeving since 1998 ?' -> 'Why has whether been no Hearth and Safety Committee qeeving since 1998 ?'
-2025-04-05 10:02:37,800 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:37,800 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,818 - INFO - KB reconstruction made changes: 'Why has there been no Hhalth wnq Sabetu Committee meeting eivce 1998 ?' -> 'Why has whether been no Hhalth wnq Sabetu Committee meeting eivce 1998 ?'
-2025-04-05 10:02:37,818 - INFO - Using default tokenizer.
-Processing samples:  68%|███████████████▋       | 34/50 [00:04<00:01, 12.65it/s]2025-04-05 10:02:37,882 - INFO - KB reconstruction made changes: 'Why has there been no fire drill , either in the Brussels Parliament buildings or the strasbotrg Parliament buildings ?' -> 'Why has there been no fire drilll , whether in the Brussels Parliament buildings or the strasbotrg Parliament buildings ?'
-2025-04-05 10:02:37,883 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:37,883 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,901 - INFO - KB reconstruction made changes: 'Why has there been no fire drill , either in the Brussels Parliament buildings or the Strasbourg Parliament buildings ?' -> 'Why has there been no fire drilll , whether in the Brussels Parliament buildings or the Strasbourg Parliament buildings ?'
-2025-04-05 10:02:37,901 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,961 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:37,962 - INFO - Using default tokenizer.
-2025-04-05 10:02:37,976 - INFO - KB reconstruction made changes: 'Why agn there no fire instructions ?' -> 'Why agn whether no fire protection ?'
-2025-04-05 10:02:37,976 - INFO - Using default tokenizer.
-Processing samples:  72%|████████████████▌      | 36/50 [00:04<00:01, 12.67it/s]2025-04-05 10:02:38,038 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:38,038 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,054 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,114 - INFO - KB reconstruction made changes: 'Whk azz no-smoking areas not enforwid ?' -> 'Whk azz no-smoking agrees not enforwid ?'
-2025-04-05 10:02:38,114 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:38,114 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,127 - INFO - Using default tokenizer.
-Processing samples:  76%|█████████████████▍     | 38/50 [00:04<00:00, 12.85it/s]2025-04-05 10:02:38,185 - INFO - KB reconstruction made changes: 'It seems absolutely disgraceful that we pass legislation and do not adhere to it ourselves .' -> 'It seems absolutely disgraceful the we pass legislation and do not adhere to it ourselves .'
-2025-04-05 10:02:38,185 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:38,186 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,200 - INFO - KB reconstruction made changes: 'It seems absolutely disgraceful that we pass legislation and do not adhere to it ourselves .' -> 'It seems absolutely disgraceful the we pass legislation and do not adhere to it ourselves .'
-2025-04-05 10:02:38,200 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,259 - INFO - KB reconstruction made changes: 'ars Lynne , mou are quite right any I shall check whether this has actually not been done .' -> 'are Lynne , mou are quite right any I shall check whether this has actually not been done .'
-2025-04-05 10:02:38,260 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:38,260 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,276 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,286 - INFO - [PIPELINE] Sample 40/50 (processed in 0.08s)
-2025-04-05 10:02:38,286 - INFO - [PIPELINE] Original: Mrs Lynne , you are quite right and I shall check whether this has actually not been done .
-2025-04-05 10:02:38,286 - INFO - [PIPELINE] Semantic noisy: ars Lynne , mou are quite right any I shall check whether this has actually not been done .
-2025-04-05 10:02:38,286 - INFO - [PIPELINE] Semantic reconstructed: are Lynne , mou are quite right any I shall check whether this has actually not been done .
-2025-04-05 10:02:38,286 - INFO - [PIPELINE] Direct noisy: Mgu Lynne , you are quite right and I shall check whether this has awtially not been done .
-2025-04-05 10:02:38,286 - INFO - [PIPELINE] Direct reconstructed: Mgu Lynne , you are quite right and I shall check whether this has awtially not been done .
-2025-04-05 10:02:38,286 - INFO - [PIPELINE] Semantic BLEU: 0.6503, ROUGE-L: 0.8235, SEMANTIC: 0.8831
-2025-04-05 10:02:38,286 - INFO - [PIPELINE] Direct BLEU: 0.7913, ROUGE-L: 0.8824, SEMANTIC: 0.8983
-2025-04-05 10:02:38,286 - INFO - [PIPELINE] Current cost: $0.0000 of $2.00
-2025-04-05 10:02:38,286 - INFO - [PIPELINE] Progress: 40/50 samples. Est. remaining: 96.6s (1.6m)
-2025-04-05 10:02:38,286 - INFO - ---
-Processing samples:  80%|██████████████████▍    | 40/50 [00:04<00:00, 13.00it/s]2025-04-05 10:02:38,338 - INFO - KB reconstruction made changes: 'I shall aloo refer the matter to the College of Quaestors , ynd I am certain that they will be kemj to ensure that we comply with yhg regulations we ourselves vote on .' -> 'I shall aloo refer the matter to the College of Quaestors , ynd I am certain the they will be kemj to ensure the we comply with yhg regulation we ourselves vote on .'
-2025-04-05 10:02:38,338 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:38,338 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,357 - INFO - KB reconstruction made changes: 'I shall also refer the matter to the College of ouvestors , and I am certain that they will be keen to engurd that we comply with the regulations we ourselves vote on .' -> 'I shall also refer the matter to the College of ouvestors , and I am certain the they will be keen to engurd the we comply with the regulation we ourselves vote on .'
-2025-04-05 10:02:38,357 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,421 - INFO - KB reconstruction made changes: 'Madam wresiqent , Mrs Díez Gonzáldl and I had tegled questions on certain opinions of the Vice-President , Mrs de Palacio , which appeared in a Spanish newspajer .' -> 'Madam wresiqent , Mrs Díez Gonzáldl and I had tegled question on certain opinions of the Vice-President , Mrs de Palacio , which appeared in a Spanish newspajer .'
-2025-04-05 10:02:38,421 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:38,421 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,441 - INFO - KB reconstruction made changes: 'Madam President , Mrs Díez González brd I had tabled questions on kertaih opinions of the Vice-President , Mrs de Palacio , which appeared in a Spanish newspaper .' -> 'Madam President , Mrs Díez González brd I had tabled question on kertaih opinions of the Vice-President , Mrs de Palacio , which appeared in a Spanish newspaper .'
-2025-04-05 10:02:38,441 - INFO - Using default tokenizer.
-Processing samples:  84%|███████████████████▎   | 42/50 [00:04<00:00, 12.68it/s]2025-04-05 10:02:38,508 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:38,508 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,528 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,588 - INFO - KB reconstruction made changes: 'I would ask that they reconsider , since this is not the cpsd .' -> 'I would ask the they reconsider , since this is not the cpsd .'
-2025-04-05 10:02:38,589 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:38,589 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,602 - INFO - KB reconstruction made changes: 'I would ask that they recunsider , since this is cmt the case .' -> 'I would ask the they recunsider , since this is at the case .'
-2025-04-05 10:02:38,602 - INFO - Using default tokenizer.
-Processing samples:  88%|████████████████████▏  | 44/50 [00:04<00:00, 12.63it/s]2025-04-05 10:02:38,666 - INFO - KB reconstruction made changes: 'The questions answered previously referred to Mrs de Palacio ' s interientuon , on another occasion , and not to these comments which appeared in the ABC newspaper on 18 November .' -> 'The question answered previously referred to Mrs de Palacio ' s interientuon , on another occasion , and not to these comments which appeared in the ABC newspaper on 18 November .'
-2025-04-05 10:02:38,667 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:38,667 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,687 - INFO - KB reconstruction made changes: 'The questions answered previously referred to Mrs de Palacio ' s intervention , on another occasion , and not to therx comments whiwh appeared in the oyC newspaper on 18 November .' -> 'The question answered previously referred to Mrs de Palacio ' s intervention , on another occasion , and not to therx comments whiwh appeared in the oyC newspaper on 18 November .'
-2025-04-05 10:02:38,687 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,748 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:38,749 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,762 - INFO - Using default tokenizer.
-Processing samples:  92%|█████████████████████▏ | 46/50 [00:04<00:00, 12.62it/s]2025-04-05 10:02:38,820 - INFO - KB reconstruction made changes: 'I admit that , at present , the matter seems to be somewhat confused .' -> 'I admit the , at present , the matter seems to be somewhat confused .'
-2025-04-05 10:02:38,820 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:38,820 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,834 - INFO - KB reconstruction made changes: 'I admit that , at ptxsent , tme matter sebmu to be kqmewhat confused .' -> 'I admit the , at ptxsent , tme matter sebmu to be kqmewhat confused .'
-2025-04-05 10:02:38,834 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,893 - INFO - KB reconstruction made changes: 'We ssazl therefore look into it properly to ensure that evrrythicg is as it should be .' -> 'We ssazl therefore look into it proposal to ensure the evrrythicg is as it should be .'
-2025-04-05 10:02:38,893 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:38,893 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,907 - INFO - KB reconstruction made changes: 'We shall therefore look into it properly to ensure that everything is as it should be .' -> 'We shall therefore look into it proposal to ensure the everything is as it should be .'
-2025-04-05 10:02:38,907 - INFO - Using default tokenizer.
-Processing samples:  96%|██████████████████████ | 48/50 [00:05<00:00, 12.93it/s]2025-04-05 10:02:38,970 - INFO - KB reconstruction made changes: 'soyay 's decision not to renhw the embargo is extremely dangerous considering the situation there .' -> 'soyay 's decision not to renhw the embargo is extremely dangerous concerning the situation whether .'
-2025-04-05 10:02:38,970 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:38,970 - INFO - Using default tokenizer.
-2025-04-05 10:02:38,989 - INFO - KB reconstruction made changes: 'Today 's decision not to renew the embargo is extremely dangerous considering xge situation there .' -> 'Today 's decision not to Rule the embargo is extremely dangerous concerning xge situation whether .'
-2025-04-05 10:02:38,989 - INFO - Using default tokenizer.
-2025-04-05 10:02:39,049 - INFO - KB reconstruction made changes: 'So Parliament should shnd a message , since that is the wish of tha vast majority .' -> 'So Parliament should shnd a message , since the is the wish of tha vast majority .'
-2025-04-05 10:02:39,049 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
-2025-04-05 10:02:39,050 - INFO - Using default tokenizer.
-2025-04-05 10:02:39,063 - INFO - KB reconstruction made changes: 'So Parliament should send a message , since that is the wish of the vast majority .' -> 'So Parliament should send a message , since the is the wish of the vast majority .'
-2025-04-05 10:02:39,064 - INFO - Using default tokenizer.
-2025-04-05 10:02:39,074 - INFO - [PIPELINE] Sample 50/50 (processed in 0.07s)
-2025-04-05 10:02:39,074 - INFO - [PIPELINE] Original: So Parliament should send a message , since that is the wish of the vast majority .
-2025-04-05 10:02:39,074 - INFO - [PIPELINE] Semantic noisy: So Parliament should shnd a message , since that is the wish of tha vast majority .
-2025-04-05 10:02:39,074 - INFO - [PIPELINE] Semantic reconstructed: So Parliament should shnd a message , since the is the wish of tha vast majority .
-2025-04-05 10:02:39,074 - INFO - [PIPELINE] Direct noisy: So Parliament should send a message , since that is the wish of the vast majority .
-2025-04-05 10:02:39,074 - INFO - [PIPELINE] Direct reconstructed: So Parliament should send a message , since the is the wish of the vast majority .
-2025-04-05 10:02:39,074 - INFO - [PIPELINE] Semantic BLEU: 0.4213, ROUGE-L: 0.8000, SEMANTIC: 0.8900
-2025-04-05 10:02:39,074 - INFO - [PIPELINE] Direct BLEU: 0.8282, ROUGE-L: 0.9333, SEMANTIC: 0.9823
-2025-04-05 10:02:39,074 - INFO - [PIPELINE] Current cost: $0.0000 of $2.00
-2025-04-05 10:02:39,074 - INFO - [PIPELINE] Progress: 50/50 samples. Est. remaining: 0.0s (0.0m)
-2025-04-05 10:02:39,074 - INFO - ---
-Processing samples: 100%|███████████████████████| 50/50 [00:05<00:00,  9.53it/s]
-2025-04-05 10:02:39,199 - INFO - Total API cost: $0.0000 of $2.00 budget
-2025-04-05 10:02:39,199 - INFO - 
+2025-04-05 10:10:37,367 - INFO - [API] Starting reconstruction of text: 'Although , as you will have se...'
+2025-04-05 10:10:37,375 - INFO - [API] Using KB reconstruction with confidence 0.97
+2025-04-05 10:10:37,375 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-05 10:10:37,375 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:37,376 - INFO - Using default tokenizer.
+2025-04-05 10:10:39,101 - INFO - [API] Starting reconstruction of text: 'Although , as mok will have se...'
+2025-04-05 10:10:39,109 - INFO - [API] Using KB reconstruction with confidence 0.97
+2025-04-05 10:10:39,109 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-05 10:10:39,110 - INFO - Using default tokenizer.
+2025-04-05 10:10:39,122 - INFO - [PIPELINE] Sample 1/50 (processed in 1.90s)
+2025-04-05 10:10:39,122 - INFO - [PIPELINE] Original: Although , as you will have seen , the dreaded ' millennium bug ' failed to materialise , still the people in a number of countries suffered a series of natural disasters that truly were dreadful .
+2025-04-05 10:10:39,122 - INFO - [PIPELINE] Semantic noisy: Although , as you will have seen , tqe dreaded ' millennium bug ' failed to materiiuise , still the peopuj in a number of countries suffered a seeieg of natural disasters that truly were dreadful .
+2025-04-05 10:10:39,122 - INFO - [PIPELINE] Semantic reconstructed: Although , as you will have seen , tqe dreaded ' millennium bug ' failed to materiiuise , still the peopuj in a number of countries suffered a seeieg of natural disasters the truly were dreadful .
+2025-04-05 10:10:39,122 - INFO - [PIPELINE] Direct noisy: Although , as mok will have seen , the dreaded ' millennium bya ' failed to materialise , still the people in a number of countries sufdeaed a reribs of natural djsasters that truly were dreadful .
+2025-04-05 10:10:39,122 - INFO - [PIPELINE] Direct reconstructed: Although , as mok will have seen , the dreaded ' millennium bya ' failed to materialise , still the people in a number of countries sufdeaed a reribs of natural djsasters the truly were dreadful .
+2025-04-05 10:10:39,122 - INFO - [PIPELINE] Semantic BLEU: 0.6239, ROUGE-L: 0.8387, SEMANTIC: 0.8039
+2025-04-05 10:10:39,122 - INFO - [PIPELINE] Direct BLEU: 0.6289, ROUGE-L: 0.8065, SEMANTIC: 0.7924
+2025-04-05 10:10:39,122 - INFO - [PIPELINE] Current cost: $0.0004 of $2.00
+2025-04-05 10:10:39,122 - INFO - [PIPELINE] Progress: 1/50 samples. Est. remaining: 147.6s (2.5m)
+2025-04-05 10:10:39,122 - INFO - ---
+Processing samples:   2%|▍                       | 1/50 [00:01<01:33,  1.90s/it]2025-04-05 10:10:39,193 - INFO - [API] Starting reconstruction of text: 'You have requastet a debate on...'
+2025-04-05 10:10:39,198 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:10:39,941 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:39,952 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:40,177 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:10:40,177 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:10:40,177 - INFO - [API] Completed in 0.983s using api_gpt-3.5-turbo
+2025-04-05 10:10:40,177 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:40,177 - INFO - Using default tokenizer.
+2025-04-05 10:10:40,250 - INFO - [API] Starting reconstruction of text: 'joh have requested a debate on...'
+2025-04-05 10:10:40,256 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-05 10:10:41,300 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:41,304 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:41,534 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:10:41,534 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-05 10:10:41,534 - INFO - [API] Completed in 1.283s using api_gpt-4-turbo
+2025-04-05 10:10:41,534 - INFO - Using default tokenizer.
+2025-04-05 10:10:41,548 - INFO - [PIPELINE] Sample 2/50 (processed in 2.43s)
+2025-04-05 10:10:41,548 - INFO - [PIPELINE] Original: You have requested a debate on this subject in the course of the next few days , during this part-session .
+2025-04-05 10:10:41,548 - INFO - [PIPELINE] Semantic noisy: You have requastet a debate on rhid subject in the course of tpt next few days , during mkis part-session .
+2025-04-05 10:10:41,548 - INFO - [PIPELINE] Semantic reconstructed: you will have requested a debate on this subject , the course , the next few days, during this part-session.
+2025-04-05 10:10:41,548 - INFO - [PIPELINE] Direct noisy: joh have requested a debate on this subject in ahg course of the next rxw days , during khis part-session .
+2025-04-05 10:10:41,548 - INFO - [PIPELINE] Direct reconstructed: you will have requested a debate on this subject , the course , the next few days, during this part-session.
+2025-04-05 10:10:41,548 - INFO - [PIPELINE] Semantic BLEU: 0.3990, ROUGE-L: 0.9231, SEMANTIC: 0.9453
+2025-04-05 10:10:41,548 - INFO - [PIPELINE] Direct BLEU: 0.3990, ROUGE-L: 0.9231, SEMANTIC: 0.9453
+2025-04-05 10:10:41,548 - INFO - [PIPELINE] Current cost: $0.0044 of $2.00
+2025-04-05 10:10:41,548 - INFO - [PIPELINE] Progress: 2/50 samples. Est. remaining: 130.5s (2.2m)
+2025-04-05 10:10:41,548 - INFO - ---
+Processing samples:   4%|▉                       | 2/50 [00:04<01:46,  2.21s/it]2025-04-05 10:10:41,606 - INFO - [API] Starting reconstruction of text: 'Please rise , then , for this ...'
+2025-04-05 10:10:41,610 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:10:42,133 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:42,231 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:42,279 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:10:42,279 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:10:42,279 - INFO - [API] Completed in 0.673s using api_gpt-3.5-turbo
+2025-04-05 10:10:42,279 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:42,280 - INFO - Using default tokenizer.
+2025-04-05 10:10:42,298 - INFO - [API] Starting reconstruction of text: 'Please rise , then , for this ...'
+2025-04-05 10:10:42,302 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:10:42,932 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:42,936 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:42,985 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:10:42,985 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:10:42,985 - INFO - [API] Completed in 0.688s using api_gpt-3.5-turbo
+2025-04-05 10:10:42,986 - INFO - Using default tokenizer.
+Processing samples:   6%|█▍                      | 3/50 [00:05<01:27,  1.86s/it]2025-04-05 10:10:43,073 - INFO - [API] Starting reconstruction of text: '( The House rqse and observed ...'
+2025-04-05 10:10:43,081 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-05 10:10:43,081 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-05 10:10:43,081 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:43,081 - INFO - Using default tokenizer.
+2025-04-05 10:10:43,094 - INFO - [API] Starting reconstruction of text: '( The House rose and observed ...'
+2025-04-05 10:10:43,103 - INFO - [API] Using KB reconstruction with confidence 0.85
+2025-04-05 10:10:43,103 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-05 10:10:43,103 - INFO - Using default tokenizer.
+Processing samples:   8%|█▉                      | 4/50 [00:05<00:53,  1.17s/it]2025-04-05 10:10:43,180 - INFO - [API] Starting reconstruction of text: 'You will be nuare from the pre...'
+2025-04-05 10:10:43,187 - INFO - [API] Using KB reconstruction with confidence 0.95
+2025-04-05 10:10:43,187 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 10:10:43,187 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:43,187 - INFO - Using default tokenizer.
+2025-04-05 10:10:43,199 - INFO - [API] Starting reconstruction of text: 'xom will be aware from the pre...'
+2025-04-05 10:10:43,206 - INFO - [API] Using KB reconstruction with confidence 0.95
+2025-04-05 10:10:43,206 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 10:10:43,206 - INFO - Using default tokenizer.
+Processing samples:  10%|██▍                     | 5/50 [00:05<00:35,  1.27it/s]2025-04-05 10:10:43,263 - INFO - [API] Starting reconstruction of text: 'One of the people assassinated...'
+2025-04-05 10:10:43,270 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:10:43,932 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:43,938 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:44,135 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:10:44,135 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:10:44,135 - INFO - [API] Completed in 0.873s using api_gpt-3.5-turbo
+2025-04-05 10:10:44,135 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:44,136 - INFO - Using default tokenizer.
+2025-04-05 10:10:44,148 - INFO - [API] Starting reconstruction of text: 'One of the people assqsuinated...'
+2025-04-05 10:10:44,154 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:10:44,981 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:44,986 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:45,187 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:10:45,187 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:10:45,187 - INFO - [API] Completed in 1.039s using api_gpt-3.5-turbo
+2025-04-05 10:10:45,187 - INFO - Using default tokenizer.
+Processing samples:  12%|██▉                     | 6/50 [00:07<00:52,  1.19s/it]2025-04-05 10:10:45,253 - INFO - [API] Starting reconstruction of text: 'Yes , Mr Evanq , I feel an ini...'
+2025-04-05 10:10:45,257 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:10:45,918 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:45,922 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:46,079 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:10:46,079 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:10:46,079 - INFO - [API] Completed in 0.826s using api_gpt-3.5-turbo
+2025-04-05 10:10:46,079 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:46,080 - INFO - Using default tokenizer.
+2025-04-05 10:10:46,092 - INFO - [API] Starting reconstruction of text: 'Yes , Mr Evans , I feel an ini...'
+2025-04-05 10:10:46,096 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:10:46,889 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:46,892 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:47,058 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:10:47,058 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:10:47,058 - INFO - [API] Completed in 0.967s using api_gpt-3.5-turbo
+2025-04-05 10:10:47,059 - INFO - Using default tokenizer.
+Processing samples:  14%|███▎                    | 7/50 [00:09<01:00,  1.42s/it]2025-04-05 10:10:47,126 - INFO - [API] Starting reconstruction of text: 'If the House agrees , I shall ...'
+2025-04-05 10:10:47,129 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:10:47,778 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:47,786 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:47,890 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:10:47,890 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:10:47,890 - INFO - [API] Completed in 0.764s using api_gpt-3.5-turbo
+2025-04-05 10:10:47,890 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:47,891 - INFO - Using default tokenizer.
+2025-04-05 10:10:47,907 - INFO - [API] Starting reconstruction of text: 'If the House agrees , I shall ...'
+2025-04-05 10:10:47,909 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:10:48,527 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:48,531 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:48,638 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:10:48,638 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:10:48,638 - INFO - [API] Completed in 0.731s using api_gpt-3.5-turbo
+2025-04-05 10:10:48,638 - INFO - Using default tokenizer.
+Processing samples:  16%|███▊                    | 8/50 [00:11<01:01,  1.47s/it]2025-04-05 10:10:48,720 - INFO - [API] Starting reconstruction of text: 'Madam President , on a point o...'
+2025-04-05 10:10:48,723 - INFO - [API] Using KB reconstruction with confidence 0.81
+2025-04-05 10:10:48,723 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 10:10:48,723 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:48,723 - INFO - Using default tokenizer.
+2025-04-05 10:10:48,735 - INFO - [API] Starting reconstruction of text: 'Madam President , on a point o...'
+2025-04-05 10:10:48,738 - INFO - [API] Using KB reconstruction with confidence 0.81
+2025-04-05 10:10:48,738 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 10:10:48,739 - INFO - Using default tokenizer.
+2025-04-05 10:10:48,797 - INFO - [API] Starting reconstruction of text: 'I would like your advice about...'
+2025-04-05 10:10:48,800 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:10:53,744 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:53,752 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:53,773 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:10:53,773 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:10:53,773 - INFO - [API] Completed in 4.976s using api_gpt-3.5-turbo
+2025-04-05 10:10:53,773 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:53,774 - INFO - Using default tokenizer.
+2025-04-05 10:10:53,794 - INFO - [API] Starting reconstruction of text: 'I would like fvur advice about...'
+2025-04-05 10:10:53,798 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:10:54,278 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:54,284 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:54,304 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:10:54,304 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:10:54,304 - INFO - [API] Completed in 0.509s using api_gpt-3.5-turbo
+2025-04-05 10:10:54,304 - INFO - Using default tokenizer.
+2025-04-05 10:10:54,321 - INFO - [PIPELINE] Sample 10/50 (processed in 5.57s)
+2025-04-05 10:10:54,321 - INFO - [PIPELINE] Original: I would like your advice about Rule 143 concerning inadmissibility .
+2025-04-05 10:10:54,321 - INFO - [PIPELINE] Semantic noisy: I would like your advice about Rule hy3 concerning inadmissibility .
+2025-04-05 10:10:54,321 - INFO - [PIPELINE] Semantic reconstructed: Madam President , , on on a a a a point point order . . .
+2025-04-05 10:10:54,321 - INFO - [PIPELINE] Direct noisy: I would like fvur advice about Rule 143 concerning inadmissibility .
+2025-04-05 10:10:54,321 - INFO - [PIPELINE] Direct reconstructed: Madam President , , on on a a a a point point order . . .
+2025-04-05 10:10:54,321 - INFO - [PIPELINE] Semantic BLEU: 0.0157, ROUGE-L: 0.0000, SEMANTIC: 0.6009
+2025-04-05 10:10:54,321 - INFO - [PIPELINE] Direct BLEU: 0.0157, ROUGE-L: 0.0000, SEMANTIC: 0.6009
+2025-04-05 10:10:54,321 - INFO - [PIPELINE] Current cost: $0.0062 of $2.00
+2025-04-05 10:10:54,321 - INFO - [PIPELINE] Progress: 10/50 samples. Est. remaining: 72.8s (1.2m)
+2025-04-05 10:10:54,321 - INFO - ---
+Processing samples:  20%|████▌                  | 10/50 [00:17<01:24,  2.12s/it]2025-04-05 10:10:54,394 - INFO - [API] Starting reconstruction of text: 'My question relates to somethi...'
+2025-04-05 10:10:54,398 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:10:55,188 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:55,196 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:55,263 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:10:55,263 - INFO - [API] Completed in 0.869s using api_gpt-3.5-turbo
+2025-04-05 10:10:55,264 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:55,264 - INFO - Using default tokenizer.
+2025-04-05 10:10:55,277 - INFO - [API] Starting reconstruction of text: 'My question relates to sometli...'
+2025-04-05 10:10:55,281 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-05 10:10:55,281 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 10:10:55,281 - INFO - Using default tokenizer.
+Processing samples:  22%|█████                  | 11/50 [00:18<01:11,  1.83s/it]2025-04-05 10:10:55,346 - INFO - [API] Starting reconstruction of text: 'The zunha report on multzannuj...'
+2025-04-05 10:10:55,356 - INFO - [API] Using KB reconstruction with confidence 0.97
+2025-04-05 10:10:55,356 - INFO - [API] Completed in 0.010s using method: kb
+2025-04-05 10:10:55,356 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:55,357 - INFO - Using default tokenizer.
+2025-04-05 10:10:55,370 - INFO - [API] Starting reconstruction of text: 'The Cunha report on multiannua...'
+2025-04-05 10:10:55,381 - INFO - [API] Using KB reconstruction with confidence 0.97
+2025-04-05 10:10:55,381 - INFO - [API] Completed in 0.010s using method: kb
+2025-04-05 10:10:55,381 - INFO - Using default tokenizer.
+Processing samples:  24%|█████▌                 | 12/50 [00:18<00:51,  1.37s/it]2025-04-05 10:10:55,438 - INFO - [API] Starting reconstruction of text: 'It says bhmt this should be do...'
+2025-04-05 10:10:55,441 - INFO - [API] Using KB reconstruction with confidence 0.82
+2025-04-05 10:10:55,442 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 10:10:55,442 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:55,442 - INFO - Using default tokenizer.
+2025-04-05 10:10:55,453 - INFO - [API] Starting reconstruction of text: 'It says that this vhoulx be do...'
+2025-04-05 10:10:55,456 - INFO - [API] Using KB reconstruction with confidence 0.74
+2025-04-05 10:10:55,456 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 10:10:55,456 - INFO - Using default tokenizer.
+2025-04-05 10:10:55,514 - INFO - [API] Starting reconstruction of text: 'I believe that the principle o...'
+2025-04-05 10:10:55,521 - INFO - [API] Using KB reconstruction with confidence 0.92
+2025-04-05 10:10:55,521 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 10:10:55,521 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:55,521 - INFO - Using default tokenizer.
+2025-04-05 10:10:55,534 - INFO - [API] Starting reconstruction of text: 'I believe that the pritdiple o...'
+2025-04-05 10:10:55,541 - INFO - [API] Using KB reconstruction with confidence 0.92
+2025-04-05 10:10:55,541 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 10:10:55,541 - INFO - Using default tokenizer.
+Processing samples:  28%|██████▍                | 14/50 [00:18<00:29,  1.23it/s]2025-04-05 10:10:55,600 - INFO - [API] Starting reconstruction of text: 'I want to know wmetuer one can...'
+2025-04-05 10:10:55,607 - INFO - [API] Using KB reconstruction with confidence 0.86
+2025-04-05 10:10:55,607 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 10:10:55,608 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:55,608 - INFO - Using default tokenizer.
+2025-04-05 10:10:55,622 - INFO - [API] Starting reconstruction of text: 'I want to know whether vne day...'
+2025-04-05 10:10:55,629 - INFO - [API] Using KB reconstruction with confidence 0.90
+2025-04-05 10:10:55,629 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 10:10:55,629 - INFO - Using default tokenizer.
+2025-04-05 10:10:55,690 - INFO - [API] Starting reconstruction of text: 'That is precisely the time whe...'
+2025-04-05 10:10:55,693 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-05 10:10:55,693 - INFO - [API] Completed in 0.004s using method: kb
+2025-04-05 10:10:55,694 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:55,694 - INFO - Using default tokenizer.
+2025-04-05 10:10:55,706 - INFO - [API] Starting reconstruction of text: 'That is precisely the time whe...'
+2025-04-05 10:10:55,710 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-05 10:10:55,710 - INFO - [API] Completed in 0.004s using method: kb
+2025-04-05 10:10:55,710 - INFO - Using default tokenizer.
+Processing samples:  32%|███████▎               | 16/50 [00:18<00:18,  1.87it/s]2025-04-05 10:10:55,768 - INFO - [API] Starting reconstruction of text: 'on Thursday prior to the start...'
+2025-04-05 10:10:55,770 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:10:56,430 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:56,433 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:56,568 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:10:56,568 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:10:56,568 - INFO - [API] Completed in 0.800s using api_gpt-3.5-turbo
+2025-04-05 10:10:56,568 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:56,569 - INFO - Using default tokenizer.
+2025-04-05 10:10:56,584 - INFO - [API] Starting reconstruction of text: 'on Thursday prior to the start...'
+2025-04-05 10:10:56,586 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:10:57,555 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:57,558 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:57,699 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:10:57,699 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:10:57,699 - INFO - [API] Completed in 1.116s using api_gpt-3.5-turbo
+2025-04-05 10:10:57,700 - INFO - Using default tokenizer.
+Processing samples:  34%|███████▊               | 17/50 [00:20<00:27,  1.18it/s]2025-04-05 10:10:57,765 - INFO - [API] Starting reconstruction of text: 'We shall call him Mr Hicks ....'
+2025-04-05 10:10:57,766 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-05 10:10:58,488 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:58,496 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:58,523 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-05 10:10:58,523 - INFO - [API] Completed in 0.759s using api_gpt-4-turbo
+2025-04-05 10:10:58,524 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:58,524 - INFO - Using default tokenizer.
+2025-04-05 10:10:58,539 - INFO - [API] Starting reconstruction of text: 'We shall call him Mr Hicks ....'
+2025-04-05 10:10:58,541 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-05 10:10:59,179 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:59,188 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:10:59,216 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-05 10:10:59,216 - INFO - [API] Completed in 0.677s using api_gpt-4-turbo
+2025-04-05 10:10:59,216 - INFO - Using default tokenizer.
+Processing samples:  36%|████████▎              | 18/50 [00:22<00:32,  1.00s/it]2025-04-05 10:10:59,289 - INFO - [API] Starting reconstruction of text: 'At tcm request of a French Mem...'
+2025-04-05 10:10:59,300 - INFO - [API] Using KB reconstruction with confidence 0.87
+2025-04-05 10:10:59,301 - INFO - [API] Completed in 0.012s using method: kb
+2025-04-05 10:10:59,301 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:59,301 - INFO - Using default tokenizer.
+2025-04-05 10:10:59,314 - INFO - [API] Starting reconstruction of text: 'At the requxrt of a French Mem...'
+2025-04-05 10:10:59,326 - INFO - [API] Using KB reconstruction with confidence 0.87
+2025-04-05 10:10:59,326 - INFO - [API] Completed in 0.011s using method: kb
+2025-04-05 10:10:59,326 - INFO - Using default tokenizer.
+Processing samples:  38%|████████▋              | 19/50 [00:22<00:24,  1.28it/s]2025-04-05 10:10:59,385 - INFO - [API] Starting reconstruction of text: 'This is all in accordance with...'
+2025-04-05 10:10:59,389 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-05 10:10:59,389 - INFO - [API] Completed in 0.004s using method: kb
+2025-04-05 10:10:59,389 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:10:59,390 - INFO - Using default tokenizer.
+2025-04-05 10:10:59,401 - INFO - [API] Starting reconstruction of text: 'Thii is all in accordance with...'
+2025-04-05 10:10:59,405 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-05 10:10:59,405 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 10:10:59,405 - INFO - Using default tokenizer.
+2025-04-05 10:10:59,416 - INFO - [PIPELINE] Sample 20/50 (processed in 0.08s)
+2025-04-05 10:10:59,416 - INFO - [PIPELINE] Original: This is all in accordance with the principles that we have always upheld .
+2025-04-05 10:10:59,416 - INFO - [PIPELINE] Semantic noisy: This is all in accordance with the principles that we have koways upheld .
+2025-04-05 10:10:59,416 - INFO - [PIPELINE] Semantic reconstructed: This is all in accordance with the principles the we have koways upheld .
+2025-04-05 10:10:59,416 - INFO - [PIPELINE] Direct noisy: Thii is all in accordance with the prcnciplex that we have always upheld .
+2025-04-05 10:10:59,416 - INFO - [PIPELINE] Direct reconstructed: Thii is all in accordance with the prcnciplex the we have always upheld .
+2025-04-05 10:10:59,416 - INFO - [PIPELINE] Semantic BLEU: 0.6060, ROUGE-L: 0.8462, SEMANTIC: 0.9218
+2025-04-05 10:10:59,416 - INFO - [PIPELINE] Direct BLEU: 0.6163, ROUGE-L: 0.7692, SEMANTIC: 0.8165
+2025-04-05 10:10:59,416 - INFO - [PIPELINE] Current cost: $0.0128 of $2.00
+2025-04-05 10:10:59,416 - INFO - [PIPELINE] Progress: 20/50 samples. Est. remaining: 35.0s (0.6m)
+2025-04-05 10:10:59,416 - INFO - ---
+2025-04-05 10:10:59,464 - INFO - [API] Starting reconstruction of text: 'Thank you , Mr aedni , I shall...'
+2025-04-05 10:10:59,466 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:11:00,054 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:00,062 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:00,103 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:11:00,103 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:11:00,103 - INFO - [API] Completed in 0.639s using api_gpt-3.5-turbo
+2025-04-05 10:11:00,104 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:00,104 - INFO - Using default tokenizer.
+2025-04-05 10:11:00,120 - INFO - Saved enhanced RL agent state
+2025-04-05 10:11:00,120 - INFO - [API] Starting reconstruction of text: 'Thank you , Mr Segni , I shall...'
+2025-04-05 10:11:00,121 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:11:00,620 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:00,723 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:00,765 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:11:00,765 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:11:00,765 - INFO - [API] Completed in 0.645s using api_gpt-3.5-turbo
+2025-04-05 10:11:00,765 - INFO - Using default tokenizer.
+Processing samples:  42%|█████████▋             | 21/50 [00:23<00:21,  1.33it/s]2025-04-05 10:11:00,830 - INFO - [API] Starting reconstruction of text: 'Indeed , it is quhts in keepin...'
+2025-04-05 10:11:00,838 - INFO - [API] Using KB reconstruction with confidence 0.83
+2025-04-05 10:11:00,838 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-05 10:11:00,838 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:00,839 - INFO - Using default tokenizer.
+2025-04-05 10:11:00,850 - INFO - [API] Starting reconstruction of text: 'Indeed , it is quite in keepin...'
+2025-04-05 10:11:00,854 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-05 10:11:00,854 - INFO - [API] Completed in 0.004s using method: kb
+2025-04-05 10:11:00,854 - INFO - Using default tokenizer.
+2025-04-05 10:11:00,910 - INFO - [API] Starting reconstruction of text: 'Madam President , I should lik...'
+2025-04-05 10:11:00,914 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-05 10:11:02,108 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:02,114 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:02,225 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-05 10:11:02,225 - INFO - [API] Completed in 1.315s using api_gpt-4-turbo
+2025-04-05 10:11:02,225 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:02,225 - INFO - Using default tokenizer.
+2025-04-05 10:11:02,238 - INFO - [API] Starting reconstruction of text: 'Madam Presideni , I seoulb lik...'
+2025-04-05 10:11:02,243 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:11:02,870 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:02,877 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:02,991 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:11:02,991 - INFO - [API] Completed in 0.753s using api_gpt-3.5-turbo
+2025-04-05 10:11:02,991 - INFO - Using default tokenizer.
+Processing samples:  46%|██████████▌            | 23/50 [00:25<00:23,  1.13it/s]2025-04-05 10:11:03,058 - INFO - [API] Starting reconstruction of text: 'It is the case of Alexander Ni...'
+2025-04-05 10:11:03,061 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-05 10:11:04,230 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:04,237 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:04,411 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:11:04,411 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-05 10:11:04,411 - INFO - [API] Completed in 1.354s using api_gpt-4-turbo
+2025-04-05 10:11:04,411 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:04,412 - INFO - Using default tokenizer.
+2025-04-05 10:11:04,427 - INFO - [API] Starting reconstruction of text: 'It is the case of Alexander td...'
+2025-04-05 10:11:04,430 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-05 10:11:05,127 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:05,131 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:05,182 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:11:05,182 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-05 10:11:05,182 - INFO - [API] Completed in 0.754s using api_gpt-4-turbo
+2025-04-05 10:11:05,182 - INFO - Using default tokenizer.
+Processing samples:  48%|███████████            | 24/50 [00:27<00:30,  1.16s/it]2025-04-05 10:11:05,261 - INFO - [API] Starting reconstruction of text: 'All of us here are pleased tha...'
+2025-04-05 10:11:05,268 - INFO - [API] Using KB reconstruction with confidence 0.96
+2025-04-05 10:11:05,268 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 10:11:05,268 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:05,269 - INFO - Using default tokenizer.
+2025-04-05 10:11:05,281 - INFO - [API] Starting reconstruction of text: 'All of us here are pleased tha...'
+2025-04-05 10:11:05,287 - INFO - [API] Using KB reconstruction with confidence 0.92
+2025-04-05 10:11:05,287 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-05 10:11:05,288 - INFO - Using default tokenizer.
+Processing samples:  50%|███████████▌           | 25/50 [00:28<00:22,  1.09it/s]2025-04-05 10:11:05,347 - INFO - [API] Starting reconstruction of text: 'Now , however , he is to go be...'
+2025-04-05 10:11:05,356 - INFO - [API] Using KB reconstruction with confidence 0.86
+2025-04-05 10:11:05,356 - INFO - [API] Completed in 0.009s using method: kb
+2025-04-05 10:11:05,356 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:05,356 - INFO - Using default tokenizer.
+2025-04-05 10:11:05,368 - INFO - [API] Starting reconstruction of text: 'Njn , however , he is to go be...'
+2025-04-05 10:11:05,377 - INFO - [API] Using KB reconstruction with confidence 0.86
+2025-04-05 10:11:05,377 - INFO - [API] Completed in 0.009s using method: kb
+2025-04-05 10:11:05,377 - INFO - Using default tokenizer.
+2025-04-05 10:11:05,435 - INFO - [API] Starting reconstruction of text: 'Yes , Mrs Schroedter , I shall...'
+2025-04-05 10:11:05,440 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:11:06,090 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:06,094 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:06,225 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:11:06,225 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:11:06,225 - INFO - [API] Completed in 0.790s using api_gpt-3.5-turbo
+2025-04-05 10:11:06,225 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:06,225 - INFO - Using default tokenizer.
+2025-04-05 10:11:06,239 - INFO - [API] Starting reconstruction of text: 'Yes , Mrs Schroedter , I shall...'
+2025-04-05 10:11:06,244 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:11:06,924 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:06,933 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:07,068 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:11:07,068 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:11:07,068 - INFO - [API] Completed in 0.830s using api_gpt-3.5-turbo
+2025-04-05 10:11:07,069 - INFO - Using default tokenizer.
+Processing samples:  54%|████████████▍          | 27/50 [00:29<00:20,  1.10it/s]2025-04-05 10:11:07,135 - INFO - [API] Starting reconstruction of text: 'But , Mzdim President , my per...'
+2025-04-05 10:11:07,141 - INFO - [API] Using KB reconstruction with confidence 0.76
+2025-04-05 10:11:07,141 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-05 10:11:07,141 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:07,141 - INFO - Using default tokenizer.
+2025-04-05 10:11:07,152 - INFO - [API] Starting reconstruction of text: 'Bta , Madam President , my per...'
+2025-04-05 10:11:07,158 - INFO - [API] Using KB reconstruction with confidence 0.76
+2025-04-05 10:11:07,158 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-05 10:11:07,159 - INFO - Using default tokenizer.
+2025-04-05 10:11:07,214 - INFO - [API] Starting reconstruction of text: 'I would therecorf once more au...'
+2025-04-05 10:11:07,217 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-05 10:11:07,217 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 10:11:07,217 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:07,217 - INFO - Using default tokenizer.
+2025-04-05 10:11:07,229 - INFO - [API] Starting reconstruction of text: 'I would therefore once more as...'
+2025-04-05 10:11:07,233 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-05 10:11:07,233 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 10:11:07,233 - INFO - Using default tokenizer.
+Processing samples:  58%|█████████████▎         | 29/50 [00:30<00:12,  1.65it/s]2025-04-05 10:11:07,289 - INFO - [API] Starting reconstruction of text: 'Mrs Plooij-van Gorsel , I can ...'
+2025-04-05 10:11:07,294 - INFO - [API] Using KB reconstruction with confidence 0.94
+2025-04-05 10:11:07,294 - INFO - [API] Completed in 0.005s using method: kb
+2025-04-05 10:11:07,294 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:07,294 - INFO - Using default tokenizer.
+2025-04-05 10:11:07,306 - INFO - [API] Starting reconstruction of text: 'lrb Plooij-van Gtrnel , I can ...'
+2025-04-05 10:11:07,311 - INFO - [API] Using KB reconstruction with confidence 0.94
+2025-04-05 10:11:07,311 - INFO - [API] Completed in 0.005s using method: kb
+2025-04-05 10:11:07,311 - INFO - Using default tokenizer.
+2025-04-05 10:11:07,322 - INFO - [PIPELINE] Sample 30/50 (processed in 0.08s)
+2025-04-05 10:11:07,322 - INFO - [PIPELINE] Original: Mrs Plooij-van Gorsel , I can tell you that this matter is on the agenda for the Quaestors ' meeting on Wednesday .
+2025-04-05 10:11:07,322 - INFO - [PIPELINE] Semantic noisy: Mrs Plooij-van Gorsel , I can tela you that thua matter is on the agenda for the Quaestors ' meeting on Wednesday .
+2025-04-05 10:11:07,322 - INFO - [PIPELINE] Semantic reconstructed: Mrs Plooij-van Gorsel , I can tela you the thua matter is on the agenda for the Quaestors ' meeting on Wednesday .
+2025-04-05 10:11:07,322 - INFO - [PIPELINE] Direct noisy: lrb Plooij-van Gtrnel , I can tell you that thys matter is on the agenda for the Quaestors ' meeting on Wednesdvu .
+2025-04-05 10:11:07,322 - INFO - [PIPELINE] Direct reconstructed: lrb Plooij-van Gtrnel , I can tell you the thys matter is on the agenda for the Quaestors ' meeting on Wednesdvu .
+2025-04-05 10:11:07,322 - INFO - [PIPELINE] Semantic BLEU: 0.7474, ROUGE-L: 0.8571, SEMANTIC: 0.9702
+2025-04-05 10:11:07,322 - INFO - [PIPELINE] Direct BLEU: 0.6142, ROUGE-L: 0.8095, SEMANTIC: 0.9159
+2025-04-05 10:11:07,322 - INFO - [PIPELINE] Current cost: $0.0244 of $2.00
+2025-04-05 10:11:07,322 - INFO - [PIPELINE] Progress: 30/50 samples. Est. remaining: 20.8s (0.3m)
+2025-04-05 10:11:07,323 - INFO - ---
+2025-04-05 10:11:07,368 - INFO - [API] Starting reconstruction of text: 'It will , I hope , be examined...'
+2025-04-05 10:11:07,371 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:11:07,989 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:08,090 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:08,161 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:11:08,161 - INFO - [API] Completed in 0.793s using api_gpt-3.5-turbo
+2025-04-05 10:11:08,161 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:08,162 - INFO - Using default tokenizer.
+2025-04-05 10:11:08,175 - INFO - [API] Starting reconstruction of text: 'It wikl , I hope , be examined...'
+2025-04-05 10:11:08,178 - INFO - [API] Using KB reconstruction with confidence 0.89
+2025-04-05 10:11:08,178 - INFO - [API] Completed in 0.004s using method: kb
+2025-04-05 10:11:08,179 - INFO - Using default tokenizer.
+Processing samples:  62%|██████████████▎        | 31/50 [00:30<00:10,  1.78it/s]2025-04-05 10:11:08,246 - INFO - [API] Starting reconstruction of text: 'radab President , can you tell...'
+2025-04-05 10:11:08,251 - INFO - [API] Using KB reconstruction with confidence 0.89
+2025-04-05 10:11:08,251 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-05 10:11:08,252 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:08,252 - INFO - Using default tokenizer.
+2025-04-05 10:11:08,264 - INFO - [API] Starting reconstruction of text: 'Madam President , can you tell...'
+2025-04-05 10:11:08,270 - INFO - [API] Using KB reconstruction with confidence 0.95
+2025-04-05 10:11:08,270 - INFO - [API] Completed in 0.005s using method: kb
+2025-04-05 10:11:08,270 - INFO - Using default tokenizer.
+2025-04-05 10:11:08,328 - INFO - [API] Starting reconstruction of text: 'Why has no air qunmity test be...'
+2025-04-05 10:11:08,332 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-05 10:11:08,332 - INFO - [API] Completed in 0.004s using method: kb
+2025-04-05 10:11:08,332 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:08,333 - INFO - Using default tokenizer.
+2025-04-05 10:11:08,344 - INFO - [API] Starting reconstruction of text: 'Why has no air quality test be...'
+2025-04-05 10:11:08,348 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-05 10:11:08,348 - INFO - [API] Completed in 0.004s using method: kb
+2025-04-05 10:11:08,349 - INFO - Using default tokenizer.
+Processing samples:  66%|███████████████▏       | 33/50 [00:31<00:06,  2.47it/s]2025-04-05 10:11:08,404 - INFO - [API] Starting reconstruction of text: 'Why has there been no Health a...'
+2025-04-05 10:11:08,411 - INFO - [API] Using KB reconstruction with confidence 0.90
+2025-04-05 10:11:08,411 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 10:11:08,411 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:08,411 - INFO - Using default tokenizer.
+2025-04-05 10:11:08,422 - INFO - [API] Starting reconstruction of text: 'mhg has there been no Health a...'
+2025-04-05 10:11:08,429 - INFO - [API] Using KB reconstruction with confidence 0.78
+2025-04-05 10:11:08,429 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 10:11:08,429 - INFO - Using default tokenizer.
+2025-04-05 10:11:08,484 - INFO - [API] Starting reconstruction of text: 'Why has there been no mrre drk...'
+2025-04-05 10:11:08,489 - INFO - [API] Using KB reconstruction with confidence 0.94
+2025-04-05 10:11:08,489 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-05 10:11:08,490 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:08,490 - INFO - Using default tokenizer.
+2025-04-05 10:11:08,501 - INFO - [API] Starting reconstruction of text: 'Why has tuerc been no fire dri...'
+2025-04-05 10:11:08,507 - INFO - [API] Using KB reconstruction with confidence 0.77
+2025-04-05 10:11:08,507 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-05 10:11:08,507 - INFO - Using default tokenizer.
+Processing samples:  70%|████████████████       | 35/50 [00:31<00:04,  3.32it/s]2025-04-05 10:11:08,565 - INFO - [API] Starting reconstruction of text: 'Why are there no fire instruct...'
+2025-04-05 10:11:08,567 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-05 10:11:09,533 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:09,542 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:09,652 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:11:09,652 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-05 10:11:09,652 - INFO - [API] Completed in 1.087s using api_gpt-4-turbo
+2025-04-05 10:11:09,652 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:09,652 - INFO - Using default tokenizer.
+2025-04-05 10:11:09,665 - INFO - [API] Starting reconstruction of text: 'bxy are there no fire instrucd...'
+2025-04-05 10:11:09,668 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-05 10:11:10,343 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:10,348 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:10,387 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:11:10,387 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-05 10:11:10,387 - INFO - [API] Completed in 0.722s using api_gpt-4-turbo
+2025-04-05 10:11:10,388 - INFO - Using default tokenizer.
+Processing samples:  72%|████████████████▌      | 36/50 [00:33<00:08,  1.68it/s]2025-04-05 10:11:10,455 - INFO - [API] Starting reconstruction of text: 'ehq have the staircases not be...'
+2025-04-05 10:11:10,461 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:11:11,269 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:11,273 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:11,310 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:11:11,310 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:11:11,310 - INFO - [API] Completed in 0.855s using api_gpt-3.5-turbo
+2025-04-05 10:11:11,310 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:11,311 - INFO - Using default tokenizer.
+2025-04-05 10:11:11,326 - INFO - [API] Starting reconstruction of text: 'Why have the staircases not be...'
+2025-04-05 10:11:11,332 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:11:15,532 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:15,539 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:15,551 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:11:15,551 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:11:15,551 - INFO - [API] Completed in 4.225s using api_gpt-3.5-turbo
+2025-04-05 10:11:15,552 - INFO - Using default tokenizer.
+Processing samples:  74%|█████████████████      | 37/50 [00:38<00:20,  1.55s/it]2025-04-05 10:11:15,633 - INFO - [API] Starting reconstruction of text: 'Why are no-smoking areas not e...'
+2025-04-05 10:11:15,636 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-05 10:11:16,520 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:16,524 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:16,562 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:11:16,562 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-05 10:11:16,562 - INFO - [API] Completed in 0.929s using api_gpt-4-turbo
+2025-04-05 10:11:16,562 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:16,562 - INFO - Using default tokenizer.
+2025-04-05 10:11:16,576 - INFO - [API] Starting reconstruction of text: 'Why are no-smoking aeeqs roi e...'
+2025-04-05 10:11:16,578 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-05 10:11:17,361 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:17,408 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:17,436 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:11:17,436 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-05 10:11:17,436 - INFO - [API] Completed in 0.860s using api_gpt-4-turbo
+2025-04-05 10:11:17,436 - INFO - Using default tokenizer.
+Processing samples:  76%|█████████████████▍     | 38/50 [00:40<00:19,  1.63s/it]2025-04-05 10:11:17,519 - INFO - [API] Starting reconstruction of text: 'It beets absolutely disgracefu...'
+2025-04-05 10:11:17,523 - INFO - [API] Using KB reconstruction with confidence 0.92
+2025-04-05 10:11:17,523 - INFO - [API] Completed in 0.004s using method: kb
+2025-04-05 10:11:17,523 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:17,523 - INFO - Using default tokenizer.
+2025-04-05 10:11:17,536 - INFO - [API] Starting reconstruction of text: 'It seems dbsolutelv disgracefu...'
+2025-04-05 10:11:17,540 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:11:18,316 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:18,331 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:18,374 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:11:18,374 - INFO - [API] Completed in 0.838s using api_gpt-3.5-turbo
+2025-04-05 10:11:18,374 - INFO - Using default tokenizer.
+Processing samples:  78%|█████████████████▉     | 39/50 [00:41<00:16,  1.46s/it]2025-04-05 10:11:18,456 - INFO - [API] Starting reconstruction of text: 'Mrs Lynne , you jde quite righ...'
+2025-04-05 10:11:18,461 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 10:11:19,059 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:19,063 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:19,157 - INFO - [API] Further enhanced API result with context
+2025-04-05 10:11:19,158 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 10:11:19,158 - INFO - [API] Completed in 0.702s using api_gpt-3.5-turbo
+2025-04-05 10:11:19,158 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:19,158 - INFO - Using default tokenizer.
+2025-04-05 10:11:19,171 - INFO - [API] Starting reconstruction of text: 'Mrs Lynne , you are quite righ...'
+2025-04-05 10:11:19,176 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-05 10:11:19,176 - INFO - [API] Completed in 0.004s using method: kb
+2025-04-05 10:11:19,176 - INFO - Using default tokenizer.
+2025-04-05 10:11:19,187 - INFO - [PIPELINE] Sample 40/50 (processed in 0.80s)
+2025-04-05 10:11:19,187 - INFO - [PIPELINE] Original: Mrs Lynne , you are quite right and I shall check whether this has actually not been done .
+2025-04-05 10:11:19,187 - INFO - [PIPELINE] Semantic noisy: Mrs Lynne , you jde quite right aad I shall check whether ihih has actually not been done .
+2025-04-05 10:11:19,187 - INFO - [PIPELINE] Semantic reconstructed: Mrs. Lynne, you are quite right, and do shall check whether this has actually not been done.
+2025-04-05 10:11:19,187 - INFO - [PIPELINE] Direct noisy: Mrs Lynne , you are quite right and I shall check whether this has actbxlly not fenn done .
+2025-04-05 10:11:19,187 - INFO - [PIPELINE] Direct reconstructed: Mrs Lynne , you are quite right and I shall check whether this has actually not fenn done .
+2025-04-05 10:11:19,187 - INFO - [PIPELINE] Semantic BLEU: 0.4509, ROUGE-L: 0.9412, SEMANTIC: 0.9578
+2025-04-05 10:11:19,187 - INFO - [PIPELINE] Direct BLEU: 0.8664, ROUGE-L: 0.9412, SEMANTIC: 0.9655
+2025-04-05 10:11:19,187 - INFO - [PIPELINE] Current cost: $0.0381 of $2.00
+2025-04-05 10:11:19,187 - INFO - [PIPELINE] Progress: 40/50 samples. Est. remaining: 10.8s (0.2m)
+2025-04-05 10:11:19,187 - INFO - ---
+Processing samples:  80%|██████████████████▍    | 40/50 [00:41<00:12,  1.29s/it]2025-04-05 10:11:19,255 - INFO - [API] Starting reconstruction of text: 'I shall also recee the matter ...'
+2025-04-05 10:11:19,261 - INFO - [API] Using KB reconstruction with confidence 0.89
+2025-04-05 10:11:19,261 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-05 10:11:19,262 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:19,262 - INFO - Using default tokenizer.
+2025-04-05 10:11:19,275 - INFO - [API] Starting reconstruction of text: 'I shall elso refer the matter ...'
+2025-04-05 10:11:19,282 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-05 10:11:19,282 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 10:11:19,282 - INFO - Using default tokenizer.
+Processing samples:  82%|██████████████████▊    | 41/50 [00:42<00:08,  1.04it/s]2025-04-05 10:11:19,340 - INFO - [API] Starting reconstruction of text: 'Madam President , Mrs Díqz Gon...'
+2025-04-05 10:11:19,352 - INFO - [API] Using KB reconstruction with confidence 0.90
+2025-04-05 10:11:19,353 - INFO - [API] Completed in 0.013s using method: kb
+2025-04-05 10:11:19,353 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:19,353 - INFO - Using default tokenizer.
+2025-04-05 10:11:19,365 - INFO - [API] Starting reconstruction of text: 'Madam President , Mrs Díez Gon...'
+2025-04-05 10:11:19,372 - INFO - [API] Using KB reconstruction with confidence 0.96
+2025-04-05 10:11:19,372 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 10:11:19,372 - INFO - Using default tokenizer.
+2025-04-05 10:11:19,429 - INFO - [API] Starting reconstruction of text: 'The competent services have no...'
+2025-04-05 10:11:19,436 - INFO - [API] Using KB reconstruction with confidence 0.95
+2025-04-05 10:11:19,436 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 10:11:19,436 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:19,436 - INFO - Using default tokenizer.
+2025-04-05 10:11:19,448 - INFO - [API] Starting reconstruction of text: 'The compefent services have no...'
+2025-04-05 10:11:19,454 - INFO - [API] Using KB reconstruction with confidence 0.95
+2025-04-05 10:11:19,454 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 10:11:19,454 - INFO - Using default tokenizer.
+Processing samples:  86%|███████████████████▊   | 43/50 [00:42<00:04,  1.72it/s]2025-04-05 10:11:19,512 - INFO - [API] Starting reconstruction of text: 'I would ask that they reconsid...'
+2025-04-05 10:11:19,514 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-05 10:11:19,514 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 10:11:19,514 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:19,515 - INFO - Using default tokenizer.
+2025-04-05 10:11:19,526 - INFO - [API] Starting reconstruction of text: 'I would ask that dhyy reconsid...'
+2025-04-05 10:11:19,529 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-05 10:11:19,529 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 10:11:19,529 - INFO - Using default tokenizer.
+2025-04-05 10:11:19,587 - INFO - [API] Starting reconstruction of text: 'The questions answered previou...'
+2025-04-05 10:11:19,595 - INFO - [API] Using KB reconstruction with confidence 0.97
+2025-04-05 10:11:19,595 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-05 10:11:19,595 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:19,596 - INFO - Using default tokenizer.
+2025-04-05 10:11:19,609 - INFO - [API] Starting reconstruction of text: 'The questions answered prexiwu...'
+2025-04-05 10:11:19,617 - INFO - [API] Using KB reconstruction with confidence 0.97
+2025-04-05 10:11:19,617 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-05 10:11:19,617 - INFO - Using default tokenizer.
+Processing samples:  90%|████████████████████▋  | 45/50 [00:42<00:01,  2.57it/s]2025-04-05 10:11:19,676 - INFO - [API] Starting reconstruction of text: 'Mr Berenguer Fuster , we mhall...'
+2025-04-05 10:11:19,680 - INFO - [API] Using KB reconstruction with confidence 0.88
+2025-04-05 10:11:19,680 - INFO - [API] Completed in 0.005s using method: kb
+2025-04-05 10:11:19,680 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:19,681 - INFO - Using default tokenizer.
+2025-04-05 10:11:19,691 - INFO - [API] Starting reconstruction of text: 'Mr Berenguer Fuster , we shall...'
+2025-04-05 10:11:19,694 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-05 10:11:20,421 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:20,425 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 10:11:20,502 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-05 10:11:20,502 - INFO - [API] Completed in 0.810s using api_gpt-4-turbo
+2025-04-05 10:11:20,502 - INFO - Using default tokenizer.
+Processing samples:  92%|█████████████████████▏ | 46/50 [00:43<00:01,  2.02it/s]2025-04-05 10:11:20,563 - INFO - [API] Starting reconstruction of text: 'I admit that , at present , th...'
+2025-04-05 10:11:20,565 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-05 10:11:20,565 - INFO - [API] Completed in 0.002s using method: kb
+2025-04-05 10:11:20,566 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:20,566 - INFO - Using default tokenizer.
+2025-04-05 10:11:20,578 - INFO - [API] Starting reconstruction of text: 'I ideit that , at present , th...'
+2025-04-05 10:11:20,580 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-05 10:11:20,580 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 10:11:20,580 - INFO - Using default tokenizer.
+2025-04-05 10:11:20,638 - INFO - [API] Starting reconstruction of text: 'We ywall therefore look into i...'
+2025-04-05 10:11:20,641 - INFO - [API] Using KB reconstruction with confidence 0.84
+2025-04-05 10:11:20,641 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 10:11:20,641 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:20,642 - INFO - Using default tokenizer.
+2025-04-05 10:11:20,653 - INFO - [API] Starting reconstruction of text: 'We shall therefore look into i...'
+2025-04-05 10:11:20,656 - INFO - [API] Using KB reconstruction with confidence 0.84
+2025-04-05 10:11:20,656 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 10:11:20,656 - INFO - Using default tokenizer.
+Processing samples:  96%|██████████████████████ | 48/50 [00:43<00:00,  2.98it/s]2025-04-05 10:11:20,714 - INFO - [API] Starting reconstruction of text: 'Today 's decision not to renew...'
+2025-04-05 10:11:20,721 - INFO - [API] Using KB reconstruction with confidence 0.75
+2025-04-05 10:11:20,721 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 10:11:20,721 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:20,721 - INFO - Using default tokenizer.
+2025-04-05 10:11:20,734 - INFO - [API] Starting reconstruction of text: 'Today 's decision not to rebeb...'
+2025-04-05 10:11:20,741 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-05 10:11:20,741 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 10:11:20,742 - INFO - Using default tokenizer.
+2025-04-05 10:11:20,801 - INFO - [API] Starting reconstruction of text: 'So Parliament srduld send a fe...'
+2025-04-05 10:11:20,804 - INFO - [API] Using KB reconstruction with confidence 0.92
+2025-04-05 10:11:20,804 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 10:11:20,805 - WARNING - Error computing cosine similarity: The size of tensor a (460) must match the size of tensor b (768) at non-singleton dimension 1
+2025-04-05 10:11:20,805 - INFO - Using default tokenizer.
+2025-04-05 10:11:20,817 - INFO - [API] Starting reconstruction of text: 'So Parliament should send a me...'
+2025-04-05 10:11:20,819 - INFO - [API] Using KB reconstruction with confidence 0.92
+2025-04-05 10:11:20,819 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 10:11:20,820 - INFO - Using default tokenizer.
+2025-04-05 10:11:20,830 - INFO - [PIPELINE] Sample 50/50 (processed in 0.08s)
+2025-04-05 10:11:20,830 - INFO - [PIPELINE] Original: So Parliament should send a message , since that is the wish of the vast majority .
+2025-04-05 10:11:20,830 - INFO - [PIPELINE] Semantic noisy: So Parliament srduld send a fetsage , since that is the wish of the vast mmjojity .
+2025-04-05 10:11:20,830 - INFO - [PIPELINE] Semantic reconstructed: So Parliament srduld send a fetsage , since the is the wish of the vast mmjojity .
+2025-04-05 10:11:20,830 - INFO - [PIPELINE] Direct noisy: So Parliament should send a messarr , since that is the wish of tze vast maporzty .
+2025-04-05 10:11:20,830 - INFO - [PIPELINE] Direct reconstructed: So Parliament should send a messarr , since the is the wish of tze vast maporzty .
+2025-04-05 10:11:20,830 - INFO - [PIPELINE] Semantic BLEU: 0.3845, ROUGE-L: 0.7333, SEMANTIC: 0.6978
+2025-04-05 10:11:20,830 - INFO - [PIPELINE] Direct BLEU: 0.4141, ROUGE-L: 0.7333, SEMANTIC: 0.7367
+2025-04-05 10:11:20,830 - INFO - [PIPELINE] Current cost: $0.0416 of $2.00
+2025-04-05 10:11:20,831 - INFO - [PIPELINE] Progress: 50/50 samples. Est. remaining: 0.0s (0.0m)
+2025-04-05 10:11:20,831 - INFO - ---
+Processing samples: 100%|███████████████████████| 50/50 [00:43<00:00,  1.15it/s]
+2025-04-05 10:11:20,831 - INFO - Saved enhanced RL agent state
+2025-04-05 10:11:20,831 - INFO - [PIPELINE] Saved enhanced RL agent state
+2025-04-05 10:11:20,954 - INFO - Total API cost: $0.0416 of $2.00 budget
+2025-04-05 10:11:20,954 - INFO - 
 === Overall Results ===
-2025-04-05 10:02:39,199 - INFO - [PIPELINE] Total time: 387.05s, Avg: 7.74s per sample
-2025-04-05 10:02:39,199 - INFO - [PIPELINE] Semantic Reconstruction:
-2025-04-05 10:02:39,199 - INFO - [PIPELINE] Semantic Average BLEU: 0.6615
-2025-04-05 10:02:39,199 - INFO - [PIPELINE] Semantic Average ROUGE1: 0.8533
-2025-04-05 10:02:39,199 - INFO - [PIPELINE] Semantic Average ROUGEL: 0.8514
-2025-04-05 10:02:39,199 - INFO - [PIPELINE] Semantic Average METEOR: 0.8579
-2025-04-05 10:02:39,199 - INFO - [PIPELINE] Semantic Average SEMANTIC: 0.8937
-2025-04-05 10:02:39,199 - INFO - 
+2025-04-05 10:11:20,954 - INFO - [PIPELINE] Total time: 44.72s, Avg: 0.89s per sample
+2025-04-05 10:11:20,954 - INFO - [PIPELINE] Semantic Reconstruction:
+2025-04-05 10:11:20,954 - INFO - [PIPELINE] Semantic Average BLEU: 0.4844
+2025-04-05 10:11:20,954 - INFO - [PIPELINE] Semantic Average ROUGE1: 0.7583
+2025-04-05 10:11:20,954 - INFO - [PIPELINE] Semantic Average ROUGEL: 0.7555
+2025-04-05 10:11:20,954 - INFO - [PIPELINE] Semantic Average METEOR: 0.6989
+2025-04-05 10:11:20,954 - INFO - [PIPELINE] Semantic Average SEMANTIC: 0.8533
+2025-04-05 10:11:20,954 - INFO - 
 [PIPELINE] Direct Reconstruction:
-2025-04-05 10:02:39,199 - INFO - [PIPELINE] Direct Average BLEU: 0.6462
-2025-04-05 10:02:39,199 - INFO - [PIPELINE] Direct Average ROUGE1: 0.8437
-2025-04-05 10:02:39,199 - INFO - [PIPELINE] Direct Average ROUGEL: 0.8401
-2025-04-05 10:02:39,199 - INFO - [PIPELINE] Direct Average METEOR: 0.8481
-2025-04-05 10:02:39,199 - INFO - [PIPELINE] Direct Average SEMANTIC: 0.8841
-2025-04-05 10:02:39,199 - INFO - 
-[PIPELINE] Total Cost: $0.0000 of $2.00 budget
-2025-04-05 10:02:39,199 - INFO - [PIPELINE] Results saved to C:\Users\Daud\SemanticCommTransmission\pythonProject/sem_com_results/enhanced_run_20250405-095612
-2025-04-05 10:02:39,199 - INFO - [PIPELINE] Visualizations saved to C:\Users\Daud\SemanticCommTransmission\pythonProject/sem_com_results/enhanced_run_20250405-095612
+2025-04-05 10:11:20,954 - INFO - [PIPELINE] Direct Average BLEU: 0.4865
+2025-04-05 10:11:20,954 - INFO - [PIPELINE] Direct Average ROUGE1: 0.7796
+2025-04-05 10:11:20,954 - INFO - [PIPELINE] Direct Average ROUGEL: 0.7745
+2025-04-05 10:11:20,954 - INFO - [PIPELINE] Direct Average METEOR: 0.6991
+2025-04-05 10:11:20,954 - INFO - [PIPELINE] Direct Average SEMANTIC: 0.8719
+2025-04-05 10:11:20,954 - INFO - 
+[PIPELINE] Total Cost: $0.0416 of $2.00 budget
+2025-04-05 10:11:20,955 - INFO - [PIPELINE] Results saved to C:\Users\Daud\SemanticCommTransmission\pythonProject/sem_com_results/enhanced_run_20250405-101036
+2025-04-05 10:11:20,955 - INFO - [PIPELINE] Visualizations saved to C:\Users\Daud\SemanticCommTransmission\pythonProject/sem_com_results/enhanced_run_20250405-101036
 
 ===== KNOWLEDGE BASE FUNCTIONALITY CHECK =====
 ✓ KB initialized successfully with 41 terms
@@ -660,10 +930,10 @@ Overall improvements:
 - Enhanced RL Agent: Improved state representation with semantic features
 
 Final metrics:
-  semantic_avg_BLEU: 0.6615
-  semantic_avg_METEOR: 0.8579
-  semantic_avg_ROUGE1: 0.8533
-  semantic_avg_ROUGEL: 0.8514
-  semantic_avg_SEMANTIC: 0.8937
+  semantic_avg_BLEU: 0.4844
+  semantic_avg_METEOR: 0.6989
+  semantic_avg_ROUGE1: 0.7583
+  semantic_avg_ROUGEL: 0.7555
+  semantic_avg_SEMANTIC: 0.8533
 
 Process finished with exit code 0
