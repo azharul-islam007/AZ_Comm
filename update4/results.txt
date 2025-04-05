@@ -1,0 +1,1222 @@
+/home/ubuntu/anaconda3/bin/conda run -n myenv --no-capture-output python /tmp/pycharm_project_908/Europearl/SD5.py 
+2025-04-05 21:30:34,179 - INFO - Using device: cuda
+/home/ubuntu/.local/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+2025-04-05 21:30:36,670 - INFO - Initialized Enhanced Physical Channel with awgn channel, qam-16 modulation, SNR=20.0dB
+2025-04-05 21:30:36,671 - INFO - Adaptive modulation enabled: thresholds at 15.0dB and 25.0dB
+2025-04-05 21:30:36,671 - INFO - Unequal error protection enabled with 3 protection levels
+/tmp/pycharm_project_908/Europearl/content_adaptive_coding.py:350: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(self.content_classifier_path, map_location=device)
+2025-04-05 21:30:36,673 - ERROR - Error loading content classifier: Expected state_dict to be dict-like, got <class 'NoneType'>.
+2025-04-05 21:30:36,673 - INFO - Training fallback content classifier
+2025-04-05 21:30:36,675 - INFO - Fallback classifier initialized
+2025-04-05 21:30:36,676 - INFO - Content-Adaptive Physical Channel initialized
+2025-04-05 21:30:36,676 - INFO - Enhanced content-adaptive physical channel initialized
+2025-04-05 21:30:36,676 - INFO - Will collect up to 10000 transmission pairs
+2025-04-05 21:30:36,676 - INFO - Using device: cuda
+2025-04-05 21:30:37,921 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:37,936 - INFO - ✅ OpenAI API connection successful
+
+===== SYSTEM COMPONENT TEST =====
+2025-04-05 21:30:37,937 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-05 21:30:37,937 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms (load #1)
+Knowledge Base loaded with 41 terms
+
+Test Case 1: Mrs Lynne, you are quite right and I shall check whether this ocs actually not been done.
+1. KB Reconstruction (1 changes):
+   Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
+2025-04-05 21:30:37,957 - INFO - KB reconstruction made changes: 'Mrs Lynne, you are quite right and I shall check whether this ocs actually not been done.' -> 'Mrs Lynne, you are quite right and I shall check whether this has actually not been done.'
+2. Basic Reconstruction (1 changes):
+   Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
+2025-04-05 21:30:37,957 - INFO - [API] Starting reconstruction of text: 'Mrs Lynne, you are quite right...'
+2025-04-05 21:30:37,963 - INFO - [API] Using KB reconstruction with confidence 0.92
+2025-04-05 21:30:37,963 - INFO - [API] Completed in 0.006s using method: kb
+3. API Reconstruction (1 changes):
+   Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
+
+Test Case 2: The Parliamemt will now vote on the propofal from the Commissiob.
+1. KB Reconstruction (3 changes):
+   The Parliament will now vote on the proposal from the Commission
+2025-04-05 21:30:37,969 - INFO - KB reconstruction made changes: 'The Parliamemt will now vote on the propofal from the Commissiob.' -> 'The Parliament will now vote on the proposal from the Commission'
+2. Basic Reconstruction (3 changes):
+   The Parliament will now vote on the proposal from the Commission
+2025-04-05 21:30:37,969 - INFO - [API] Starting reconstruction of text: 'The Parliamemt will now vote o...'
+2025-04-05 21:30:37,972 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:30:38,669 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:38,680 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:38,680 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:30:38,680 - INFO - [API] Completed in 0.711s using api_gpt-3.5-turbo
+3. API Reconstruction (3 changes):
+   The Parliament will now vote on the proposal from the Commission.
+
+Test Case 3: In accordancg with Rule 143, I wkulz like your acvioe about this moetinp.
+1. KB Reconstruction (4 changes):
+   In accordance with Rule 143, I would like your advice about this meeting
+2025-04-05 21:30:38,693 - INFO - KB reconstruction made changes: 'In accordancg with Rule 143, I wkulz like your acvioe about this moetinp.' -> 'In accordance with Rule 143, I would like your advice about this meeting'
+2. Basic Reconstruction (4 changes):
+   In accordance with Rule 143, I would like your advice about this meeting
+2025-04-05 21:30:38,693 - INFO - [API] Starting reconstruction of text: 'In accordancg with Rule 143, I...'
+2025-04-05 21:30:38,698 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:30:39,523 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:39,528 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:39,529 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:30:39,529 - INFO - [API] Completed in 0.836s using api_gpt-3.5-turbo
+3. API Reconstruction (4 changes):
+   In accordance with Rule 143, I would like your advice about this meeting.
+
+===== RESULTS =====
+Components tested: KB Reconstruction, Basic Reconstruction, API Reconstruction
+Test cases corrected: 3/3
+System status: ✓ FUNCTIONAL
+2025-04-05 21:30:39,529 - INFO - [PIPELINE] Starting enhanced pipeline with parameters:
+2025-04-05 21:30:39,529 - INFO - [PIPELINE] - samples: 50, noise: 0.15/gaussian
+2025-04-05 21:30:39,529 - INFO - [PIPELINE] - API: 50%, Compare: True
+2025-04-05 21:30:39,529 - INFO - [PIPELINE] - Features: VAE=True, Semantic=True, Adaptive=True
+2025-04-05 21:30:39,529 - INFO - [PIPELINE] Knowledge base initialized successfully
+2025-04-05 21:30:39,530 - INFO - Initializing semantic loss with bert-base-uncased model
+/home/ubuntu/.local/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+2025-04-05 21:30:42,262 - INFO - Semantic perceptual loss initialized successfully
+2025-04-05 21:30:42,262 - INFO - [PIPELINE] Semantic perceptual loss initialized successfully
+2025-04-05 21:30:42,283 - INFO - [PIPELINE] Loaded 10000 items from compressed data
+2025-04-05 21:30:42,287 - INFO - [PIPELINE] Loaded 10000 original sentences
+2025-04-05 21:30:42,287 - INFO - [PIPELINE] Detected embedding dimension: 460
+2025-04-05 21:30:42,287 - INFO - Loading existing VAE compressor from ./data/vae_compressor.pth
+/tmp/pycharm_project_908/Europearl/compression_vae.py:583: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(VAE_COMPRESSOR_PATH, map_location=device)
+2025-04-05 21:30:42,327 - INFO - VAE compressor loaded: 768 → 460 dimensions
+2025-04-05 21:30:42,327 - INFO - Note: Loaded standard model, but requested enhanced
+2025-04-05 21:30:42,327 - INFO - [PIPELINE] VAE compressor loaded successfully
+2025-04-05 21:30:42,328 - INFO - Initialized Enhanced Physical Channel with awgn channel, qam-16 modulation, SNR=20.0dB
+2025-04-05 21:30:42,328 - INFO - Adaptive modulation enabled: thresholds at 15.0dB and 25.0dB
+2025-04-05 21:30:42,328 - INFO - Unequal error protection enabled with 3 protection levels
+/tmp/pycharm_project_908/Europearl/content_adaptive_coding.py:350: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(self.content_classifier_path, map_location=device)
+2025-04-05 21:30:42,330 - ERROR - Error loading content classifier: Expected state_dict to be dict-like, got <class 'NoneType'>.
+2025-04-05 21:30:42,330 - INFO - Training fallback content classifier
+2025-04-05 21:30:42,332 - INFO - Fallback classifier initialized
+2025-04-05 21:30:42,332 - INFO - Content-Adaptive Physical Channel initialized
+2025-04-05 21:30:42,332 - INFO - [PIPELINE] Physical channel upgraded to content-adaptive version
+2025-04-05 21:30:42,348 - INFO - Detected dimensions: input=460, hidden=920, latent=460
+2025-04-05 21:30:42,351 - INFO - Loading pre-trained enhanced MLPDenoisingVAE from ./models/enhanced_mlp_dvae_model.pth
+/tmp/pycharm_project_908/Europearl/semantic_mlpdvae.py:695: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(full_model_path, map_location=device)
+2025-04-05 21:30:42,442 - INFO - Loaded model was trained with semantic perceptual loss
+2025-04-05 21:30:42,442 - INFO - [PIPELINE] System configurations:
+2025-04-05 21:30:42,442 - INFO -   - VAE compression: True
+2025-04-05 21:30:42,442 - INFO -   - VAE dimensions: 768 → 460
+2025-04-05 21:30:42,442 - INFO -   - DVAE dimensions: input=460, hidden=920, latent=460
+2025-04-05 21:30:42,442 - INFO -   - Physical channel enabled: True
+2025-04-05 21:30:42,442 - INFO -   - Content adaptive coding: True
+2025-04-05 21:30:42,442 - INFO -   - Knowledge base enabled: True
+2025-04-05 21:30:42,442 - INFO - [PIPELINE] IMPORTANT: Model dimensions are input=460, hidden=920, latent=460
+2025-04-05 21:30:42,442 - INFO - [PIPELINE] Model dimensions: input=460, hidden=920, latent=460
+/tmp/pycharm_project_908/Europearl/SD5.py:438: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(path, map_location=torch.device('cpu'))
+2025-04-05 21:30:42,631 - INFO - Loaded advanced RL agent (exploration rate: 0.10)
+2025-04-05 21:30:42,631 - INFO - Initializing semantic loss with bert-base-uncased model
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+2025-04-05 21:30:43,716 - INFO - Semantic perceptual loss initialized successfully
+2025-04-05 21:30:43,717 - INFO - [PIPELINE] Semantic channel optimizer initialized
+2025-04-05 21:30:43,717 - INFO - [PIPELINE] Using enhanced RL agent for API optimization (exploration rate: 0.10)
+2025-04-05 21:30:43,717 - INFO - === Starting Enhanced Semantic Reconstruction Pipeline ===
+2025-04-05 21:30:43,717 - INFO - [PIPELINE] Noise level: 0.15, Noise type: gaussian
+2025-04-05 21:30:43,717 - INFO - [PIPELINE] OpenAI API available: True
+2025-04-05 21:30:43,717 - INFO - [PIPELINE] Physical channel enabled: True
+Processing samples:   0%|                                | 0/50 [00:00<?, ?it/s]/tmp/pycharm_project_908/Europearl/physical_semantic_integration.py:590: UserWarning: var(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at ../aten/src/ATen/native/ReduceOps.cpp:1808.)
+  variance = torch.var(tensor, dim=0)
+2025-04-05 21:30:43,787 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:43,788 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:43,815 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:43,815 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:43,825 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+/tmp/pycharm_project_908/Europearl/compression_vae.py:532: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(VAE_COMPRESSOR_PATH, map_location=device)
+2025-04-05 21:30:43,949 - INFO - [API] Starting reconstruction of text: 'Although , as yoc will have se...'
+2025-04-05 21:30:43,963 - INFO - [API] Using KB reconstruction with confidence 0.89
+2025-04-05 21:30:43,963 - INFO - [API] Completed in 0.014s using method: kb
+2025-04-05 21:30:43,964 - INFO - Using default tokenizer.
+2025-04-05 21:30:45,567 - INFO - [API] Starting reconstruction of text: 'Although , as you will have se...'
+2025-04-05 21:30:45,575 - INFO - [API] Using KB reconstruction with confidence 0.97
+2025-04-05 21:30:45,575 - INFO - [API] Completed in 0.009s using method: kb
+2025-04-05 21:30:45,576 - INFO - Using default tokenizer.
+2025-04-05 21:30:45,588 - INFO - [PIPELINE] Sample 1/50 (processed in 1.87s)
+2025-04-05 21:30:45,588 - INFO - [PIPELINE] Original: Although , as you will have seen , the dreaded ' millennium bug ' failed to materialise , still the people in a number of countries suffered a series of natural disasters that truly were dreadful .
+2025-04-05 21:30:45,588 - INFO - [PIPELINE] Semantic noisy: Although , as yoc will have seen , the dreaded ' millonnium bug ' faoled to materialise , still the people in a number of countries suffered a smryes of natural disasters ghft truly were dreadful .
+2025-04-05 21:30:45,588 - INFO - [PIPELINE] Semantic reconstructed: Although , as yoc will have seen , the Directive ' millonnium bug ' faoled to materialise , still the people in a number of countries suffered a smryes of natural disasters ghft actually were dreadful .
+2025-04-05 21:30:45,588 - INFO - [PIPELINE] Direct noisy: Although , as you will have seen , the dreaded ' millennlym bug ' faqleu to materialise , oticl fhe people in a nurbey of countries suffered a series of natural disasters that truly were dreadful .
+2025-04-05 21:30:45,588 - INFO - [PIPELINE] Direct reconstructed: Although , as you will have seen , the dreaded ' millennlym bug ' faqleu to materialise , oticl fhe people in a nurbey of countries suffered a series of natural disasters the truly were dreadful .
+2025-04-05 21:30:45,588 - INFO - [PIPELINE] Semantic BLEU: 0.5459, ROUGE-L: 0.7742, SEMANTIC: 0.8320
+2025-04-05 21:30:45,588 - INFO - [PIPELINE] Direct BLEU: 0.6053, ROUGE-L: 0.8065, SEMANTIC: 0.8031
+2025-04-05 21:30:45,588 - INFO - [PIPELINE] Current cost: $0.0004 of $2.00
+2025-04-05 21:30:45,588 - INFO - [PIPELINE] Progress: 1/50 samples. Est. remaining: 296.9s (4.9m)
+2025-04-05 21:30:45,588 - INFO - ---
+Processing samples:   2%|▍                       | 1/50 [00:01<01:31,  1.87s/it]2025-04-05 21:30:45,590 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:45,591 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:45,595 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:45,595 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:45,598 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:30:45,641 - INFO - [API] Starting reconstruction of text: 'You have requested a drbawe on...'
+2025-04-05 21:30:45,650 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:30:46,890 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:46,894 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:47,118 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:30:47,118 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:30:47,118 - INFO - [API] Completed in 1.477s using api_gpt-3.5-turbo
+2025-04-05 21:30:47,119 - INFO - Using default tokenizer.
+2025-04-05 21:30:47,182 - INFO - [API] Starting reconstruction of text: 'You have requested a debate on...'
+2025-04-05 21:30:47,187 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:30:47,999 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:48,003 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:48,221 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:30:48,221 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:30:48,221 - INFO - [API] Completed in 1.039s using api_gpt-3.5-turbo
+2025-04-05 21:30:48,221 - INFO - Using default tokenizer.
+2025-04-05 21:30:48,234 - INFO - [PIPELINE] Sample 2/50 (processed in 2.65s)
+2025-04-05 21:30:48,234 - INFO - [PIPELINE] Original: You have requested a debate on this subject in the course of the next few days , during this part-session .
+2025-04-05 21:30:48,234 - INFO - [PIPELINE] Semantic noisy: You have requested a drbawe on this subject in the course of chm nfkt few days , during this part-session .
+2025-04-05 21:30:48,234 - INFO - [PIPELINE] Semantic reconstructed: you will have requested a debate on this subject , the course , the next few days, during this part-session.
+2025-04-05 21:30:48,234 - INFO - [PIPELINE] Direct noisy: You have requested a debate on this sudgect in the course of the next few days , duvjng this part-session .
+2025-04-05 21:30:48,234 - INFO - [PIPELINE] Direct reconstructed: you will have requested a debate on this subject , the course , the next few days, during this part-session.
+2025-04-05 21:30:48,234 - INFO - [PIPELINE] Semantic BLEU: 0.3990, ROUGE-L: 0.9231, SEMANTIC: 0.9453
+2025-04-05 21:30:48,234 - INFO - [PIPELINE] Direct BLEU: 0.3990, ROUGE-L: 0.9231, SEMANTIC: 0.9453
+2025-04-05 21:30:48,234 - INFO - [PIPELINE] Current cost: $0.0008 of $2.00
+2025-04-05 21:30:48,234 - INFO - [PIPELINE] Progress: 2/50 samples. Est. remaining: 208.9s (3.5m)
+2025-04-05 21:30:48,234 - INFO - ---
+Processing samples:   4%|▉                       | 2/50 [00:04<01:51,  2.33s/it]2025-04-05 21:30:48,236 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:48,236 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:48,240 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:48,240 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:48,249 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:30:48,294 - INFO - [API] Starting reconstruction of text: 'Please rise , then , for this ...'
+2025-04-05 21:30:48,298 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:30:48,966 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:48,973 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:49,020 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:30:49,020 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:30:49,020 - INFO - [API] Completed in 0.726s using api_gpt-3.5-turbo
+2025-04-05 21:30:49,021 - INFO - Using default tokenizer.
+2025-04-05 21:30:49,035 - INFO - [API] Starting reconstruction of text: 'Pllase rise , then , for this ...'
+2025-04-05 21:30:49,040 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:30:49,858 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:49,863 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:49,908 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:30:49,908 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:30:49,908 - INFO - [API] Completed in 0.873s using api_gpt-3.5-turbo
+2025-04-05 21:30:49,908 - INFO - Using default tokenizer.
+Processing samples:   6%|█▍                      | 3/50 [00:06<01:35,  2.03s/it]2025-04-05 21:30:49,924 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:49,924 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:49,928 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:49,928 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:49,937 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:30:49,995 - INFO - [API] Starting reconstruction of text: '( The Hruhe rose and olservbd ...'
+2025-04-05 21:30:50,003 - INFO - [API] Using KB reconstruction with confidence 0.92
+2025-04-05 21:30:50,003 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-05 21:30:50,004 - INFO - Using default tokenizer.
+2025-04-05 21:30:50,017 - INFO - [API] Starting reconstruction of text: '( The House rose and observed ...'
+2025-04-05 21:30:50,024 - INFO - [API] Using KB reconstruction with confidence 0.85
+2025-04-05 21:30:50,024 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 21:30:50,024 - INFO - Using default tokenizer.
+Processing samples:   8%|█▉                      | 4/50 [00:06<00:58,  1.28s/it]2025-04-05 21:30:50,037 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:50,037 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:50,041 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:50,042 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:50,045 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:30:50,085 - INFO - [API] Starting reconstruction of text: 'mom will be aware from the pre...'
+2025-04-05 21:30:50,092 - INFO - [API] Using KB reconstruction with confidence 0.95
+2025-04-05 21:30:50,092 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 21:30:50,092 - INFO - Using default tokenizer.
+2025-04-05 21:30:50,105 - INFO - [API] Starting reconstruction of text: 'You will be aware from the pre...'
+2025-04-05 21:30:50,116 - INFO - [API] Using KB reconstruction with confidence 0.94
+2025-04-05 21:30:50,116 - INFO - [API] Completed in 0.011s using method: kb
+2025-04-05 21:30:50,117 - INFO - Using default tokenizer.
+2025-04-05 21:30:50,130 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:50,130 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:50,134 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:50,135 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:50,138 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:30:50,178 - INFO - [API] Starting reconstruction of text: 'One of the pekpde assassinated...'
+2025-04-05 21:30:50,185 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:30:50,991 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:51,004 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:51,204 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:30:51,204 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:30:51,204 - INFO - [API] Completed in 1.026s using api_gpt-3.5-turbo
+2025-04-05 21:30:51,204 - INFO - Using default tokenizer.
+2025-04-05 21:30:51,217 - INFO - [API] Starting reconstruction of text: 'One of the people assassinated...'
+2025-04-05 21:30:51,224 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:30:52,069 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:52,076 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:52,277 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:30:52,277 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:30:52,277 - INFO - [API] Completed in 1.061s using api_gpt-3.5-turbo
+2025-04-05 21:30:52,278 - INFO - Using default tokenizer.
+Processing samples:  12%|██▉                     | 6/50 [00:08<00:52,  1.20s/it]2025-04-05 21:30:52,292 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:52,292 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:52,296 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:52,296 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:52,305 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:30:52,344 - INFO - [API] Starting reconstruction of text: 'Yes , Mr Evans , I fetd an ini...'
+2025-04-05 21:30:52,353 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:30:53,577 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:53,581 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:53,733 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:30:53,733 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:30:53,733 - INFO - [API] Completed in 1.389s using api_gpt-3.5-turbo
+2025-04-05 21:30:53,733 - INFO - Using default tokenizer.
+2025-04-05 21:30:53,746 - INFO - [API] Starting reconstruction of text: 'Yes , Mr Evtns , I feel an ini...'
+2025-04-05 21:30:53,750 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:30:54,563 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:54,571 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:54,726 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:30:54,726 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:30:54,726 - INFO - [API] Completed in 0.980s using api_gpt-3.5-turbo
+2025-04-05 21:30:54,726 - INFO - Using default tokenizer.
+Processing samples:  14%|███▎                    | 7/50 [00:11<01:06,  1.54s/it]2025-04-05 21:30:54,740 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:54,740 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:54,744 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:54,744 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:54,753 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:30:54,793 - INFO - [API] Starting reconstruction of text: 'If the House agrees , I shall ...'
+2025-04-05 21:30:54,796 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:30:55,540 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:55,545 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:55,645 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:30:55,645 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:30:55,646 - INFO - [API] Completed in 0.853s using api_gpt-3.5-turbo
+2025-04-05 21:30:55,646 - INFO - Using default tokenizer.
+2025-04-05 21:30:55,662 - INFO - [API] Starting reconstruction of text: 'If the House agrees , I shall ...'
+2025-04-05 21:30:55,665 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:30:56,432 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:56,441 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:56,544 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:30:56,544 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:30:56,544 - INFO - [API] Completed in 0.882s using api_gpt-3.5-turbo
+2025-04-05 21:30:56,544 - INFO - Using default tokenizer.
+Processing samples:  16%|███▊                    | 8/50 [00:12<01:08,  1.62s/it]2025-04-05 21:30:56,559 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:56,559 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:56,563 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:56,563 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:56,567 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:30:56,606 - INFO - [API] Starting reconstruction of text: 'Madam Preiidznt , on a point o...'
+2025-04-05 21:30:56,609 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:30:57,223 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:57,232 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:57,265 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:30:57,265 - INFO - [API] Completed in 0.660s using api_gpt-3.5-turbo
+2025-04-05 21:30:57,266 - INFO - Using default tokenizer.
+2025-04-05 21:30:57,280 - INFO - [API] Starting reconstruction of text: 'Madam President , on a point o...'
+2025-04-05 21:30:57,283 - INFO - [API] Using KB reconstruction with confidence 0.81
+2025-04-05 21:30:57,283 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 21:30:57,283 - INFO - Using default tokenizer.
+Processing samples:  18%|████▎                   | 9/50 [00:13<00:56,  1.37s/it]2025-04-05 21:30:57,297 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:57,297 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:57,301 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:57,301 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:57,310 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:30:57,354 - INFO - [API] Starting reconstruction of text: 'I would likv yadr advice about...'
+2025-04-05 21:30:57,357 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:30:57,942 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:57,948 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:57,966 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:30:57,966 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:30:57,967 - INFO - [API] Completed in 0.613s using api_gpt-3.5-turbo
+2025-04-05 21:30:57,967 - INFO - Using default tokenizer.
+2025-04-05 21:30:57,988 - INFO - [API] Starting reconstruction of text: 'I would like your advice about...'
+2025-04-05 21:30:57,992 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:30:58,626 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:58,631 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:58,650 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:30:58,650 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:30:58,650 - INFO - [API] Completed in 0.661s using api_gpt-3.5-turbo
+2025-04-05 21:30:58,650 - INFO - Using default tokenizer.
+2025-04-05 21:30:58,668 - INFO - [PIPELINE] Sample 10/50 (processed in 1.37s)
+2025-04-05 21:30:58,668 - INFO - [PIPELINE] Original: I would like your advice about Rule 143 concerning inadmissibility .
+2025-04-05 21:30:58,668 - INFO - [PIPELINE] Semantic noisy: I would likv yadr advice about Rule 143 concerning inadmissibility .
+2025-04-05 21:30:58,668 - INFO - [PIPELINE] Semantic reconstructed: Madam President , , on on a a a a point point order . . .
+2025-04-05 21:30:58,668 - INFO - [PIPELINE] Direct noisy: I would like your advice about Rule 143 concerning inadmissibility .
+2025-04-05 21:30:58,668 - INFO - [PIPELINE] Direct reconstructed: Madam President , , on on a a a a point point order . . .
+2025-04-05 21:30:58,668 - INFO - [PIPELINE] Semantic BLEU: 0.0157, ROUGE-L: 0.0000, SEMANTIC: 0.6009
+2025-04-05 21:30:58,668 - INFO - [PIPELINE] Direct BLEU: 0.0157, ROUGE-L: 0.0000, SEMANTIC: 0.6009
+2025-04-05 21:30:58,669 - INFO - [PIPELINE] Current cost: $0.0027 of $2.00
+2025-04-05 21:30:58,669 - INFO - [PIPELINE] Progress: 10/50 samples. Est. remaining: 76.6s (1.3m)
+2025-04-05 21:30:58,669 - INFO - ---
+Processing samples:  20%|████▌                  | 10/50 [00:14<00:54,  1.37s/it]2025-04-05 21:30:58,671 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:58,671 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:58,675 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:58,675 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:58,684 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:30:58,728 - INFO - [API] Starting reconstruction of text: 'My question relates to somethi...'
+2025-04-05 21:30:58,731 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-05 21:30:58,731 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 21:30:58,731 - INFO - Using default tokenizer.
+2025-04-05 21:30:58,744 - INFO - [API] Starting reconstruction of text: 'My question relates to somethi...'
+2025-04-05 21:30:58,747 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-05 21:30:58,747 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 21:30:58,748 - INFO - Using default tokenizer.
+2025-04-05 21:30:58,761 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:58,761 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:58,765 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:58,765 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:58,768 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:30:58,809 - INFO - [API] Starting reconstruction of text: 'The Cunha report on multiannua...'
+2025-04-05 21:30:58,819 - INFO - [API] Using KB reconstruction with confidence 0.97
+2025-04-05 21:30:58,819 - INFO - [API] Completed in 0.011s using method: kb
+2025-04-05 21:30:58,820 - INFO - Using default tokenizer.
+2025-04-05 21:30:58,834 - INFO - [API] Starting reconstruction of text: 'The Cunha report on multiannua...'
+2025-04-05 21:30:58,845 - INFO - [API] Using KB reconstruction with confidence 0.97
+2025-04-05 21:30:58,845 - INFO - [API] Completed in 0.011s using method: kb
+2025-04-05 21:30:58,845 - INFO - Using default tokenizer.
+Processing samples:  24%|█████▌                 | 12/50 [00:15<00:30,  1.27it/s]2025-04-05 21:30:58,860 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:58,860 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:58,864 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:58,864 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:58,867 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:30:58,907 - INFO - [API] Starting reconstruction of text: 'It says that this should be do...'
+2025-04-05 21:30:58,910 - INFO - [API] Using KB reconstruction with confidence 0.73
+2025-04-05 21:30:58,910 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 21:30:58,911 - INFO - Using default tokenizer.
+2025-04-05 21:30:58,922 - INFO - [API] Starting reconstruction of text: 'It says that this should be do...'
+2025-04-05 21:30:58,925 - INFO - [API] Using KB reconstruction with confidence 0.84
+2025-04-05 21:30:58,925 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 21:30:58,925 - INFO - Using default tokenizer.
+2025-04-05 21:30:58,938 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:58,938 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:58,942 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:58,942 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:58,945 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:30:58,986 - INFO - [API] Starting reconstruction of text: 'I believe that the princzale o...'
+2025-04-05 21:30:58,993 - INFO - [API] Using KB reconstruction with confidence 0.88
+2025-04-05 21:30:58,993 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 21:30:58,994 - INFO - Using default tokenizer.
+2025-04-05 21:30:59,007 - INFO - [API] Starting reconstruction of text: 'I believe phat the principle o...'
+2025-04-05 21:30:59,014 - INFO - [API] Using KB reconstruction with confidence 0.96
+2025-04-05 21:30:59,014 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 21:30:59,014 - INFO - Using default tokenizer.
+Processing samples:  28%|██████▍                | 14/50 [00:15<00:18,  1.95it/s]2025-04-05 21:30:59,028 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:59,028 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:59,032 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:59,032 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:59,035 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:30:59,075 - INFO - [API] Starting reconstruction of text: 'I want to know whether one can...'
+2025-04-05 21:30:59,082 - INFO - [API] Using KB reconstruction with confidence 0.89
+2025-04-05 21:30:59,082 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 21:30:59,082 - INFO - Using default tokenizer.
+2025-04-05 21:30:59,095 - INFO - [API] Starting reconstruction of text: 'I want to know whether one caq...'
+2025-04-05 21:30:59,102 - INFO - [API] Using KB reconstruction with confidence 0.89
+2025-04-05 21:30:59,102 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 21:30:59,103 - INFO - Using default tokenizer.
+2025-04-05 21:30:59,116 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:59,116 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:59,120 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:30:59,120 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:30:59,123 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:30:59,162 - INFO - [API] Starting reconstruction of text: 'Thyj is precisely the twmf whe...'
+2025-04-05 21:30:59,166 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:30:59,863 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:30:59,870 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:00,029 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:31:00,030 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:00,030 - INFO - [API] Completed in 0.867s using api_gpt-3.5-turbo
+2025-04-05 21:31:00,030 - INFO - Using default tokenizer.
+2025-04-05 21:31:00,042 - INFO - [API] Starting reconstruction of text: 'That is pwecisevy yue time whe...'
+2025-04-05 21:31:00,045 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-05 21:31:00,045 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 21:31:00,045 - INFO - Using default tokenizer.
+Processing samples:  32%|███████▎               | 16/50 [00:16<00:17,  1.95it/s]2025-04-05 21:31:00,057 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:00,058 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:00,061 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:00,062 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:00,070 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:00,125 - INFO - [API] Starting reconstruction of text: 'on Thursday prior to the start...'
+2025-04-05 21:31:00,128 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:00,861 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:00,867 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:00,998 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:31:00,998 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:00,998 - INFO - [API] Completed in 0.873s using api_gpt-3.5-turbo
+2025-04-05 21:31:00,998 - INFO - Using default tokenizer.
+2025-04-05 21:31:01,013 - INFO - [API] Starting reconstruction of text: 'on Thursday prior to the mtart...'
+2025-04-05 21:31:01,016 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:01,839 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:01,843 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:01,973 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:31:01,973 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:01,973 - INFO - [API] Completed in 0.959s using api_gpt-3.5-turbo
+2025-04-05 21:31:01,973 - INFO - Using default tokenizer.
+Processing samples:  34%|███████▊               | 17/50 [00:18<00:26,  1.25it/s]2025-04-05 21:31:01,988 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:01,988 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:01,992 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:01,992 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:02,003 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:02,057 - INFO - [API] Starting reconstruction of text: 'We shall call him Mr Hiwhs ....'
+2025-04-05 21:31:02,059 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:02,682 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:02,687 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:02,713 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:02,713 - INFO - [API] Completed in 0.656s using api_gpt-3.5-turbo
+2025-04-05 21:31:02,713 - INFO - Using default tokenizer.
+2025-04-05 21:31:02,727 - INFO - [API] Starting reconstruction of text: 'We shall call him Mr Hicks ....'
+2025-04-05 21:31:02,729 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:03,471 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:03,479 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:03,507 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:03,507 - INFO - [API] Completed in 0.780s using api_gpt-3.5-turbo
+2025-04-05 21:31:03,507 - INFO - Using default tokenizer.
+Processing samples:  36%|████████▎              | 18/50 [00:19<00:30,  1.03it/s]2025-04-05 21:31:03,524 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:03,524 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:03,528 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:03,529 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:03,537 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:03,580 - INFO - [API] Starting reconstruction of text: 'At the request of a French Mem...'
+2025-04-05 21:31:03,591 - INFO - [API] Using KB reconstruction with confidence 0.94
+2025-04-05 21:31:03,591 - INFO - [API] Completed in 0.011s using method: kb
+2025-04-05 21:31:03,592 - INFO - Using default tokenizer.
+2025-04-05 21:31:03,604 - INFO - [API] Starting reconstruction of text: 'At the request of a French Mem...'
+2025-04-05 21:31:03,616 - INFO - [API] Using KB reconstruction with confidence 0.87
+2025-04-05 21:31:03,616 - INFO - [API] Completed in 0.011s using method: kb
+2025-04-05 21:31:03,616 - INFO - Using default tokenizer.
+Processing samples:  38%|████████▋              | 19/50 [00:19<00:23,  1.32it/s]2025-04-05 21:31:03,629 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:03,629 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:03,633 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:03,633 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:03,636 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:03,675 - INFO - [API] Starting reconstruction of text: 'This is all in accordance with...'
+2025-04-05 21:31:03,679 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:04,476 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:04,480 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:04,651 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:31:04,652 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:04,652 - INFO - [API] Completed in 0.977s using api_gpt-3.5-turbo
+2025-04-05 21:31:04,652 - INFO - Using default tokenizer.
+2025-04-05 21:31:04,669 - INFO - [API] Starting reconstruction of text: 'This is all in accordance wieh...'
+2025-04-05 21:31:04,672 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-05 21:31:04,672 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 21:31:04,673 - INFO - Using default tokenizer.
+2025-04-05 21:31:04,683 - INFO - [PIPELINE] Sample 20/50 (processed in 1.06s)
+2025-04-05 21:31:04,683 - INFO - [PIPELINE] Original: This is all in accordance with the principles that we have always upheld .
+2025-04-05 21:31:04,683 - INFO - [PIPELINE] Semantic noisy: This is all in accordance with the xrinciples tuac we jave always upheld .
+2025-04-05 21:31:04,683 - INFO - [PIPELINE] Semantic reconstructed: At the request of a French Member , , , Mr Zimeray Mr Mr Zimeray Zimeray Zimeray , Zimeray , petition a a petition has petition petition has already been presented , which , which which which which many people many many people people , including , including myself including including myself including myself . .
+2025-04-05 21:31:04,683 - INFO - [PIPELINE] Direct noisy: This is all in accordance wieh the principles that we have alwabm upukld .
+2025-04-05 21:31:04,683 - INFO - [PIPELINE] Direct reconstructed: This is all in accordance wieh the principles the we have alwabm upukld .
+2025-04-05 21:31:04,683 - INFO - [PIPELINE] Semantic BLEU: 0.0066, ROUGE-L: 0.0345, SEMANTIC: 0.5610
+2025-04-05 21:31:04,683 - INFO - [PIPELINE] Direct BLEU: 0.3499, ROUGE-L: 0.6923, SEMANTIC: 0.7504
+2025-04-05 21:31:04,683 - INFO - [PIPELINE] Current cost: $0.0038 of $2.00
+2025-04-05 21:31:04,683 - INFO - [PIPELINE] Progress: 20/50 samples. Est. remaining: 37.7s (0.6m)
+2025-04-05 21:31:04,683 - INFO - ---
+Processing samples:  40%|█████████▏             | 20/50 [00:20<00:25,  1.20it/s]2025-04-05 21:31:04,685 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:04,685 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:04,689 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:04,689 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:04,698 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:04,737 - INFO - [API] Starting reconstruction of text: 'Thank you , Mr Segni , I shmlv...'
+2025-04-05 21:31:04,740 - INFO - [API] Using KB reconstruction with confidence 0.88
+2025-04-05 21:31:04,740 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 21:31:04,741 - INFO - Using default tokenizer.
+2025-04-05 21:31:04,751 - INFO - [API] Starting reconstruction of text: 'Thank you , Mr Segnr , I shall...'
+2025-04-05 21:31:04,753 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:05,556 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:05,563 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:05,603 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:31:05,603 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:05,603 - INFO - [API] Completed in 0.852s using api_gpt-3.5-turbo
+2025-04-05 21:31:05,603 - INFO - Using default tokenizer.
+Processing samples:  42%|█████████▋             | 21/50 [00:21<00:24,  1.16it/s]2025-04-05 21:31:05,619 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:05,620 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:05,624 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:05,624 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:05,633 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:05,674 - INFO - [API] Starting reconstruction of text: 'Indeed , it is quite in keepin...'
+2025-04-05 21:31:05,683 - INFO - [API] Using KB reconstruction with confidence 0.81
+2025-04-05 21:31:05,683 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-05 21:31:05,683 - INFO - Using default tokenizer.
+2025-04-05 21:31:05,695 - INFO - [API] Starting reconstruction of text: 'Indeed , it is quite in keepin...'
+2025-04-05 21:31:05,703 - INFO - [API] Using KB reconstruction with confidence 0.73
+2025-04-05 21:31:05,703 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-05 21:31:05,703 - INFO - Using default tokenizer.
+2025-04-05 21:31:05,715 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:05,715 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:05,719 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:05,719 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:05,722 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:05,761 - INFO - [API] Starting reconstruction of text: 'Madam President , I should lik...'
+2025-04-05 21:31:05,766 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:06,522 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:06,533 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:06,642 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:06,642 - INFO - [API] Completed in 0.881s using api_gpt-3.5-turbo
+2025-04-05 21:31:06,642 - INFO - Using default tokenizer.
+2025-04-05 21:31:06,654 - INFO - [API] Starting reconstruction of text: 'Madam President , I should lik...'
+2025-04-05 21:31:06,659 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:07,338 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:07,343 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:07,451 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:07,451 - INFO - [API] Completed in 0.797s using api_gpt-3.5-turbo
+2025-04-05 21:31:07,451 - INFO - Using default tokenizer.
+Processing samples:  46%|██████████▌            | 23/50 [00:23<00:23,  1.13it/s]2025-04-05 21:31:07,466 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:07,466 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:07,470 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:07,470 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:07,473 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:07,513 - INFO - [API] Starting reconstruction of text: 'It is the case of Alexander Ni...'
+2025-04-05 21:31:07,516 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:08,302 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:08,306 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:08,501 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:31:08,501 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:08,501 - INFO - [API] Completed in 0.988s using api_gpt-3.5-turbo
+2025-04-05 21:31:08,502 - INFO - Using default tokenizer.
+2025-04-05 21:31:08,518 - INFO - [API] Starting reconstruction of text: 'It is the case of Alexander Ni...'
+2025-04-05 21:31:08,521 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:09,348 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:09,356 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:09,549 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:31:09,549 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:09,549 - INFO - [API] Completed in 1.030s using api_gpt-3.5-turbo
+2025-04-05 21:31:09,549 - INFO - Using default tokenizer.
+Processing samples:  48%|███████████            | 24/50 [00:25<00:30,  1.18s/it]2025-04-05 21:31:09,564 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:09,564 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:09,568 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:09,568 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:09,577 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:09,618 - INFO - [API] Starting reconstruction of text: 'All of us here zrm pleased thn...'
+2025-04-05 21:31:09,626 - INFO - [API] Using KB reconstruction with confidence 0.96
+2025-04-05 21:31:09,626 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 21:31:09,626 - INFO - Using default tokenizer.
+2025-04-05 21:31:09,639 - INFO - [API] Starting reconstruction of text: 'All of us hyrd are pleased tha...'
+2025-04-05 21:31:09,646 - INFO - [API] Using KB reconstruction with confidence 0.92
+2025-04-05 21:31:09,646 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 21:31:09,646 - INFO - Using default tokenizer.
+2025-04-05 21:31:09,659 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:09,659 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:09,663 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:09,664 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:09,667 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:09,706 - INFO - [API] Starting reconstruction of text: 'Now , however , he is to go be...'
+2025-04-05 21:31:09,715 - INFO - [API] Using KB reconstruction with confidence 0.86
+2025-04-05 21:31:09,715 - INFO - [API] Completed in 0.009s using method: kb
+2025-04-05 21:31:09,715 - INFO - Using default tokenizer.
+2025-04-05 21:31:09,727 - INFO - [API] Starting reconstruction of text: 'Now , however , he is to go be...'
+2025-04-05 21:31:09,736 - INFO - [API] Using KB reconstruction with confidence 0.86
+2025-04-05 21:31:09,736 - INFO - [API] Completed in 0.009s using method: kb
+2025-04-05 21:31:09,736 - INFO - Using default tokenizer.
+Processing samples:  52%|███████████▉           | 26/50 [00:26<00:17,  1.36it/s]2025-04-05 21:31:09,748 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:09,748 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:09,752 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:09,752 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:09,755 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:09,794 - INFO - [API] Starting reconstruction of text: 'Yes , Mrs Schjovdter , I shall...'
+2025-04-05 21:31:09,799 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:10,545 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:10,551 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:10,680 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:31:10,680 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:10,680 - INFO - [API] Completed in 0.886s using api_gpt-3.5-turbo
+2025-04-05 21:31:10,680 - INFO - Using default tokenizer.
+2025-04-05 21:31:10,694 - INFO - [API] Starting reconstruction of text: 'Yes , Mrs Schrotdler , I lharl...'
+2025-04-05 21:31:10,702 - INFO - [API] Using KB reconstruction with confidence 0.88
+2025-04-05 21:31:10,702 - INFO - [API] Completed in 0.009s using method: kb
+2025-04-05 21:31:10,702 - INFO - Using default tokenizer.
+Processing samples:  54%|████████████▍          | 27/50 [00:26<00:18,  1.27it/s]2025-04-05 21:31:10,715 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:10,715 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:10,719 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:10,719 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:10,728 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:10,769 - INFO - [API] Starting reconstruction of text: 'But , Madam President , my per...'
+2025-04-05 21:31:10,776 - INFO - [API] Using KB reconstruction with confidence 0.76
+2025-04-05 21:31:10,776 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 21:31:10,776 - INFO - Using default tokenizer.
+2025-04-05 21:31:10,787 - INFO - [API] Starting reconstruction of text: 'lxt , Madsz President , my per...'
+2025-04-05 21:31:10,793 - INFO - [API] Using KB reconstruction with confidence 0.76
+2025-04-05 21:31:10,793 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-05 21:31:10,793 - INFO - Using default tokenizer.
+2025-04-05 21:31:10,805 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:10,805 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:10,809 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:10,809 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:10,812 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:10,852 - INFO - [API] Starting reconstruction of text: 'I would therefore once more as...'
+2025-04-05 21:31:10,856 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-05 21:31:10,856 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 21:31:10,856 - INFO - Using default tokenizer.
+2025-04-05 21:31:10,868 - INFO - [API] Starting reconstruction of text: 'I wiuld therefore once more as...'
+2025-04-05 21:31:10,872 - INFO - [API] Using KB reconstruction with confidence 0.86
+2025-04-05 21:31:10,872 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 21:31:10,872 - INFO - Using default tokenizer.
+Processing samples:  58%|█████████████▎         | 29/50 [00:27<00:10,  1.94it/s]2025-04-05 21:31:10,884 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:10,884 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:10,888 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:10,888 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:10,891 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:10,931 - INFO - [API] Starting reconstruction of text: 'Mrs Plooij-van Gorsel , I can ...'
+2025-04-05 21:31:10,936 - INFO - [API] Using KB reconstruction with confidence 0.88
+2025-04-05 21:31:10,936 - INFO - [API] Completed in 0.004s using method: kb
+2025-04-05 21:31:10,936 - INFO - Using default tokenizer.
+2025-04-05 21:31:10,949 - INFO - [API] Starting reconstruction of text: 'Mrs Ploaij-vqn Gorsel , I can ...'
+2025-04-05 21:31:10,953 - INFO - [API] Using KB reconstruction with confidence 0.94
+2025-04-05 21:31:10,953 - INFO - [API] Completed in 0.005s using method: kb
+2025-04-05 21:31:10,953 - INFO - Using default tokenizer.
+2025-04-05 21:31:10,964 - INFO - [PIPELINE] Sample 30/50 (processed in 0.08s)
+2025-04-05 21:31:10,964 - INFO - [PIPELINE] Original: Mrs Plooij-van Gorsel , I can tell you that this matter is on the agenda for the Quaestors ' meeting on Wednesday .
+2025-04-05 21:31:10,964 - INFO - [PIPELINE] Semantic noisy: Mrs Plooij-van Gorsel , I can ttkl you that ocis matien is on the agenda for the muaystors ' meeting on Wednesday .
+2025-04-05 21:31:10,964 - INFO - [PIPELINE] Semantic reconstructed: Mrs Plooij-van Gorsel , I can ttkl you the has matien is on the agenda for the muaystors ' meeting on Wednesday .
+2025-04-05 21:31:10,964 - INFO - [PIPELINE] Direct noisy: Mrs Ploaij-vqn Gorsel , I can tell you that thii matter is on the agenda for the Quaestors ' meeting on Wednesday .
+2025-04-05 21:31:10,964 - INFO - [PIPELINE] Direct reconstructed: Mrs Ploaij-vqn Gorsel , I can tell you the thii matter is on the agenda for the Quaestors ' meeting on Wednesday .
+2025-04-05 21:31:10,964 - INFO - [PIPELINE] Semantic BLEU: 0.5684, ROUGE-L: 0.7619, SEMANTIC: 0.9055
+2025-04-05 21:31:10,964 - INFO - [PIPELINE] Direct BLEU: 0.7474, ROUGE-L: 0.8095, SEMANTIC: 0.9230
+2025-04-05 21:31:10,964 - INFO - [PIPELINE] Current cost: $0.0049 of $2.00
+2025-04-05 21:31:10,964 - INFO - [PIPELINE] Progress: 30/50 samples. Est. remaining: 21.0s (0.3m)
+2025-04-05 21:31:10,964 - INFO - ---
+2025-04-05 21:31:10,966 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:10,966 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:10,970 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:10,970 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:10,973 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:11,012 - INFO - [API] Starting reconstruction of text: 'It will , I hope , be examvneh...'
+2025-04-05 21:31:11,016 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:11,619 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:11,623 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:11,690 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:11,690 - INFO - [API] Completed in 0.678s using api_gpt-3.5-turbo
+2025-04-05 21:31:11,690 - INFO - Using default tokenizer.
+2025-04-05 21:31:11,702 - INFO - [API] Starting reconstruction of text: 'It will , I hory , be examined...'
+2025-04-05 21:31:11,705 - INFO - [API] Using KB reconstruction with confidence 0.88
+2025-04-05 21:31:11,705 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 21:31:11,705 - INFO - Using default tokenizer.
+Processing samples:  62%|██████████████▎        | 31/50 [00:27<00:09,  2.09it/s]2025-04-05 21:31:11,717 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:11,718 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:11,722 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:11,722 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:11,726 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:11,765 - INFO - [API] Starting reconstruction of text: 'Madam President , can you tell...'
+2025-04-05 21:31:11,771 - INFO - [API] Using KB reconstruction with confidence 0.95
+2025-04-05 21:31:11,771 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-05 21:31:11,772 - INFO - Using default tokenizer.
+2025-04-05 21:31:11,783 - INFO - [API] Starting reconstruction of text: 'Madam President , can you tell...'
+2025-04-05 21:31:11,789 - INFO - [API] Using KB reconstruction with confidence 0.94
+2025-04-05 21:31:11,789 - INFO - [API] Completed in 0.005s using method: kb
+2025-04-05 21:31:11,789 - INFO - Using default tokenizer.
+2025-04-05 21:31:11,801 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:11,801 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:11,805 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:11,805 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:11,808 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:11,847 - INFO - [API] Starting reconstruction of text: 'Why has no air quality tejt be...'
+2025-04-05 21:31:11,851 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-05 21:31:11,851 - INFO - [API] Completed in 0.004s using method: kb
+2025-04-05 21:31:11,851 - INFO - Using default tokenizer.
+2025-04-05 21:31:11,863 - INFO - [API] Starting reconstruction of text: 'Why has no air quality test be...'
+2025-04-05 21:31:11,867 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-05 21:31:11,867 - INFO - [API] Completed in 0.004s using method: kb
+2025-04-05 21:31:11,867 - INFO - Using default tokenizer.
+Processing samples:  66%|███████████████▏       | 33/50 [00:28<00:05,  2.90it/s]2025-04-05 21:31:11,879 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:11,879 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:11,883 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:11,883 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:11,886 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:11,924 - INFO - [API] Starting reconstruction of text: 'jht jxs there been no Health u...'
+2025-04-05 21:31:11,931 - INFO - [API] Using KB reconstruction with confidence 0.90
+2025-04-05 21:31:11,932 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 21:31:11,932 - INFO - Using default tokenizer.
+2025-04-05 21:31:11,943 - INFO - [API] Starting reconstruction of text: 'Why has there been no Health a...'
+2025-04-05 21:31:11,949 - INFO - [API] Using KB reconstruction with confidence 0.80
+2025-04-05 21:31:11,949 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 21:31:11,950 - INFO - Using default tokenizer.
+2025-04-05 21:31:11,961 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:11,961 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:11,965 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:11,965 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:11,969 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:12,008 - INFO - [API] Starting reconstruction of text: 'Why has there been no fire dri...'
+2025-04-05 21:31:12,014 - INFO - [API] Using KB reconstruction with confidence 0.82
+2025-04-05 21:31:12,014 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-05 21:31:12,014 - INFO - Using default tokenizer.
+2025-04-05 21:31:12,026 - INFO - [API] Starting reconstruction of text: 'Why has there been no fire dri...'
+2025-04-05 21:31:12,032 - INFO - [API] Using KB reconstruction with confidence 0.95
+2025-04-05 21:31:12,032 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-05 21:31:12,032 - INFO - Using default tokenizer.
+Processing samples:  70%|████████████████       | 35/50 [00:28<00:03,  3.86it/s]2025-04-05 21:31:12,045 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:12,045 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:12,049 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:12,049 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:12,052 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:12,092 - INFO - [API] Starting reconstruction of text: 'Why are there no fire instruct...'
+2025-04-05 21:31:12,094 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:12,936 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:12,941 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:13,046 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:31:13,046 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:13,046 - INFO - [API] Completed in 0.955s using api_gpt-3.5-turbo
+2025-04-05 21:31:13,047 - INFO - Using default tokenizer.
+2025-04-05 21:31:13,060 - INFO - [API] Starting reconstruction of text: 'Why are there no fire instruct...'
+2025-04-05 21:31:13,063 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:13,743 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:13,747 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:13,855 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:31:13,855 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:13,855 - INFO - [API] Completed in 0.794s using api_gpt-3.5-turbo
+2025-04-05 21:31:13,855 - INFO - Using default tokenizer.
+Processing samples:  72%|████████████████▌      | 36/50 [00:30<00:07,  1.80it/s]2025-04-05 21:31:13,870 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:13,870 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:13,874 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:13,874 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:13,877 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:13,916 - INFO - [API] Starting reconstruction of text: 'Why have bhj staircases nuf be...'
+2025-04-05 21:31:13,923 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:14,505 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:14,509 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:14,520 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:31:14,520 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:14,520 - INFO - [API] Completed in 0.604s using api_gpt-3.5-turbo
+2025-04-05 21:31:14,521 - INFO - Using default tokenizer.
+2025-04-05 21:31:14,542 - INFO - [API] Starting reconstruction of text: 'Why have the staircases not be...'
+2025-04-05 21:31:14,548 - INFO - [API] Using KB reconstruction with confidence 0.84
+2025-04-05 21:31:14,548 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-05 21:31:14,548 - INFO - Using default tokenizer.
+Processing samples:  74%|█████████████████      | 37/50 [00:30<00:07,  1.71it/s]2025-04-05 21:31:14,564 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:14,564 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:14,568 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:14,569 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:14,573 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:14,618 - INFO - [API] Starting reconstruction of text: 'Why are no-smoking areas xut e...'
+2025-04-05 21:31:14,620 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:15,858 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:15,863 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:15,899 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:31:15,899 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:15,899 - INFO - [API] Completed in 1.282s using api_gpt-3.5-turbo
+2025-04-05 21:31:15,900 - INFO - Using default tokenizer.
+2025-04-05 21:31:15,914 - INFO - [API] Starting reconstruction of text: 'Why arn no-smoking areas not e...'
+2025-04-05 21:31:15,916 - INFO - [API] Using KB reconstruction with confidence 0.84
+2025-04-05 21:31:15,916 - INFO - [API] Completed in 0.002s using method: kb
+2025-04-05 21:31:15,916 - INFO - Using default tokenizer.
+Processing samples:  76%|█████████████████▍     | 38/50 [00:32<00:09,  1.31it/s]2025-04-05 21:31:15,929 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:15,929 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:15,933 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:15,933 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:15,942 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:15,985 - INFO - [API] Starting reconstruction of text: 'It seems absolutely disgracefu...'
+2025-04-05 21:31:15,988 - INFO - [API] Using KB reconstruction with confidence 0.92
+2025-04-05 21:31:15,988 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 21:31:15,989 - INFO - Using default tokenizer.
+2025-04-05 21:31:16,000 - INFO - [API] Starting reconstruction of text: 'It seems absolutely disgracefu...'
+2025-04-05 21:31:16,004 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:16,704 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:16,712 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:16,753 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:16,753 - INFO - [API] Completed in 0.752s using api_gpt-3.5-turbo
+2025-04-05 21:31:16,753 - INFO - Using default tokenizer.
+Processing samples:  78%|█████████████████▉     | 39/50 [00:33<00:08,  1.27it/s]2025-04-05 21:31:16,769 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:16,769 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:16,773 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:16,774 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:16,783 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:16,826 - INFO - [API] Starting reconstruction of text: 'Mrs Lynne , you are qpqte righ...'
+2025-04-05 21:31:16,830 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:17,546 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:17,552 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:17,642 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:31:17,642 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:17,642 - INFO - [API] Completed in 0.816s using api_gpt-3.5-turbo
+2025-04-05 21:31:17,643 - INFO - Using default tokenizer.
+2025-04-05 21:31:17,656 - INFO - [API] Starting reconstruction of text: 'Mrs Lynne , you are quite righ...'
+2025-04-05 21:31:17,660 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:18,426 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:18,430 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:18,525 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:31:18,525 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:18,525 - INFO - [API] Completed in 0.869s using api_gpt-3.5-turbo
+2025-04-05 21:31:18,525 - INFO - Using default tokenizer.
+2025-04-05 21:31:18,537 - INFO - [PIPELINE] Sample 40/50 (processed in 1.77s)
+2025-04-05 21:31:18,537 - INFO - [PIPELINE] Original: Mrs Lynne , you are quite right and I shall check whether this has actually not been done .
+2025-04-05 21:31:18,537 - INFO - [PIPELINE] Semantic noisy: Mrs Lynne , you are qpqte right and I shall check whether this has actually tmt been done .
+2025-04-05 21:31:18,537 - INFO - [PIPELINE] Semantic reconstructed: Mrs. Lynne, you are quite right, and do shall check whether this has actually been done.
+2025-04-05 21:31:18,537 - INFO - [PIPELINE] Direct noisy: Mrs Lynne , you are quite right and I shall check whether this has actually not been done .
+2025-04-05 21:31:18,537 - INFO - [PIPELINE] Direct reconstructed: Mrs. Lynne, you are quite right, and do shall check whether this has actually not been done.
+2025-04-05 21:31:18,537 - INFO - [PIPELINE] Semantic BLEU: 0.3343, ROUGE-L: 0.9091, SEMANTIC: 0.9478
+2025-04-05 21:31:18,537 - INFO - [PIPELINE] Direct BLEU: 0.4509, ROUGE-L: 0.9412, SEMANTIC: 0.9578
+2025-04-05 21:31:18,537 - INFO - [PIPELINE] Current cost: $0.0063 of $2.00
+2025-04-05 21:31:18,537 - INFO - [PIPELINE] Progress: 40/50 samples. Est. remaining: 9.8s (0.2m)
+2025-04-05 21:31:18,537 - INFO - ---
+Processing samples:  80%|██████████████████▍    | 40/50 [00:34<00:10,  1.04s/it]2025-04-05 21:31:18,539 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:18,540 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:18,544 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:18,544 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:18,553 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:18,595 - INFO - [API] Starting reconstruction of text: 'I vhayl also wyfer the matter ...'
+2025-04-05 21:31:18,601 - INFO - [API] Using KB reconstruction with confidence 0.89
+2025-04-05 21:31:18,601 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-05 21:31:18,602 - INFO - Using default tokenizer.
+2025-04-05 21:31:18,615 - INFO - [API] Starting reconstruction of text: 'I shall also refer thr mateer ...'
+2025-04-05 21:31:18,621 - INFO - [API] Using KB reconstruction with confidence 0.96
+2025-04-05 21:31:18,621 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 21:31:18,622 - INFO - Using default tokenizer.
+2025-04-05 21:31:18,636 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:18,636 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:18,640 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:18,640 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:18,643 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:18,682 - INFO - [API] Starting reconstruction of text: 'Madam President , Mrs Díez Gon...'
+2025-04-05 21:31:18,689 - INFO - [API] Using KB reconstruction with confidence 0.96
+2025-04-05 21:31:18,689 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 21:31:18,689 - INFO - Using default tokenizer.
+2025-04-05 21:31:18,701 - INFO - [API] Starting reconstruction of text: 'Madam President , Mrs Díez Gon...'
+2025-04-05 21:31:18,714 - INFO - [API] Using KB reconstruction with confidence 0.89
+2025-04-05 21:31:18,714 - INFO - [API] Completed in 0.012s using method: kb
+2025-04-05 21:31:18,714 - INFO - Using default tokenizer.
+Processing samples:  84%|███████████████████▎   | 42/50 [00:35<00:05,  1.57it/s]2025-04-05 21:31:18,728 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:18,728 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:18,732 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:18,732 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:18,735 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:18,773 - INFO - [API] Starting reconstruction of text: 'The competent services have no...'
+2025-04-05 21:31:18,780 - INFO - [API] Using KB reconstruction with confidence 0.95
+2025-04-05 21:31:18,780 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 21:31:18,780 - INFO - Using default tokenizer.
+2025-04-05 21:31:18,792 - INFO - [API] Starting reconstruction of text: 'The competent services have no...'
+2025-04-05 21:31:18,798 - INFO - [API] Using KB reconstruction with confidence 0.95
+2025-04-05 21:31:18,798 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-05 21:31:18,799 - INFO - Using default tokenizer.
+2025-04-05 21:31:18,811 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:18,811 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:18,815 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:18,815 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:18,818 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:18,856 - INFO - [API] Starting reconstruction of text: 'I would ask ihlt thcy reconsid...'
+2025-04-05 21:31:18,859 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:19,469 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:19,473 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:19,558 - INFO - [API] Further enhanced API result with context
+2025-04-05 21:31:19,558 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:19,558 - INFO - [API] Completed in 0.702s using api_gpt-3.5-turbo
+2025-04-05 21:31:19,559 - INFO - Using default tokenizer.
+2025-04-05 21:31:19,572 - INFO - [API] Starting reconstruction of text: 'I would ask that they reconsid...'
+2025-04-05 21:31:19,575 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-05 21:31:19,575 - INFO - [API] Completed in 0.002s using method: kb
+2025-04-05 21:31:19,575 - INFO - Using default tokenizer.
+Processing samples:  88%|████████████████████▏  | 44/50 [00:35<00:03,  1.79it/s]2025-04-05 21:31:19,588 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:19,588 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:19,592 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:19,592 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:19,601 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:19,642 - INFO - [API] Starting reconstruction of text: 'The questions answered previou...'
+2025-04-05 21:31:19,650 - INFO - [API] Using KB reconstruction with confidence 0.97
+2025-04-05 21:31:19,650 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-05 21:31:19,650 - INFO - Using default tokenizer.
+2025-04-05 21:31:19,663 - INFO - [API] Starting reconstruction of text: 'The questions answered previou...'
+2025-04-05 21:31:19,671 - INFO - [API] Using KB reconstruction with confidence 0.97
+2025-04-05 21:31:19,671 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-05 21:31:19,671 - INFO - Using default tokenizer.
+2025-04-05 21:31:19,685 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:19,685 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:19,689 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:19,689 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:19,692 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:19,731 - INFO - [API] Starting reconstruction of text: 'Mr Berenguer Fuster , we shall...'
+2025-04-05 21:31:19,734 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:20,935 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:20,938 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:21,013 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:21,013 - INFO - [API] Completed in 1.282s using api_gpt-3.5-turbo
+2025-04-05 21:31:21,013 - INFO - Using default tokenizer.
+2025-04-05 21:31:21,025 - INFO - [API] Starting reconstruction of text: 'Mr Berenguer Fuster , we shall...'
+2025-04-05 21:31:21,028 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-05 21:31:21,952 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:21,962 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-05 21:31:22,035 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-05 21:31:22,035 - INFO - [API] Completed in 1.010s using api_gpt-3.5-turbo
+2025-04-05 21:31:22,035 - INFO - Using default tokenizer.
+Processing samples:  92%|█████████████████████▏ | 46/50 [00:38<00:03,  1.26it/s]2025-04-05 21:31:22,050 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:22,050 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:22,054 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:22,054 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:22,059 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:22,099 - INFO - [API] Starting reconstruction of text: 'I ddmjt that , at present , th...'
+2025-04-05 21:31:22,102 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-05 21:31:22,102 - INFO - [API] Completed in 0.002s using method: kb
+2025-04-05 21:31:22,102 - INFO - Using default tokenizer.
+2025-04-05 21:31:22,114 - INFO - [API] Starting reconstruction of text: 'I admit that , at present , tu...'
+2025-04-05 21:31:22,116 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-05 21:31:22,116 - INFO - [API] Completed in 0.002s using method: kb
+2025-04-05 21:31:22,116 - INFO - Using default tokenizer.
+2025-04-05 21:31:22,128 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:22,129 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:22,133 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:22,133 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:22,136 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:22,176 - INFO - [API] Starting reconstruction of text: 'We shall therefore look into i...'
+2025-04-05 21:31:22,179 - INFO - [API] Using KB reconstruction with confidence 0.84
+2025-04-05 21:31:22,179 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 21:31:22,179 - INFO - Using default tokenizer.
+2025-04-05 21:31:22,191 - INFO - [API] Starting reconstruction of text: 'We shall therefore look into i...'
+2025-04-05 21:31:22,194 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-05 21:31:22,194 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 21:31:22,194 - INFO - Using default tokenizer.
+Processing samples:  96%|██████████████████████ | 48/50 [00:38<00:01,  1.80it/s]2025-04-05 21:31:22,206 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:22,206 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:22,210 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:22,211 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:22,214 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:22,254 - INFO - [API] Starting reconstruction of text: 'Today 's decision not to renew...'
+2025-04-05 21:31:22,261 - INFO - [API] Using KB reconstruction with confidence 0.75
+2025-04-05 21:31:22,261 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-05 21:31:22,261 - INFO - Using default tokenizer.
+2025-04-05 21:31:22,274 - INFO - [API] Starting reconstruction of text: 'Today 's decision tod to renew...'
+2025-04-05 21:31:22,280 - INFO - [API] Using KB reconstruction with confidence 0.75
+2025-04-05 21:31:22,280 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-05 21:31:22,280 - INFO - Using default tokenizer.
+2025-04-05 21:31:22,292 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:22,292 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:22,297 - WARNING - Dimension mismatch in classifier: got 460, expected 768
+2025-04-05 21:31:22,297 - INFO - Adapted embedding dimensions from 460 to 768
+2025-04-05 21:31:22,300 - INFO - [PIPELINE] Embedding reshaped: torch.Size([1, 460]) → torch.Size([1, 460]), Model input dim: 460
+2025-04-05 21:31:22,339 - INFO - [API] Starting reconstruction of text: 'So Parliament should send a me...'
+2025-04-05 21:31:22,341 - INFO - [API] Using KB reconstruction with confidence 0.92
+2025-04-05 21:31:22,341 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 21:31:22,342 - INFO - Using default tokenizer.
+2025-04-05 21:31:22,353 - INFO - [API] Starting reconstruction of text: 'So Parliamejk should send a me...'
+2025-04-05 21:31:22,356 - INFO - [API] Using KB reconstruction with confidence 0.84
+2025-04-05 21:31:22,356 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-05 21:31:22,356 - INFO - Using default tokenizer.
+2025-04-05 21:31:22,366 - INFO - [PIPELINE] Sample 50/50 (processed in 0.08s)
+2025-04-05 21:31:22,366 - INFO - [PIPELINE] Original: So Parliament should send a message , since that is the wish of the vast majority .
+2025-04-05 21:31:22,366 - INFO - [PIPELINE] Semantic noisy: So Parliament should send a message , since that is the wish of the vast majority .
+2025-04-05 21:31:22,366 - INFO - [PIPELINE] Semantic reconstructed: So Parliament should send a message , since the is the wish of the vast majority .
+2025-04-05 21:31:22,366 - INFO - [PIPELINE] Direct noisy: So Parliamejk should send a message , gincz that is the wish of the vast majyhity .
+2025-04-05 21:31:22,366 - INFO - [PIPELINE] Direct reconstructed: So Parliament should send a message , gincz the is the wish of the vast majyhity .
+2025-04-05 21:31:22,366 - INFO - [PIPELINE] Semantic BLEU: 0.8282, ROUGE-L: 0.9333, SEMANTIC: 0.9823
+2025-04-05 21:31:22,366 - INFO - [PIPELINE] Direct BLEU: 0.6420, ROUGE-L: 0.8000, SEMANTIC: 0.7729
+2025-04-05 21:31:22,366 - INFO - [PIPELINE] Current cost: $0.0068 of $2.00
+2025-04-05 21:31:22,366 - INFO - [PIPELINE] Progress: 50/50 samples. Est. remaining: 0.0s (0.0m)
+2025-04-05 21:31:22,366 - INFO - ---
+Processing samples: 100%|███████████████████████| 50/50 [00:38<00:00,  1.29it/s]
+2025-04-05 21:31:22,367 - INFO - Saved advanced RL agent state
+2025-04-05 21:31:22,368 - INFO - [PIPELINE] Saved enhanced RL agent state
+2025-04-05 21:31:22,368 - INFO - Using default tokenizer.
+2025-04-05 21:31:22,368 - INFO - Initialized knowledge base for evaluation
+2025-04-05 21:31:22,405 - WARNING - [PIPELINE] Enhanced evaluation failed: dictionary changed size during iteration
+2025-04-05 21:31:22,405 - WARNING - Continuing with standard metrics only
+2025-04-05 21:31:22,527 - INFO - Total API cost: $0.0068 of $2.00 budget
+2025-04-05 21:31:22,527 - INFO - 
+=== Overall Results ===
+2025-04-05 21:31:22,527 - INFO - [PIPELINE] Total time: 42.84s, Avg: 0.86s per sample
+2025-04-05 21:31:22,527 - INFO - [PIPELINE] Semantic Reconstruction:
+2025-04-05 21:31:22,527 - INFO - [PIPELINE] Semantic Average BLEU: 0.4712
+2025-04-05 21:31:22,527 - INFO - [PIPELINE] Semantic Average ROUGE1: 0.7497
+2025-04-05 21:31:22,527 - INFO - [PIPELINE] Semantic Average ROUGEL: 0.7475
+2025-04-05 21:31:22,527 - INFO - [PIPELINE] Semantic Average METEOR: 0.6727
+2025-04-05 21:31:22,527 - INFO - [PIPELINE] Semantic Average SEMANTIC: 0.8670
+2025-04-05 21:31:22,527 - INFO - 
+[PIPELINE] Direct Reconstruction:
+2025-04-05 21:31:22,527 - INFO - [PIPELINE] Direct Average BLEU: 0.5353
+2025-04-05 21:31:22,527 - INFO - [PIPELINE] Direct Average ROUGE1: 0.7946
+2025-04-05 21:31:22,527 - INFO - [PIPELINE] Direct Average ROUGEL: 0.7883
+2025-04-05 21:31:22,527 - INFO - [PIPELINE] Direct Average METEOR: 0.7405
+2025-04-05 21:31:22,527 - INFO - [PIPELINE] Direct Average SEMANTIC: 0.8753
+2025-04-05 21:31:22,527 - INFO - 
+[PIPELINE] Total Cost: $0.0068 of $2.00 budget
+2025-04-05 21:31:22,527 - INFO - [PIPELINE] Results saved to C:\Users\Daud\SemanticCommTransmission\pythonProject/sem_com_results/enhanced_run_20250405-213039
+2025-04-05 21:31:22,527 - INFO - 
+[PIPELINE] RL Agent Performance:
+2025-04-05 21:31:22,527 - INFO - Total episodes: 0
+2025-04-05 21:31:22,527 - INFO - Total reward: 0.00
+2025-04-05 21:31:22,527 - INFO - Final exploration rate: 0.10
+2025-04-05 21:31:22,527 - INFO - API efficiency: N/A
+2025-04-05 21:31:22,527 - INFO - [PIPELINE] Visualizations saved to C:\Users\Daud\SemanticCommTransmission\pythonProject/sem_com_results/enhanced_run_20250405-213039
+
+===== KNOWLEDGE BASE FUNCTIONALITY CHECK =====
+✓ KB initialized successfully with 41 terms
+
+Test 1:
+  Input:      The Parliamemt will now vote on the propofal from the Commissiob.
+  Corrected:  The Parliament will now vote on the proposal from the Commission
+  Corrections: 3/3 expected terms
+  Result:     ✓ KB applied corrections
+
+Test 2:
+  Input:      In accordancg with Rule 143, I wkulz like your acvioe.
+  Corrected:  In accordance with Rule 143, I would like your advice
+  Corrections: 3/3 expected terms
+  Result:     ✓ KB applied corrections
+
+Test 3:
+  Input:      The Coupcil and Directave on environmentsl protrction.
+  Corrected:  The Council and Directive on environmental protection
+  Corrections: 4/4 expected terms
+  Result:     ✓ KB applied corrections
+
+===== SUMMARY =====
+Tests passed: 3/3
+Total corrections made: 10
+KB Status: FUNCTIONING
+
+====== Enhanced Semantic Communication Pipeline Complete ======
+Overall improvements:
+- Advanced Compression: Implemented VAE-based non-linear compression
+- Content-Adaptive Coding: Implemented content-aware protection strategies
+- Semantic Perceptual Loss: Added semantic similarity metrics and training
+- Enhanced RL Agent: Improved state representation with semantic features
+
+Final metrics:
+  semantic_avg_BLEU: 0.4712
+  semantic_avg_METEOR: 0.6727
+  semantic_avg_ROUGE1: 0.7497
+  semantic_avg_ROUGEL: 0.7475
+  semantic_avg_SEMANTIC: 0.8670
+
+Process finished with exit code 0
