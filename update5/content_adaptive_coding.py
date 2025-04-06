@@ -84,7 +84,7 @@ class ContentClassifier(nn.Module):
                 embedding_tensor = embedding_tensor.unsqueeze(0)
 
             # Get the expected input dimension
-            expected_dim = self.input_dim
+            expected_dim = self.embedding_dim
             current_dim = embedding_tensor.shape[1]
 
             # Handle dimension mismatch silently
