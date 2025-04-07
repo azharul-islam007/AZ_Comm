@@ -1,0 +1,865 @@
+/home/ubuntu/anaconda3/bin/conda run -n myenv --no-capture-output python /tmp/pycharm_project_908/Europearl/SD5.py 
+2025-04-07 15:43:39,406 - INFO - Using device: cuda
+/home/ubuntu/.local/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+2025-04-07 15:43:40,700 - INFO - Initialized Enhanced Physical Channel with awgn channel, qam-16 modulation, SNR=20.0dB
+2025-04-07 15:43:40,700 - INFO - Adaptive modulation enabled: thresholds at 15.0dB and 25.0dB
+2025-04-07 15:43:40,700 - INFO - Unequal error protection enabled with 3 protection levels
+/tmp/pycharm_project_908/Europearl/content_adaptive_coding.py:364: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(self.content_classifier_path, map_location=device)
+2025-04-07 15:43:40,708 - WARNING - Could not load classifier weights: Error(s) in loading state_dict for ContentClassifier:
+	size mismatch for dimension_adapter.0.weight: copying a param with shape torch.Size([460, 460]) from checkpoint, the shape in current model is torch.Size([768, 768]).
+	size mismatch for dimension_adapter.0.bias: copying a param with shape torch.Size([460]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for dimension_adapter.1.weight: copying a param with shape torch.Size([460]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for dimension_adapter.1.bias: copying a param with shape torch.Size([460]) from checkpoint, the shape in current model is torch.Size([768]).
+	size mismatch for network.0.weight: copying a param with shape torch.Size([256, 460]) from checkpoint, the shape in current model is torch.Size([256, 768]).
+2025-04-07 15:43:40,731 - INFO - Created and saved new content classifier with embedding_dim=768
+2025-04-07 15:43:40,732 - INFO - Content-Adaptive Physical Channel initialized
+2025-04-07 15:43:40,732 - INFO - Enhanced content-adaptive physical channel initialized
+2025-04-07 15:43:40,732 - INFO - Will collect up to 10000 transmission pairs
+2025-04-07 15:43:40,733 - INFO - Using device: cuda
+2025-04-07 15:43:41,693 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-07 15:43:41,699 - INFO - ✅ OpenAI API connection successful
+
+===== SYSTEM COMPONENT TEST =====
+2025-04-07 15:43:41,700 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-07 15:43:41,700 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms (load #1)
+Knowledge Base loaded with 41 terms
+
+Test Case 1: Mrs Lynne, you are quite right and I shall check whether this ocs actually not been done.
+1. KB Reconstruction (1 changes):
+   Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
+2025-04-07 15:43:41,719 - INFO - KB reconstruction made changes: 'Mrs Lynne, you are quite right and I shall check whether this ocs actually not been done.' -> 'Mrs Lynne, you are quite right and I shall check whether this has actually not been done.'
+2. Basic Reconstruction (1 changes):
+   Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
+2025-04-07 15:43:41,719 - INFO - [API] Starting reconstruction of text: 'Mrs Lynne, you are quite right...'
+2025-04-07 15:43:41,725 - INFO - [API] Using KB reconstruction with confidence 0.92
+2025-04-07 15:43:41,725 - INFO - [API] Completed in 0.006s using method: kb
+3. API Reconstruction (1 changes):
+   Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
+
+Test Case 2: The Parliamemt will now vote on the propofal from the Commissiob.
+1. KB Reconstruction (3 changes):
+   The Parliament will now vote on the proposal from the Commission
+2025-04-07 15:43:41,731 - INFO - KB reconstruction made changes: 'The Parliamemt will now vote on the propofal from the Commissiob.' -> 'The Parliament will now vote on the proposal from the Commission'
+2. Basic Reconstruction (3 changes):
+   The Parliament will now vote on the proposal from the Commission
+2025-04-07 15:43:41,731 - INFO - [API] Starting reconstruction of text: 'The Parliamemt will now vote o...'
+2025-04-07 15:43:41,734 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-07 15:43:42,236 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-07 15:43:42,250 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-07 15:43:42,250 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-07 15:43:42,250 - INFO - [API] Completed in 0.518s using api_gpt-3.5-turbo
+3. API Reconstruction (3 changes):
+   The Parliament will now vote on the proposal from the Commission.
+
+Test Case 3: In accordancg with Rule 143, I wkulz like your acvioe about this moetinp.
+1. KB Reconstruction (4 changes):
+   In accordance with Rule 143, I would like your advice about this meeting
+2025-04-07 15:43:42,263 - INFO - KB reconstruction made changes: 'In accordancg with Rule 143, I wkulz like your acvioe about this moetinp.' -> 'In accordance with Rule 143, I would like your advice about this meeting'
+2. Basic Reconstruction (4 changes):
+   In accordance with Rule 143, I would like your advice about this meeting
+2025-04-07 15:43:42,263 - INFO - [API] Starting reconstruction of text: 'In accordancg with Rule 143, I...'
+2025-04-07 15:43:42,268 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-07 15:43:42,798 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-07 15:43:42,801 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-07 15:43:42,802 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-07 15:43:42,802 - INFO - [API] Completed in 0.538s using api_gpt-3.5-turbo
+3. API Reconstruction (4 changes):
+   In accordance with Rule 143, I would like your advice about this meeting.
+
+===== RESULTS =====
+Components tested: KB Reconstruction, Basic Reconstruction, API Reconstruction
+Test cases corrected: 3/3
+System status: ✓ FUNCTIONAL
+2025-04-07 15:43:42,802 - INFO - Loaded dimensions from file: 768, 460
+/tmp/pycharm_project_908/Europearl/SD5.py:1348: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(dvae_path, map_location=torch.device('cpu'))
+2025-04-07 15:43:42,844 - INFO - System dimensions: {'input_dim': 768, 'compressed_dim': 460, 'dvae_input_dim': 460, 'dvae_hidden_dim': 920, 'dvae_latent_dim': 460}
+2025-04-07 15:43:42,844 - INFO - Initialized dimension registry: {'original': 768, 'compressed': 460, 'latent': 460}
+2025-04-07 15:43:42,861 - INFO - System dimensions: {'input_dim': 768, 'compressed_dim': 460, 'dvae_input_dim': 460, 'dvae_hidden_dim': 920, 'dvae_latent_dim': 460}
+2025-04-07 15:43:42,861 - INFO - [PIPELINE] Starting enhanced pipeline with parameters:
+2025-04-07 15:43:42,861 - INFO - [PIPELINE] - samples: 50, noise: 0.15/gaussian
+2025-04-07 15:43:42,861 - INFO - [PIPELINE] - API: 50%, Compare: True
+2025-04-07 15:43:42,861 - INFO - [PIPELINE] - Features: VAE=True, Semantic=True, Adaptive=True
+2025-04-07 15:43:42,861 - INFO - [PIPELINE] - System dimensions: input=768, compressed=460
+2025-04-07 15:43:42,861 - INFO - [PIPELINE] Knowledge base initialized successfully
+2025-04-07 15:43:42,861 - INFO - Precomputing KB enhancements...
+2025-04-07 15:43:42,861 - INFO - Precomputed 41 common KB terms
+2025-04-07 15:43:42,861 - INFO - Initializing semantic loss with bert-base-uncased model
+/home/ubuntu/.local/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+2025-04-07 15:43:43,715 - INFO - Semantic perceptual loss initialized successfully
+2025-04-07 15:43:43,715 - INFO - [PIPELINE] Semantic perceptual loss initialized successfully
+2025-04-07 15:43:43,734 - INFO - [PIPELINE] Loaded 10000 items from compressed data
+2025-04-07 15:43:43,737 - INFO - [PIPELINE] Loaded 10000 original sentences
+2025-04-07 15:43:43,738 - INFO - Loading existing VAE compressor from ./data/vae_compressor.pth
+/tmp/pycharm_project_908/Europearl/compression_vae.py:583: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(VAE_COMPRESSOR_PATH, map_location=device)
+2025-04-07 15:43:43,778 - INFO - VAE compressor loaded: 768 → 460 dimensions
+2025-04-07 15:43:43,778 - INFO - Note: Loaded standard model, but requested enhanced
+2025-04-07 15:43:43,785 - INFO - Saved VAE dimensions to file: input=768, compressed=460
+2025-04-07 15:43:43,785 - INFO - [PIPELINE] VAE compressor loaded successfully: 768 → 460
+2025-04-07 15:43:43,785 - INFO - Initialized Enhanced Physical Channel with awgn channel, qam-16 modulation, SNR=20.0dB
+2025-04-07 15:43:43,785 - INFO - Adaptive modulation enabled: thresholds at 15.0dB and 25.0dB
+2025-04-07 15:43:43,785 - INFO - Unequal error protection enabled with 3 protection levels
+/tmp/pycharm_project_908/Europearl/content_adaptive_coding.py:364: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(self.content_classifier_path, map_location=device)
+2025-04-07 15:43:43,793 - WARNING - Could not load classifier weights: Error(s) in loading state_dict for ContentClassifier:
+	size mismatch for dimension_adapter.0.weight: copying a param with shape torch.Size([768, 768]) from checkpoint, the shape in current model is torch.Size([460, 460]).
+	size mismatch for dimension_adapter.0.bias: copying a param with shape torch.Size([768]) from checkpoint, the shape in current model is torch.Size([460]).
+	size mismatch for dimension_adapter.1.weight: copying a param with shape torch.Size([768]) from checkpoint, the shape in current model is torch.Size([460]).
+	size mismatch for dimension_adapter.1.bias: copying a param with shape torch.Size([768]) from checkpoint, the shape in current model is torch.Size([460]).
+	size mismatch for network.0.weight: copying a param with shape torch.Size([256, 768]) from checkpoint, the shape in current model is torch.Size([256, 460]).
+2025-04-07 15:43:43,800 - INFO - Created and saved new content classifier with embedding_dim=460
+2025-04-07 15:43:43,801 - INFO - Content-Adaptive Physical Channel initialized
+2025-04-07 15:43:43,801 - INFO - [PIPELINE] Physical channel upgraded to content-adaptive version
+2025-04-07 15:43:43,801 - INFO - Using provided input dimension: 460
+2025-04-07 15:43:43,801 - INFO - Loading pre-trained enhanced MLPDenoisingVAE from ./models/enhanced_mlp_dvae_model.pth
+/tmp/pycharm_project_908/Europearl/semantic_mlpdvae.py:702: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(full_model_path, map_location=device)
+2025-04-07 15:43:43,897 - INFO - Loaded model was trained with semantic perceptual loss
+2025-04-07 15:43:43,897 - INFO - [PIPELINE] System configurations:
+2025-04-07 15:43:43,897 - INFO -   - VAE compression: True
+2025-04-07 15:43:43,897 - INFO -   - VAE dimensions: 768 → 460
+2025-04-07 15:43:43,897 - INFO -   - DVAE dimensions: input=460, hidden=920, latent=460
+2025-04-07 15:43:43,897 - INFO -   - Physical channel enabled: True
+2025-04-07 15:43:43,897 - INFO -   - Content adaptive coding: True
+2025-04-07 15:43:43,897 - INFO -   - Knowledge base enabled: True
+2025-04-07 15:43:43,897 - INFO - [PIPELINE] IMPORTANT: Model dimensions are input=460, hidden=920, latent=460
+/tmp/pycharm_project_908/Europearl/SD5.py:439: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(path, map_location=torch.device('cpu'))
+2025-04-07 15:43:44,093 - INFO - Loaded advanced RL agent (exploration rate: 0.10)
+2025-04-07 15:43:44,093 - INFO - Initializing semantic loss with bert-base-uncased model
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+2025-04-07 15:43:44,960 - INFO - Semantic perceptual loss initialized successfully
+2025-04-07 15:43:44,962 - INFO - [PIPELINE] Semantic channel optimizer initialized
+2025-04-07 15:43:44,963 - INFO - [PIPELINE] Using enhanced RL agent for API optimization (exploration rate: 0.10)
+2025-04-07 15:43:44,963 - INFO - === Starting Enhanced Semantic Reconstruction Pipeline ===
+2025-04-07 15:43:44,963 - INFO - [PIPELINE] Noise level: 0.15, Noise type: gaussian
+2025-04-07 15:43:44,963 - INFO - [PIPELINE] OpenAI API available: True
+2025-04-07 15:43:44,963 - INFO - [PIPELINE] Physical channel enabled: True
+Processing samples:   0%|                                | 0/50 [00:00<?, ?it/s]/tmp/pycharm_project_908/Europearl/physical_semantic_integration.py:591: UserWarning: var(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at ../aten/src/ATen/native/ReduceOps.cpp:1808.)
+  variance = torch.var(tensor, dim=0)
+/tmp/pycharm_project_908/Europearl/compression_vae.py:532: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(VAE_COMPRESSOR_PATH, map_location=device)
+2025-04-07 15:43:45,099 - INFO - [API] Starting reconstruction of text: 'Although , as you will have se...'
+2025-04-07 15:43:45,113 - INFO - [API] Using KB reconstruction with confidence 0.89
+2025-04-07 15:43:45,113 - INFO - [API] Completed in 0.015s using method: kb
+2025-04-07 15:43:45,114 - INFO - Using default tokenizer.
+2025-04-07 15:43:46,719 - INFO - [API] Starting reconstruction of text: 'Although , as gov will hufe sw...'
+2025-04-07 15:43:46,727 - INFO - [API] Using KB reconstruction with confidence 0.97
+2025-04-07 15:43:46,727 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-07 15:43:46,727 - INFO - Using default tokenizer.
+2025-04-07 15:43:46,740 - INFO - [PIPELINE] Sample 1/50 (processed in 1.78s)
+2025-04-07 15:43:46,740 - INFO - [PIPELINE] Original: Although , as you will have seen , the dreaded ' millennium bug ' failed to materialise , still the people in a number of countries suffered a series of natural disasters that truly were dreadful .
+2025-04-07 15:43:46,740 - INFO - [PIPELINE] Semantic noisy: Although , as you will have seen , bho dreaded ' millennium bug ' failed to materialise , still the phtple in a number of countries suffered a series of naryral disasters dlat truly were dreadful .
+2025-04-07 15:43:46,740 - INFO - [PIPELINE] Semantic reconstructed: Although , as you will have seen , bho Directive ' millennium bug ' failed to materialise , still the phtple in a number of countries suffered a series of naryral disasters dlat actually were dreadful .
+2025-04-07 15:43:46,740 - INFO - [PIPELINE] Direct noisy: Although , as gov will hufe swnn , the dreaded ' milleanxum bug ' failed to materialise , stqll the people in a number of countries suffered a werims of jaturaq disasters that truly were dreadful .
+2025-04-07 15:43:46,740 - INFO - [PIPELINE] Direct reconstructed: Although , as gov will hufe swnn , the dreaded ' milleanxum bug ' failed to materialise , stqll the people in a number of countries suffered a werims of jaturaq disasters the truly were dreadful .
+2025-04-07 15:43:46,740 - INFO - [PIPELINE] Semantic BLEU: 0.6699, ROUGE-L: 0.8065, SEMANTIC: 0.8540
+2025-04-07 15:43:46,740 - INFO - [PIPELINE] Direct BLEU: 0.5099, ROUGE-L: 0.7419, SEMANTIC: 0.8129
+2025-04-07 15:43:46,740 - INFO - [PIPELINE] Current cost: $0.0004 of $2.00
+2025-04-07 15:43:46,740 - INFO - [PIPELINE] Progress: 1/50 samples. Est. remaining: 193.0s (3.2m)
+2025-04-07 15:43:46,740 - INFO - ---
+Processing samples:   2%|▍                       | 1/50 [00:01<01:27,  1.78s/it]2025-04-07 15:43:46,799 - INFO - [API] Starting reconstruction of text: 'You have requested a debate on...'
+2025-04-07 15:43:46,809 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:46,809 - INFO - [API] Completed in 0.010s using basic reconstruction
+2025-04-07 15:43:46,809 - INFO - Using default tokenizer.
+2025-04-07 15:43:46,825 - INFO - [API] Starting reconstruction of text: 'bmu have requested a tebtte on...'
+2025-04-07 15:43:46,844 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:46,844 - INFO - [API] Completed in 0.019s using basic reconstruction
+2025-04-07 15:43:46,844 - INFO - Using default tokenizer.
+2025-04-07 15:43:46,856 - INFO - [PIPELINE] Sample 2/50 (processed in 0.12s)
+2025-04-07 15:43:46,856 - INFO - [PIPELINE] Original: You have requested a debate on this subject in the course of the next few days , during this part-session .
+2025-04-07 15:43:46,856 - INFO - [PIPELINE] Semantic noisy: You have requested a debate on this subject in the course of the next few days , during this part-session .
+2025-04-07 15:43:46,856 - INFO - [PIPELINE] Semantic reconstructed: You have requested a debate on this subject in the course of the next few days , during this part-session .
+2025-04-07 15:43:46,856 - INFO - [PIPELINE] Direct noisy: bmu have requested a tebtte on zhjs subject in the csunse of the next few days , during this part-session .
+2025-04-07 15:43:46,856 - INFO - [PIPELINE] Direct reconstructed: bmu have requested a tebtte on zhjs subject in the csunse of the next few days , during this part-session .
+2025-04-07 15:43:46,856 - INFO - [PIPELINE] Semantic BLEU: 1.0000, ROUGE-L: 1.0000, SEMANTIC: 1.0000
+2025-04-07 15:43:46,856 - INFO - [PIPELINE] Direct BLEU: 0.5729, ROUGE-L: 0.8000, SEMANTIC: 0.7601
+2025-04-07 15:43:46,856 - INFO - [PIPELINE] Current cost: $0.0004 of $2.00
+2025-04-07 15:43:46,856 - INFO - [PIPELINE] Progress: 2/50 samples. Est. remaining: 97.3s (1.6m)
+2025-04-07 15:43:46,856 - INFO - ---
+Processing samples:   4%|▉                       | 2/50 [00:01<00:38,  1.25it/s]2025-04-07 15:43:46,907 - INFO - [API] Starting reconstruction of text: 'gleame rise , then , for this ...'
+2025-04-07 15:43:46,918 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:46,918 - INFO - [API] Completed in 0.011s using basic reconstruction
+2025-04-07 15:43:46,919 - INFO - Using default tokenizer.
+2025-04-07 15:43:46,983 - INFO - [API] Starting reconstruction of text: 'Please ryye , then , for tjqs ...'
+2025-04-07 15:43:46,992 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:46,992 - INFO - [API] Completed in 0.008s using basic reconstruction
+2025-04-07 15:43:46,992 - INFO - Using default tokenizer.
+Processing samples:   6%|█▍                      | 3/50 [00:02<00:23,  1.99it/s]2025-04-07 15:43:47,051 - INFO - [API] Starting reconstruction of text: '( lye House rose and observed ...'
+2025-04-07 15:43:47,059 - INFO - [API] Using KB reconstruction with confidence 0.85
+2025-04-07 15:43:47,059 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-07 15:43:47,059 - INFO - Using default tokenizer.
+2025-04-07 15:43:47,071 - INFO - [API] Starting reconstruction of text: '( The Hosse eise and observed ...'
+2025-04-07 15:43:47,079 - INFO - [API] Using KB reconstruction with confidence 0.85
+2025-04-07 15:43:47,079 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-07 15:43:47,079 - INFO - Using default tokenizer.
+2025-04-07 15:43:47,136 - INFO - [API] Starting reconstruction of text: 'You hyll be aware from the pre...'
+2025-04-07 15:43:47,143 - INFO - [API] Using KB reconstruction with confidence 0.95
+2025-04-07 15:43:47,143 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-07 15:43:47,144 - INFO - Using default tokenizer.
+2025-04-07 15:43:47,156 - INFO - [API] Starting reconstruction of text: 'You wilh be aware from the pre...'
+2025-04-07 15:43:47,163 - INFO - [API] Using KB reconstruction with confidence 0.95
+2025-04-07 15:43:47,163 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-07 15:43:47,163 - INFO - Using default tokenizer.
+Processing samples:  10%|██▍                     | 5/50 [00:02<00:11,  3.76it/s]2025-04-07 15:43:47,224 - INFO - [API] Starting reconstruction of text: 'anw of tjv people assassinated...'
+2025-04-07 15:43:47,237 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:47,237 - INFO - [API] Completed in 0.013s using basic reconstruction
+2025-04-07 15:43:47,238 - INFO - Using default tokenizer.
+2025-04-07 15:43:47,251 - INFO - [API] Starting reconstruction of text: 'One of the people assassinated...'
+2025-04-07 15:43:47,257 - INFO - [API] Using KB reconstruction with confidence 0.95
+2025-04-07 15:43:47,257 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-07 15:43:47,258 - INFO - Using default tokenizer.
+2025-04-07 15:43:47,317 - INFO - [API] Starting reconstruction of text: 'Yes , Mr Evans , I feel an ini...'
+2025-04-07 15:43:47,327 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:47,327 - INFO - [API] Completed in 0.010s using basic reconstruction
+2025-04-07 15:43:47,327 - INFO - Using default tokenizer.
+2025-04-07 15:43:47,339 - INFO - [API] Starting reconstruction of text: 'Yes , Mr Efxns , I fjeh an ini...'
+2025-04-07 15:43:47,348 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:47,348 - INFO - [API] Completed in 0.009s using basic reconstruction
+2025-04-07 15:43:47,349 - INFO - Using default tokenizer.
+Processing samples:  14%|███▎                    | 7/50 [00:02<00:08,  5.30it/s]2025-04-07 15:43:47,408 - INFO - [API] Starting reconstruction of text: 'If the House agrees , I shall ...'
+2025-04-07 15:43:47,413 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:47,413 - INFO - [API] Completed in 0.005s using basic reconstruction
+2025-04-07 15:43:47,413 - INFO - Using default tokenizer.
+2025-04-07 15:43:47,425 - INFO - [API] Starting reconstruction of text: 'If the House agrees , I shall ...'
+2025-04-07 15:43:47,430 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:47,430 - INFO - [API] Completed in 0.005s using basic reconstruction
+2025-04-07 15:43:47,430 - INFO - Using default tokenizer.
+2025-04-07 15:43:47,488 - INFO - [API] Starting reconstruction of text: 'Madam President , on a point o...'
+2025-04-07 15:43:47,491 - INFO - [API] Using KB reconstruction with confidence 0.81
+2025-04-07 15:43:47,491 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-07 15:43:47,491 - INFO - Using default tokenizer.
+2025-04-07 15:43:47,502 - INFO - [API] Starting reconstruction of text: 'Madam President , on a point o...'
+2025-04-07 15:43:47,505 - INFO - [API] Using KB reconstruction with confidence 0.81
+2025-04-07 15:43:47,505 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-07 15:43:47,506 - INFO - Using default tokenizer.
+Processing samples:  18%|████▎                   | 9/50 [00:02<00:05,  6.87it/s]2025-04-07 15:43:47,563 - INFO - [API] Starting reconstruction of text: 'I wuqld livr your advice about...'
+2025-04-07 15:43:47,569 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:47,569 - INFO - [API] Completed in 0.007s using basic reconstruction
+2025-04-07 15:43:47,570 - INFO - Using default tokenizer.
+2025-04-07 15:43:47,581 - INFO - [API] Starting reconstruction of text: 'I would like your advice about...'
+2025-04-07 15:43:47,587 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:47,587 - INFO - [API] Completed in 0.006s using basic reconstruction
+2025-04-07 15:43:47,587 - INFO - Using default tokenizer.
+2025-04-07 15:43:47,597 - INFO - [PIPELINE] Sample 10/50 (processed in 0.08s)
+2025-04-07 15:43:47,597 - INFO - [PIPELINE] Original: I would like your advice about Rule 143 concerning inadmissibility .
+2025-04-07 15:43:47,597 - INFO - [PIPELINE] Semantic noisy: I wuqld livr your advice about Rule 143 concerning inadmissibility .
+2025-04-07 15:43:47,597 - INFO - [PIPELINE] Semantic reconstructed: I wuqld livr your advice about Rule 143 concerning inadmissibility .
+2025-04-07 15:43:47,597 - INFO - [PIPELINE] Direct noisy: I would like your advice about Rule 143 concerning inadmissibility .
+2025-04-07 15:43:47,597 - INFO - [PIPELINE] Direct reconstructed: I would like your advice about Rule 143 concerning inadmissibility .
+2025-04-07 15:43:47,597 - INFO - [PIPELINE] Semantic BLEU: 0.6989, ROUGE-L: 0.8000, SEMANTIC: 0.8313
+2025-04-07 15:43:47,597 - INFO - [PIPELINE] Direct BLEU: 1.0000, ROUGE-L: 1.0000, SEMANTIC: 1.0000
+2025-04-07 15:43:47,597 - INFO - [PIPELINE] Current cost: $0.0004 of $2.00
+2025-04-07 15:43:47,597 - INFO - [PIPELINE] Progress: 10/50 samples. Est. remaining: 19.2s (0.3m)
+2025-04-07 15:43:47,597 - INFO - ---
+2025-04-07 15:43:47,646 - INFO - [API] Starting reconstruction of text: 'My question relates to somethi...'
+2025-04-07 15:43:47,654 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:47,654 - INFO - [API] Completed in 0.008s using basic reconstruction
+2025-04-07 15:43:47,654 - INFO - Using default tokenizer.
+2025-04-07 15:43:47,667 - INFO - [API] Starting reconstruction of text: 'My question relates to somethi...'
+2025-04-07 15:43:47,674 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:47,674 - INFO - [API] Completed in 0.008s using basic reconstruction
+2025-04-07 15:43:47,675 - INFO - Using default tokenizer.
+Processing samples:  22%|█████                  | 11/50 [00:02<00:04,  8.07it/s]2025-04-07 15:43:47,734 - INFO - [API] Starting reconstruction of text: 'The Cunha report on multiannua...'
+2025-04-07 15:43:47,745 - INFO - [API] Using KB reconstruction with confidence 0.97
+2025-04-07 15:43:47,745 - INFO - [API] Completed in 0.011s using method: kb
+2025-04-07 15:43:47,745 - INFO - Using default tokenizer.
+2025-04-07 15:43:47,759 - INFO - [API] Starting reconstruction of text: 'The Cunha report on multiannua...'
+2025-04-07 15:43:47,769 - INFO - [API] Using KB reconstruction with confidence 0.97
+2025-04-07 15:43:47,770 - INFO - [API] Completed in 0.010s using method: kb
+2025-04-07 15:43:47,770 - INFO - Using default tokenizer.
+2025-04-07 15:43:47,831 - INFO - [API] Starting reconstruction of text: 'It says that this should be do...'
+2025-04-07 15:43:47,834 - INFO - [API] Using KB reconstruction with confidence 0.81
+2025-04-07 15:43:47,834 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-07 15:43:47,834 - INFO - Using default tokenizer.
+2025-04-07 15:43:47,847 - INFO - [API] Starting reconstruction of text: 'It says that this should be do...'
+2025-04-07 15:43:47,849 - INFO - [API] Using KB reconstruction with confidence 0.74
+2025-04-07 15:43:47,849 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-07 15:43:47,849 - INFO - Using default tokenizer.
+Processing samples:  26%|█████▉                 | 13/50 [00:02<00:04,  8.96it/s]2025-04-07 15:43:47,909 - INFO - [API] Starting reconstruction of text: 'I believe that the principle o...'
+2025-04-07 15:43:47,916 - INFO - [API] Using KB reconstruction with confidence 0.88
+2025-04-07 15:43:47,916 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-07 15:43:47,917 - INFO - Using default tokenizer.
+2025-04-07 15:43:47,930 - INFO - [API] Starting reconstruction of text: 'I believe that the principle o...'
+2025-04-07 15:43:47,937 - INFO - [API] Using KB reconstruction with confidence 0.84
+2025-04-07 15:43:47,937 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-07 15:43:47,938 - INFO - Using default tokenizer.
+2025-04-07 15:43:47,998 - INFO - [API] Starting reconstruction of text: 'I want to know whether oxl can...'
+2025-04-07 15:43:48,006 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-07 15:43:48,006 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-07 15:43:48,006 - INFO - Using default tokenizer.
+2025-04-07 15:43:48,020 - INFO - [API] Starting reconstruction of text: 'I want to know whether one can...'
+2025-04-07 15:43:48,027 - INFO - [API] Using KB reconstruction with confidence 0.89
+2025-04-07 15:43:48,027 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-07 15:43:48,028 - INFO - Using default tokenizer.
+Processing samples:  30%|██████▉                | 15/50 [00:03<00:03,  9.58it/s]2025-04-07 15:43:48,088 - INFO - [API] Starting reconstruction of text: 'That is precisely the time whe...'
+2025-04-07 15:43:48,092 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-07 15:43:48,092 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-07 15:43:48,092 - INFO - Using default tokenizer.
+2025-04-07 15:43:48,104 - INFO - [API] Starting reconstruction of text: 'That is precijaly the time whe...'
+2025-04-07 15:43:48,107 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-07 15:43:48,107 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-07 15:43:48,107 - INFO - Using default tokenizer.
+2025-04-07 15:43:48,167 - INFO - [API] Starting reconstruction of text: 'on Thursday prior to the start...'
+2025-04-07 15:43:48,177 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:48,178 - INFO - [API] Completed in 0.011s using basic reconstruction
+2025-04-07 15:43:48,178 - INFO - Using default tokenizer.
+2025-04-07 15:43:48,190 - INFO - [API] Starting reconstruction of text: 'on Thursday prior to the sbart...'
+2025-04-07 15:43:48,195 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:48,195 - INFO - [API] Completed in 0.005s using basic reconstruction
+2025-04-07 15:43:48,195 - INFO - Using default tokenizer.
+Processing samples:  34%|███████▊               | 17/50 [00:03<00:03, 10.26it/s]2025-04-07 15:43:48,253 - INFO - [API] Starting reconstruction of text: 'We shaby lpll him Mr Hicks ....'
+2025-04-07 15:43:48,259 - INFO - KB reconstruction made changes: 'We shaby lpll him Mr Hicks .' -> 'We shall lpll him Mr This .'
+2025-04-07 15:43:48,259 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:48,259 - INFO - [API] Completed in 0.006s using basic reconstruction
+2025-04-07 15:43:48,259 - INFO - Using default tokenizer.
+2025-04-07 15:43:48,271 - INFO - [API] Starting reconstruction of text: 'We shall jsll his Mr Hicks ....'
+2025-04-07 15:43:48,272 - INFO - [API] Using KB reconstruction with confidence 0.84
+2025-04-07 15:43:48,272 - INFO - [API] Completed in 0.002s using method: kb
+2025-04-07 15:43:48,273 - INFO - Using default tokenizer.
+2025-04-07 15:43:48,330 - INFO - [API] Starting reconstruction of text: 'At the rvqukst of a French Mef...'
+2025-04-07 15:43:48,342 - INFO - [API] Using KB reconstruction with confidence 0.87
+2025-04-07 15:43:48,342 - INFO - [API] Completed in 0.012s using method: kb
+2025-04-07 15:43:48,343 - INFO - Using default tokenizer.
+2025-04-07 15:43:48,355 - INFO - [API] Starting reconstruction of text: 'At the request of a French Mem...'
+2025-04-07 15:43:48,367 - INFO - [API] Using KB reconstruction with confidence 0.87
+2025-04-07 15:43:48,367 - INFO - [API] Completed in 0.012s using method: kb
+2025-04-07 15:43:48,367 - INFO - Using default tokenizer.
+Processing samples:  38%|████████▋              | 19/50 [00:03<00:02, 10.63it/s]2025-04-07 15:43:48,427 - INFO - [API] Starting reconstruction of text: 'This is tlz in accordance with...'
+2025-04-07 15:43:48,430 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-07 15:43:48,430 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-07 15:43:48,431 - INFO - Using default tokenizer.
+2025-04-07 15:43:48,442 - INFO - [API] Starting reconstruction of text: 'This is all in accordance with...'
+2025-04-07 15:43:48,445 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-07 15:43:48,446 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-07 15:43:48,446 - INFO - Using default tokenizer.
+2025-04-07 15:43:48,456 - INFO - [PIPELINE] Sample 20/50 (processed in 0.08s)
+2025-04-07 15:43:48,456 - INFO - [PIPELINE] Original: This is all in accordance with the principles that we have always upheld .
+2025-04-07 15:43:48,456 - INFO - [PIPELINE] Semantic noisy: This is tlz in accordance with who principles that we have always upheld .
+2025-04-07 15:43:48,456 - INFO - [PIPELINE] Semantic reconstructed: This is tlz in accordance with who principles the we have always upheld .
+2025-04-07 15:43:48,456 - INFO - [PIPELINE] Direct noisy: This is all in accordance with the princvplzs that we have always upheld .
+2025-04-07 15:43:48,456 - INFO - [PIPELINE] Direct reconstructed: This is all in accordance with the princvplzs the we have always upheld .
+2025-04-07 15:43:48,456 - INFO - [PIPELINE] Semantic BLEU: 0.4090, ROUGE-L: 0.7692, SEMANTIC: 0.8794
+2025-04-07 15:43:48,456 - INFO - [PIPELINE] Direct BLEU: 0.6998, ROUGE-L: 0.8462, SEMANTIC: 0.8701
+2025-04-07 15:43:48,456 - INFO - [PIPELINE] Current cost: $0.0004 of $2.00
+2025-04-07 15:43:48,456 - INFO - [PIPELINE] Progress: 20/50 samples. Est. remaining: 8.5s (0.1m)
+2025-04-07 15:43:48,456 - INFO - ---
+2025-04-07 15:43:48,505 - INFO - [API] Starting reconstruction of text: 'Thank you , Mr Segni , I shall...'
+2025-04-07 15:43:48,507 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-07 15:43:49,764 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-07 15:43:49,770 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-07 15:43:49,809 - INFO - [API] Further enhanced API result with context
+2025-04-07 15:43:49,809 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-07 15:43:49,809 - INFO - [API] Completed in 1.304s using api_gpt-3.5-turbo
+2025-04-07 15:43:49,809 - INFO - Using default tokenizer.
+/tmp/pycharm_project_908/Europearl/SD5.py:319: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at ../aten/src/ATen/native/ReduceOps.cpp:1808.)
+  advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-10)
+/tmp/pycharm_project_908/Europearl/SD5.py:341: UserWarning: Using a target size (torch.Size([1])) that is different to the input size (torch.Size([])). This will likely lead to incorrect results due to broadcasting. Please ensure they have the same size.
+  value_loss = F.mse_loss(values.squeeze(), returns)
+2025-04-07 15:43:49,847 - INFO - Saved advanced RL agent state
+2025-04-07 15:43:49,847 - INFO - [API] Starting reconstruction of text: 'Thank you , Mr Segni , I shall...'
+2025-04-07 15:43:49,857 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:49,857 - INFO - [API] Completed in 0.010s using basic reconstruction
+2025-04-07 15:43:49,857 - INFO - Using default tokenizer.
+Processing samples:  42%|█████████▋             | 21/50 [00:04<00:08,  3.38it/s]2025-04-07 15:43:49,950 - INFO - [API] Starting reconstruction of text: 'Indeed , it is quite in keepin...'
+2025-04-07 15:43:49,962 - INFO - [API] Using KB reconstruction with confidence 0.73
+2025-04-07 15:43:49,962 - INFO - [API] Completed in 0.013s using method: kb
+2025-04-07 15:43:49,963 - INFO - Using default tokenizer.
+2025-04-07 15:43:49,988 - INFO - [API] Starting reconstruction of text: 'Indeed , it is mhite in keepin...'
+2025-04-07 15:43:50,005 - INFO - [API] Using KB reconstruction with confidence 0.82
+2025-04-07 15:43:50,005 - INFO - [API] Completed in 0.017s using method: kb
+2025-04-07 15:43:50,005 - INFO - Using default tokenizer.
+Processing samples:  44%|██████████             | 22/50 [00:05<00:07,  3.73it/s]2025-04-07 15:43:50,087 - INFO - [API] Starting reconstruction of text: 'Madam President , I shbulu lik...'
+2025-04-07 15:43:50,095 - INFO - [API] Using KB reconstruction with confidence 0.94
+2025-04-07 15:43:50,095 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-07 15:43:50,096 - INFO - Using default tokenizer.
+2025-04-07 15:43:50,112 - INFO - [API] Starting reconstruction of text: 'Madam President , I should lik...'
+2025-04-07 15:43:50,138 - INFO - Basic reconstruction made changes: 'Madam President , I should like to draw your attention to a case in ihicu this Parliament sms conyistentgy shown an interest .' -> 'Madam President , I should like to draw your attention to a case in ihicu this Parliament sms conyishenhgy conyistentgy shown an interest .'
+2025-04-07 15:43:50,138 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:50,138 - INFO - [API] Completed in 0.026s using basic reconstruction
+2025-04-07 15:43:50,138 - INFO - Using default tokenizer.
+Processing samples:  46%|██████████▌            | 23/50 [00:05<00:06,  4.15it/s]2025-04-07 15:43:50,201 - INFO - [API] Starting reconstruction of text: 'It is the case of Alexander Ni...'
+2025-04-07 15:43:50,208 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:50,208 - INFO - [API] Completed in 0.006s using basic reconstruction
+2025-04-07 15:43:50,208 - INFO - Using default tokenizer.
+2025-04-07 15:43:50,219 - INFO - [API] Starting reconstruction of text: 'It is the case of Alexander Ni...'
+2025-04-07 15:43:50,226 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:50,226 - INFO - [API] Completed in 0.006s using basic reconstruction
+2025-04-07 15:43:50,226 - INFO - Using default tokenizer.
+2025-04-07 15:43:50,284 - INFO - [API] Starting reconstruction of text: 'All of us here are pleased tha...'
+2025-04-07 15:43:50,291 - INFO - [API] Using KB reconstruction with confidence 0.92
+2025-04-07 15:43:50,291 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-07 15:43:50,291 - INFO - Using default tokenizer.
+2025-04-07 15:43:50,304 - INFO - [API] Starting reconstruction of text: 'All of us here are pleased aha...'
+2025-04-07 15:43:50,312 - INFO - [API] Using KB reconstruction with confidence 0.96
+2025-04-07 15:43:50,312 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-07 15:43:50,312 - INFO - Using default tokenizer.
+Processing samples:  50%|███████████▌           | 25/50 [00:05<00:04,  5.45it/s]2025-04-07 15:43:50,372 - INFO - [API] Starting reconstruction of text: 'Nsw , however , he is to go be...'
+2025-04-07 15:43:50,382 - INFO - [API] Using KB reconstruction with confidence 0.86
+2025-04-07 15:43:50,382 - INFO - [API] Completed in 0.010s using method: kb
+2025-04-07 15:43:50,382 - INFO - Using default tokenizer.
+2025-04-07 15:43:50,395 - INFO - [API] Starting reconstruction of text: 'wuw , howevex , he is to go be...'
+2025-04-07 15:43:50,404 - INFO - [API] Using KB reconstruction with confidence 0.94
+2025-04-07 15:43:50,404 - INFO - [API] Completed in 0.009s using method: kb
+2025-04-07 15:43:50,404 - INFO - Using default tokenizer.
+2025-04-07 15:43:50,464 - INFO - [API] Starting reconstruction of text: 'Yes , Mrs Schroedter , I shall...'
+2025-04-07 15:43:50,475 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:50,475 - INFO - [API] Completed in 0.011s using basic reconstruction
+2025-04-07 15:43:50,475 - INFO - Using default tokenizer.
+2025-04-07 15:43:50,488 - INFO - [API] Starting reconstruction of text: 'Yes , Mrs Schroedter , I shall...'
+2025-04-07 15:43:50,498 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:50,498 - INFO - [API] Completed in 0.010s using basic reconstruction
+2025-04-07 15:43:50,498 - INFO - Using default tokenizer.
+Processing samples:  54%|████████████▍          | 27/50 [00:05<00:03,  6.57it/s]2025-04-07 15:43:50,558 - INFO - [API] Starting reconstruction of text: 'But , vadah President , my pqr...'
+2025-04-07 15:43:50,564 - INFO - [API] Using KB reconstruction with confidence 0.87
+2025-04-07 15:43:50,564 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-07 15:43:50,564 - INFO - Using default tokenizer.
+2025-04-07 15:43:50,576 - INFO - [API] Starting reconstruction of text: 'But , Madam President , my per...'
+2025-04-07 15:43:50,582 - INFO - [API] Using KB reconstruction with confidence 0.76
+2025-04-07 15:43:50,582 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-07 15:43:50,583 - INFO - Using default tokenizer.
+2025-04-07 15:43:50,643 - INFO - [API] Starting reconstruction of text: 'I woxld therefore orye more as...'
+2025-04-07 15:43:50,646 - INFO - [API] Using KB reconstruction with confidence 0.86
+2025-04-07 15:43:50,646 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-07 15:43:50,647 - INFO - Using default tokenizer.
+2025-04-07 15:43:50,659 - INFO - [API] Starting reconstruction of text: 'I wojod therefore once more as...'
+2025-04-07 15:43:50,673 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:50,673 - INFO - [API] Completed in 0.014s using basic reconstruction
+2025-04-07 15:43:50,674 - INFO - Using default tokenizer.
+Processing samples:  58%|█████████████▎         | 29/50 [00:05<00:02,  7.64it/s]2025-04-07 15:43:50,733 - INFO - [API] Starting reconstruction of text: 'Mrs Plooij-van Gorsel , I can ...'
+2025-04-07 15:43:50,738 - INFO - [API] Using KB reconstruction with confidence 0.94
+2025-04-07 15:43:50,738 - INFO - [API] Completed in 0.005s using method: kb
+2025-04-07 15:43:50,739 - INFO - Using default tokenizer.
+2025-04-07 15:43:50,751 - INFO - [API] Starting reconstruction of text: 'Mrs Plooij-van Gorsel , I can ...'
+2025-04-07 15:43:50,756 - INFO - [API] Using KB reconstruction with confidence 0.94
+2025-04-07 15:43:50,756 - INFO - [API] Completed in 0.005s using method: kb
+2025-04-07 15:43:50,756 - INFO - Using default tokenizer.
+2025-04-07 15:43:50,768 - INFO - [PIPELINE] Sample 30/50 (processed in 0.08s)
+2025-04-07 15:43:50,768 - INFO - [PIPELINE] Original: Mrs Plooij-van Gorsel , I can tell you that this matter is on the agenda for the Quaestors ' meeting on Wednesday .
+2025-04-07 15:43:50,768 - INFO - [PIPELINE] Semantic noisy: Mrs Plooij-van Gorsel , I can tell you that fhzs matter is on the agenda eoq the Quaestors ' meeting on Wednesday .
+2025-04-07 15:43:50,768 - INFO - [PIPELINE] Semantic reconstructed: Mrs Plooij-van Gorsel , I can tell you the fhzs matter is on the agenda eoq the Quaestors ' meeting on Wednesday .
+2025-04-07 15:43:50,768 - INFO - [PIPELINE] Direct noisy: Mrs Plooij-van Gorsel , I can tell you that this matter is on mse agenda for rhz Quaestors ' veetinj on Wehnehday .
+2025-04-07 15:43:50,768 - INFO - [PIPELINE] Direct reconstructed: Mrs Plooij-van Gorsel , I can tell you the this matter is on mse agenda for rhz Quaestors ' veetinj on Wehnehday .
+2025-04-07 15:43:50,768 - INFO - [PIPELINE] Semantic BLEU: 0.7045, ROUGE-L: 0.8571, SEMANTIC: 0.9371
+2025-04-07 15:43:50,768 - INFO - [PIPELINE] Direct BLEU: 0.4764, ROUGE-L: 0.7619, SEMANTIC: 0.8507
+2025-04-07 15:43:50,768 - INFO - [PIPELINE] Current cost: $0.0005 of $2.00
+2025-04-07 15:43:50,768 - INFO - [PIPELINE] Progress: 30/50 samples. Est. remaining: 5.3s (0.1m)
+2025-04-07 15:43:50,768 - INFO - ---
+2025-04-07 15:43:50,816 - INFO - [API] Starting reconstruction of text: 'It will , I hope , be examined...'
+2025-04-07 15:43:50,823 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:50,823 - INFO - [API] Completed in 0.007s using basic reconstruction
+2025-04-07 15:43:50,824 - INFO - Using default tokenizer.
+2025-04-07 15:43:50,835 - INFO - [API] Starting reconstruction of text: 'It will , I hope , be examined...'
+2025-04-07 15:43:50,842 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:50,842 - INFO - [API] Completed in 0.007s using basic reconstruction
+2025-04-07 15:43:50,842 - INFO - Using default tokenizer.
+Processing samples:  62%|██████████████▎        | 31/50 [00:05<00:02,  8.64it/s]2025-04-07 15:43:50,901 - INFO - [API] Starting reconstruction of text: 'Madam President , can you tell...'
+2025-04-07 15:43:50,907 - INFO - [API] Using KB reconstruction with confidence 0.94
+2025-04-07 15:43:50,907 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-07 15:43:50,907 - INFO - Using default tokenizer.
+2025-04-07 15:43:50,920 - INFO - [API] Starting reconstruction of text: 'Madam President , can you tell...'
+2025-04-07 15:43:50,925 - INFO - [API] Using KB reconstruction with confidence 0.95
+2025-04-07 15:43:50,925 - INFO - [API] Completed in 0.005s using method: kb
+2025-04-07 15:43:50,925 - INFO - Using default tokenizer.
+2025-04-07 15:43:50,985 - INFO - [API] Starting reconstruction of text: 'Why has no air quality test be...'
+2025-04-07 15:43:50,990 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-07 15:43:50,990 - INFO - [API] Completed in 0.005s using method: kb
+2025-04-07 15:43:50,990 - INFO - Using default tokenizer.
+2025-04-07 15:43:51,002 - INFO - [API] Starting reconstruction of text: 'Why has no air quality test be...'
+2025-04-07 15:43:51,006 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-07 15:43:51,006 - INFO - [API] Completed in 0.004s using method: kb
+2025-04-07 15:43:51,006 - INFO - Using default tokenizer.
+Processing samples:  66%|███████████████▏       | 33/50 [00:06<00:01,  9.50it/s]2025-04-07 15:43:51,067 - INFO - [API] Starting reconstruction of text: 'Why has there been no Heayte a...'
+2025-04-07 15:43:51,073 - INFO - [API] Using KB reconstruction with confidence 0.78
+2025-04-07 15:43:51,073 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-07 15:43:51,074 - INFO - Using default tokenizer.
+2025-04-07 15:43:51,086 - INFO - [API] Starting reconstruction of text: 'Why has there been no Hkalth n...'
+2025-04-07 15:43:51,094 - INFO - [API] Using KB reconstruction with confidence 0.90
+2025-04-07 15:43:51,094 - INFO - [API] Completed in 0.009s using method: kb
+2025-04-07 15:43:51,095 - INFO - Using default tokenizer.
+2025-04-07 15:43:51,154 - INFO - [API] Starting reconstruction of text: 'Why has there been no fire dri...'
+2025-04-07 15:43:51,160 - INFO - [API] Using KB reconstruction with confidence 0.89
+2025-04-07 15:43:51,160 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-07 15:43:51,161 - INFO - Using default tokenizer.
+2025-04-07 15:43:51,173 - INFO - [API] Starting reconstruction of text: 'Why has there been no fire fpi...'
+2025-04-07 15:43:51,179 - INFO - [API] Using KB reconstruction with confidence 0.94
+2025-04-07 15:43:51,179 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-07 15:43:51,179 - INFO - Using default tokenizer.
+Processing samples:  70%|████████████████       | 35/50 [00:06<00:01, 10.05it/s]2025-04-07 15:43:51,239 - INFO - [API] Starting reconstruction of text: 'Why are there no fire instruct...'
+2025-04-07 15:43:51,243 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:51,243 - INFO - [API] Completed in 0.005s using basic reconstruction
+2025-04-07 15:43:51,244 - INFO - Using default tokenizer.
+2025-04-07 15:43:51,255 - INFO - [API] Starting reconstruction of text: 'Wuh are there no fire instruct...'
+2025-04-07 15:43:51,259 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:51,259 - INFO - [API] Completed in 0.004s using basic reconstruction
+2025-04-07 15:43:51,259 - INFO - Using default tokenizer.
+2025-04-07 15:43:51,318 - INFO - [API] Starting reconstruction of text: 'Why haje the staircases not be...'
+2025-04-07 15:43:51,331 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:51,331 - INFO - [API] Completed in 0.014s using basic reconstruction
+2025-04-07 15:43:51,332 - INFO - Using default tokenizer.
+2025-04-07 15:43:51,343 - INFO - [API] Starting reconstruction of text: 'Why have the staircases nop bn...'
+2025-04-07 15:43:51,356 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:51,356 - INFO - [API] Completed in 0.013s using basic reconstruction
+2025-04-07 15:43:51,356 - INFO - Using default tokenizer.
+Processing samples:  74%|█████████████████      | 37/50 [00:06<00:01, 10.42it/s]2025-04-07 15:43:51,415 - INFO - [API] Starting reconstruction of text: 'Why are no-smoking areas not q...'
+2025-04-07 15:43:51,419 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:51,419 - INFO - [API] Completed in 0.005s using basic reconstruction
+2025-04-07 15:43:51,420 - INFO - Using default tokenizer.
+2025-04-07 15:43:51,431 - INFO - [API] Starting reconstruction of text: 'Why are no-smoking areas not a...'
+2025-04-07 15:43:51,436 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:51,436 - INFO - [API] Completed in 0.005s using basic reconstruction
+2025-04-07 15:43:51,436 - INFO - Using default tokenizer.
+2025-04-07 15:43:51,494 - INFO - [API] Starting reconstruction of text: 'It seems absolutely disgracefu...'
+2025-04-07 15:43:51,498 - INFO - [API] Using KB reconstruction with confidence 0.92
+2025-04-07 15:43:51,498 - INFO - [API] Completed in 0.004s using method: kb
+2025-04-07 15:43:51,498 - INFO - Using default tokenizer.
+2025-04-07 15:43:51,510 - INFO - [API] Starting reconstruction of text: 'It seems absolutely disgracefu...'
+2025-04-07 15:43:51,524 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:51,524 - INFO - [API] Completed in 0.014s using basic reconstruction
+2025-04-07 15:43:51,524 - INFO - Using default tokenizer.
+Processing samples:  78%|█████████████████▉     | 39/50 [00:06<00:01, 10.82it/s]2025-04-07 15:43:51,583 - INFO - [API] Starting reconstruction of text: 'Mrs Lonze , you are quite righ...'
+2025-04-07 15:43:51,592 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:51,592 - INFO - [API] Completed in 0.009s using basic reconstruction
+2025-04-07 15:43:51,593 - INFO - Using default tokenizer.
+2025-04-07 15:43:51,604 - INFO - [API] Starting reconstruction of text: 'Mjn Lynne , you are quite righ...'
+2025-04-07 15:43:51,609 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-07 15:43:51,609 - INFO - [API] Completed in 0.004s using method: kb
+2025-04-07 15:43:51,609 - INFO - Using default tokenizer.
+2025-04-07 15:43:51,620 - INFO - [PIPELINE] Sample 40/50 (processed in 0.09s)
+2025-04-07 15:43:51,620 - INFO - [PIPELINE] Original: Mrs Lynne , you are quite right and I shall check whether this has actually not been done .
+2025-04-07 15:43:51,620 - INFO - [PIPELINE] Semantic noisy: Mrs Lonze , you are quite right and I shall check whether this has actually not been done .
+2025-04-07 15:43:51,620 - INFO - [PIPELINE] Semantic reconstructed: Mrs Lonze , you are quite right and I shall check whether this has actually not been done .
+2025-04-07 15:43:51,620 - INFO - [PIPELINE] Direct noisy: Mjn Lynne , you are quite right and I shall check whether this has actunlli not been done .
+2025-04-07 15:43:51,620 - INFO - [PIPELINE] Direct reconstructed: Mjn Lynne , you are quite right and I shall check whether this has actually not been done .
+2025-04-07 15:43:51,620 - INFO - [PIPELINE] Semantic BLEU: 0.8980, ROUGE-L: 0.9412, SEMANTIC: 0.9654
+2025-04-07 15:43:51,620 - INFO - [PIPELINE] Direct BLEU: 0.9426, ROUGE-L: 0.9412, SEMANTIC: 0.9663
+2025-04-07 15:43:51,620 - INFO - [PIPELINE] Current cost: $0.0005 of $2.00
+2025-04-07 15:43:51,620 - INFO - [PIPELINE] Progress: 40/50 samples. Est. remaining: 2.2s (0.0m)
+2025-04-07 15:43:51,620 - INFO - ---
+2025-04-07 15:43:51,669 - INFO - [API] Starting reconstruction of text: 'I shall alwb refer the matter ...'
+2025-04-07 15:43:51,676 - INFO - [API] Using KB reconstruction with confidence 0.89
+2025-04-07 15:43:51,676 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-07 15:43:51,676 - INFO - Using default tokenizer.
+2025-04-07 15:43:51,690 - INFO - [API] Starting reconstruction of text: 'I sialo also refer the matter ...'
+2025-04-07 15:43:51,697 - INFO - [API] Using KB reconstruction with confidence 0.93
+2025-04-07 15:43:51,697 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-07 15:43:51,697 - INFO - Using default tokenizer.
+Processing samples:  82%|██████████████████▊    | 41/50 [00:06<00:00, 10.99it/s]2025-04-07 15:43:51,759 - INFO - [API] Starting reconstruction of text: 'Madam President , Mrs jíep Gon...'
+2025-04-07 15:43:51,766 - INFO - [API] Using KB reconstruction with confidence 0.96
+2025-04-07 15:43:51,766 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-07 15:43:51,767 - INFO - Using default tokenizer.
+2025-04-07 15:43:51,780 - INFO - [API] Starting reconstruction of text: 'Madam President , uks Díez Gon...'
+2025-04-07 15:43:51,787 - INFO - [API] Using KB reconstruction with confidence 0.96
+2025-04-07 15:43:51,787 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-07 15:43:51,787 - INFO - Using default tokenizer.
+2025-04-07 15:43:51,849 - INFO - [API] Starting reconstruction of text: 'The competent services have no...'
+2025-04-07 15:43:51,855 - INFO - [API] Using KB reconstruction with confidence 0.95
+2025-04-07 15:43:51,855 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-07 15:43:51,856 - INFO - Using default tokenizer.
+2025-04-07 15:43:51,868 - INFO - [API] Starting reconstruction of text: 'The competent seriicis have no...'
+2025-04-07 15:43:51,875 - INFO - [API] Using KB reconstruction with confidence 0.95
+2025-04-07 15:43:51,875 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-07 15:43:51,875 - INFO - Using default tokenizer.
+Processing samples:  86%|███████████████████▊   | 43/50 [00:06<00:00, 11.10it/s]2025-04-07 15:43:51,936 - INFO - [API] Starting reconstruction of text: 'I would htk tlao they revonsid...'
+2025-04-07 15:43:51,942 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:51,942 - INFO - [API] Completed in 0.006s using basic reconstruction
+2025-04-07 15:43:51,943 - INFO - Using default tokenizer.
+2025-04-07 15:43:51,955 - INFO - [API] Starting reconstruction of text: 'I wonlx ask thac they reconsid...'
+2025-04-07 15:43:51,960 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-07 15:43:51,960 - INFO - [API] Completed in 0.005s using method: kb
+2025-04-07 15:43:51,960 - INFO - Using default tokenizer.
+2025-04-07 15:43:52,019 - INFO - [API] Starting reconstruction of text: 'The xuesfions answered previou...'
+2025-04-07 15:43:52,035 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-07 15:43:52,035 - INFO - [API] Completed in 0.016s using method: kb
+2025-04-07 15:43:52,035 - INFO - Using default tokenizer.
+2025-04-07 15:43:52,049 - INFO - [API] Starting reconstruction of text: 'The questions answered previou...'
+2025-04-07 15:43:52,056 - INFO - [API] Using KB reconstruction with confidence 0.97
+2025-04-07 15:43:52,056 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-07 15:43:52,056 - INFO - Using default tokenizer.
+Processing samples:  90%|████████████████████▋  | 45/50 [00:07<00:00, 11.06it/s]2025-04-07 15:43:52,117 - INFO - [API] Starting reconstruction of text: 'Mr Berenguer Fuster , we shall...'
+2025-04-07 15:43:52,123 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:52,123 - INFO - [API] Completed in 0.006s using basic reconstruction
+2025-04-07 15:43:52,123 - INFO - Using default tokenizer.
+2025-04-07 15:43:52,135 - INFO - [API] Starting reconstruction of text: 'Mr Berenguer Fuster , we shall...'
+2025-04-07 15:43:52,140 - INFO - [API] RL agent chose basic reconstruction
+2025-04-07 15:43:52,140 - INFO - [API] Completed in 0.005s using basic reconstruction
+2025-04-07 15:43:52,140 - INFO - Using default tokenizer.
+2025-04-07 15:43:52,199 - INFO - [API] Starting reconstruction of text: 'I tdmir that , at present , th...'
+2025-04-07 15:43:52,201 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-07 15:43:52,201 - INFO - [API] Completed in 0.002s using method: kb
+2025-04-07 15:43:52,201 - INFO - Using default tokenizer.
+2025-04-07 15:43:52,213 - INFO - [API] Starting reconstruction of text: 'I admit twav , at present , th...'
+2025-04-07 15:43:52,217 - INFO - [API] Using KB reconstruction with confidence 0.87
+2025-04-07 15:43:52,217 - INFO - [API] Completed in 0.004s using method: kb
+2025-04-07 15:43:52,217 - INFO - Using default tokenizer.
+Processing samples:  94%|█████████████████████▌ | 47/50 [00:07<00:00, 11.47it/s]2025-04-07 15:43:52,277 - INFO - [API] Starting reconstruction of text: 'We shall therefore look into i...'
+2025-04-07 15:43:52,279 - INFO - [API] Using KB reconstruction with confidence 0.84
+2025-04-07 15:43:52,279 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-07 15:43:52,280 - INFO - Using default tokenizer.
+2025-04-07 15:43:52,292 - INFO - [API] Starting reconstruction of text: 'We shall therefore look into i...'
+2025-04-07 15:43:52,294 - INFO - [API] Using KB reconstruction with confidence 0.84
+2025-04-07 15:43:52,294 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-07 15:43:52,295 - INFO - Using default tokenizer.
+2025-04-07 15:43:52,355 - INFO - [API] Starting reconstruction of text: 'Today 's decision not to ranew...'
+2025-04-07 15:43:52,361 - INFO - [API] Using KB reconstruction with confidence 0.74
+2025-04-07 15:43:52,361 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-07 15:43:52,362 - INFO - Using default tokenizer.
+2025-04-07 15:43:52,375 - INFO - [API] Starting reconstruction of text: 'Today 's decision not to renew...'
+2025-04-07 15:43:52,382 - INFO - [API] Using KB reconstruction with confidence 0.75
+2025-04-07 15:43:52,382 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-07 15:43:52,382 - INFO - Using default tokenizer.
+Processing samples:  98%|██████████████████████▌| 49/50 [00:07<00:00, 11.66it/s]2025-04-07 15:43:52,443 - INFO - [API] Starting reconstruction of text: 'So Parliament should jesd a me...'
+2025-04-07 15:43:52,446 - INFO - [API] Using KB reconstruction with confidence 0.92
+2025-04-07 15:43:52,446 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-07 15:43:52,446 - INFO - Using default tokenizer.
+2025-04-07 15:43:52,458 - INFO - [API] Starting reconstruction of text: 'So Parliament should send a me...'
+2025-04-07 15:43:52,461 - INFO - [API] Using KB reconstruction with confidence 0.92
+2025-04-07 15:43:52,461 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-07 15:43:52,461 - INFO - Using default tokenizer.
+2025-04-07 15:43:52,472 - INFO - [PIPELINE] Sample 50/50 (processed in 0.08s)
+2025-04-07 15:43:52,472 - INFO - [PIPELINE] Original: So Parliament should send a message , since that is the wish of the vast majority .
+2025-04-07 15:43:52,472 - INFO - [PIPELINE] Semantic noisy: So Parliament should jesd a message , since that is trg wish of the vast majority .
+2025-04-07 15:43:52,472 - INFO - [PIPELINE] Semantic reconstructed: So Parliament should jesd a message , since the is trg wish of the vast majority .
+2025-04-07 15:43:52,472 - INFO - [PIPELINE] Direct noisy: So Parliament should send a message , since that is the wish of the vast majority .
+2025-04-07 15:43:52,472 - INFO - [PIPELINE] Direct reconstructed: So Parliament should send a message , since the is the wish of the vast majority .
+2025-04-07 15:43:52,472 - INFO - [PIPELINE] Semantic BLEU: 0.5207, ROUGE-L: 0.8000, SEMANTIC: 0.8528
+2025-04-07 15:43:52,472 - INFO - [PIPELINE] Direct BLEU: 0.8282, ROUGE-L: 0.9333, SEMANTIC: 0.9823
+2025-04-07 15:43:52,472 - INFO - [PIPELINE] Current cost: $0.0005 of $2.00
+2025-04-07 15:43:52,472 - INFO - [PIPELINE] Progress: 50/50 samples. Est. remaining: 0.0s (0.0m)
+2025-04-07 15:43:52,472 - INFO - ---
+Processing samples: 100%|███████████████████████| 50/50 [00:07<00:00,  6.66it/s]
+2025-04-07 15:43:52,475 - INFO - Saved advanced RL agent state
+2025-04-07 15:43:52,475 - INFO - [PIPELINE] Saved enhanced RL agent state
+2025-04-07 15:43:52,475 - INFO - Using default tokenizer.
+2025-04-07 15:43:52,475 - INFO - Initialized knowledge base for evaluation
+2025-04-07 15:43:52,506 - WARNING - [PIPELINE] Enhanced evaluation failed: dictionary changed size during iteration
+2025-04-07 15:43:52,506 - WARNING - Continuing with standard metrics only
+2025-04-07 15:43:52,633 - INFO - Total API cost: $0.0005 of $2.00 budget
+2025-04-07 15:43:52,633 - INFO - 
+=== Overall Results ===
+2025-04-07 15:43:52,633 - INFO - [PIPELINE] Total time: 9.67s, Avg: 0.19s per sample
+2025-04-07 15:43:52,633 - INFO - [PIPELINE] System dimensions: input=768, compressed=460
+2025-04-07 15:43:52,633 - INFO - [PIPELINE] Semantic Reconstruction:
+2025-04-07 15:43:52,633 - INFO - [PIPELINE] Semantic Average BLEU: 0.6591
+2025-04-07 15:43:52,633 - INFO - [PIPELINE] Semantic Average ROUGE1: 0.8493
+2025-04-07 15:43:52,633 - INFO - [PIPELINE] Semantic Average ROUGEL: 0.8465
+2025-04-07 15:43:52,633 - INFO - [PIPELINE] Semantic Average METEOR: 0.8465
+2025-04-07 15:43:52,633 - INFO - [PIPELINE] Semantic Average SEMANTIC: 0.8886
+2025-04-07 15:43:52,633 - INFO - 
+[PIPELINE] Direct Reconstruction:
+2025-04-07 15:43:52,633 - INFO - [PIPELINE] Direct Average BLEU: 0.6325
+2025-04-07 15:43:52,634 - INFO - [PIPELINE] Direct Average ROUGE1: 0.8355
+2025-04-07 15:43:52,634 - INFO - [PIPELINE] Direct Average ROUGEL: 0.8339
+2025-04-07 15:43:52,634 - INFO - [PIPELINE] Direct Average METEOR: 0.8451
+2025-04-07 15:43:52,634 - INFO - [PIPELINE] Direct Average SEMANTIC: 0.8692
+2025-04-07 15:43:52,634 - INFO - 
+[PIPELINE] Total Cost: $0.0005 of $2.00 budget
+2025-04-07 15:43:52,634 - INFO - [PIPELINE] Results saved to C:\Users\Daud\SemanticCommTransmission\pythonProject/sem_com_results/enhanced_run_20250407-154342
+2025-04-07 15:43:52,634 - INFO - 
+[PIPELINE] RL Agent Performance:
+2025-04-07 15:43:52,634 - INFO - Total episodes: 8
+2025-04-07 15:43:52,634 - INFO - Total reward: 6.73
+2025-04-07 15:43:52,634 - INFO - Final exploration rate: 0.10
+2025-04-07 15:43:52,634 - INFO - API efficiency: N/A
+2025-04-07 15:43:52,634 - INFO - [PIPELINE] Visualizations saved to C:\Users\Daud\SemanticCommTransmission\pythonProject/sem_com_results/enhanced_run_20250407-154342
+
+===== KNOWLEDGE BASE FUNCTIONALITY CHECK =====
+✓ KB initialized successfully with 41 terms
+
+Test 1:
+  Input:      The Parliamemt will now vote on the propofal from the Commissiob.
+  Corrected:  The Parliament will now vote on the proposal from the Commission
+  Corrections: 3/3 expected terms
+  Result:     ✓ KB applied corrections
+
+Test 2:
+  Input:      In accordancg with Rule 143, I wkulz like your acvioe.
+  Corrected:  In accordance with Rule 143, I would like your advice
+  Corrections: 3/3 expected terms
+  Result:     ✓ KB applied corrections
+
+Test 3:
+  Input:      The Coupcil and Directave on environmentsl protrction.
+  Corrected:  The Council and Directive on environmental protection
+  Corrections: 4/4 expected terms
+  Result:     ✓ KB applied corrections
+
+===== SUMMARY =====
+Tests passed: 3/3
+Total corrections made: 10
+KB Status: FUNCTIONING
+
+====== Enhanced Semantic Communication Pipeline Complete ======
+Overall improvements:
+- Advanced Compression: Implemented VAE-based non-linear compression
+- Content-Adaptive Coding: Implemented content-aware protection strategies
+- Semantic Perceptual Loss: Added semantic similarity metrics and training
+- Enhanced RL Agent: Improved state representation with semantic features
+
+Final metrics:
+  semantic_avg_BLEU: 0.6591
+  semantic_avg_METEOR: 0.8465
+  semantic_avg_ROUGE1: 0.8493
+  semantic_avg_ROUGEL: 0.8465
+  semantic_avg_SEMANTIC: 0.8886
+
+Process finished with exit code 0
