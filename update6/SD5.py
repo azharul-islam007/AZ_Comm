@@ -23,7 +23,7 @@ from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
 from rouge_score import rouge_scorer
 from nltk.translate.meteor_score import meteor_score
 from knowledge_base import get_or_create_knowledge_base
-from physical_semantic_integration import SemanticChannelOptimizer
+from physical_semantic_integration import SemanticChannelOptimizer,DimensionRegistry
 # Import modified components
 from circuit_breaker import CircuitBreaker
 from semantic_mlpdvae import load_or_train_enhanced_mlp_dvae
