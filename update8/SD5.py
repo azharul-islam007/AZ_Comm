@@ -130,6 +130,42 @@ def timing_decorator(func):
         logger.debug(f"[TIMING] Function {func.__name__} took {end_time - start_time:.4f} seconds to execute")
         return result
     return wrapper
+
+common_corrections = [
+    ("wkulz", "would"),
+    ("couvsc", "course"),
+    ("principdas", "principles"),
+    ("accordancg", "accordance"),
+    ("ymus", "your"),
+    ("mnvice", "advice"),
+    ("Rcne", "Rule"),
+    ("acvioe", "advice"),
+    ("ocs", "has"),
+    ("tvks", "this"),
+    ("dignt", "right"),
+    ("ynu", "you"),
+    ("gqe", "are"),
+    ("quutg", "quite"),
+    ("amf", "and"),
+    ("hcve", "have"),
+    ("woild", "would"),
+    ("tht", "the"),
+    ("ar", "are"),
+    ("amd", "and"),
+    ("hes", "has"),
+    ("thct", "that"),
+    ("hos", "has"),
+    ("becn", "been"),
+    ("doni", "done"),
+    ("ct", "at"),
+    ("wether", "whether"),
+    ("wheter", "whether"),
+    ("weither", "whether"),
+    ("yhis", "this"),
+    ("shal", "shall"),
+    ("shali", "shall"),
+    ("actully", "actually")
+]
 #################################################
 # Reinforcement Learning Agent with Semantic Metrics
 #################################################
@@ -1251,11 +1287,23 @@ def calculate_api_cost(model, input_tokens, output_tokens):
 # Full updated function:
 @timing_decorator
 def api_reconstruct_with_semantic_features(noisy_text, context="", rl_agent=None, budget_remaining=1.0,
-                                           semantic_features=None, use_kb=True):
+                                           semantic_features=None, use_kb=True, additional_contexts=None):
     """
     Enhanced version of API reconstruction with semantic features and knowledge base integration.
     Implements a multi-stage reconstruction approach prioritizing KB for common errors
     and falling back to API for complex cases.
+
+    Args:
+        noisy_text: Text with corruption to reconstruct
+        context: Context string to help with reconstruction
+        rl_agent: Optional RL agent for API optimization
+        budget_remaining: Remaining budget as a fraction (0-1)
+        semantic_features: Optional semantic features for RL state
+        use_kb: Whether to use knowledge base for enhancement
+        additional_contexts: List of additional context sentences beyond the primary context
+
+    Returns:
+        Tuple of (reconstructed_text, api_cost, action)
     """
     # Add global recovery counter to prevent infinite recovery loops
     global _api_recovery_attempts
@@ -1398,7 +1446,7 @@ def api_reconstruct_with_semantic_features(noisy_text, context="", rl_agent=None
     # Add a budget-based usage policy
     use_api_based_on_budget = random.random() < (0.7 if budget_remaining > 0.5 else 0.4)
 
-    # Use RL agent or fixed probability for API decision
+    # ENHANCED DECISION MAKING
     if rl_agent is not None:
         try:
             # Calculate corruption level more accurately by comparing to original words if available
@@ -1498,13 +1546,6 @@ def api_reconstruct_with_semantic_features(noisy_text, context="", rl_agent=None
                 return reconstructed, 0, action
 
     # Set up enhanced prompt with KB guidance
-    system_prompt = """You are a specialized text reconstruction system. Your task is to correct errors in the text while preserving the original meaning and intent. Fix spelling, grammar, and word corruptions. The text contains European Parliament terminology."""
-
-    # Add KB enhancement to system prompt if available
-    if prompt_enhancement:
-        system_prompt += f"\n\nIMPORTANT: {prompt_enhancement}"
-
-    # Set up enhanced prompt with KB guidance
     system_prompt = """You are a specialized text reconstruction system for the European Parliament. Your task is to correct errors in text while preserving the original meaning and intent.
 
     IMPORTANT GUIDELINES:
@@ -1522,6 +1563,10 @@ def api_reconstruct_with_semantic_features(noisy_text, context="", rl_agent=None
     - Double consonants like "bb" are often errors
     - Names of officials and institutions should be properly capitalized
     """
+
+    # Add KB enhancement to system prompt if available
+    if prompt_enhancement:
+        system_prompt += f"\n\nIMPORTANT: {prompt_enhancement}"
 
     # Enhanced examples with Europarl vocabulary
     example = """Example:
@@ -1548,6 +1593,14 @@ Reconstructed: I would like your advice about Rule 143 concerning inadmissibilit
             for i, prev_context in enumerate(context_history):
                 if prev_context != context:  # Avoid duplication
                     user_prompt += f"[{i + 1}] {prev_context}\n"
+            user_prompt += "\n"
+
+        # Add additional contexts if provided
+        if additional_contexts:
+            user_prompt += "Additional References:\n"
+            for i, add_context in enumerate(additional_contexts):
+                if add_context != context:  # Avoid duplication
+                    user_prompt += f"[{i + 1}] {add_context}\n"
             user_prompt += "\n"
 
     user_prompt += f"Corrupted: {noisy_text}\nReconstructed:"
@@ -1599,6 +1652,14 @@ Reconstructed: I would like your advice about Rule 143 concerning inadmissibilit
             cost = calculate_api_cost(model, input_tokens, output_tokens)
             api_cost += cost
 
+            # Clean up response
+            for prefix in ["Reconstructed:", "Reconstructed text:"]:
+                if reconstructed_text.startswith(prefix):
+                    reconstructed_text = reconstructed_text[len(prefix):].strip()
+
+            # Apply post-reconstruction validation
+            reconstructed_text = validate_reconstruction(noisy_text, reconstructed_text)
+
             # Apply further context enhancement if available
             if context and kb and hasattr(kb, 'enhance_with_context'):
                 try:
@@ -1609,11 +1670,6 @@ Reconstructed: I would like your advice about Rule 143 concerning inadmissibilit
                         reconstructed_text = context_enhanced
                 except Exception as e:
                     logger.debug(f"Post-API context enhancement failed: {e}")
-
-            # Clean up response
-            for prefix in ["Reconstructed:", "Reconstructed text:"]:
-                if reconstructed_text.startswith(prefix):
-                    reconstructed_text = reconstructed_text[len(prefix):].strip()
 
             logger.info(f"[API] API reconstruction successful using model {model}")
             method_used = f"api_{model}"
@@ -1815,6 +1871,7 @@ def validate_reconstruction(original, reconstructed):
                         break
 
     return " ".join(words_recon)
+
 # Add this utility function to handle tensor reshaping consistently:
 def ensure_correct_embedding_shape(embedding, expected_dim=2):
     """
