@@ -1322,17 +1322,6 @@ def api_reconstruct_with_semantic_features(noisy_text, context="", rl_agent=None
     if '_api_recovery_attempts' not in globals():
         _api_recovery_attempts = {}
 
-    # NEW: Early detection of challenging text patterns
-    challenging_indicators = ['xont', 'dotk', 'ceea', 'jvsz', 'xjeting', 'yreudful']
-    is_challenging_text = any(indicator in noisy_text.lower() for indicator in challenging_indicators)
-
-    # If text appears particularly challenging and budget permits, prioritize API
-    if is_challenging_text and budget_remaining > 0.2 and openai_available:
-        logger.info(f"[API] Detected challenging text pattern, prioritizing API reconstruction")
-        force_api = True
-    else:
-        force_api = False
-
     # Generate unique key for this request
     request_key = f"{hash(noisy_text)}-{hash(context)}"
 
@@ -2532,6 +2521,10 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
             # Create corrupted text version for text reconstruction
             corrupted_text = apply_noise_to_text(sentence, noise_level, 'character')
 
+            # Define challenging text detection (used in RL section)
+            challenging_indicators = ['xont', 'dotk', 'ceea', 'jvsz', 'xjeting', 'yreudful']
+            is_challenging_text = any(indicator in corrupted_text.lower() for indicator in challenging_indicators)
+
             # Create a context list from history and current context
             context_list = []
             if context:
@@ -2573,6 +2566,11 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
             # Calculate budget remaining as fraction
             budget_remaining = (cost_tracker.budget - cost_tracker.total_cost) / cost_tracker.budget
 
+            # Calculate corruption level based on differences between original and corrupted text
+            # Add this line to define corruption_level before it's used
+            corruption_level = min(1.0, sum(1 for a, b in zip(corrupted_text.split(), sentence.split())
+                                            if a != b) / max(1, len(corrupted_text.split())))
+
             if use_rl:
                 # For RL agent, if we've detected challenging text, boost corruption level
                 if is_challenging_text:
@@ -2596,8 +2594,10 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
                 elif action == 2:
                     sample_result["semantic_method"] = "gpt-4-turbo"
                     sample_result["api_cost"] = api_cost
-
             else:
+                # Define force_api here, when budget_remaining is definitely in scope
+                force_api = is_challenging_text and budget_remaining > 0.2 and openai_available
+
                 # Use fixed probability for API decision or force_api when text is challenging
                 use_api = (openai_available and random.random() < use_api_pct) or force_api
                 if use_api:
