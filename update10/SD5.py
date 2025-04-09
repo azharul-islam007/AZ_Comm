@@ -1533,6 +1533,8 @@ Reconstructed: I would like your advice about Rule 143 concerning inadmissibilit
     # Make API call if needed
     if use_api:
         try:
+            # Determine which model to use based on use_gpt4 flag
+            model = "gpt-4-turbo" if use_gpt4 else "gpt-3.5-turbo"
             logger.info(f"[API] Making API call with model {model}...")
 
             messages = [
@@ -1554,6 +1556,11 @@ Reconstructed: I would like your advice about Rule 143 concerning inadmissibilit
 
                 # Apply post-reconstruction validation
                 reconstructed_text = validate_reconstruction(noisy_text, reconstructed_text)
+
+                # Calculate API cost
+                input_tokens = get_token_count(system_prompt + user_prompt)
+                output_tokens = get_token_count(reconstructed_text)
+                cost = calculate_api_cost(model, input_tokens, output_tokens)
 
                 logger.info(f"[API] API reconstruction successful using model {model}")
                 method_used = f"api_{model}"
