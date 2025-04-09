@@ -23,11 +23,9 @@ from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
 from rouge_score import rouge_scorer
 from nltk.translate.meteor_score import meteor_score
 from knowledge_base import get_or_create_knowledge_base
-from physical_semantic_integration import SemanticChannelOptimizer
 # Import modified components
 from circuit_breaker import CircuitBreaker
 from semantic_mlpdvae import load_or_train_enhanced_mlp_dvae
-from physical_semantic_integration import DimensionRegistry
 from mlpdvae_utils import (load_transmission_pairs, evaluate_reconstruction_with_semantics,
                            compute_embedding_similarity, generate_text_from_embedding,ensure_tensor_shape)
 from semantic_loss import SemanticPerceptualLoss, evaluate_semantic_similarity
@@ -121,6 +119,10 @@ if OPENAI_API_KEY:
         logger.error(f"❌ Error initializing OpenAI client: {e}")
         logger.error(traceback.format_exc())
 
+def get_dimension_registry():
+    """Delayed import to avoid circular dependencies"""
+    from physical_semantic_integration import DimensionRegistry
+    return DimensionRegistry()
 def timing_decorator(func):
     """Decorator to measure and log function execution time"""
     def wrapper(*args, **kwargs):
@@ -2639,11 +2641,13 @@ def benchmark_reconstruction_methods(test_samples, output_path=None):
         print(f"Performance visualization saved to {output_path}")
 
     return metrics
+
+
 def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
-                         use_api_pct=None, comparison_mode=None, use_self_supervised=None,
-                         use_semantic_loss=None, use_vae_compression=None,
-                         use_content_adaptive_coding=None, use_knowledge_base=True,
-                         use_ensemble=False, aggressive_api=False):
+                          use_api_pct=None, comparison_mode=None, use_self_supervised=None,
+                          use_semantic_loss=None, use_vae_compression=None,
+                          use_content_adaptive_coding=None, use_knowledge_base=True,
+                          use_ensemble=False, aggressive_api=False):  # Add these parameters
     """
     Run the complete enhanced semantic communication pipeline with knowledge base integration.
 
@@ -2658,6 +2662,8 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
         use_vae_compression: Whether to use VAE compression
         use_content_adaptive_coding: Whether to use content-adaptive coding
         use_knowledge_base: Whether to use knowledge base for enhanced semantics
+        use_ensemble: Whether to use ensemble voting approach for reconstruction
+        aggressive_api: Whether to use more aggressive API criteria in ensemble mode
     """
     # Start timing for performance measurement
     pipeline_start_time = time.time()
@@ -2682,7 +2688,8 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
         "physical.enable_content_adaptive_coding", True)
 
     # Initialize dimension registry first
-    dimension_registry = DimensionRegistry()
+    from physical_semantic_integration import DimensionRegistry
+    dimension_registry = get_dimension_registry()
     system_dimensions = get_system_dimensions()
 
     # Update registry with detected dimensions
@@ -2896,6 +2903,7 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
     semantic_optimizer = None
     if ENABLE_PHYSICAL_CHANNEL and physical_channel_imported:
         try:
+            from physical_semantic_integration import SemanticChannelOptimizer
             semantic_optimizer = SemanticChannelOptimizer(physical_semantic_bridge._physical_channel)
             logger.info("[PIPELINE] Semantic channel optimizer initialized")
         except Exception as e:
@@ -3178,125 +3186,157 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
             corruption_level = min(1.0, sum(1 for a, b in zip(corrupted_text.split(), sentence.split())
                                             if a != b) / max(1, len(corrupted_text.split())))
 
-            if use_rl:
-                # For RL agent, if we've detected challenging text, boost corruption level
-                if is_challenging_text:
-                    # Boost corruption level signal for RL agent
-                    if corruption_level is not None:
-                        corruption_level = max(corruption_level, 0.8)
-                    else:
-                        corruption_level = 0.8
-
-                # Use enhanced RL agent with semantic features for API decision
-                semantic_reconstructed, api_cost, action = api_reconstruct_with_semantic_features(
-                    corrupted_text, context, rl_agent, budget_remaining, semantic_features, use_kb=use_knowledge_base
-                )
-
-                # Record API method used
-                if action == 0:
-                    sample_result["semantic_method"] = "basic"
-                elif action == 1:
-                    sample_result["semantic_method"] = "gpt-3.5-turbo"
-                    sample_result["api_cost"] = api_cost
-                elif action == 2:
-                    sample_result["semantic_method"] = "gpt-4-turbo"
-                    sample_result["api_cost"] = api_cost
-            else:
-                # Define force_api here, when budget_remaining is definitely in scope
-                force_api = is_challenging_text and budget_remaining > 0.2 and openai_available
-
-                # Use fixed probability for API decision or force_api when text is challenging
-                use_api = (openai_available and random.random() < use_api_pct) or force_api
-                kb_result = kb.kb_guided_reconstruction(corrupted_text) if use_knowledge_base and kb else corrupted_text
+            # If using ensemble approach
+            if use_ensemble:
+                # First get KB result
+                kb_result = None
                 kb_confidence = 0.0
+                if use_knowledge_base and kb is not None:
+                    kb_result = kb.kb_guided_reconstruction(corrupted_text)
 
-                # Calculate KB confidence if KB made changes
-                if kb_result != corrupted_text:
-                    if hasattr(kb, 'calculate_kb_confidence'):
-                        kb_confidence = kb.calculate_kb_confidence(corrupted_text, kb_result)
-                    else:
-                        # Fallback confidence calculation
-                        word_diff_ratio = sum(1 for a, b in zip(corrupted_text.split(), kb_result.split())
-                                              if a != b) / max(1, len(corrupted_text.split()))
-                        char_overlap = difflib.SequenceMatcher(None, corrupted_text, kb_result).ratio()
-                        kb_confidence = char_overlap * (1 - min(0.4, word_diff_ratio))
+                    # Calculate KB confidence if it made changes
+                    if kb_result != corrupted_text:
+                        if hasattr(kb, 'calculate_kb_confidence'):
+                            kb_confidence = kb.calculate_kb_confidence(corrupted_text, kb_result)
+                        else:
+                            # Fallback confidence calculation
+                            word_diff_ratio = sum(1 for a, b in zip(corrupted_text.split(), kb_result.split())
+                                                  if a != b) / max(1, len(corrupted_text.split()))
+                            char_overlap = difflib.SequenceMatcher(None, corrupted_text, kb_result).ratio()
+                            kb_confidence = char_overlap * (1 - min(0.4, word_diff_ratio))
 
-                # Detect corruption level
-                corruption_level = estimate_corruption_level(corrupted_text)
+                # Get basic reconstruction (without KB to avoid duplication)
+                basic_result = basic_text_reconstruction(corrupted_text, use_kb=False)
+                basic_confidence = 0.0
 
-                # Determine if we should use API
-                use_api_now, api_model, decision_reason = should_use_api(
-                    corrupted_text,
-                    kb_result=kb_result,
-                    kb_confidence=kb_confidence,
-                    budget_remaining=budget_remaining,
-                    rl_agent=rl_agent
-                )
+                # Calculate basic confidence if it made changes
+                if basic_result != corrupted_text:
+                    word_diff_ratio = sum(1 for a, b in zip(corrupted_text.split(), basic_result.split())
+                                          if a != b) / max(1, len(corrupted_text.split()))
+                    char_overlap = difflib.SequenceMatcher(None, corrupted_text, basic_result).ratio()
+                    basic_confidence = char_overlap * (1 - min(0.4, word_diff_ratio))
 
-                # Update use_api based on the decision
-                use_api = use_api and use_api_now
+                # Decide on API usage
+                use_api_now = False
 
-                if use_api:
-                    # Use API with the determined model
-                    api_result, api_cost, api_action = api_reconstruct_with_semantic_features(
+                if aggressive_api:
+                    # Use advanced detection
+                    corruption_info = detect_corruption_patterns(corrupted_text)
+
+                    # Use API for critical corruptions or when KB confidence is low
+                    if (corruption_info['critical_corruptions'] > 0 or
+                            (kb_result != corrupted_text and kb_confidence < 0.7) or
+                            corruption_info['corruption_level'] > 0.3):
+                        use_api_now = True
+                else:
+                    # Use standard logic based on RL agent or corruption level
+                    use_api = (openai_available and random.random() < use_api_pct) or (
+                                is_challenging_text and budget_remaining > 0.2 and openai_available)
+                    use_api_now = use_api
+
+                api_result = None
+                api_confidence = 0.0
+                api_cost = 0
+
+                # Get API result if needed
+                if use_api_now and openai_available and budget_remaining > 0.05:
+                    api_result, api_cost, _ = api_reconstruct_with_semantic_features(
                         corrupted_text, context, rl_agent, budget_remaining,
-                        semantic_features, use_kb=False,  # Avoid double KB usage
+                        semantic_features, use_kb=False,
                         additional_contexts=context_list[1:] if len(context_list) > 1 else None)
 
-                    # If both KB and API made changes, use ensemble voting
-                    if kb_result != corrupted_text and api_result != corrupted_text:
-                        # Get basic result too
-                        basic_result = basic_text_reconstruction(corrupted_text, use_kb=False)
+                    # Calculate API confidence if it made changes
+                    if api_result != corrupted_text:
+                        word_diff_ratio = sum(1 for a, b in zip(corrupted_text.split(), api_result.split())
+                                              if a != b) / max(1, len(corrupted_text.split()))
+                        char_overlap = difflib.SequenceMatcher(None, corrupted_text, api_result).ratio()
+                        api_confidence = char_overlap * (1 - min(0.4, word_diff_ratio)) * 1.2  # 20% boost
 
-                        # Calculate API confidence
-                        api_confidence = 0.0
-                        if api_result != corrupted_text:
-                            word_diff_ratio = sum(1 for a, b in zip(corrupted_text.split(), api_result.split())
-                                                  if a != b) / max(1, len(corrupted_text.split()))
-                            char_overlap = difflib.SequenceMatcher(None, corrupted_text, api_result).ratio()
-                            api_confidence = char_overlap * (1 - min(0.4, word_diff_ratio)) * 1.2  # 20% boost
+                # Now decide which reconstructions to use for ensemble
+                reconstructions = []
+                confidences = []
 
-                        # Calculate basic confidence
-                        basic_confidence = 0.0
-                        if basic_result != corrupted_text:
-                            word_diff_ratio = sum(1 for a, b in zip(corrupted_text.split(), basic_result.split())
-                                                  if a != b) / max(1, len(corrupted_text.split()))
-                            char_overlap = difflib.SequenceMatcher(None, corrupted_text, basic_result).ratio()
-                            basic_confidence = char_overlap * (1 - min(0.4, word_diff_ratio))
+                # Add KB result if it made changes
+                if kb_result is not None and kb_result != corrupted_text:
+                    reconstructions.append(kb_result)
+                    confidences.append(kb_confidence)
 
-                        # Combine results using ensemble voting
-                        reconstructions = []
-                        confidences = []
+                # Add basic result if it made changes
+                if basic_result != corrupted_text:
+                    reconstructions.append(basic_result)
+                    confidences.append(basic_confidence)
 
-                        # Add API result
-                        reconstructions.append(api_result)
-                        confidences.append(api_confidence)
+                # Add API result if it made changes
+                if api_result is not None and api_result != corrupted_text:
+                    reconstructions.append(api_result)
+                    confidences.append(api_confidence)
 
-                        # Add KB result
-                        reconstructions.append(kb_result)
-                        confidences.append(kb_confidence)
+                # Apply ensemble voting if we have multiple reconstructions
+                if len(reconstructions) >= 2:
+                    semantic_reconstructed = ensemble_word_voting(corrupted_text, reconstructions, confidences)
+                    sample_result["semantic_method"] = "ensemble"
+                    if api_result is not None:
+                        sample_result["api_cost"] = api_cost
 
-                        # Add basic result if it made changes
-                        if basic_result != corrupted_text:
-                            reconstructions.append(basic_result)
-                            confidences.append(basic_confidence)
+                # Otherwise, use the best single method
+                elif len(reconstructions) == 1:
+                    semantic_reconstructed = reconstructions[0]
 
-                        # Use ensemble voting to get final result
-                        semantic_reconstructed = ensemble_word_voting(corrupted_text, reconstructions, confidences)
-                        sample_result["semantic_method"] = "ensemble"
-                    else:
-                        # Use API result directly
-                        semantic_reconstructed = api_result
-                        sample_result["semantic_method"] = f"api_{api_model}"
-
-                    sample_result["api_cost"] = api_cost
-                else:
-                    # No API, use KB if it made changes, otherwise fallback to basic
-                    if kb_result != corrupted_text:
-                        semantic_reconstructed = kb_result
+                    # Record which method was used
+                    if reconstructions[0] == kb_result:
                         sample_result["semantic_method"] = "kb"
+                    elif reconstructions[0] == api_result:
+                        sample_result["semantic_method"] = "api"
+                        sample_result["api_cost"] = api_cost
                     else:
-                        semantic_reconstructed = basic_text_reconstruction(corrupted_text, use_kb=False)
+                        sample_result["semantic_method"] = "basic"
+
+                # If no method made changes, keep original
+                else:
+                    semantic_reconstructed = corrupted_text
+                    sample_result["semantic_method"] = "none"
+
+            else:
+                # Use original approach if ensemble is disabled
+                if use_rl:
+                    # For RL agent, if we've detected challenging text, boost corruption level
+                    if is_challenging_text:
+                        # Boost corruption level signal for RL agent
+                        if corruption_level is not None:
+                            corruption_level = max(corruption_level, 0.8)
+                        else:
+                            corruption_level = 0.8
+
+                    # Use enhanced RL agent with semantic features for API decision
+                    semantic_reconstructed, api_cost, action = api_reconstruct_with_semantic_features(
+                        corrupted_text, context, rl_agent, budget_remaining, semantic_features,
+                        use_kb=use_knowledge_base
+                    )
+
+                    # Record API method used
+                    if action == 0:
+                        sample_result["semantic_method"] = "basic"
+                    elif action == 1:
+                        sample_result["semantic_method"] = "gpt-3.5-turbo"
+                        sample_result["api_cost"] = api_cost
+                    elif action == 2:
+                        sample_result["semantic_method"] = "gpt-4-turbo"
+                        sample_result["api_cost"] = api_cost
+                else:
+                    # Define force_api here, when budget_remaining is definitely in scope
+                    force_api = is_challenging_text and budget_remaining > 0.2 and openai_available
+
+                    # Use fixed probability for API decision or force_api when text is challenging
+                    use_api = (openai_available and random.random() < use_api_pct) or force_api
+                    if use_api:
+                        # Use API for reconstruction
+                        semantic_reconstructed, api_cost, _ = api_reconstruct_with_semantic_features(
+                            corrupted_text, context, use_kb=use_knowledge_base,
+                            additional_contexts=context_list[1:] if len(context_list) > 1 else None)
+                        sample_result["semantic_method"] = "api"
+                        sample_result["api_cost"] = api_cost
+                    else:
+                        semantic_reconstructed = basic_text_reconstruction(corrupted_text, use_kb=use_knowledge_base)
                         sample_result["semantic_method"] = "basic"
 
             # Save embedding similarity
@@ -3923,7 +3963,7 @@ if __name__ == "__main__":
         print("WARNING: System components are not functioning properly!")
 
     # Initialize dimension registry and lock dimensions
-    dimension_registry = DimensionRegistry()
+    dimension_registry = get_dimension_registry()
 
     # Run experiments or single pipeline
     if args.run_experiments:
