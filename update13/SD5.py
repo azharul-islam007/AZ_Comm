@@ -1770,7 +1770,7 @@ def detect_corruption_patterns(text):
     return results
 
 
-def should_use_api(noisy_text, kb_result=None, kb_confidence=0.0, budget_remaining=1.0, rl_agent=None, parl_features=None):
+def should_use_api(noisy_text, kb_result=None, kb_confidence=0.0, budget_remaining=1.0, rl_agent=None):
     """
     Decide whether to use API for reconstruction based on multiple factors.
     """
@@ -3172,20 +3172,8 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
                 if key in semantic_metrics:
                     semantic_metrics[key].append(value)
 
-            state = None
-            log_prob = 0.0  # Default value
-            action = 0  # Default action as fallback
-
             # Update RL agent if used
             if use_rl and 'api_cost' in sample_result:
-                # Try to get action from sample_result if available
-                if 'rl_action' in sample_result:
-                    action = sample_result['rl_action']
-                elif 'direct_method' in sample_result and sample_result['direct_method'] == 'api':
-                    action = 2  # Assuming 2 is GPT-4
-                elif 'semantic_method' in sample_result and sample_result['semantic_method'] == 'api':
-                    action = 2  # Assuming 2 is GPT-4
-
                 # Get enhanced state with semantic features
                 corruption_level = min(1.0,
                                        sum(1 for a, b in zip(corrupted_text.split(), sentence.split()) if a != b) /
@@ -3214,11 +3202,7 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
                 else:
                     log_prob = 0.0  # Default value when log_prob isn't available
 
-                # Only update if we have all required values
-                if state is not None and action is not None:
-                    rl_agent.update(state, action, reward, next_state, log_prob)
-                else:
-                    logger.warning("Skipping RL update due to missing state or action")
+                rl_agent.update(state, action, reward, next_state, log_prob)
 
                 # Periodically train from buffer
                 if i % 10 == 0 and i > 0:
