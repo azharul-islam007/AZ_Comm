@@ -1,0 +1,756 @@
+/home/ubuntu/anaconda3/bin/conda run -n myenv --no-capture-output python /tmp/pycharm_project_908/Europearl/SD5.py 
+2025-04-10 12:10:39,983 - INFO - Using device: cuda
+/home/ubuntu/.local/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+2025-04-10 12:10:41,337 - INFO - Initialized Enhanced Physical Channel with awgn channel, qam-16 modulation, SNR=20.0dB
+2025-04-10 12:10:41,337 - INFO - Adaptive modulation enabled: thresholds at 15.0dB and 25.0dB
+2025-04-10 12:10:41,337 - INFO - Unequal error protection enabled with 3 protection levels
+/tmp/pycharm_project_908/Europearl/content_adaptive_coding.py:375: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(self.content_classifier_path, map_location=device)
+2025-04-10 12:10:41,340 - INFO - Using embedding dimension 460 from checkpoint
+2025-04-10 12:10:41,343 - INFO - Content classifier loaded successfully
+2025-04-10 12:10:41,343 - INFO - Content-Adaptive Physical Channel initialized
+2025-04-10 12:10:41,343 - INFO - Enhanced content-adaptive physical channel initialized
+2025-04-10 12:10:41,343 - INFO - Will collect up to 10000 transmission pairs
+2025-04-10 12:10:41,344 - INFO - Using device: cuda
+2025-04-10 12:10:42,270 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:42,277 - INFO - ✅ OpenAI API connection successful
+
+===== SYSTEM COMPONENT TEST =====
+2025-04-10 12:10:42,280 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-10 12:10:42,280 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms (load #1)
+Knowledge Base loaded with 41 terms
+
+Test Case 1: Mrs Lynne, you are quite right and I shall check whether this ocs actually not been done.
+1. KB Reconstruction (1 changes):
+   Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
+2025-04-10 12:10:42,289 - INFO - KB reconstruction made changes: 'Mrs Lynne, you are quite right and I shall check whether this ocs actually not been done.' -> 'Mrs Lynne, you are quite right and I shall check whether this has actually not been done.'
+2. Basic Reconstruction (1 changes):
+   Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
+2025-04-10 12:10:42,289 - INFO - [API] Starting reconstruction of text: 'Mrs Lynne, you are quite right...'
+2025-04-10 12:10:42,292 - INFO - [API] Using KB reconstruction with confidence 1.01
+2025-04-10 12:10:42,293 - INFO - [API] Completed in 0.004s using method: kb
+3. API Reconstruction (1 changes):
+   Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
+
+Test Case 2: The Parliamemt will now vote on the propofal from the Commissiob.
+1. KB Reconstruction (3 changes):
+   The Parliament will now vote on the proposal from the Commission
+2025-04-10 12:10:42,299 - INFO - KB reconstruction made changes: 'The Parliamemt will now vote on the propofal from the Commissiob.' -> 'The Parliament will now vote on the proposal from the Commission'
+2. Basic Reconstruction (3 changes):
+   The Parliament will now vote on the proposal from the Commission
+2025-04-10 12:10:42,299 - INFO - [API] Starting reconstruction of text: 'The Parliamemt will now vote o...'
+2025-04-10 12:10:42,302 - INFO - [API] Using KB reconstruction with confidence 0.76
+2025-04-10 12:10:42,302 - INFO - [API] Completed in 0.003s using method: kb
+3. API Reconstruction (3 changes):
+   The Parliament will now vote on the proposal from the Commission
+
+Test Case 3: In accordancg with Rule 143, I wkulz like your acvioe about this moetinp.
+1. KB Reconstruction (5 changes):
+   in accordance with Rule 143, I would like your advice about this meeting
+2025-04-10 12:10:42,305 - INFO - KB reconstruction made changes: 'In accordancg with Rule 143, I wkulz like your acvioe about this moetinp.' -> 'in accordance with Rule 143, I would like your advice about this meeting'
+2. Basic Reconstruction (5 changes):
+   in accordance with Rule 143, I would like your advice about this meeting
+2025-04-10 12:10:42,305 - INFO - [API] Starting reconstruction of text: 'In accordancg with Rule 143, I...'
+2025-04-10 12:10:42,308 - INFO - [API] Using KB reconstruction with confidence 0.60
+2025-04-10 12:10:42,308 - INFO - [API] Completed in 0.003s using method: kb
+3. API Reconstruction (5 changes):
+   in accordance with Rule 143, I would like your advice about this meeting
+
+===== RESULTS =====
+Components tested: KB Reconstruction, Basic Reconstruction, API Reconstruction
+Test cases corrected: 3/3
+System status: ✓ FUNCTIONAL
+2025-04-10 12:10:42,308 - INFO - Loaded dimensions from file: 768, 460
+/tmp/pycharm_project_908/Europearl/SD5.py:1841: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(dvae_path, map_location=torch.device('cpu'))
+2025-04-10 12:10:42,346 - INFO - System dimensions: {'input_dim': 768, 'compressed_dim': 460, 'dvae_input_dim': 460, 'dvae_hidden_dim': 920, 'dvae_latent_dim': 460}
+2025-04-10 12:10:42,347 - INFO - Updated dimension original_dim: 768 → 768
+2025-04-10 12:10:42,347 - INFO - Updated dimension compressed_dim: 460 → 460
+2025-04-10 12:10:42,347 - INFO - Updated dimension dvae_latent_dim: 460 → 460
+2025-04-10 12:10:42,347 - INFO - Initialized dimension registry: {'original': 768, 'compressed': 460, 'latent': 460}
+2025-04-10 12:10:42,366 - INFO - System dimensions: {'input_dim': 768, 'compressed_dim': 460, 'dvae_input_dim': 460, 'dvae_hidden_dim': 920, 'dvae_latent_dim': 460}
+2025-04-10 12:10:42,367 - INFO - [PIPELINE] Starting enhanced pipeline with parameters:
+2025-04-10 12:10:42,367 - INFO - [PIPELINE] - samples: 50, noise: 0.15/gaussian
+2025-04-10 12:10:42,367 - INFO - [PIPELINE] - API: 50%, Compare: True
+2025-04-10 12:10:42,367 - INFO - [PIPELINE] - Features: VAE=True, Semantic=True, Adaptive=True
+2025-04-10 12:10:42,367 - INFO - [PIPELINE] - System dimensions: input=768, compressed=460
+2025-04-10 12:10:42,367 - INFO - [PIPELINE] Knowledge base initialized successfully
+2025-04-10 12:10:42,367 - INFO - Precomputing KB enhancements...
+2025-04-10 12:10:42,367 - INFO - Precomputed 41 common KB terms
+2025-04-10 12:10:42,367 - INFO - Initializing semantic loss with bert-base-uncased model
+/home/ubuntu/.local/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+2025-04-10 12:10:43,196 - INFO - Semantic perceptual loss initialized successfully
+2025-04-10 12:10:43,196 - INFO - [PIPELINE] Semantic perceptual loss initialized successfully
+2025-04-10 12:10:43,213 - INFO - [PIPELINE] Loaded 10000 items from compressed data
+2025-04-10 12:10:43,217 - INFO - [PIPELINE] Loaded 10000 original sentences
+2025-04-10 12:10:43,217 - INFO - Loading existing VAE compressor from ./data/vae_compressor.pth
+/tmp/pycharm_project_908/Europearl/compression_vae.py:583: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(VAE_COMPRESSOR_PATH, map_location=device)
+2025-04-10 12:10:43,257 - INFO - VAE compressor loaded: 768 → 460 dimensions
+2025-04-10 12:10:43,257 - INFO - Note: Loaded standard model, but requested enhanced
+2025-04-10 12:10:43,262 - INFO - Saved VAE dimensions to file: input=768, compressed=460
+2025-04-10 12:10:43,263 - INFO - [PIPELINE] VAE compressor loaded successfully: 768 → 460
+2025-04-10 12:10:43,263 - INFO - Initialized Enhanced Physical Channel with awgn channel, qam-16 modulation, SNR=20.0dB
+2025-04-10 12:10:43,263 - INFO - Adaptive modulation enabled: thresholds at 15.0dB and 25.0dB
+2025-04-10 12:10:43,263 - INFO - Unequal error protection enabled with 3 protection levels
+/tmp/pycharm_project_908/Europearl/content_adaptive_coding.py:375: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(self.content_classifier_path, map_location=device)
+2025-04-10 12:10:43,265 - INFO - Using embedding dimension 460 from checkpoint
+2025-04-10 12:10:43,268 - INFO - Content classifier loaded successfully
+2025-04-10 12:10:43,269 - INFO - Content-Adaptive Physical Channel initialized
+2025-04-10 12:10:43,269 - INFO - [PIPELINE] Physical channel upgraded to content-adaptive version
+2025-04-10 12:10:43,269 - INFO - Using provided input dimension: 460
+2025-04-10 12:10:43,269 - INFO - Loading pre-trained enhanced MLPDenoisingVAE from ./models/enhanced_mlp_dvae_model.pth
+/tmp/pycharm_project_908/Europearl/semantic_mlpdvae.py:778: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(full_model_path, map_location=device)
+2025-04-10 12:10:43,376 - INFO - Loaded model was trained with semantic perceptual loss
+2025-04-10 12:10:43,376 - INFO - [PIPELINE] System configurations:
+2025-04-10 12:10:43,376 - INFO -   - VAE compression: True
+2025-04-10 12:10:43,376 - INFO -   - VAE dimensions: 768 → 460
+2025-04-10 12:10:43,376 - INFO -   - DVAE dimensions: input=460, hidden=920, latent=460
+2025-04-10 12:10:43,376 - INFO -   - Physical channel enabled: True
+2025-04-10 12:10:43,376 - INFO -   - Content adaptive coding: True
+2025-04-10 12:10:43,376 - INFO -   - Knowledge base enabled: True
+2025-04-10 12:10:43,376 - INFO - [PIPELINE] IMPORTANT: Model dimensions are input=460, hidden=920, latent=460
+/tmp/pycharm_project_908/Europearl/SD5.py:586: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(path, map_location=torch.device('cpu'))
+2025-04-10 12:10:43,566 - INFO - Loaded advanced RL agent (exploration rate: 0.10)
+2025-04-10 12:10:43,566 - INFO - Initializing semantic loss with bert-base-uncased model
+
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+2025-04-10 12:10:44,414 - INFO - Semantic perceptual loss initialized successfully
+2025-04-10 12:10:44,416 - INFO - [PIPELINE] Semantic channel optimizer initialized
+2025-04-10 12:10:44,416 - INFO - [PIPELINE] Using enhanced RL agent for API optimization (exploration rate: 0.10)
+2025-04-10 12:10:44,416 - INFO - === Starting Enhanced Semantic Reconstruction Pipeline ===
+2025-04-10 12:10:44,416 - INFO - [PIPELINE] Noise level: 0.15, Noise type: gaussian
+2025-04-10 12:10:44,416 - INFO - [PIPELINE] OpenAI API available: True
+2025-04-10 12:10:44,416 - INFO - [PIPELINE] Physical channel enabled: True
+Processing samples:   0%|                                | 0/50 [00:00<?, ?it/s]/tmp/pycharm_project_908/Europearl/physical_semantic_integration.py:539: UserWarning: var(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at ../aten/src/ATen/native/ReduceOps.cpp:1808.)
+  variance = torch.var(tensor, dim=0)
+2025-04-10 12:10:44,487 - INFO - Using device: cuda
+2025-04-10 12:10:45,141 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:45,147 - INFO - ✅ OpenAI API connection successful
+/tmp/pycharm_project_908/Europearl/compression_vae.py:532: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(VAE_COMPRESSOR_PATH, map_location=device)
+2025-04-10 12:10:45,241 - INFO - [API] Starting reconstruction of text: 'Although , as you will have se...'
+2025-04-10 12:10:45,249 - INFO - [API] Using KB reconstruction with confidence 1.06
+2025-04-10 12:10:45,249 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-10 12:10:45,250 - INFO - Using default tokenizer.
+2025-04-10 12:10:46,631 - INFO - [API] Starting reconstruction of text: 'Although , as you will have se...'
+2025-04-10 12:10:46,639 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:46,646 - INFO - [API] Completed in 0.015s using basic reconstruction
+2025-04-10 12:10:46,646 - INFO - Using default tokenizer.
+2025-04-10 12:10:46,659 - INFO - [PIPELINE] Sample 1/50 (processed in 2.24s)
+2025-04-10 12:10:46,659 - INFO - [PIPELINE] Original: Although , as you will have seen , the dreaded ' millennium bug ' failed to materialise , still the people in a number of countries suffered a series of natural disasters that truly were dreadful .
+2025-04-10 12:10:46,659 - INFO - [PIPELINE] Semantic noisy: Although , as you will have seer , the dreaded ' millznnium bug ' failed to materialise , sqiol the people in a bsmber of countries suffered a series of natdrat disasters thbt truly were dreadful .
+2025-04-10 12:10:46,659 - INFO - [PIPELINE] Semantic reconstructed: Although , as you will have seer , the dreaded ' millznnium bug ' failed to materialise , sqiol the people in a bsmber of countries suffered a series of natdrat disasters the truly were dreadful .
+2025-04-10 12:10:46,659 - INFO - [PIPELINE] Direct noisy: Although , as you will have seen , the dreaded ' millennium bug ' failed to materialise , still tkp people in a number of countries sutaered a series of natural disasters that truly were dreadful .
+2025-04-10 12:10:46,659 - INFO - [PIPELINE] Direct reconstructed: Although , as you will have seen , the dreaded ' millennium bug ' failed to materialise , still tkp people in a number of countries sutaered a series of natural disasters that truly were dreadful .
+2025-04-10 12:10:46,659 - INFO - [PIPELINE] Semantic BLEU: 0.5643, ROUGE-L: 0.8065, SEMANTIC: 0.8348
+2025-04-10 12:10:46,659 - INFO - [PIPELINE] Direct BLEU: 0.8543, ROUGE-L: 0.9355, SEMANTIC: 0.9561
+2025-04-10 12:10:46,659 - INFO - [PIPELINE] Current cost: $0.0000 of $2.00
+2025-04-10 12:10:46,659 - INFO - [PIPELINE] Progress: 1/50 samples. Est. remaining: 213.2s (3.6m)
+2025-04-10 12:10:46,659 - INFO - ---
+Processing samples:   2%|▍                       | 1/50 [00:02<01:49,  2.24s/it]/tmp/pycharm_project_908/Europearl/physical_semantic_integration.py:539: UserWarning: var(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at ../aten/src/ATen/native/ReduceOps.cpp:1808.)
+  variance = torch.var(tensor, dim=0)
+2025-04-10 12:10:46,724 - INFO - [API] Starting reconstruction of text: 'You have requested a debate on...'
+2025-04-10 12:10:46,728 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-10 12:10:47,728 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:47,735 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:47,736 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-10 12:10:47,736 - INFO - [API] Completed in 1.013s using api_gpt-4-turbo
+2025-04-10 12:10:47,738 - INFO - Using default tokenizer.
+2025-04-10 12:10:47,766 - INFO - [API] Starting reconstruction of text: 'You have requested a debate on...'
+2025-04-10 12:10:47,772 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:47,776 - INFO - Basic reconstruction made changes: 'You have requested a debate on usis subject in the roursd of the next dew days , during this parn-dession .' -> 'You have requested a debate on usis subjeat in the roursd of the next dew days , during this parn-dession .'
+2025-04-10 12:10:47,776 - INFO - [API] Completed in 0.010s using basic reconstruction
+2025-04-10 12:10:47,776 - INFO - Using default tokenizer.
+2025-04-10 12:10:47,790 - INFO - [PIPELINE] Sample 2/50 (processed in 1.13s)
+2025-04-10 12:10:47,790 - INFO - [PIPELINE] Original: You have requested a debate on this subject in the course of the next few days , during this part-session .
+2025-04-10 12:10:47,790 - INFO - [PIPELINE] Semantic noisy: You have requested a debate on this subject in the course of qhg next few days , dcring this part-session .
+2025-04-10 12:10:47,790 - INFO - [PIPELINE] Semantic reconstructed: You have requested a debate on this subjeat in the course of the next few days, during this this
+2025-04-10 12:10:47,790 - INFO - [PIPELINE] Direct noisy: You have requested a debate on usis subject in the roursd of the next dew days , during this parn-dession .
+2025-04-10 12:10:47,790 - INFO - [PIPELINE] Direct reconstructed: You have requested a debate on usis subjeat in the roursd of the next dew days , during this parn-dession .
+2025-04-10 12:10:47,790 - INFO - [PIPELINE] Semantic BLEU: 0.5854, ROUGE-L: 0.8718, SEMANTIC: 0.9407
+2025-04-10 12:10:47,790 - INFO - [PIPELINE] Direct BLEU: 0.4304, ROUGE-L: 0.7000, SEMANTIC: 0.7668
+2025-04-10 12:10:47,790 - INFO - [PIPELINE] Current cost: $0.0062 of $2.00
+2025-04-10 12:10:47,790 - INFO - [PIPELINE] Progress: 2/50 samples. Est. remaining: 131.6s (2.2m)
+2025-04-10 12:10:47,790 - INFO - ---
+Processing samples:   4%|▉                       | 2/50 [00:03<01:16,  1.59s/it]2025-04-10 12:10:47,858 - INFO - [API] Starting reconstruction of text: 'Please rise , then , for this ...'
+2025-04-10 12:10:47,860 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:47,862 - INFO - [API] Completed in 0.004s using basic reconstruction
+2025-04-10 12:10:47,862 - INFO - Using default tokenizer.
+2025-04-10 12:10:47,873 - INFO - [API] Starting reconstruction of text: 'Please rise , then , fhz this ...'
+2025-04-10 12:10:47,875 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:47,877 - INFO - [API] Completed in 0.005s using basic reconstruction
+2025-04-10 12:10:47,878 - INFO - Using default tokenizer.
+2025-04-10 12:10:47,945 - INFO - [API] Starting reconstruction of text: '( The House rose and observed ...'
+2025-04-10 12:10:47,949 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:47,954 - INFO - [API] Completed in 0.009s using basic reconstruction
+2025-04-10 12:10:47,954 - INFO - Using default tokenizer.
+2025-04-10 12:10:47,965 - INFO - [API] Starting reconstruction of text: '( uhe House rose and observed ...'
+2025-04-10 12:10:47,969 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:47,973 - INFO - [API] Completed in 0.009s using basic reconstruction
+2025-04-10 12:10:47,974 - INFO - Using default tokenizer.
+Processing samples:   8%|█▉                      | 4/50 [00:03<00:30,  1.53it/s]2025-04-10 12:10:48,042 - INFO - [API] Starting reconstruction of text: 'You wfol be aware frxw the pre...'
+2025-04-10 12:10:48,047 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:48,052 - INFO - Basic reconstruction made changes: 'You wfol be aware frxw the press onf television that there have been a number of bomb explosions and killings in Sra Lanka .' -> 'You wfol be awaree frxw the press onf television that there have been a number of bomb explosions and killings in Sra Lanka .'
+2025-04-10 12:10:48,052 - INFO - [API] Completed in 0.010s using basic reconstruction
+2025-04-10 12:10:48,053 - INFO - Using default tokenizer.
+2025-04-10 12:10:48,064 - INFO - [API] Starting reconstruction of text: 'Yoc will be aware from the pre...'
+2025-04-10 12:10:48,069 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:48,074 - INFO - Basic reconstruction made changes: 'Yoc will be aware from the press and television that txtre have been a nlmber of bomb explosions and killings in Sri Lanka .' -> 'Yoc will be awaree from the press and television that txtre have been a nlmber of bomb explosions and killings in Sri Lanka .'
+2025-04-10 12:10:48,074 - INFO - [API] Completed in 0.010s using basic reconstruction
+2025-04-10 12:10:48,074 - INFO - Using default tokenizer.
+Processing samples:  10%|██▍                     | 5/50 [00:03<00:21,  2.07it/s]2025-04-10 12:10:48,143 - INFO - [API] Starting reconstruction of text: 'One of the pebple assassinated...'
+2025-04-10 12:10:48,150 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:48,158 - INFO - Basic reconstruction made changes: 'One of the pebple assassinated very recently in Sri Lanka was Mr Kumar Ponnambalam , who had visited the European Parliament just a few mofths ago .' -> 'One of the pebple assassinated very recently in Sri Lanka was Mr Kumare Ponnambalam , who had visited the European Pareliament just a few mofths ago .'
+2025-04-10 12:10:48,158 - INFO - [API] Completed in 0.015s using basic reconstruction
+2025-04-10 12:10:48,158 - INFO - Using default tokenizer.
+2025-04-10 12:10:48,170 - INFO - [API] Starting reconstruction of text: 'One of the prople assassinated...'
+2025-04-10 12:10:48,178 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:48,185 - INFO - Basic reconstruction made changes: 'One of the prople assassinated very recently in Sri Lanka was Mr Kuxag Ponnambalam , who had visirea the European Parliament just a few months ago .' -> 'One of the prople assassinated very recently in Sri Lanka was Mr Kuxag Ponnambalam , who had visirea the European Pareliament just a few months ago .'
+2025-04-10 12:10:48,185 - INFO - [API] Completed in 0.015s using basic reconstruction
+2025-04-10 12:10:48,185 - INFO - Using default tokenizer.
+Processing samples:  12%|██▉                     | 6/50 [00:03<00:16,  2.71it/s]2025-04-10 12:10:48,257 - INFO - [API] Starting reconstruction of text: 'wet , Mr Evans , I feel an ini...'
+2025-04-10 12:10:48,262 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:48,266 - INFO - [API] Completed in 0.009s using basic reconstruction
+2025-04-10 12:10:48,266 - INFO - Using default tokenizer.
+2025-04-10 12:10:48,286 - INFO - [API] Starting reconstruction of text: 'Yes , Mr Evans , I feel an ini...'
+2025-04-10 12:10:48,291 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-10 12:10:49,014 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:49,023 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:49,024 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-10 12:10:49,024 - INFO - [API] Completed in 0.737s using api_gpt-3.5-turbo
+2025-04-10 12:10:49,024 - INFO - Using default tokenizer.
+Processing samples:  14%|███▎                    | 7/50 [00:04<00:22,  1.93it/s]2025-04-10 12:10:49,119 - INFO - [API] Starting reconstruction of text: 'If the House agrees , I shall ...'
+2025-04-10 12:10:49,122 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:49,124 - INFO - Basic reconstruction made changes: 'If the House agrees , I shall do as Mr Evans hjt suggested .' -> 'If the House agrees , I shalll do as Mr Evans hjt suggested .'
+2025-04-10 12:10:49,124 - INFO - [API] Completed in 0.006s using basic reconstruction
+2025-04-10 12:10:49,125 - INFO - Using default tokenizer.
+2025-04-10 12:10:49,135 - INFO - [API] Starting reconstruction of text: 'If the House qgrees , I shall ...'
+2025-04-10 12:10:49,138 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:49,140 - INFO - Basic reconstruction made changes: 'If the House qgrees , I shall do as Mr Etlns has suggested .' -> 'If the House qgrees , I shalll do as Mr Etlns has suggested .'
+2025-04-10 12:10:49,140 - INFO - [API] Completed in 0.004s using basic reconstruction
+2025-04-10 12:10:49,140 - INFO - Using default tokenizer.
+2025-04-10 12:10:49,207 - INFO - [API] Starting reconstruction of text: 'Madam President , on a point o...'
+2025-04-10 12:10:49,209 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:49,211 - INFO - [API] Completed in 0.004s using basic reconstruction
+2025-04-10 12:10:49,211 - INFO - Using default tokenizer.
+2025-04-10 12:10:49,221 - INFO - [API] Starting reconstruction of text: 'Madam President , on a point o...'
+2025-04-10 12:10:49,223 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:49,225 - INFO - [API] Completed in 0.004s using basic reconstruction
+2025-04-10 12:10:49,225 - INFO - Using default tokenizer.
+Processing samples:  18%|████▎                   | 9/50 [00:04<00:13,  3.14it/s]2025-04-10 12:10:49,292 - INFO - [API] Starting reconstruction of text: 'I would like your uivice about...'
+2025-04-10 12:10:49,296 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:49,300 - INFO - [API] Completed in 0.007s using basic reconstruction
+2025-04-10 12:10:49,300 - INFO - Using default tokenizer.
+2025-04-10 12:10:49,311 - INFO - [API] Starting reconstruction of text: 'I wobld like your iqvice about...'
+2025-04-10 12:10:49,314 - INFO - [API] Using KB reconstruction with confidence 0.99
+2025-04-10 12:10:49,314 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-10 12:10:49,314 - INFO - Using default tokenizer.
+2025-04-10 12:10:49,325 - INFO - [PIPELINE] Sample 10/50 (processed in 0.09s)
+2025-04-10 12:10:49,325 - INFO - [PIPELINE] Original: I would like your advice about Rule 143 concerning inadmissibility .
+2025-04-10 12:10:49,325 - INFO - [PIPELINE] Semantic noisy: I would like your uivice about Rule 143 cdncerting inadmrssibility .
+2025-04-10 12:10:49,325 - INFO - [PIPELINE] Semantic reconstructed: I would like your uivice about Rule 143 cdncerting inadmrssibility .
+2025-04-10 12:10:49,325 - INFO - [PIPELINE] Direct noisy: I wobld like your iqvice about Rule 143 concerning inadmissibility .
+2025-04-10 12:10:49,325 - INFO - [PIPELINE] Direct reconstructed: I would like your iqvice about Rule 143 concerning inadmissibility .
+2025-04-10 12:10:49,325 - INFO - [PIPELINE] Semantic BLEU: 0.3508, ROUGE-L: 0.7000, SEMANTIC: 0.7619
+2025-04-10 12:10:49,325 - INFO - [PIPELINE] Direct BLEU: 0.7017, ROUGE-L: 0.9000, SEMANTIC: 0.9245
+2025-04-10 12:10:49,325 - INFO - [PIPELINE] Current cost: $0.0065 of $2.00
+2025-04-10 12:10:49,325 - INFO - [PIPELINE] Progress: 10/50 samples. Est. remaining: 28.1s (0.5m)
+2025-04-10 12:10:49,325 - INFO - ---
+2025-04-10 12:10:49,382 - INFO - [API] Starting reconstruction of text: 'My question relftos to somethi...'
+2025-04-10 12:10:49,386 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-10 12:10:50,486 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:50,502 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:50,503 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-10 12:10:50,503 - INFO - [API] Completed in 1.121s using api_gpt-4-turbo
+2025-04-10 12:10:50,504 - INFO - Using default tokenizer.
+2025-04-10 12:10:50,543 - INFO - [API] Starting reconstruction of text: 'My question relates to somethi...'
+2025-04-10 12:10:50,547 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:50,551 - INFO - [API] Completed in 0.008s using basic reconstruction
+2025-04-10 12:10:50,552 - INFO - Using default tokenizer.
+Processing samples:  22%|█████                  | 11/50 [00:06<00:17,  2.19it/s]2025-04-10 12:10:50,633 - INFO - [API] Starting reconstruction of text: 'The Cunha report on multiannua...'
+2025-04-10 12:10:50,644 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:50,656 - INFO - Basic reconstruction made changes: 'The Cunha report on multiannual guidance programmes comes before Parliament on Thursday and contains a proposal in paragraph 6 that a fobs of quota penalties should be introduced for countries which fail to meet their fleet reduction targets annually .' -> 'The Cunha report on multiannual guidance programmes comes before Parliament on Thursday and contains a proposal in paragraph 6 that a fobs of quota penalties should be introduced for countries which fail to meet their fleet reduation targets annually .'
+2025-04-10 12:10:50,656 - INFO - [API] Completed in 0.023s using basic reconstruction
+2025-04-10 12:10:50,657 - INFO - Using default tokenizer.
+2025-04-10 12:10:50,670 - INFO - [API] Starting reconstruction of text: 'The Cunha report on multiannua...'
+2025-04-10 12:10:50,681 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:50,693 - INFO - Basic reconstruction made changes: 'The Cunha report on multiannual guidance programmes comes before Parliament on Thursday and contains a proposal in qvragraph 6 that a form of quota penalties should be introduced for countries which fail to meet their fleet reduction tarsetb annually .' -> 'The Cunha report on multiannual guidance programmes comes before Parliament on Thursday and contains a proposal in qvragraph 6 that a form of quota penalties should be introduced for countries which fail to meet their fleet reduation tarsetb annually .'
+2025-04-10 12:10:50,693 - INFO - [API] Completed in 0.023s using basic reconstruction
+2025-04-10 12:10:50,693 - INFO - Using default tokenizer.
+Processing samples:  24%|█████▌                 | 12/50 [00:06<00:14,  2.58it/s]2025-04-10 12:10:50,767 - INFO - [API] Starting reconstruction of text: 'It hays that this should be uo...'
+2025-04-10 12:10:50,770 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-10 12:10:50,770 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-10 12:10:50,770 - INFO - Using default tokenizer.
+2025-04-10 12:10:50,781 - INFO - [API] Starting reconstruction of text: 'It seas that this should be do...'
+2025-04-10 12:10:50,783 - INFO - [API] Using KB reconstruction with confidence 0.91
+2025-04-10 12:10:50,783 - INFO - [API] Completed in 0.002s using method: kb
+2025-04-10 12:10:50,783 - INFO - Using default tokenizer.
+2025-04-10 12:10:50,852 - INFO - [API] Starting reconstruction of text: 'I believe that the principle o...'
+2025-04-10 12:10:50,859 - INFO - [API] Using KB reconstruction with confidence 1.02
+2025-04-10 12:10:50,859 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-10 12:10:50,860 - INFO - Using default tokenizer.
+2025-04-10 12:10:50,872 - INFO - [API] Starting reconstruction of text: 'I believe that the principle o...'
+2025-04-10 12:10:50,880 - INFO - [API] Using KB reconstruction with confidence 1.02
+2025-04-10 12:10:50,880 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-10 12:10:50,880 - INFO - Using default tokenizer.
+Processing samples:  28%|██████▍                | 14/50 [00:06<00:09,  3.67it/s]2025-04-10 12:10:50,952 - INFO - [API] Starting reconstruction of text: 'I want to know whether one can...'
+2025-04-10 12:10:50,959 - INFO - [API] Using KB reconstruction with confidence 1.06
+2025-04-10 12:10:50,959 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-10 12:10:50,960 - INFO - Using default tokenizer.
+2025-04-10 12:10:50,972 - INFO - [API] Starting reconstruction of text: 'I wync to know whether omp can...'
+2025-04-10 12:10:50,980 - INFO - [API] Using KB reconstruction with confidence 1.02
+2025-04-10 12:10:50,980 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-10 12:10:50,980 - INFO - Using default tokenizer.
+Processing samples:  30%|██████▉                | 15/50 [00:06<00:08,  4.25it/s]2025-04-10 12:10:51,050 - INFO - [API] Starting reconstruction of text: 'hsat is precisely txd time whe...'
+2025-04-10 12:10:51,054 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:51,058 - INFO - [API] Completed in 0.007s using basic reconstruction
+2025-04-10 12:10:51,058 - INFO - Using default tokenizer.
+2025-04-10 12:10:51,069 - INFO - [API] Starting reconstruction of text: 'Thtr is precisely the teme whe...'
+2025-04-10 12:10:51,072 - INFO - [API] Using KB reconstruction with confidence 1.02
+2025-04-10 12:10:51,072 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-10 12:10:51,072 - INFO - Using default tokenizer.
+2025-04-10 12:10:51,139 - INFO - [API] Starting reconstruction of text: 'on Thursday prior to the start...'
+2025-04-10 12:10:51,142 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:51,144 - INFO - Basic reconstruction made changes: 'on Thursday prior to the start of the presentation of the rvpnrt .' -> 'on Thursday prior to the staret of the presentation of the rvpnrt .'
+2025-04-10 12:10:51,144 - INFO - [API] Completed in 0.004s using basic reconstruction
+2025-04-10 12:10:51,144 - INFO - Using default tokenizer.
+2025-04-10 12:10:51,154 - INFO - [API] Starting reconstruction of text: 'on Thuosiay prior to bhg start...'
+2025-04-10 12:10:51,157 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:51,159 - INFO - Basic reconstruction made changes: 'on Thuosiay prior to bhg start of the presentation of vve report .' -> 'on Thuosiay prior to bhg staret of the presentation of vve report .'
+2025-04-10 12:10:51,159 - INFO - [API] Completed in 0.005s using basic reconstruction
+2025-04-10 12:10:51,160 - INFO - Using default tokenizer.
+Processing samples:  34%|███████▊               | 17/50 [00:06<00:05,  5.58it/s]2025-04-10 12:10:51,227 - INFO - [API] Starting reconstruction of text: 'We shall call him Mr Hicks ....'
+2025-04-10 12:10:51,229 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:51,231 - INFO - Basic reconstruction made changes: 'We shall call him Mr Hicks .' -> 'We shalll call him Mr Hicks .'
+2025-04-10 12:10:51,231 - INFO - [API] Completed in 0.004s using basic reconstruction
+2025-04-10 12:10:51,231 - INFO - Using default tokenizer.
+2025-04-10 12:10:51,242 - INFO - [API] Starting reconstruction of text: 'We shall cukl him Mr Hicks ....'
+2025-04-10 12:10:51,244 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:51,245 - INFO - Basic reconstruction made changes: 'We shall cukl him Mr Hicks .' -> 'We shalll cukl him Mr Hicks .'
+2025-04-10 12:10:51,245 - INFO - [API] Completed in 0.004s using basic reconstruction
+2025-04-10 12:10:51,246 - INFO - Using default tokenizer.
+2025-04-10 12:10:51,313 - INFO - [API] Starting reconstruction of text: 'At the request of a prenxh Mem...'
+2025-04-10 12:10:51,319 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:51,325 - INFO - [API] Completed in 0.012s using basic reconstruction
+2025-04-10 12:10:51,326 - INFO - Using default tokenizer.
+2025-04-10 12:10:51,337 - INFO - [API] Starting reconstruction of text: 'At the request of a French Mem...'
+2025-04-10 12:10:51,343 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:51,349 - INFO - [API] Completed in 0.012s using basic reconstruction
+2025-04-10 12:10:51,349 - INFO - Using default tokenizer.
+Processing samples:  38%|████████▋              | 19/50 [00:06<00:04,  6.69it/s]2025-04-10 12:10:51,418 - INFO - [API] Starting reconstruction of text: 'This is all in accordance with...'
+2025-04-10 12:10:51,421 - INFO - [API] Using KB reconstruction with confidence 0.65
+2025-04-10 12:10:51,421 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-10 12:10:51,421 - INFO - Using default tokenizer.
+2025-04-10 12:10:51,432 - INFO - [API] Starting reconstruction of text: 'This is all in accordance with...'
+2025-04-10 12:10:51,434 - INFO - [API] Using KB reconstruction with confidence 0.65
+2025-04-10 12:10:51,434 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-10 12:10:51,434 - INFO - Using default tokenizer.
+2025-04-10 12:10:51,445 - INFO - [PIPELINE] Sample 20/50 (processed in 0.08s)
+2025-04-10 12:10:51,445 - INFO - [PIPELINE] Original: This is all in accordance with the principles that we have always upheld .
+2025-04-10 12:10:51,445 - INFO - [PIPELINE] Semantic noisy: This is all in accordance with ths principles that we have always upheld .
+2025-04-10 12:10:51,445 - INFO - [PIPELINE] Semantic reconstructed: This all in accordance with ths principles that we have always upheld .
+2025-04-10 12:10:51,445 - INFO - [PIPELINE] Direct noisy: This is all in accordance with the principles that we aage always upheld .
+2025-04-10 12:10:51,445 - INFO - [PIPELINE] Direct reconstructed: This all in accordance with the principles that we aage always upheld .
+2025-04-10 12:10:51,445 - INFO - [PIPELINE] Semantic BLEU: 0.6344, ROUGE-L: 0.8800, SEMANTIC: 0.9448
+2025-04-10 12:10:51,445 - INFO - [PIPELINE] Direct BLEU: 0.6344, ROUGE-L: 0.8800, SEMANTIC: 0.9030
+2025-04-10 12:10:51,445 - INFO - [PIPELINE] Current cost: $0.0124 of $2.00
+2025-04-10 12:10:51,445 - INFO - [PIPELINE] Progress: 20/50 samples. Est. remaining: 13.7s (0.2m)
+2025-04-10 12:10:51,445 - INFO - ---
+2025-04-10 12:10:51,504 - INFO - [API] Starting reconstruction of text: 'Thank you , Mr Segni , I shall...'
+2025-04-10 12:10:51,506 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:51,507 - INFO - Basic reconstruction made changes: 'Thank you , Mr Segni , I shall do so gladly .' -> 'Thank you , Mr Segni , I shalll do so gladly .'
+2025-04-10 12:10:51,507 - INFO - [API] Completed in 0.004s using basic reconstruction
+2025-04-10 12:10:51,508 - INFO - Using default tokenizer.
+2025-04-10 12:10:51,518 - INFO - [API] Starting reconstruction of text: 'Twanq evu , Mr Segni , I shall...'
+2025-04-10 12:10:51,520 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:51,522 - INFO - Basic reconstruction made changes: 'Twanq evu , Mr Segni , I shall do so gladly .' -> 'Twanq evu , Mr Segni , I shalll do so gladly .'
+2025-04-10 12:10:51,522 - INFO - [API] Completed in 0.004s using basic reconstruction
+2025-04-10 12:10:51,522 - INFO - Using default tokenizer.
+Processing samples:  42%|█████████▋             | 21/50 [00:07<00:03,  7.79it/s]2025-04-10 12:10:51,592 - INFO - [API] Starting reconstruction of text: 'Indeed , it is quite in keepin...'
+2025-04-10 12:10:51,596 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:51,600 - INFO - [API] Completed in 0.008s using basic reconstruction
+2025-04-10 12:10:51,600 - INFO - Using default tokenizer.
+2025-04-10 12:10:51,611 - INFO - [API] Starting reconstruction of text: 'Indeed , it is quite in keepin...'
+2025-04-10 12:10:51,615 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-10 12:10:52,672 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:52,676 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:52,677 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-10 12:10:52,677 - INFO - [API] Completed in 1.066s using api_gpt-4-turbo
+2025-04-10 12:10:52,678 - INFO - Using default tokenizer.
+2025-04-10 12:10:52,780 - INFO - [API] Starting reconstruction of text: 'Madal President , I should lik...'
+2025-04-10 12:10:52,786 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-10 12:10:53,435 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:53,441 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:53,442 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-10 12:10:53,442 - INFO - [API] Completed in 0.662s using api_gpt-3.5-turbo
+2025-04-10 12:10:53,443 - INFO - Using default tokenizer.
+2025-04-10 12:10:53,469 - INFO - [API] Starting reconstruction of text: 'Madam President , I should lik...'
+2025-04-10 12:10:53,477 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:53,483 - INFO - Basic reconstruction made changes: 'Madam President , I should like to draw znur attention to a case in which hyis Parliament has consistently saowy an interest .' -> 'Madam President , I should like to draw znur attention to a case in which hyis Pareliament has consistently saowy an interest .'
+2025-04-10 12:10:53,483 - INFO - [API] Completed in 0.014s using basic reconstruction
+2025-04-10 12:10:53,484 - INFO - Using default tokenizer.
+Processing samples:  46%|██████████▌            | 23/50 [00:09<00:10,  2.47it/s]2025-04-10 12:10:53,558 - INFO - [API] Starting reconstruction of text: 'It is the case of Alexander Ni...'
+2025-04-10 12:10:53,560 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:53,562 - INFO - [API] Completed in 0.004s using basic reconstruction
+2025-04-10 12:10:53,562 - INFO - Using default tokenizer.
+2025-04-10 12:10:53,571 - INFO - [API] Starting reconstruction of text: 'It is the case of Alexander Ni...'
+2025-04-10 12:10:53,573 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:53,575 - INFO - [API] Completed in 0.003s using basic reconstruction
+2025-04-10 12:10:53,575 - INFO - Using default tokenizer.
+2025-04-10 12:10:53,642 - INFO - [API] Starting reconstruction of text: 'All of us here brk pleased tha...'
+2025-04-10 12:10:53,649 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:53,656 - INFO - Basic reconstruction made changes: 'All of us here brk pleased that qme courts have acquitted him fdd made it clear that in Russia , too , access to environmental information is a constitutional right .' -> 'Shall of us here brk pleased that qme courts have acquitted him fdd made it clear that in Russia , too , access to environmental information is a constitutional right .'
+2025-04-10 12:10:53,656 - INFO - [API] Completed in 0.015s using basic reconstruction
+2025-04-10 12:10:53,657 - INFO - Using default tokenizer.
+2025-04-10 12:10:53,668 - INFO - [API] Starting reconstruction of text: 'All of us here are pleased tha...'
+2025-04-10 12:10:53,674 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:53,680 - INFO - Basic reconstruction made changes: 'All of us here are pleased that the courts have acquitted him and made it clear that in Russia , too , access to environmental information is a constitutional right .' -> 'Shall of us here are pleased that the courts have acquitted him and made it clear that in Russia , too , access to environmental information is a constitutional right .'
+2025-04-10 12:10:53,680 - INFO - [API] Completed in 0.012s using basic reconstruction
+2025-04-10 12:10:53,681 - INFO - Using default tokenizer.
+Processing samples:  50%|███████████▌           | 25/50 [00:09<00:07,  3.25it/s]2025-04-10 12:10:53,752 - INFO - [API] Starting reconstruction of text: 'Now , howpvez , he is to go be...'
+2025-04-10 12:10:53,757 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:53,762 - INFO - [API] Completed in 0.011s using basic reconstruction
+2025-04-10 12:10:53,763 - INFO - Using default tokenizer.
+2025-04-10 12:10:53,774 - INFO - [API] Starting reconstruction of text: 'Now , however , he is to go be...'
+2025-04-10 12:10:53,779 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:53,785 - INFO - [API] Completed in 0.011s using basic reconstruction
+2025-04-10 12:10:53,785 - INFO - Using default tokenizer.
+Processing samples:  52%|███████████▉           | 26/50 [00:09<00:06,  3.70it/s]2025-04-10 12:10:53,857 - INFO - [API] Starting reconstruction of text: 'Yes , Mrs Schroedter , I shall...'
+2025-04-10 12:10:53,862 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:53,867 - INFO - Basic reconstruction made changes: 'Yes , Mrs Schroedter , I shall be pleased to look into the facts of this case fhyn I have received your lettjr .' -> 'Yes , Mrs Schroedter , I shall be pleased to look into the faats of this case fhyn I have received your lettjr .'
+2025-04-10 12:10:53,867 - INFO - [API] Completed in 0.010s using basic reconstruction
+2025-04-10 12:10:53,867 - INFO - Using default tokenizer.
+2025-04-10 12:10:53,879 - INFO - [API] Starting reconstruction of text: 'Yes , Mms Schroedter , I shall...'
+2025-04-10 12:10:53,884 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:53,888 - INFO - Basic reconstruction made changes: 'Yes , Mms Schroedter , I shall be pleased to look into the facts of this case when I have received ynsr lrtwer .' -> 'Yes , Mms Schroedter , I shall be pleased to look into the faats of this case when I have received ynsr lrtwer .'
+2025-04-10 12:10:53,888 - INFO - [API] Completed in 0.009s using basic reconstruction
+2025-04-10 12:10:53,889 - INFO - Using default tokenizer.
+Processing samples:  54%|████████████▍          | 27/50 [00:09<00:05,  4.25it/s]2025-04-10 12:10:53,959 - INFO - [API] Starting reconstruction of text: 'But , Madam President , my per...'
+2025-04-10 12:10:53,962 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:53,964 - INFO - [API] Completed in 0.005s using basic reconstruction
+2025-04-10 12:10:53,965 - INFO - Using default tokenizer.
+2025-04-10 12:10:53,975 - INFO - [API] Starting reconstruction of text: 'But , Madam President , my per...'
+2025-04-10 12:10:53,978 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-10 12:10:54,511 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:54,515 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:54,515 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-10 12:10:54,515 - INFO - [API] Completed in 0.540s using api_gpt-3.5-turbo
+2025-04-10 12:10:54,516 - INFO - Using default tokenizer.
+Processing samples:  56%|████████████▉          | 28/50 [00:10<00:07,  3.04it/s]2025-04-10 12:10:54,606 - INFO - [API] Starting reconstruction of text: 'I would therefore once more as...'
+2025-04-10 12:10:54,610 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:54,615 - INFO - [API] Completed in 0.009s using basic reconstruction
+2025-04-10 12:10:54,615 - INFO - Using default tokenizer.
+2025-04-10 12:10:54,628 - INFO - [API] Starting reconstruction of text: 'I would therefore xice mcra as...'
+2025-04-10 12:10:54,631 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:54,635 - INFO - [API] Completed in 0.007s using basic reconstruction
+2025-04-10 12:10:54,635 - INFO - Using default tokenizer.
+Processing samples:  58%|█████████████▎         | 29/50 [00:10<00:05,  3.66it/s]2025-04-10 12:10:54,707 - INFO - [API] Starting reconstruction of text: 'Mrs Plooij-van Gorsel , I can ...'
+2025-04-10 12:10:54,711 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:54,715 - INFO - [API] Completed in 0.008s using basic reconstruction
+2025-04-10 12:10:54,716 - INFO - Using default tokenizer.
+2025-04-10 12:10:54,728 - INFO - [API] Starting reconstruction of text: 'Mrs Plooij-van Gorsel , I can ...'
+2025-04-10 12:10:54,731 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:54,735 - INFO - [API] Completed in 0.008s using basic reconstruction
+2025-04-10 12:10:54,736 - INFO - Using default tokenizer.
+2025-04-10 12:10:54,746 - INFO - [PIPELINE] Sample 30/50 (processed in 0.10s)
+2025-04-10 12:10:54,747 - INFO - [PIPELINE] Original: Mrs Plooij-van Gorsel , I can tell you that this matter is on the agenda for the Quaestors ' meeting on Wednesday .
+2025-04-10 12:10:54,747 - INFO - [PIPELINE] Semantic noisy: Mrs Plooij-van Gorsel , I can tell you that this matter is on tvo agenda for the Quaestors ' meeting on Wkdneyday .
+2025-04-10 12:10:54,747 - INFO - [PIPELINE] Semantic reconstructed: Mrs Plooij-van Gorsel , I can tell you that this matter is on tvo agenda for the Quaestors ' meeting on Wkdneyday .
+2025-04-10 12:10:54,747 - INFO - [PIPELINE] Direct noisy: Mrs Plooij-van Gorsel , I can tell you that this matter is on the agenda for the Quaestors ' meeting on Wednesday .
+2025-04-10 12:10:54,747 - INFO - [PIPELINE] Direct reconstructed: Mrs Plooij-van Gorsel , I can tell you that this matter is on the agenda for the Quaestors ' meeting on Wednesday .
+2025-04-10 12:10:54,747 - INFO - [PIPELINE] Semantic BLEU: 0.7945, ROUGE-L: 0.9048, SEMANTIC: 0.9402
+2025-04-10 12:10:54,747 - INFO - [PIPELINE] Direct BLEU: 1.0000, ROUGE-L: 1.0000, SEMANTIC: 1.0000
+2025-04-10 12:10:54,747 - INFO - [PIPELINE] Current cost: $0.0186 of $2.00
+2025-04-10 12:10:54,747 - INFO - [PIPELINE] Progress: 30/50 samples. Est. remaining: 8.3s (0.1m)
+2025-04-10 12:10:54,747 - INFO - ---
+Processing samples:  60%|█████████████▊         | 30/50 [00:10<00:04,  4.38it/s]2025-04-10 12:10:54,805 - INFO - [API] Starting reconstruction of text: 'It wvlh , I hope , be examined...'
+2025-04-10 12:10:54,808 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:54,810 - INFO - [API] Completed in 0.005s using basic reconstruction
+2025-04-10 12:10:54,810 - INFO - Using default tokenizer.
+2025-04-10 12:10:54,821 - INFO - [API] Starting reconstruction of text: 'It will , I hope , be examined...'
+2025-04-10 12:10:54,823 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:54,825 - INFO - [API] Completed in 0.004s using basic reconstruction
+2025-04-10 12:10:54,825 - INFO - Using default tokenizer.
+2025-04-10 12:10:54,893 - INFO - [API] Starting reconstruction of text: 'Madam President , can you tell...'
+2025-04-10 12:10:54,898 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:54,903 - INFO - Basic reconstruction made changes: 'Madam President , can you tell me why this Parliament does not adhere to tze health and safety legislation that it actually passes ?' -> 'Madam President , can you tell me why this Parliament does not adhere to tze health and safety legislation that it aatually passes ?'
+2025-04-10 12:10:54,903 - INFO - [API] Completed in 0.010s using basic reconstruction
+2025-04-10 12:10:54,903 - INFO - Using default tokenizer.
+2025-04-10 12:10:54,915 - INFO - [API] Starting reconstruction of text: 'Madam President , can you tell...'
+2025-04-10 12:10:54,919 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:54,924 - INFO - Basic reconstruction made changes: 'Madam President , can you tell me lhk this Parliament boes not adhere to the health and safety legislation that it actually passes ?' -> 'Madam President , can you tell me lhk this Parliament boes not adhere to the health and safety legislation that it aatually passes ?'
+2025-04-10 12:10:54,924 - INFO - [API] Completed in 0.010s using basic reconstruction
+2025-04-10 12:10:54,924 - INFO - Using default tokenizer.
+Processing samples:  64%|██████████████▋        | 32/50 [00:10<00:03,  5.84it/s]2025-04-10 12:10:54,994 - INFO - [API] Starting reconstruction of text: 'kky has no air quality test be...'
+2025-04-10 12:10:54,998 - INFO - [API] Using KB reconstruction with confidence 1.02
+2025-04-10 12:10:54,998 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-10 12:10:54,998 - INFO - Using default tokenizer.
+2025-04-10 12:10:55,009 - INFO - [API] Starting reconstruction of text: 'Why has no air quality test be...'
+2025-04-10 12:10:55,012 - INFO - [API] Using KB reconstruction with confidence 1.02
+2025-04-10 12:10:55,012 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-10 12:10:55,012 - INFO - Using default tokenizer.
+2025-04-10 12:10:55,081 - INFO - [API] Starting reconstruction of text: 'tly has there been no Health a...'
+2025-04-10 12:10:55,084 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:55,087 - INFO - [API] Completed in 0.007s using basic reconstruction
+2025-04-10 12:10:55,088 - INFO - Using default tokenizer.
+2025-04-10 12:10:55,098 - INFO - [API] Starting reconstruction of text: 'Why has there been no Health a...'
+2025-04-10 12:10:55,102 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-10 12:10:56,646 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:56,652 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:56,652 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-10 12:10:56,652 - INFO - [API] Completed in 1.554s using api_gpt-4-turbo
+2025-04-10 12:10:56,653 - INFO - Using default tokenizer.
+Processing samples:  68%|███████████████▋       | 34/50 [00:12<00:06,  2.29it/s]2025-04-10 12:10:56,734 - INFO - [API] Starting reconstruction of text: 'ihg has there eeeg no fire dri...'
+2025-04-10 12:10:56,740 - INFO - [API] Using KB reconstruction with confidence 0.97
+2025-04-10 12:10:56,740 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-10 12:10:56,741 - INFO - Using default tokenizer.
+2025-04-10 12:10:56,752 - INFO - [API] Starting reconstruction of text: 'Why has there been no fire dri...'
+2025-04-10 12:10:56,758 - INFO - [API] Using KB reconstruction with confidence 0.97
+2025-04-10 12:10:56,758 - INFO - [API] Completed in 0.005s using method: kb
+2025-04-10 12:10:56,758 - INFO - Using default tokenizer.
+2025-04-10 12:10:56,829 - INFO - [API] Starting reconstruction of text: 'Why are thele no fire instruct...'
+2025-04-10 12:10:56,832 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:56,834 - INFO - Basic reconstruction made changes: 'Why are thele no fire instructions ?' -> 'Why are thele no fire instruations ?'
+2025-04-10 12:10:56,834 - INFO - [API] Completed in 0.005s using basic reconstruction
+2025-04-10 12:10:56,835 - INFO - Using default tokenizer.
+2025-04-10 12:10:56,845 - INFO - [API] Starting reconstruction of text: 'ihy ale there no fire instruct...'
+2025-04-10 12:10:56,848 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-10 12:10:57,501 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:57,509 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:57,509 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-10 12:10:57,510 - INFO - [API] Completed in 0.664s using api_gpt-3.5-turbo
+2025-04-10 12:10:57,510 - INFO - Using default tokenizer.
+Processing samples:  72%|████████████████▌      | 36/50 [00:13<00:06,  2.30it/s]2025-04-10 12:10:57,604 - INFO - [API] Starting reconstruction of text: 'fly have the staircases not ts...'
+2025-04-10 12:10:57,607 - INFO - [API] Using KB reconstruction with confidence 0.99
+2025-04-10 12:10:57,607 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-10 12:10:57,607 - INFO - Using default tokenizer.
+2025-04-10 12:10:57,618 - INFO - [API] Starting reconstruction of text: 'Why have the staircases not be...'
+2025-04-10 12:10:57,621 - INFO - [API] Using KB reconstruction with confidence 0.99
+2025-04-10 12:10:57,621 - INFO - [API] Completed in 0.002s using method: kb
+2025-04-10 12:10:57,621 - INFO - Using default tokenizer.
+2025-04-10 12:10:57,689 - INFO - [API] Starting reconstruction of text: 'Why are no-smoking areas not w...'
+2025-04-10 12:10:57,691 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:57,693 - INFO - Basic reconstruction made changes: 'Why are no-smoking areas not wnfowced ?' -> 'Why aree no-smoking areeas not wnfowced ?'
+2025-04-10 12:10:57,693 - INFO - [API] Completed in 0.004s using basic reconstruction
+2025-04-10 12:10:57,694 - INFO - Using default tokenizer.
+2025-04-10 12:10:57,704 - INFO - [API] Starting reconstruction of text: 'Woq are no-smoking areas not e...'
+2025-04-10 12:10:57,706 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:57,708 - INFO - Basic reconstruction made changes: 'Woq are no-smoking areas not enforced ?' -> 'Woq aree no-smoking areeas not enforced ?'
+2025-04-10 12:10:57,708 - INFO - [API] Completed in 0.004s using basic reconstruction
+2025-04-10 12:10:57,708 - INFO - Using default tokenizer.
+Processing samples:  76%|█████████████████▍     | 38/50 [00:13<00:03,  3.13it/s]2025-04-10 12:10:57,778 - INFO - [API] Starting reconstruction of text: 'It seems absolutely disgbacefj...'
+2025-04-10 12:10:57,782 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-10 12:10:58,342 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:58,359 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:10:58,360 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-10 12:10:58,360 - INFO - [API] Completed in 0.582s using api_gpt-3.5-turbo
+2025-04-10 12:10:58,362 - INFO - Using default tokenizer.
+2025-04-10 12:10:58,389 - INFO - [API] Starting reconstruction of text: 'It seems absolutely disgracefu...'
+2025-04-10 12:10:58,393 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:58,397 - INFO - [API] Completed in 0.008s using basic reconstruction
+2025-04-10 12:10:58,397 - INFO - Using default tokenizer.
+Processing samples:  78%|█████████████████▉     | 39/50 [00:13<00:04,  2.56it/s]2025-04-10 12:10:58,475 - INFO - [API] Starting reconstruction of text: 'Mrs Lynne , kov are qngte righ...'
+2025-04-10 12:10:58,477 - INFO - [API] Using KB reconstruction with confidence 1.02
+2025-04-10 12:10:58,477 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-10 12:10:58,478 - INFO - Using default tokenizer.
+2025-04-10 12:10:58,490 - INFO - [API] Starting reconstruction of text: 'Mrs Lynne , you are quite righ...'
+2025-04-10 12:10:58,493 - INFO - [API] Using KB reconstruction with confidence 1.04
+2025-04-10 12:10:58,493 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-10 12:10:58,493 - INFO - Using default tokenizer.
+2025-04-10 12:10:58,504 - INFO - [PIPELINE] Sample 40/50 (processed in 0.09s)
+2025-04-10 12:10:58,504 - INFO - [PIPELINE] Original: Mrs Lynne , you are quite right and I shall check whether this has actually not been done .
+2025-04-10 12:10:58,504 - INFO - [PIPELINE] Semantic noisy: Mrs Lynne , kov are qngte right and I shall check whether this has actually cxt been done .
+2025-04-10 12:10:58,504 - INFO - [PIPELINE] Semantic reconstructed: Mrs Lynne , kov are qngte right and I shall check whether this has actually at been done .
+2025-04-10 12:10:58,504 - INFO - [PIPELINE] Direct noisy: Mrs Lynne , you are quite right and I shall check whether this his actpalwy not jeee doui .
+2025-04-10 12:10:58,504 - INFO - [PIPELINE] Direct reconstructed: Mrs Lynne , you are quite right and I shall check whether this this actpalwy not jeee doui .
+2025-04-10 12:10:58,504 - INFO - [PIPELINE] Semantic BLEU: 0.5778, ROUGE-L: 0.8235, SEMANTIC: 0.8459
+2025-04-10 12:10:58,504 - INFO - [PIPELINE] Direct BLEU: 0.6792, ROUGE-L: 0.7647, SEMANTIC: 0.8281
+2025-04-10 12:10:58,504 - INFO - [PIPELINE] Current cost: $0.0248 of $2.00
+2025-04-10 12:10:58,504 - INFO - [PIPELINE] Progress: 40/50 samples. Est. remaining: 4.0s (0.1m)
+2025-04-10 12:10:58,504 - INFO - ---
+2025-04-10 12:10:58,563 - INFO - [API] Starting reconstruction of text: 'I qvall also refer yhv mittef ...'
+2025-04-10 12:10:58,569 - INFO - [API] Using KB reconstruction with confidence 1.06
+2025-04-10 12:10:58,569 - INFO - [API] Completed in 0.005s using method: kb
+2025-04-10 12:10:58,569 - INFO - Using default tokenizer.
+2025-04-10 12:10:58,582 - INFO - [API] Starting reconstruction of text: 'I znall also refer the matter ...'
+2025-04-10 12:10:58,587 - INFO - [API] Using KB reconstruction with confidence 1.06
+2025-04-10 12:10:58,587 - INFO - [API] Completed in 0.005s using method: kb
+2025-04-10 12:10:58,587 - INFO - Using default tokenizer.
+Processing samples:  82%|██████████████████▊    | 41/50 [00:14<00:02,  3.50it/s]2025-04-10 12:10:58,656 - INFO - [API] Starting reconstruction of text: 'Madam Pdesiuent , Mrs Drex Gon...'
+2025-04-10 12:10:58,663 - INFO - [API] Using KB reconstruction with confidence 1.06
+2025-04-10 12:10:58,663 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-10 12:10:58,664 - INFO - Using default tokenizer.
+2025-04-10 12:10:58,677 - INFO - [API] Starting reconstruction of text: 'Madam President , Mrs Díez Gon...'
+2025-04-10 12:10:58,684 - INFO - [API] Using KB reconstruction with confidence 1.06
+2025-04-10 12:10:58,684 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-10 12:10:58,684 - INFO - Using default tokenizer.
+2025-04-10 12:10:58,755 - INFO - [API] Starting reconstruction of text: 'The computxnt services have no...'
+2025-04-10 12:10:58,761 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:58,766 - INFO - Basic reconstruction made changes: 'The computxnt services have not included them in the agewdo on the grounnm that tvfy had been answered in a pseviius part-session .' -> 'The computxnt services have not included them in the agewdo on the grounnm that tvfy had been answered in a pseviius paret-session .'
+2025-04-10 12:10:58,766 - INFO - [API] Completed in 0.010s using basic reconstruction
+2025-04-10 12:10:58,766 - INFO - Using default tokenizer.
+2025-04-10 12:10:58,778 - INFO - [API] Starting reconstruction of text: 'The competent services have no...'
+2025-04-10 12:10:58,782 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:58,787 - INFO - [API] Completed in 0.009s using basic reconstruction
+2025-04-10 12:10:58,788 - INFO - Using default tokenizer.
+Processing samples:  86%|███████████████████▊   | 43/50 [00:14<00:01,  4.48it/s]2025-04-10 12:10:58,859 - INFO - [API] Starting reconstruction of text: 'I woufd zkk that they reconsid...'
+2025-04-10 12:10:58,860 - INFO - [API] Using KB reconstruction with confidence 0.77
+2025-04-10 12:10:58,860 - INFO - [API] Completed in 0.002s using method: kb
+2025-04-10 12:10:58,861 - INFO - Using default tokenizer.
+2025-04-10 12:10:58,871 - INFO - [API] Starting reconstruction of text: 'I mouly ask that twsy reconsid...'
+2025-04-10 12:10:58,874 - INFO - [API] Using KB reconstruction with confidence 0.77
+2025-04-10 12:10:58,874 - INFO - [API] Completed in 0.002s using method: kb
+2025-04-10 12:10:58,874 - INFO - Using default tokenizer.
+2025-04-10 12:10:58,943 - INFO - [API] Starting reconstruction of text: 'The questions answered previou...'
+2025-04-10 12:10:58,951 - INFO - [API] Using KB reconstruction with confidence 1.06
+2025-04-10 12:10:58,951 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-10 12:10:58,951 - INFO - Using default tokenizer.
+2025-04-10 12:10:58,963 - INFO - [API] Starting reconstruction of text: 'lhj questions answered previou...'
+2025-04-10 12:10:58,971 - INFO - [API] Using KB reconstruction with confidence 1.06
+2025-04-10 12:10:58,971 - INFO - [API] Completed in 0.008s using method: kb
+2025-04-10 12:10:58,971 - INFO - Using default tokenizer.
+Processing samples:  90%|████████████████████▋  | 45/50 [00:14<00:00,  5.53it/s]2025-04-10 12:10:59,044 - INFO - [API] Starting reconstruction of text: 'Mr Bebengusr musteo , we shall...'
+2025-04-10 12:10:59,046 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:59,048 - INFO - Basic reconstruction made changes: 'Mr Bebengusr musteo , we shall check all this .' -> 'Mr Bebengusr musteo , we shall check shall this .'
+2025-04-10 12:10:59,048 - INFO - [API] Completed in 0.005s using basic reconstruction
+2025-04-10 12:10:59,049 - INFO - Using default tokenizer.
+2025-04-10 12:10:59,059 - INFO - [API] Starting reconstruction of text: 'Mr Berenguer Fuster , we shall...'
+2025-04-10 12:10:59,062 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:59,064 - INFO - Basic reconstruction made changes: 'Mr Berenguer Fuster , we shall chjlk all this .' -> 'Mr Berenguer Fuster , we shall chjlk shall this .'
+2025-04-10 12:10:59,064 - INFO - [API] Completed in 0.005s using basic reconstruction
+2025-04-10 12:10:59,064 - INFO - Using default tokenizer.
+2025-04-10 12:10:59,134 - INFO - [API] Starting reconstruction of text: 'I admit that , at present , th...'
+2025-04-10 12:10:59,136 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:59,138 - INFO - [API] Completed in 0.005s using basic reconstruction
+2025-04-10 12:10:59,139 - INFO - Using default tokenizer.
+2025-04-10 12:10:59,149 - INFO - [API] Starting reconstruction of text: 'I admit that , at present , mw...'
+2025-04-10 12:10:59,152 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:59,154 - INFO - [API] Completed in 0.005s using basic reconstruction
+2025-04-10 12:10:59,155 - INFO - Using default tokenizer.
+Processing samples:  94%|█████████████████████▌ | 47/50 [00:14<00:00,  6.57it/s]2025-04-10 12:10:59,224 - INFO - [API] Starting reconstruction of text: 'We shall therefore look kntq i...'
+2025-04-10 12:10:59,227 - INFO - [API] Using KB reconstruction with confidence 1.00
+2025-04-10 12:10:59,227 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-10 12:10:59,227 - INFO - Using default tokenizer.
+2025-04-10 12:10:59,239 - INFO - [API] Starting reconstruction of text: 'We shall therefore look into i...'
+2025-04-10 12:10:59,241 - INFO - [API] Using KB reconstruction with confidence 1.00
+2025-04-10 12:10:59,241 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-10 12:10:59,241 - INFO - Using default tokenizer.
+2025-04-10 12:10:59,311 - INFO - [API] Starting reconstruction of text: 'Today 's deczsion not to rwnzw...'
+2025-04-10 12:10:59,315 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:59,318 - INFO - Basic reconstruction made changes: 'Today 's deczsion not to rwnzw the embargo is extremely dangerous considering the situation there .' -> 'Today 's deczsion not to rwnzw the embarego is extremely dangerous considering the situation there .'
+2025-04-10 12:10:59,318 - INFO - [API] Completed in 0.007s using basic reconstruction
+2025-04-10 12:10:59,318 - INFO - Using default tokenizer.
+2025-04-10 12:10:59,329 - INFO - [API] Starting reconstruction of text: 'Today 's decision not to renew...'
+2025-04-10 12:10:59,333 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:10:59,336 - INFO - Basic reconstruction made changes: 'Today 's decision not to renew the embargo is extremely dangerous considering the situation there .' -> 'Today 's decision not to renew the embarego is extremely dangerous considering the situation there .'
+2025-04-10 12:10:59,336 - INFO - [API] Completed in 0.006s using basic reconstruction
+2025-04-10 12:10:59,336 - INFO - Using default tokenizer.
+Processing samples:  98%|██████████████████████▌| 49/50 [00:14<00:00,  7.51it/s]2025-04-10 12:10:59,427 - INFO - [API] Starting reconstruction of text: 'So Parliament stouwd send a me...'
+2025-04-10 12:10:59,430 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-10 12:11:00,659 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:11:00,665 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-10 12:11:00,665 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-10 12:11:00,665 - INFO - [API] Completed in 1.239s using api_gpt-3.5-turbo
+2025-04-10 12:11:00,667 - INFO - Using default tokenizer.
+2025-04-10 12:11:00,693 - INFO - [API] Starting reconstruction of text: 'So Perliiment should send a me...'
+2025-04-10 12:11:00,697 - INFO - [API] Decision not to use API: rl_decision_basic
+2025-04-10 12:11:00,700 - INFO - Basic reconstruction made changes: 'So Perliiment should send a message , since that is the wrss of the vast majority .' -> 'So Parliament should send a message , since that is the wrss of the vast majority .'
+2025-04-10 12:11:00,700 - INFO - [API] Completed in 0.006s using basic reconstruction
+2025-04-10 12:11:00,700 - INFO - Using default tokenizer.
+2025-04-10 12:11:00,713 - INFO - [PIPELINE] Sample 50/50 (processed in 1.37s)
+2025-04-10 12:11:00,713 - INFO - [PIPELINE] Original: So Parliament should send a message , since that is the wish of the vast majority .
+2025-04-10 12:11:00,713 - INFO - [PIPELINE] Semantic noisy: So Parliament stouwd send a message , minxe that is the wish of the vast majority .
+2025-04-10 12:11:00,713 - INFO - [PIPELINE] Semantic reconstructed: So Parliament should send a message, since that is the the of the the majority.
+2025-04-10 12:11:00,713 - INFO - [PIPELINE] Direct noisy: So Perliiment should send a message , since that is the wrss of the vast majority .
+2025-04-10 12:11:00,713 - INFO - [PIPELINE] Direct reconstructed: So Parliament should send a message , since that is the wrss of the vast majority .
+2025-04-10 12:11:00,713 - INFO - [PIPELINE] Semantic BLEU: 0.3921, ROUGE-L: 0.8667, SEMANTIC: 0.9201
+2025-04-10 12:11:00,713 - INFO - [PIPELINE] Direct BLEU: 0.8282, ROUGE-L: 0.9333, SEMANTIC: 0.9502
+2025-04-10 12:11:00,713 - INFO - [PIPELINE] Current cost: $0.0251 of $2.00
+2025-04-10 12:11:00,713 - INFO - [PIPELINE] Progress: 50/50 samples. Est. remaining: 0.0s (0.0m)
+2025-04-10 12:11:00,713 - INFO - ---
+Processing samples: 100%|███████████████████████| 50/50 [00:16<00:00,  3.07it/s]
+2025-04-10 12:11:00,722 - INFO - Saved advanced RL agent state
+2025-04-10 12:11:00,722 - INFO - [PIPELINE] Saved enhanced RL agent state
+2025-04-10 12:11:00,723 - INFO - Using default tokenizer.
+2025-04-10 12:11:00,723 - INFO - Initialized knowledge base for evaluation
+2025-04-10 12:11:00,758 - WARNING - [PIPELINE] Enhanced evaluation failed: dictionary changed size during iteration
+2025-04-10 12:11:00,758 - WARNING - Continuing with standard metrics only
+2025-04-10 12:11:00,880 - INFO - Total API cost: $0.0251 of $2.00 budget
+2025-04-10 12:11:00,880 - INFO - 
+=== Overall Results ===
+2025-04-10 12:11:00,880 - INFO - [PIPELINE] Total time: 18.41s, Avg: 0.37s per sample
+2025-04-10 12:11:00,880 - INFO - [PIPELINE] System dimensions: input=768, compressed=460
+2025-04-10 12:11:00,880 - INFO - [PIPELINE] Semantic Reconstruction:
+2025-04-10 12:11:00,880 - INFO - [PIPELINE] Semantic Average BLEU: 0.6347
+2025-04-10 12:11:00,880 - INFO - [PIPELINE] Semantic Average ROUGE1: 0.8508
+2025-04-10 12:11:00,880 - INFO - [PIPELINE] Semantic Average ROUGEL: 0.8508
+2025-04-10 12:11:00,880 - INFO - [PIPELINE] Semantic Average METEOR: 0.8373
+2025-04-10 12:11:00,880 - INFO - [PIPELINE] Semantic Average SEMANTIC: 0.8847
+2025-04-10 12:11:00,880 - INFO - 
+[PIPELINE] Direct Reconstruction:
+2025-04-10 12:11:00,880 - INFO - [PIPELINE] Direct Average BLEU: 0.6294
+2025-04-10 12:11:00,880 - INFO - [PIPELINE] Direct Average ROUGE1: 0.8391
+2025-04-10 12:11:00,880 - INFO - [PIPELINE] Direct Average ROUGEL: 0.8391
+2025-04-10 12:11:00,880 - INFO - [PIPELINE] Direct Average METEOR: 0.8267
+2025-04-10 12:11:00,880 - INFO - [PIPELINE] Direct Average SEMANTIC: 0.8872
+2025-04-10 12:11:00,880 - INFO - 
+[PIPELINE] Total Cost: $0.0251 of $2.00 budget
+2025-04-10 12:11:00,880 - INFO - [PIPELINE] Results saved to C:\Users\Daud\SemanticCommTransmission\pythonProject/sem_com_results/enhanced_run_20250410-121042
+2025-04-10 12:11:00,880 - INFO - 
+[PIPELINE] RL Agent Performance:
+2025-04-10 12:11:00,880 - INFO - Total episodes: 100
+2025-04-10 12:11:00,880 - INFO - Total reward: 80.63
+2025-04-10 12:11:00,880 - INFO - Final exploration rate: 0.10
+2025-04-10 12:11:00,881 - INFO - API efficiency: 490.9528030737326
+2025-04-10 12:11:00,881 - INFO - [PIPELINE] Visualizations saved to C:\Users\Daud\SemanticCommTransmission\pythonProject/sem_com_results/enhanced_run_20250410-121042
+
+===== KNOWLEDGE BASE FUNCTIONALITY CHECK =====
+✓ KB initialized successfully with 41 terms
+
+Test 1:
+  Input:      The Parliamemt will now vote on the propofal from the Commissiob.
+  Corrected:  The Parliament will now vote on the proposal from the Commission
+  Corrections: 3/3 expected terms
+  Result:     ✓ KB applied corrections
+
+Test 2:
+  Input:      In accordancg with Rule 143, I wkulz like your acvioe.
+  Corrected:  in accordance with Rule 143, I would like your advice
+  Corrections: 4/3 expected terms
+  Result:     ✓ KB applied corrections
+
+Test 3:
+  Input:      The Coupcil and Directave on environmentsl protrction.
+  Corrected:  The Council and Directive on environmental protection
+  Corrections: 4/4 expected terms
+  Result:     ✓ KB applied corrections
+
+===== SUMMARY =====
+Tests passed: 3/3
+Total corrections made: 11
+KB Status: FUNCTIONING
+
+====== Enhanced Semantic Communication Pipeline Complete ======
+Overall improvements:
+- Advanced Compression: Implemented VAE-based non-linear compression
+- Content-Adaptive Coding: Implemented content-aware protection strategies
+- Semantic Perceptual Loss: Added semantic similarity metrics and training
+- Enhanced RL Agent: Improved state representation with semantic features
+
+Final metrics:
+  semantic_avg_BLEU: 0.6347
+  semantic_avg_METEOR: 0.8373
+  semantic_avg_ROUGE1: 0.8508
+  semantic_avg_ROUGEL: 0.8508
+  semantic_avg_SEMANTIC: 0.8847
+
+Process finished with exit code 0
