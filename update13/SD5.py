@@ -172,51 +172,65 @@ common_corrections = [
 # Reinforcement Learning Agent with Semantic Metrics
 #################################################
 
-class AdvancedRLAgent(nn.Module):
+class PPOAgent(nn.Module):
     """
-    Advanced RL agent for API optimization with neural network policy
-    and improved state representation for semantic communication
+    PPO (Proximal Policy Optimization) agent for API optimization
+    with enhanced state representation and more sophisticated policy updates.
     """
 
-    def __init__(self, state_dim=12, num_actions=3, learning_rate=0.001):
+    def __init__(self, state_dim=16, num_actions=3, learning_rate=0.0003):
         super().__init__()
         self.state_dim = state_dim
         self.num_actions = num_actions
 
-        # Policy network - outputs action probabilities
-        self.policy_net = nn.Sequential(
-            nn.Linear(state_dim, 64),
-            nn.ReLU(),
-            nn.Linear(64, 32),
-            nn.ReLU(),
-            nn.Linear(32, num_actions)
+        # Actor network (policy) - outputs action probabilities
+        self.actor = nn.Sequential(
+            nn.Linear(state_dim, 128),
+            nn.LayerNorm(128),
+            nn.Tanh(),
+            nn.Linear(128, 64),
+            nn.LayerNorm(64),
+            nn.Tanh(),
+            nn.Linear(64, num_actions)
         )
 
-        # Value network - estimates state value
-        self.value_net = nn.Sequential(
-            nn.Linear(state_dim, 64),
-            nn.ReLU(),
-            nn.Linear(64, 32),
-            nn.ReLU(),
-            nn.Linear(32, 1)
+        # Critic network (value function) - estimates state value
+        self.critic = nn.Sequential(
+            nn.Linear(state_dim, 128),
+            nn.LayerNorm(128),
+            nn.Tanh(),
+            nn.Linear(128, 64),
+            nn.LayerNorm(64),
+            nn.Tanh(),
+            nn.Linear(64, 1)
         )
 
-        # Optimizer
-        self.optimizer = optim.Adam(self.parameters(), lr=learning_rate)
+        # PPO specific parameters
+        self.clip_ratio = 0.2
+        self.target_kl = 0.01
+        self.entropy_coef = 0.01
+        self.value_coef = 0.5
+        self.max_grad_norm = 0.5
+
+        # Optimizers
+        self.actor_optimizer = optim.Adam(self.actor.parameters(), lr=learning_rate)
+        self.critic_optimizer = optim.Adam(self.critic.parameters(), lr=learning_rate)
 
         # Experience buffer
         self.buffer = {
             'states': [],
             'actions': [],
             'rewards': [],
-            'next_states': [],
-            'log_probs': []
+            'values': [],
+            'log_probs': [],
+            'advantages': [],
+            'returns': []
         }
 
         # Hyperparameters
         self.gamma = 0.99  # Discount factor
+        self.lam = 0.95  # GAE parameter
         self.epsilon = 0.1  # Exploration rate
-        self.clip_ratio = 0.2  # PPO clip ratio
 
         # Tracking metrics
         self.total_reward = 0
@@ -228,15 +242,15 @@ class AdvancedRLAgent(nn.Module):
 
     def get_enhanced_state(self, corruption_level, text_length, semantic_features=None):
         """
-        Create enhanced state representation with semantic features
+        Create enhanced state representation with linguistic and semantic features
 
         Args:
             corruption_level: Level of corruption (0-1)
             text_length: Length of text in tokens
-            semantic_features: Optional semantic feature vector
+            semantic_features: Optional semantic feature vector or dictionary
 
         Returns:
-            State tensor
+            State tensor with enhanced features
         """
         # Base features
         base_features = [
@@ -245,309 +259,350 @@ class AdvancedRLAgent(nn.Module):
             float(self.epsilon),  # Current exploration rate
         ]
 
-        # Add semantic features if available
-        if semantic_features is not None:
-            if isinstance(semantic_features, (list, np.ndarray)):
-                if len(semantic_features) > self.state_dim - len(base_features):
-                    # Truncate to fit state_dim
-                    semantic_vector = semantic_features[:self.state_dim - len(base_features)]
-                else:
-                    # Pad if needed
-                    semantic_vector = list(semantic_features)
-                    semantic_vector += [0.0] * (self.state_dim - len(base_features) - len(semantic_vector))
+        # Extract or create parliamentary-specific features
+        parl_features = []
+        if isinstance(semantic_features, dict):
+            # Extract structured features
+            parl_features = [
+                semantic_features.get('has_name', 0.0),  # Contains parliamentary name
+                semantic_features.get('has_institution', 0.0),  # Contains institution name
+                semantic_features.get('has_procedure', 0.0),  # Contains procedural term
+                semantic_features.get('has_rule', 0.0),  # Contains rule reference
+                semantic_features.get('critical_corruption', 0.0)  # Critical corruption detected
+            ]
+        elif semantic_features is not None:
+            # Use provided feature vector
+            if len(semantic_features) > self.state_dim - len(base_features):
+                # Truncate to fit state_dim
+                semantic_vector = semantic_features[:self.state_dim - len(base_features)]
             else:
-                # Single value, expand to vector
-                semantic_vector = [float(semantic_features)] + [0.0] * (self.state_dim - len(base_features) - 1)
+                # Pad if needed
+                semantic_vector = list(semantic_features)
+                semantic_vector += [0.0] * (self.state_dim - len(base_features) - len(semantic_vector))
+
+            parl_features = semantic_vector
         else:
             # No semantic features, use zeros
-            semantic_vector = [0.0] * (self.state_dim - len(base_features))
+            parl_features = [0.0] * (self.state_dim - len(base_features))
 
         # Combine features
-        state = base_features + semantic_vector
+        state = base_features + parl_features
         return torch.tensor(state, dtype=torch.float32)
 
-    def forward(self, state):
-        """Forward pass through policy and value networks"""
-        # Ensure state is properly shaped
+    def act(self, state, deterministic=False):
+        """
+        Select an action based on current policy
+
+        Args:
+            state: Current state
+            deterministic: If True, use deterministic action selection
+
+        Returns:
+            action, log_prob, value
+        """
+        # Convert state to tensor if needed
         if not isinstance(state, torch.Tensor):
             state = torch.tensor(state, dtype=torch.float32)
 
-        # Get action probabilities and state value
-        logits = self.policy_net(state)
-        action_probs = F.softmax(logits, dim=-1)
-        state_value = self.value_net(state)
+        state = state.to(device)
 
-        return action_probs, state_value
+        # Forward pass through actor and critic
+        with torch.no_grad():
+            logits = self.actor(state)
+            value = self.critic(state).squeeze()
+
+            # Get action probabilities
+            action_probs = F.softmax(logits, dim=-1)
+
+            # Select action
+            if deterministic:
+                action = torch.argmax(action_probs).item()
+                log_prob = torch.log(action_probs[action] + 1e-10).item()
+            else:
+                # Sample from distribution
+                dist = torch.distributions.Categorical(action_probs)
+                action = dist.sample().item()
+                log_prob = dist.log_prob(torch.tensor(action)).item()
+
+        return action, log_prob, value.item()
 
     def select_action(self, state, budget_remaining, force_basic=False, corruption_level=None):
+        """
+        Select action for API decision making with budget consideration
+
+        Args:
+            state: Current state
+            budget_remaining: Remaining API budget
+            force_basic: If True, force basic reconstruction
+            corruption_level: Optional explicit corruption level
+
+        Returns:
+            action, log_prob
+        """
         # Store budget_remaining for reward calculation
         self._budget_remaining = budget_remaining
 
         # Force basic reconstruction if requested or critically low budget
-        if force_basic or budget_remaining < 0.02:  # Reduced threshold from 0.05 to 0.02
+        if force_basic or budget_remaining < 0.02:
             return 0, 0.0  # Basic action, log_prob=0
 
-        # Enhanced detection of challenging text patterns
-        # Convert state to string to check for indicators if it's a tensor
-        state_str = str(state.tolist() if hasattr(state, 'tolist') else state)
-
-        # EXPANDED list of keywords that indicate challenging text for basic reconstruction
-        challenging_indicators = [
-            # Original indicators
-            'xont', 'dotk', 'ceea', 'jvsz', 'xjeting', 'yreudful', 'asoq', 'hnb',
-            'conberning', 'inndmiy', 'ooj', 'bbea', 'pxesentrtion', 'lhegk', 'aorers', 'txse', 'btis',
-            # Added more challenging patterns
-            'wgn', 'wvat', 'tiio', 'ieetpng', 'tmab', 'aleeda', 'coq', 'Plooij-vbn',
-            'wkulz', 'frve', 'qourle', 'caya', 'efabs', 'parn', 'vof', 'inaormatign', 'ttv'
-        ]
-
-        # Count the number of challenging patterns (not just boolean presence)
-        challenging_pattern_count = sum(1 for indicator in challenging_indicators if indicator in state_str)
-        has_challenging_pattern = challenging_pattern_count > 0
-
-        # More aggressive approach for corruption detection
-        if corruption_level is None:
-            # Estimate corruption from state if not provided
-            if isinstance(state, torch.Tensor) and state.numel() > 2:
-                # Use first element as corruption estimate if available
-                estimated_corruption = float(state[0].item()) if state.numel() > 0 else 0.2
-            else:
-                # Default moderate corruption estimate
-                estimated_corruption = 0.2
-        else:
-            estimated_corruption = corruption_level
-
-        # NEW: Corruption severity scoring (0-1 scale)
-        corruption_severity = max(
-            estimated_corruption,
-            min(1.0, challenging_pattern_count / 10)  # Scale by pattern count
-        )
-
-        # Much more aggressive API usage based on corruption severity
-        if corruption_severity > 0.25:  # Reduced threshold from 0.35
-            # Different tiers based on corruption severity
-            if corruption_severity > 0.5:  # High corruption
-                if budget_remaining > 0.1:  # Reduced threshold from 0.3
-                    # Use GPT-4 for highly corrupted text
-                    return 2, 0.0  # GPT-4
-                elif budget_remaining > 0.05:  # Reduced threshold from 0.15
-                    return 1, 0.0  # GPT-3.5
-            elif corruption_severity > 0.3:  # Medium corruption
-                if budget_remaining > 0.3:
-                    # Use GPT-3.5 for moderately corrupted text with good budget
-                    return 1, 0.0  # GPT-3.5
-                elif np.random.random() < 0.7:  # 70% chance to use GPT-3.5
-                    return 1, 0.0  # GPT-3.5
-
-        # More aggressive exploration based on budget (if we have budget, explore more)
-        exploration_rate = min(0.3, self.epsilon * (1 + budget_remaining))
+        # Budget-based limitations
+        budget_factor = min(1.0, budget_remaining / 0.5)
 
         # Get action probabilities
-        with torch.no_grad():
-            # Add epsilon for numerical stability
-            epsilon = 1e-6
+        action, log_prob, _ = self.act(state, deterministic=False)
 
-            # Check state for NaN values
-            if torch.isnan(state).any():
-                logger.warning(f"NaN detected in state, using zeroed state")
-                state = torch.zeros_like(state)
+        # Budget limitation logic
+        if budget_remaining < 0.1 and action == 2:  # If low budget but want to use GPT-4
+            # Downgrade to GPT-3.5 with 80% probability
+            if np.random.random() < 0.8:
+                action = 1
+                # Recalculate log_prob for new action
+                with torch.no_grad():
+                    logits = self.actor(torch.tensor(state, dtype=torch.float32, device=device))
+                    action_probs = F.softmax(logits, dim=-1)
+                    log_prob = torch.log(action_probs[1] + 1e-10).item()
 
-            # Get action probabilities with safeguards
-            try:
-                action_probs, _ = self.forward(state)
-                # Replace NaN values with small probabilities
-                action_probs = torch.where(torch.isnan(action_probs),
-                                           torch.ones_like(action_probs) * epsilon,
-                                           action_probs)
-            except Exception as e:
-                logger.warning(f"Error in action probability calculation: {e}")
-                action_probs = torch.tensor([0.6, 0.3, 0.1], device=device)
+        # Enhanced parliamentary name detection - override for important texts
+        if corruption_level is not None and corruption_level > 0.4:
+            # Check state features for parliamentary indicators
+            if isinstance(state, torch.Tensor) and state.numel() > 5:
+                # Extract parliamentary features (based on our state design)
+                has_name = state[3].item() if state.numel() > 3 else 0
+                has_institution = state[4].item() if state.numel() > 4 else 0
+                has_procedure = state[5].item() if state.numel() > 5 else 0
 
-            # Budget-based action limiting with improved thresholds
-            if budget_remaining < 0.1:
-                # Low budget - prefer basic or GPT-3.5
-                valid_actions = [0, 1]
-            elif corruption_level is not None and corruption_level > 0.5:
-                # If corruption is high, include GPT-4 regardless of lower budget
-                valid_actions = list(range(self.num_actions))
-            else:
-                # Adequate budget - all actions available
-                valid_actions = list(range(self.num_actions))
+                # Increase probability of using API for parliamentary content
+                if has_name > 0.7 or has_institution > 0.7 or has_procedure > 0.7:
+                    # Use API with high probability for important parliamentary content
+                    if budget_remaining > 0.2 and np.random.random() < 0.9:
+                        if budget_remaining > 0.4:
+                            action = 2  # Use GPT-4 for maximum quality
+                        else:
+                            action = 1  # Use GPT-3.5 as budget compromise
 
-            # Create mask with proper device and dtype handling
-            mask = torch.ones_like(action_probs)
-            valid_mask = torch.tensor([i in valid_actions for i in range(self.num_actions)],
-                                      device=action_probs.device,
-                                      dtype=torch.bool)
-            mask[~valid_mask] = 0
-            masked_probs = action_probs * mask
+        return action, log_prob
 
-            # Ensure sum is not zero before normalizing
-            probs_sum = masked_probs.sum()
-            if probs_sum < 1e-8:
-                # If sum is too small, use default probabilities
-                logger.warning("Sum of probabilities too small, using default values")
-                masked_probs = torch.tensor([0.6, 0.3, 0.1], device=masked_probs.device)
-                masked_probs *= mask
-                probs_sum = masked_probs.sum()
-
-            # Renormalize only if sum is not zero
-            if probs_sum > 1e-8:
-                masked_probs = masked_probs / probs_sum
-            else:
-                # Fallback to basic action if all else fails
-                return 0, 0.0
-
-            # Safe exploration/exploitation with NaN checks
-            try:
-                if np.random.random() < exploration_rate:
-                    # Exploration: weighted random choice based on probabilities
-                    probs = masked_probs.cpu().numpy()
-
-                    # Check if probs contain NaN or sum to 0
-                    if np.isnan(probs).any() or np.sum(probs) < 1e-8:
-                        action = 0  # Fallback to basic action
-                    else:
-                        action = np.random.choice(len(probs), p=probs / np.sum(probs))
-
-                    log_prob = torch.log(masked_probs[action] + 1e-10).item()
-                else:
-                    # Exploitation: choose highest probability action
-                    action = torch.argmax(masked_probs).item()
-                    log_prob = torch.log(masked_probs[action] + 1e-10).item()
-
-                return action, log_prob
-
-            except Exception as e:
-                logger.warning(f"Error in action selection: {e}")
-                return 0, 0.0  # Fallback to basic action
-
-    def update(self, state, action, reward, next_state, log_prob):
-        """Store experience for batch update"""
-        # Add to buffer
+    def store_experience(self, state, action, reward, value, log_prob):
+        """Store experience in buffer for training"""
         self.buffer['states'].append(state)
         self.buffer['actions'].append(action)
         self.buffer['rewards'].append(reward)
-        self.buffer['next_states'].append(next_state)
+        self.buffer['values'].append(value)
         self.buffer['log_probs'].append(log_prob)
 
         # Track total reward
         self.total_reward += reward
 
-    def train_from_buffer(self, batch_size=None):
-        """Train from collected experiences using PPO-like algorithm"""
-        if not self.buffer['states']:
+    def compute_advantages_and_returns(self):
+        """Compute GAE advantages and returns"""
+        rewards = np.array(self.buffer['rewards'])
+        values = np.array(self.buffer['values'])
+
+        # Estimate value for last state
+        last_value = 0  # Assume episode ends or value is 0 for simplicity
+
+        # Calculate advantages using GAE
+        advantages = np.zeros_like(rewards)
+        returns = np.zeros_like(rewards)
+        gae = 0
+
+        for t in reversed(range(len(rewards))):
+            # Next value is last_value if t is last step
+            next_val = values[t + 1] if t < len(values) - 1 else last_value
+
+            # Delta = r + gamma*V(s') - V(s)
+            delta = rewards[t] + self.gamma * next_val - values[t]
+
+            # GAE = delta + gamma*lambda*GAE
+            gae = delta + self.gamma * self.lam * gae
+
+            # Store advantage and return
+            advantages[t] = gae
+            returns[t] = advantages[t] + values[t]
+
+        # Store in buffer
+        self.buffer['advantages'] = advantages
+        self.buffer['returns'] = returns
+
+    def update(self, state, action, reward, next_state, log_prob):
+        """
+        Store experience and update when enough data is collected
+
+        Args:
+            state: Current state
+            action: Action taken
+            reward: Reward received
+            next_state: Next state
+            log_prob: Log probability of action
+        """
+        # Ensure state is a tensor
+        if not isinstance(state, torch.Tensor):
+            state = torch.tensor(state, dtype=torch.float32)
+
+        # Get value estimate for state
+        with torch.no_grad():
+            value = self.critic(state.to(device)).cpu().item()
+
+        # Store experience
+        self.store_experience(state, action, reward, value, log_prob)
+
+        # Track total reward
+        self.total_reward += reward
+
+        # Update policy if enough data (20+ experiences)
+        if len(self.buffer['states']) >= 20:
+            self.update_policy()
+
+    def update_policy(self):
+        """Update policy using PPO algorithm"""
+        if len(self.buffer['states']) < 4:  # Need at least a few samples
             return
 
-        # If batch_size is None, use all data
-        batch_size = batch_size or len(self.buffer['states'])
-        batch_size = min(batch_size, len(self.buffer['states']))
+        # Compute advantages and returns
+        self.compute_advantages_and_returns()
 
-        # Convert buffer to tensors
-        states = torch.stack(self.buffer['states'][:batch_size])
-        actions = torch.tensor(self.buffer['actions'][:batch_size], dtype=torch.long)
-        rewards = torch.tensor(self.buffer['rewards'][:batch_size], dtype=torch.float32)
-        next_states = torch.stack(self.buffer['next_states'][:batch_size])
-        old_log_probs = torch.tensor(self.buffer['log_probs'][:batch_size], dtype=torch.float32)
-
-        # Calculate returns and advantages
-        with torch.no_grad():
-            _, next_values = self.forward(next_states)
-            _, values = self.forward(states)
-
-            # Returns with discount factor
-            returns = rewards + self.gamma * next_values.squeeze()
-
-            # Advantages
-            advantages = returns - values.squeeze()
+        # Convert buffer data to tensors
+        states = torch.stack(self.buffer['states']).to(device)
+        actions = torch.tensor(self.buffer['actions'], dtype=torch.long).to(device)
+        old_log_probs = torch.tensor(self.buffer['log_probs'], dtype=torch.float32).to(device)
+        advantages = torch.tensor(self.buffer['advantages'], dtype=torch.float32).to(device)
+        returns = torch.tensor(self.buffer['returns'], dtype=torch.float32).to(device)
 
         # Normalize advantages
-        advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-10)
+        advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-8)
 
-        # Multiple PPO epochs
-        for _ in range(3):
-            # Get new probabilities and values
-            action_probs, values = self.forward(states)
+        # Multiple epochs of PPO updates (typically 3-10)
+        for _ in range(4):
+            # Get current policy and value estimates
+            logits = self.actor(states)
+            values = self.critic(states).squeeze()
 
-            # Indices for selecting actions
-            indices = torch.arange(len(actions))
+            # Get action distributions
+            action_probs = F.softmax(logits, dim=-1)
+            dist = torch.distributions.Categorical(action_probs)
 
-            # New log probabilities
-            new_log_probs = torch.log(action_probs[indices, actions] + 1e-10)
+            # Get log probabilities and entropy
+            new_log_probs = dist.log_prob(actions)
+            entropy = dist.entropy().mean()
 
-            # PPO ratio
+            # Calculate ratio and clipped ratio
             ratio = torch.exp(new_log_probs - old_log_probs)
+            clipped_ratio = torch.clamp(ratio, 1.0 - self.clip_ratio, 1.0 + self.clip_ratio)
 
-            # PPO losses
-            policy_loss1 = ratio * advantages
-            policy_loss2 = torch.clamp(ratio, 1 - self.clip_ratio, 1 + self.clip_ratio) * advantages
-            policy_loss = -torch.min(policy_loss1, policy_loss2).mean()
+            # Calculate losses
+            policy_loss = -torch.min(ratio * advantages, clipped_ratio * advantages).mean()
+            value_loss = F.mse_loss(values, returns)
 
-            # Value loss
-            value_loss = F.mse_loss(values.squeeze(), returns)
+            # Combined loss with entropy bonus
+            loss = policy_loss - self.entropy_coef * entropy + self.value_coef * value_loss
 
-            # Combined loss
-            loss = policy_loss + 0.5 * value_loss
+            # Update actor
+            self.actor_optimizer.zero_grad()
+            policy_loss.backward()
+            torch.nn.utils.clip_grad_norm_(self.actor.parameters(), self.max_grad_norm)
+            self.actor_optimizer.step()
 
-            # Backward pass
-            self.optimizer.zero_grad()
-            loss.backward()
+            # Update critic
+            self.critic_optimizer.zero_grad()
+            value_loss.backward()
+            torch.nn.utils.clip_grad_norm_(self.critic.parameters(), self.max_grad_norm)
+            self.critic_optimizer.step()
 
-            # Apply gradient clipping
-            torch.nn.utils.clip_grad_norm_(self.parameters(), 0.5)
-
-            self.optimizer.step()
-
-        # Clear buffer after training
+        # Clear buffer after updates
         for key in self.buffer:
-            self.buffer[key] = self.buffer[key][batch_size:]
+            self.buffer[key] = []
 
-        # Update exploration rate
-        self.epsilon = max(0.05, self.epsilon * 0.995)  # Slowly decrease exploration
+        # Update exploration rate - gradually decrease
+        self.epsilon = max(0.05, self.epsilon * 0.995)
+
+        # Increment episode count
+        self.episode_count += 1
 
     def calculate_reward(self, metrics, action, cost=0):
         """
-        Enhanced reward function with stronger emphasis on semantic quality and reduced cost penalties.
+        Enhanced reward function with stronger emphasis on semantic quality
+        and dynamic budget consideration
+
+        Args:
+            metrics: Dictionary of reconstruction quality metrics
+            action: Action taken (0=basic, 1=GPT-3.5, 2=GPT-4)
+            cost: API cost incurred
+
+        Returns:
+            Calculated reward
         """
-        # Base reward from quality metrics with stronger semantic emphasis
+        # Base quality reward with stronger semantic emphasis
         quality_reward = 0
 
-        # Prioritize semantic metrics with higher weights
+        # Extract exact match if available
+        exact_match = metrics.get('exact_match', False)
+        if exact_match:
+            # Strong bonus for perfect reconstruction
+            quality_reward += 5.0
+
+        # Parliamentary content detection bonus
+        parl_bonus = 0
+        if 'parl_terms' in metrics and metrics['parl_terms'] > 0:
+            # Bonus scales with number of parliamentary terms
+            parl_bonus = min(2.0, metrics['parl_terms'] * 0.5)
+
+        # Heavily prioritize semantic metrics
         if 'SEMANTIC' in metrics:
-            quality_reward += metrics.get('SEMANTIC', 0) * 0.7  # Increased from 0.5 to 0.7
-            quality_reward += metrics.get('BLEU', 0) * 0.2
-            quality_reward += metrics.get('ROUGEL', 0) * 0.1  # Reduced from 0.3 to 0.1
+            sem_score = metrics.get('SEMANTIC', 0)
+            # Exponential reward for high semantic similarity
+            quality_reward += (sem_score ** 1.5) * 2.0  # Higher exponent gives more reward for quality
+            # Additional smaller weights for traditional metrics
+            quality_reward += metrics.get('BLEU', 0) * 0.3
+            quality_reward += metrics.get('ROUGEL', 0) * 0.2
         else:
             # Traditional metrics if semantic not available
-            quality_reward = metrics.get('BLEU', 0) * 0.3 + metrics.get('ROUGEL', 0) * 0.7
+            quality_reward = metrics.get('BLEU', 0) * 0.4 + metrics.get('ROUGEL', 0) * 0.6
 
-        # Reward perfect matches with a bonus
+        # Add parliamentary bonus
+        quality_reward += parl_bonus
+
+        # Reward perfect or near-perfect reconstructions significantly
         if metrics.get('SEMANTIC', 0) > 0.95 and metrics.get('BLEU', 0) > 0.9:
-            quality_reward *= 1.5  # 50% bonus for near-perfect reconstructions
+            quality_reward *= 2.0  # 100% bonus for near-perfect reconstructions
 
-        # Cost penalty for API usage - REDUCED penalties to encourage more API usage
-        cost_penalty = 0
+        # Dynamic cost penalty based on budget remaining
+        budget_remaining = getattr(self, '_budget_remaining', 0.9)
+
+        # Cost penalty calculations
         if action > 0:  # API was used
-            # Reduced scales for different actions
+            # Scale cost penalty based on budget and action
             if action == 1:  # GPT-3.5
-                cost_scale = 3.0  # Reduced from 8.0
+                # Lower penalty when budget is high, higher when low
+                cost_scale = 2.0 * (1.0 + (1.0 - budget_remaining))
             else:  # GPT-4
-                cost_scale = 2.0  # Reduced from 5.0
+                # Similarly for GPT-4 but with different base
+                cost_scale = 1.5 * (1.0 + (1.0 - budget_remaining))
 
+            # Calculate penalty
             cost_penalty = cost * cost_scale
 
+            # Budget-aware scaling
+            if budget_remaining > 0.7:
+                # Plentiful budget - reduce penalty
+                cost_penalty *= 0.5
+            elif budget_remaining < 0.3:
+                # Low budget - increase penalty
+                cost_penalty *= 1.5
+
             # Track API efficiency
-            efficiency = quality_reward / (cost + 0.001)  # Avoid division by zero
+            efficiency = quality_reward / (cost + 0.001)
             self.api_efficiency.append(efficiency)
+        else:
+            # No cost for basic reconstruction
+            cost_penalty = 0
 
-        # Scaling factor based on budget availability
-        # When budget is plentiful, be more willing to use API
-        budget_remaining = getattr(self, '_budget_remaining', 0.9)  # Default to 90% if not set
-        if budget_remaining > 0.7:  # Still have >70% of budget
-            cost_penalty *= 0.5  # Halve the cost penalty to encourage API usage
+            # Add a small penalty for not using API when quality is very low
+            if quality_reward < 0.3 and budget_remaining > 0.5:
+                cost_penalty = 0.2  # Penalty for being too conservative
 
-        # Final reward calculation
-        quality_component = np.tanh(quality_reward * 1.2)  # Slightly reduced diminishing returns
+        # Final reward calculation with tanh to keep in reasonable range
+        quality_component = np.tanh(quality_reward)
         final_reward = quality_component - cost_penalty
 
         return final_reward
@@ -555,13 +610,14 @@ class AdvancedRLAgent(nn.Module):
     def save_checkpoint(self, path=None):
         """Save model checkpoint"""
         if path is None:
-            path = os.path.join(MODELS_DIR, 'advanced_rl_agent.pth')
+            path = os.path.join(MODELS_DIR, 'ppo_agent.pth')
 
         try:
             torch.save({
-                'policy_state_dict': self.policy_net.state_dict(),
-                'value_state_dict': self.value_net.state_dict(),
-                'optimizer_state_dict': self.optimizer.state_dict(),
+                'actor_state_dict': self.actor.state_dict(),
+                'critic_state_dict': self.critic.state_dict(),
+                'actor_optimizer_state_dict': self.actor_optimizer.state_dict(),
+                'critic_optimizer_state_dict': self.critic_optimizer.state_dict(),
                 'epsilon': self.epsilon,
                 'total_reward': self.total_reward,
                 'episode_count': self.episode_count,
@@ -570,14 +626,14 @@ class AdvancedRLAgent(nn.Module):
                 'num_actions': self.num_actions
             }, path)
 
-            logger.info(f"Saved advanced RL agent state")
+            logger.info(f"Saved PPO agent state")
         except Exception as e:
-            logger.warning(f"Failed to save RL agent: {e}")
+            logger.warning(f"Failed to save PPO agent: {e}")
 
     def load_checkpoint(self, path=None):
         """Load model checkpoint"""
         if path is None:
-            path = os.path.join(MODELS_DIR, 'advanced_rl_agent.pth')
+            path = os.path.join(MODELS_DIR, 'ppo_agent.pth')
 
         try:
             if not os.path.exists(path):
@@ -586,9 +642,10 @@ class AdvancedRLAgent(nn.Module):
             checkpoint = torch.load(path, map_location=torch.device('cpu'))
 
             # Load state dictionaries
-            self.policy_net.load_state_dict(checkpoint['policy_state_dict'])
-            self.value_net.load_state_dict(checkpoint['value_state_dict'])
-            self.optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+            self.actor.load_state_dict(checkpoint['actor_state_dict'])
+            self.critic.load_state_dict(checkpoint['critic_state_dict'])
+            self.actor_optimizer.load_state_dict(checkpoint['actor_optimizer_state_dict'])
+            self.critic_optimizer.load_state_dict(checkpoint['critic_optimizer_state_dict'])
 
             # Load other attributes
             self.epsilon = checkpoint.get('epsilon', 0.1)
@@ -596,10 +653,10 @@ class AdvancedRLAgent(nn.Module):
             self.episode_count = checkpoint.get('episode_count', 0)
             self.api_efficiency = checkpoint.get('api_efficiency', [])
 
-            logger.info(f"Loaded advanced RL agent (exploration rate: {self.epsilon:.2f})")
+            logger.info(f"Loaded PPO agent (exploration rate: {self.epsilon:.2f})")
             return True
         except Exception as e:
-            logger.warning(f"Failed to load RL agent: {e}")
+            logger.warning(f"Failed to load PPO agent: {e}")
             return False
 
 #################################################
@@ -946,6 +1003,77 @@ def calculate_api_cost(model, input_tokens, output_tokens):
     return cost_tracker.log_usage(model, input_tokens, output_tokens)
 
 
+def extract_parliamentary_features(text):
+    """
+    Extract parliamentary-specific features from text for improved RL state representation
+
+    Args:
+        text: Text to analyze
+
+    Returns:
+        Dictionary of features
+    """
+    # Initialize features
+    features = {
+        'has_name': 0.0,
+        'has_institution': 0.0,
+        'has_procedure': 0.0,
+        'has_rule': 0.0,
+        'critical_corruption': 0.0
+    }
+
+    # Names of important parliamentary figures
+    names = ['Lynne', 'Plooij-van', 'Gorsel', 'Evans', 'Berenguer', 'Fuster',
+             'Segni', 'Schroedter', 'Díez', 'Hicks', 'President']
+
+    # Institution names
+    institutions = ['Parliament', 'Commission', 'Council', 'Quaestors',
+                    'European', 'Union', 'Committee']
+
+    # Procedural terms
+    procedures = ['agenda', 'vote', 'Rule', 'session', 'meeting', 'debate',
+                  'proposal', 'amendment', 'directive', 'regulation', 'procedure']
+
+    # Process text
+    words = text.split()
+
+    # Check for names
+    for name in names:
+        if name in text or name.lower() in text:
+            features['has_name'] = 1.0
+            break
+
+    # Check for institutions
+    for inst in institutions:
+        if inst in text or inst.lower() in text:
+            features['has_institution'] = 1.0
+            break
+
+    # Check for procedural terms
+    for proc in procedures:
+        if proc in text or proc.lower() in text:
+            features['has_procedure'] = 1.0
+            break
+
+    # Check for rule numbers
+    if 'Rule' in text and any(c.isdigit() for c in text):
+        features['has_rule'] = 1.0
+
+    # Critical corruption detection
+    corruption_patterns = ['bb', 'bz', 'hz', 'jz', 'kz', 'pj', 'xn', 'qx', 'oj',
+                           'wk', 'wg', 'vb', 'xj', 'lk', 'vn', 'tm']
+
+    # Check for corruption patterns
+    pattern_count = 0
+    for pattern in corruption_patterns:
+        if pattern in text.lower():
+            pattern_count += 1
+
+    # Set critical corruption if multiple patterns found
+    if pattern_count >= 2:
+        features['critical_corruption'] = min(1.0, pattern_count / 5)
+
+    return features
 # Full updated function:
 # AFTER
 @timing_decorator
@@ -1061,11 +1189,19 @@ def api_reconstruct_with_semantic_features(noisy_text, context="", rl_agent=None
         except Exception as e:
             logger.warning(f"[API] KB reconstruction attempt failed: {e}")
 
-    # NEW: Determine if we should use API based on multiple factors
-    should_use_api_result, api_model, reason = should_use_api(
-        noisy_text, kb_reconstructed if kb_applied else None,
-        kb_confidence, budget_remaining, rl_agent
-    )
+        # Extract parliamentary-specific features for PPO agent
+        parl_features = extract_parliamentary_features(noisy_text)
+
+        # Include these features if we're using the PPO agent
+        if semantic_features is None and rl_agent is not None and isinstance(rl_agent, PPOAgent):
+            semantic_features = parl_features
+
+        # Determine if we should use API based on multiple factors
+        should_use_api_result, api_model, reason = should_use_api(
+            noisy_text, kb_reconstructed if kb_applied else None,
+            kb_confidence, budget_remaining, rl_agent,
+            parl_features=parl_features  # Pass parliamentary features
+        )
 
     # Skip API if not available or shouldn't use
     if not should_use_api_result or not openai_available or not openai_client:
@@ -1634,7 +1770,7 @@ def detect_corruption_patterns(text):
     return results
 
 
-def should_use_api(noisy_text, kb_result=None, kb_confidence=0.0, budget_remaining=1.0, rl_agent=None):
+def should_use_api(noisy_text, kb_result=None, kb_confidence=0.0, budget_remaining=1.0, rl_agent=None, parl_features=None):
     """
     Decide whether to use API for reconstruction based on multiple factors.
     """
@@ -1712,34 +1848,69 @@ def should_use_api(noisy_text, kb_result=None, kb_confidence=0.0, budget_remaini
     # Step 5: Override with RL agent if available
     if rl_agent is not None:
         try:
-            # Create state from corruption level and KB confidence
-            state = [corruption_level, kb_confidence, budget_remaining]
-            if hasattr(rl_agent, 'get_enhanced_state'):
+            # Create enhanced state representation for PPO
+            if isinstance(rl_agent, PPOAgent):
+                # Get corruption level with improved detection
+                corruption_level = estimate_corruption_level(noisy_text)
+
+                # Use parliamentary features if available, or extract them
+                if parl_features is None:
+                    parl_features = extract_parliamentary_features(noisy_text)
+
+                # Create enhanced state with parliamentary features
                 state = rl_agent.get_enhanced_state(
                     corruption_level,
                     len(noisy_text.split()),
-                    [kb_confidence, len(corruption_info['detected_patterns'])]
+                    parl_features
                 )
 
-            # Get action from RL agent
-            action, _ = rl_agent.select_action(
-                state,
-                budget_remaining,
-                corruption_level=corruption_level
-            )
+                # Get action, log_prob, and value from PPO agent
+                action, log_prob, _ = rl_agent.act(state)
 
-            # Override decision based on RL agent
-            if action == 0:  # Basic reconstruction
-                should_use = False
-                reason = "rl_decision_basic"
-            elif action == 1:  # GPT-3.5
-                should_use = True
-                model = "gpt-3.5-turbo"
-                reason = "rl_decision_gpt3"
-            elif action == 2:  # GPT-4
-                should_use = True
-                model = "gpt-4-turbo"
-                reason = "rl_decision_gpt4"
+                # Store log_prob for training
+                log_prob_value = log_prob
+
+                # Override decision based on RL agent
+                if action == 0:  # Basic reconstruction
+                    should_use = False
+                    reason = "ppo_decision_basic"
+                elif action == 1:  # GPT-3.5
+                    should_use = True
+                    model = "gpt-3.5-turbo"
+                    reason = "ppo_decision_gpt3"
+                elif action == 2:  # GPT-4
+                    should_use = True
+                    model = "gpt-4-turbo"
+                    reason = "ppo_decision_gpt4"
+            else:
+                # Legacy code for backward compatibility with AdvancedRLAgent
+                state = [corruption_level, kb_confidence, budget_remaining]
+                if hasattr(rl_agent, 'get_enhanced_state'):
+                    state = rl_agent.get_enhanced_state(
+                        corruption_level,
+                        len(noisy_text.split()),
+                        [kb_confidence, len(corruption_info['detected_patterns'])]
+                    )
+
+                # Get action from RL agent
+                action, _ = rl_agent.select_action(
+                    state,
+                    budget_remaining,
+                    corruption_level=corruption_level
+                )
+
+                # Override decision based on RL agent
+                if action == 0:  # Basic reconstruction
+                    should_use = False
+                    reason = "rl_decision_basic"
+                elif action == 1:  # GPT-3.5
+                    should_use = True
+                    model = "gpt-3.5-turbo"
+                    reason = "rl_decision_gpt3"
+                elif action == 2:  # GPT-4
+                    should_use = True
+                    model = "gpt-4-turbo"
+                    reason = "rl_decision_gpt4"
         except Exception as e:
             logger.warning(f"RL agent decision failed: {e}")
 
@@ -2236,7 +2407,16 @@ def benchmark_reconstruction_methods(test_samples, output_path=None):
 
     return metrics
 
-
+# Add this near the top of the file with other constants
+PARLIAMENTARY_TERMS = [
+    "Parliament", "Commission", "Council", "Directive", "Regulation",
+    "Committee", "Member", "State", "European", "Union", "President",
+    "Rule", "session", "agenda", "vote", "voting", "proposal",
+    "amendment", "debate", "procedure", "codecision", "legislation",
+    "Rapporteur", "Quaestors", "Presidency", "MEP", "motion",
+    "Plooij-van", "Gorsel", "Lynne", "Berenguer", "Fuster", "Schroedter",
+    "Díez", "Evans", "Hicks"
+]
 def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
                           use_api_pct=None, comparison_mode=None, use_self_supervised=None,
                           use_semantic_loss=None, use_vae_compression=None,
@@ -2492,7 +2672,7 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
 
     # Initialize enhanced RL agent for API optimization
     use_rl = openai_available and num_samples >= 10
-    rl_agent = AdvancedRLAgent(state_dim=12) if use_rl else None
+    rl_agent = PPOAgent(state_dim=16) if use_rl else None
 
     semantic_optimizer = None
     if ENABLE_PHYSICAL_CHANNEL and physical_channel_imported:
@@ -2901,11 +3081,43 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
                         else:
                             corruption_level = 0.8
 
-                    # Use enhanced RL agent with semantic features for API decision
-                    semantic_reconstructed, api_cost, action = api_reconstruct_with_semantic_features(
-                        corrupted_text, context, rl_agent, budget_remaining, semantic_features,
-                        use_kb=use_knowledge_base
-                    )
+                    # Later in the function, when using the agent:
+                    if use_rl:
+                        # Extract parliamentary features for better RL state representation
+                        parl_features = extract_parliamentary_features(corrupted_text)
+
+                        # Use PPO agent with enhanced features for API decision
+                        semantic_reconstructed, api_cost, action = api_reconstruct_with_semantic_features(
+                            corrupted_text, context, rl_agent, budget_remaining, parl_features,
+                            use_kb=use_knowledge_base
+                        )
+
+                        # Add reward calculation for PPO with enhanced metrics
+                        if action is not None:
+                            # Calculate reconstruction quality metrics
+                            metrics = evaluate_reconstruction_with_semantics(
+                                sentence, semantic_reconstructed, semantic_loss_fn)
+
+                            # Add parliamentary term detection to metrics
+                            metrics['parl_terms'] = sum(1 for term in PARLIAMENTARY_TERMS if term in sentence)
+
+                            # Check for exact match
+                            metrics['exact_match'] = semantic_reconstructed == sentence
+
+                            # Calculate reward with PPO-specific implementation
+                            reward = rl_agent.calculate_reward(metrics, action, api_cost)
+
+                            # Update PPO agent with experience
+                            if hasattr(rl_agent, 'update'):
+                                # Create next state (simplified for demonstration)
+                                next_state = rl_agent.get_enhanced_state(
+                                    estimate_corruption_level(semantic_reconstructed),
+                                    len(semantic_reconstructed.split()),
+                                    parl_features
+                                )
+
+                                # Update agent
+                                rl_agent.update(state, action, reward, next_state, log_prob)
 
                     # Record API method used
                     if action == 0:
@@ -2960,8 +3172,20 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
                 if key in semantic_metrics:
                     semantic_metrics[key].append(value)
 
+            state = None
+            log_prob = 0.0  # Default value
+            action = 0  # Default action as fallback
+
             # Update RL agent if used
             if use_rl and 'api_cost' in sample_result:
+                # Try to get action from sample_result if available
+                if 'rl_action' in sample_result:
+                    action = sample_result['rl_action']
+                elif 'direct_method' in sample_result and sample_result['direct_method'] == 'api':
+                    action = 2  # Assuming 2 is GPT-4
+                elif 'semantic_method' in sample_result and sample_result['semantic_method'] == 'api':
+                    action = 2  # Assuming 2 is GPT-4
+
                 # Get enhanced state with semantic features
                 corruption_level = min(1.0,
                                        sum(1 for a, b in zip(corrupted_text.split(), sentence.split()) if a != b) /
@@ -2990,7 +3214,11 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
                 else:
                     log_prob = 0.0  # Default value when log_prob isn't available
 
-                rl_agent.update(state, action, reward, next_state, log_prob)
+                # Only update if we have all required values
+                if state is not None and action is not None:
+                    rl_agent.update(state, action, reward, next_state, log_prob)
+                else:
+                    logger.warning("Skipping RL update due to missing state or action")
 
                 # Periodically train from buffer
                 if i % 10 == 0 and i > 0:
@@ -3133,7 +3361,7 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
         "vae_compression": use_vae_compression,
         "semantic_loss": use_semantic_loss,
         "content_adaptive_coding": use_content_adaptive_coding,
-        "enhanced_rl": use_rl and isinstance(rl_agent, AdvancedRLAgent)
+        "enhanced_rl": use_rl and isinstance(rl_agent, PPOAgent)
     }
 
     # Add timing information
