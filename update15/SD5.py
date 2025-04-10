@@ -183,6 +183,9 @@ class PPOAgent(nn.Module):
         self.state_dim = state_dim
         self.num_actions = num_actions
 
+        # Store model device for consistency
+        self.model_device = device
+
         # Actor network (policy) - outputs action probabilities
         self.actor = nn.Sequential(
             nn.Linear(state_dim, 128),
@@ -204,6 +207,10 @@ class PPOAgent(nn.Module):
             nn.Tanh(),
             nn.Linear(64, 1)
         )
+
+        # Move networks to the correct device
+        self.actor = self.actor.to(device)
+        self.critic = self.critic.to(device)
 
         # PPO specific parameters
         self.clip_ratio = 0.2
@@ -289,7 +296,8 @@ class PPOAgent(nn.Module):
             else:
                 state += [0.0] * (self.state_dim - len(state))
 
-        return torch.tensor(state, dtype=torch.float32)
+        # Create tensor directly on the model device
+        return torch.tensor(state, dtype=torch.float32, device=self.model_device)
 
     def act(self, state, deterministic=False):
         """
@@ -304,10 +312,10 @@ class PPOAgent(nn.Module):
         """
         # Convert state to tensor if needed
         if not isinstance(state, torch.Tensor):
-            state = torch.tensor(state, dtype=torch.float32)
-
-        model_device = next(self.actor.parameters()).device
-        state = state.to(model_device)
+            state = torch.tensor(state, dtype=torch.float32, device=self.model_device)
+        else:
+            # Ensure state is on the correct device
+            state = state.to(self.model_device)
 
         # Forward pass through actor and critic
         with torch.no_grad():
@@ -319,15 +327,21 @@ class PPOAgent(nn.Module):
 
             # Select action
             if deterministic:
-                action = torch.argmax(action_probs).item()
-                log_prob = torch.log(action_probs[action] + 1e-10).item()
+                action_idx = torch.argmax(action_probs)
+                # Move to CPU before calling item()
+                action = action_idx.cpu().item()
+                # Extract log prob from the tensor, first moving the index to the correct device
+                log_prob = torch.log(action_probs[action_idx] + 1e-10).cpu().item()
             else:
                 # Sample from distribution
                 dist = torch.distributions.Categorical(action_probs)
-                action = dist.sample().item()
-                log_prob = dist.log_prob(torch.tensor(action)).item()
+                action_tensor = dist.sample()
+                # Move to CPU before calling item()
+                action = action_tensor.cpu().item()
+                # Calculate log prob - ensuring the action is on the same device as the distribution
+                log_prob = dist.log_prob(action_tensor).cpu().item()
 
-        return action, log_prob, value.item()
+        return action, log_prob, value.cpu().item()
 
     def select_action(self, state, budget_remaining, force_basic=False, corruption_level=None):
         """
@@ -352,28 +366,38 @@ class PPOAgent(nn.Module):
         # Budget-based limitations
         budget_factor = min(1.0, budget_remaining / 0.5)
 
+        # Ensure state is on the correct device
+        if not isinstance(state, torch.Tensor):
+            state_tensor = torch.tensor(state, dtype=torch.float32, device=self.model_device)
+        else:
+            state_tensor = state.to(self.model_device)
+
         # Get action probabilities
-        action, log_prob, _ = self.act(state, deterministic=False)
+        action, log_prob, _ = self.act(state_tensor, deterministic=False)
 
         # Budget limitation logic
         if budget_remaining < 0.1 and action == 2:  # If low budget but want to use GPT-4
             # Downgrade to GPT-3.5 with 80% probability
             if np.random.random() < 0.8:
                 action = 1
-                # Recalculate log_prob for new action
+                # Recalculate log_prob for new action using the prepared state tensor
                 with torch.no_grad():
-                    logits = self.actor(torch.tensor(state, dtype=torch.float32, device=device))
+                    logits = self.actor(state_tensor)
                     action_probs = F.softmax(logits, dim=-1)
-                    log_prob = torch.log(action_probs[1] + 1e-10).item()
+                    # Create index tensor on the same device
+                    index_tensor = torch.tensor([1], device=self.model_device)
+                    # Use index to get probability and move to CPU for item()
+                    prob = action_probs.gather(0, index_tensor).cpu()
+                    log_prob = torch.log(prob + 1e-10).item()
 
         # Enhanced parliamentary name detection - override for important texts
         if corruption_level is not None and corruption_level > 0.4:
             # Check state features for parliamentary indicators
-            if isinstance(state, torch.Tensor) and state.numel() > 5:
-                # Extract parliamentary features (based on our state design)
-                has_name = state[3].item() if state.numel() > 3 else 0
-                has_institution = state[4].item() if state.numel() > 4 else 0
-                has_procedure = state[5].item() if state.numel() > 5 else 0
+            if state_tensor.numel() > 5:
+                # First move indices to CPU before using item()
+                has_name = state_tensor[3].cpu().item() if state_tensor.numel() > 3 else 0
+                has_institution = state_tensor[4].cpu().item() if state_tensor.numel() > 4 else 0
+                has_procedure = state_tensor[5].cpu().item() if state_tensor.numel() > 5 else 0
 
                 # Increase probability of using API for parliamentary content
                 if has_name > 0.7 or has_institution > 0.7 or has_procedure > 0.7:
@@ -388,6 +412,13 @@ class PPOAgent(nn.Module):
 
     def store_experience(self, state, action, reward, value, log_prob):
         """Store experience in buffer for training"""
+        # Ensure state is a tensor on the correct device
+        if not isinstance(state, torch.Tensor):
+            state = torch.tensor(state, dtype=torch.float32, device=self.model_device)
+        else:
+            state = state.to(self.model_device)
+
+        # Store in buffer
         self.buffer['states'].append(state)
         self.buffer['actions'].append(action)
         self.buffer['rewards'].append(reward)
@@ -435,7 +466,7 @@ class PPOAgent(nn.Module):
             logger.debug("Skipping update: state is None")
             return
 
-        # Ensure state has correct dimensions
+        # Ensure state has correct dimensions and is on the right device
         if isinstance(state, torch.Tensor):
             if state.size(-1) != self.state_dim:
                 logger.warning(f"State dimension mismatch in update: {state.size(-1)} vs expected {self.state_dim}")
@@ -447,8 +478,11 @@ class PPOAgent(nn.Module):
                     padding = torch.zeros(*state.shape[:-1], self.state_dim - state.size(-1),
                                           device=state.device, dtype=state.dtype)
                     state = torch.cat([state, padding], dim=-1)
+
+            # Move to the model's device
+            state = state.to(self.model_device)
         else:
-            state = torch.tensor(state, dtype=torch.float32)
+            state = torch.tensor(state, dtype=torch.float32, device=self.model_device)
             # Check dimensions again after conversion
             if state.size(-1) != self.state_dim:
                 # Apply same reshaping logic as above
@@ -456,12 +490,8 @@ class PPOAgent(nn.Module):
                     state = state[..., :self.state_dim]
                 else:
                     padding = torch.zeros(*state.shape[:-1], self.state_dim - state.size(-1),
-                                          dtype=state.dtype)
+                                          dtype=state.dtype, device=self.model_device)
                     state = torch.cat([state, padding], dim=-1)
-
-        # Get model device and move state
-        model_device = next(self.critic.parameters()).device
-        state = state.to(model_device)
 
         # Get value estimate for state
         with torch.no_grad():
@@ -469,9 +499,6 @@ class PPOAgent(nn.Module):
 
         # Store experience
         self.store_experience(state, action, reward, value, log_prob)
-
-        # Track total reward
-        self.total_reward += reward
 
         # Update policy if enough data (20+ experiences)
         if len(self.buffer['states']) >= 20:
@@ -485,52 +512,64 @@ class PPOAgent(nn.Module):
         # Compute advantages and returns
         self.compute_advantages_and_returns()
 
-        # Convert buffer data to tensors
-        states = torch.stack(self.buffer['states']).to(device)
-        actions = torch.tensor(self.buffer['actions'], dtype=torch.long).to(device)
-        old_log_probs = torch.tensor(self.buffer['log_probs'], dtype=torch.float32).to(device)
-        advantages = torch.tensor(self.buffer['advantages'], dtype=torch.float32).to(device)
-        returns = torch.tensor(self.buffer['returns'], dtype=torch.float32).to(device)
+        try:
+            # Ensure all states are on the same device
+            states = []
+            for state in self.buffer['states']:
+                if state.device != self.model_device:
+                    states.append(state.to(self.model_device))
+                else:
+                    states.append(state)
 
-        # Normalize advantages
-        advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-8)
+            states = torch.stack(states)
+            actions = torch.tensor(self.buffer['actions'], dtype=torch.long, device=self.model_device)
+            old_log_probs = torch.tensor(self.buffer['log_probs'], dtype=torch.float32, device=self.model_device)
+            advantages = torch.tensor(self.buffer['advantages'], dtype=torch.float32, device=self.model_device)
+            returns = torch.tensor(self.buffer['returns'], dtype=torch.float32, device=self.model_device)
 
-        # Multiple epochs of PPO updates (typically 3-10)
-        for _ in range(4):
-            # Get current policy and value estimates
-            logits = self.actor(states)
-            values = self.critic(states).squeeze()
+            # Normalize advantages
+            advantages = (advantages - advantages.mean()) / (advantages.std() + 1e-8)
 
-            # Get action distributions
-            action_probs = F.softmax(logits, dim=-1)
-            dist = torch.distributions.Categorical(action_probs)
+            # Multiple epochs of PPO updates (typically 3-10)
+            for _ in range(4):
+                # Get current policy and value estimates
+                logits = self.actor(states)
+                values = self.critic(states).squeeze()
 
-            # Get log probabilities and entropy
-            new_log_probs = dist.log_prob(actions)
-            entropy = dist.entropy().mean()
+                # Get action distributions
+                action_probs = F.softmax(logits, dim=-1)
+                dist = torch.distributions.Categorical(action_probs)
 
-            # Calculate ratio and clipped ratio
-            ratio = torch.exp(new_log_probs - old_log_probs)
-            clipped_ratio = torch.clamp(ratio, 1.0 - self.clip_ratio, 1.0 + self.clip_ratio)
+                # Get log probabilities and entropy
+                new_log_probs = dist.log_prob(actions)
+                entropy = dist.entropy().mean()
 
-            # Calculate losses
-            policy_loss = -torch.min(ratio * advantages, clipped_ratio * advantages).mean()
-            value_loss = F.mse_loss(values, returns)
+                # Calculate ratio and clipped ratio
+                ratio = torch.exp(new_log_probs - old_log_probs)
+                clipped_ratio = torch.clamp(ratio, 1.0 - self.clip_ratio, 1.0 + self.clip_ratio)
 
-            # Combined loss with entropy bonus
-            loss = policy_loss - self.entropy_coef * entropy + self.value_coef * value_loss
+                # Calculate losses
+                policy_loss = -torch.min(ratio * advantages, clipped_ratio * advantages).mean()
+                value_loss = F.mse_loss(values, returns)
 
-            # Update actor
-            self.actor_optimizer.zero_grad()
-            policy_loss.backward()
-            torch.nn.utils.clip_grad_norm_(self.actor.parameters(), self.max_grad_norm)
-            self.actor_optimizer.step()
+                # Combined loss with entropy bonus
+                loss = policy_loss - self.entropy_coef * entropy + self.value_coef * value_loss
 
-            # Update critic
-            self.critic_optimizer.zero_grad()
-            value_loss.backward()
-            torch.nn.utils.clip_grad_norm_(self.critic.parameters(), self.max_grad_norm)
-            self.critic_optimizer.step()
+                # Update actor
+                self.actor_optimizer.zero_grad()
+                policy_loss.backward()
+                torch.nn.utils.clip_grad_norm_(self.actor.parameters(), self.max_grad_norm)
+                self.actor_optimizer.step()
+
+                # Update critic
+                self.critic_optimizer.zero_grad()
+                value_loss.backward()
+                torch.nn.utils.clip_grad_norm_(self.critic.parameters(), self.max_grad_norm)
+                self.critic_optimizer.step()
+
+        except Exception as e:
+            logger.warning(f"Error during policy update: {e}")
+            # Continue with empty buffer
 
         # Clear buffer after updates
         for key in self.buffer:
@@ -662,7 +701,7 @@ class PPOAgent(nn.Module):
             if not os.path.exists(path):
                 return False
 
-            checkpoint = torch.load(path, map_location=torch.device('cpu'))
+            checkpoint = torch.load(path, map_location=self.model_device)
 
             # Load state dictionaries
             self.actor.load_state_dict(checkpoint['actor_state_dict'])
@@ -677,14 +716,21 @@ class PPOAgent(nn.Module):
             self.api_efficiency = checkpoint.get('api_efficiency', [])
 
             # After loading the state dict, explicitly move model to the device
-            self.actor = self.actor.to(device)
-            self.critic = self.critic.to(device)
+            self.actor = self.actor.to(self.model_device)
+            self.critic = self.critic.to(self.model_device)
 
             logger.info(f"Loaded PPO agent (exploration rate: {self.epsilon:.2f})")
             return True
         except Exception as e:
             logger.warning(f"Failed to load PPO agent: {e}")
             return False
+
+    def train_from_buffer(self):
+        """Train from the current buffer"""
+        if len(self.buffer['states']) >= 8:  # Minimum batch size
+            self.update_policy()
+            return True
+        return False
 
 #################################################
 # API Reconstruction Functions
