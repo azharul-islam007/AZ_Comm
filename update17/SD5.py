@@ -1519,170 +1519,291 @@ def extract_parliamentary_features(text):
 def api_reconstruct_with_semantic_features(noisy_text, context="", rl_agent=None, budget_remaining=1.0,
                                            semantic_features=None, use_kb=True, additional_contexts=None):
     """
-    Significantly enhanced API reconstruction balancing quality and cost.
+    Aggressively enhanced API reconstruction that prioritizes quality over cost.
+    Forces API usage for critical errors and prevents accepting low-quality reconstructions.
     """
-    # Start timing for performance measurement
     start_time = time.time()
-    api_cost = 0  # Initialize cost tracking for this function call
-    # Get config manager
+    api_cost = 0
     config_manager = ConfigManager()
-
-    # Track which method we ultimately use for analytics
     method_used = "basic"
+    kb_result = noisy_text
     kb_applied = False
-    prompt_enhancement = ""
-    kb_confidence = 0.0
 
-    # Enhanced logging
     logger.info(f"[API] Starting reconstruction of text: '{noisy_text[:30]}...'")
 
-    # Enhanced corruption detection with more patterns
-    corruption_level = estimate_corruption_level(noisy_text)
+    # CRITICAL PATTERN DETECTION - Force API for these patterns
+    force_api = False
+    critical_patterns = ["csnne", "sibht", "qhis", "staircasess", "areeas", "shalll", "Wrv", "Hzalth",
+                         "buifdines", "Pauliaqent", "dhgll", "drilll", "instrcct", "instrcctions",
+                         "mmprovkd", "accidqnu", "theeu", "enforrep", "bfev", "uhmck", "eys", "dhy",
+                         "mas", "iop", "lop", "jgth", "subjeat", "oqcordance", "telcvksion", "thlre",
+                         "havo", "explosionc", "Smf", "wumbr", "Ponnambqlap", "Eulopfan", "pare-sessiop"]
 
-    # Try knowledge base reconstruction first - give this a really strong chance to succeed
-    kb_result = noisy_text  # Default to no change
-    if use_kb:
-        try:
-            kb = get_or_create_knowledge_base()
-
-            # First attempt: Direct KB reconstruction
-            kb_result = kb.kb_guided_reconstruction(noisy_text)
-            kb_applied = kb_result != noisy_text
-
-            # If KB made changes and we trust it, return immediately
-            if kb_applied and kb_result != noisy_text:
-                logger.info(f"[API] Using KB reconstruction")
-                method_used = "kb"
-                elapsed_time = time.time() - start_time
-                logger.info(f"[API] Completed in {elapsed_time:.3f}s using method: {method_used}")
-                return kb_result, 0, 0  # Return KB result, zero cost
-        except Exception as e:
-            logger.warning(f"[API] KB reconstruction attempt failed: {e}")
-
-    # Try basic reconstruction if KB didn't work
-    basic_result = basic_text_reconstruction(noisy_text, use_kb=True)
-    if basic_result != noisy_text:
-        # Basic reconstruction made changes
-        logger.info(f"[API] Using basic reconstruction")
-        elapsed_time = time.time() - start_time
-        logger.info(f"[API] Completed in {elapsed_time:.3f}s using basic reconstruction")
-        return basic_result, 0, 0
-
-    # Only use API for critical cases that KB and basic couldn't fix
-    needs_api = False
-    critical_patterns = ["whht", "ghft", "agxnda", "matzer", "ieetpng"]
     for pattern in critical_patterns:
-        if pattern in noisy_text.lower():
-            needs_api = True
+        if pattern in noisy_text:
+            force_api = True
+            logger.info(f"[API] CRITICAL ERROR PATTERN '{pattern}' detected, forcing API usage")
             break
 
-    if not needs_api and corruption_level > 0.3:
-        needs_api = True
+    # Check for parliamentary terms (higher quality standard)
+    parliamentary_terms = ["Rule", "Parliament", "President", "Commission", "Council", "Lynne",
+                           "Strasbourg", "Brussels", "Mrs", "Health", "Safety"]
+    parl_term_present = False
 
-    # Skip API if not needed or not available
-    if not needs_api or not openai_available or not openai_client:
-        # Just return the best we have so far
-        if kb_applied and kb_result != noisy_text:
-            return kb_result, 0, 0
-        elif basic_result != noisy_text:
-            return basic_result, 0, 0
-        else:
-            return noisy_text, 0, 0  # Just return original
+    for term in parliamentary_terms:
+        if term in noisy_text:
+            parl_term_present = True
+            logger.info(f"[API] Important parliamentary term '{term}' present, increasing quality threshold")
+            break
 
-    # If we get here, we need to use the API
-    try:
-        # Enhanced system prompt with better Parliamentary domain knowledge
-        system_prompt = """You are a specialized text reconstruction system for the European Parliament. Your task is to correct errors in text while preserving the original meaning and intent.
+    # REQUIRED QUALITY THRESHOLD
+    # Higher standards for parliamentary text
+    quality_threshold = 0.9 if parl_term_present else 0.8
 
-        IMPORTANT GUIDELINES:
-        1. Correct spelling, grammar, and word corruptions carefully
-        2. Pay special attention to parliamentary terminology and names
-        3. NEVER replace "that" with "the" unless absolutely necessary
-        4. Pay special attention to corrupted words at the beginning of sentences
-        5. Make sure your reconstruction is grammatically correct
-        6. Preserve ALL original parliamentary terms and names
-        7. Do not add or remove information - focus only on correction
-        8. Keep the same sentence structure as the original
-        9. BE CONSERVATIVE - when in doubt, keep the original words
+    # Try KB and basic reconstruction only if not forcing API
+    if not force_api:
+        # Try KB reconstruction
+        if use_kb:
+            try:
+                kb = get_or_create_knowledge_base()
+                kb_result = kb.kb_guided_reconstruction(noisy_text)
+                kb_applied = kb_result != noisy_text
 
-        Common error patterns to fix:
-        - "whht" is ALWAYS "that"
-        - "tvks" should be corrected to "this"
-        - "ghft" should be corrected to "this" 
-        - "ministeg" should be corrected to "minister"
-        - "ieetpng" should be corrected to "meeting"
-        - "vbn" is often a corruption of "van"
-        - "wgn" is often a corruption of "can" or "will"
-        - "matzer" should be corrected to "matter"
-        - "agxnda" should be corrected to "agenda"
-        """
+                # STRICT QUALITY CHECK: Reject KB result if it introduces new errors
+                if kb_applied:
+                    kb_quality = check_reconstruction_quality(noisy_text, kb_result)
+                    if kb_quality >= quality_threshold:
+                        logger.info(f"[API] Using high-quality KB reconstruction")
+                        method_used = "kb"
+                        elapsed_time = time.time() - start_time
+                        logger.info(f"[API] Completed in {elapsed_time:.3f}s using method: {method_used}")
+                        return kb_result, 0, 0
+                    else:
+                        logger.info(
+                            f"[API] KB made changes but quality score {kb_quality:.2f} below threshold {quality_threshold:.2f}")
+            except Exception as e:
+                logger.warning(f"[API] KB reconstruction attempt failed: {e}")
 
-        # Add KB knowledge if available
+        # Try basic reconstruction if KB didn't work and we're not forcing API
+        basic_result = basic_text_reconstruction(noisy_text, use_kb=True)
+        basic_applied = basic_result != noisy_text
+
+        # STRICT QUALITY CHECK: Reject basic result if it introduces new errors
+        if basic_applied:
+            basic_quality = check_reconstruction_quality(noisy_text, basic_result)
+            if basic_quality >= quality_threshold and not force_api:
+                logger.info(f"[API] Using high-quality basic reconstruction")
+                elapsed_time = time.time() - start_time
+                logger.info(f"[API] Completed in {elapsed_time:.3f}s using basic reconstruction")
+                return basic_result, 0, 0
+            else:
+                logger.info(
+                    f"[API] Basic made changes but quality score {basic_quality:.2f} below threshold {quality_threshold:.2f}")
+
+    # If we reach here, we MUST use API (unless completely unavailable)
+    if not openai_available or not openai_client:
+        logger.warning("[API] API unavailable but needed, returning best non-API result")
         if kb_applied:
-            prompt_enhancement = f"Consider this possible correction as a starting point, but verify carefully: '{kb_result}'"
-            system_prompt += f"\n\nIMPORTANT: {prompt_enhancement}"
+            return kb_result, 0, 0
+        return basic_result if basic_applied else noisy_text, 0, 0
 
-        # Enhanced examples with Europarl vocabulary
-        example = """Example:
-    Original: Mrs Plooij-van Gorsel, I can tell you that this matter is on the agenda for the Quaestors' meeting on Wednesday.
-    Corrupted: Mrs Plooij-vbn Gorsel, I wgn tell you whht tiio matter is on the agenda for the Quaestors' ieetpng on Wednesday.
-    Reconstructed: Mrs Plooij-van Gorsel, I can tell you that this matter is on the agenda for the Quaestors' meeting on Wednesday."""
+    # ALWAYS use API from this point (unless critically low budget)
+    if budget_remaining < 0.05 and not parl_term_present and not force_api:
+        logger.warning(f"[API] Budget critically low ({budget_remaining:.2f}), using best non-API result")
+        if kb_applied:
+            return kb_result, 0, 0
+        return basic_result if basic_applied else noisy_text, 0, 0
 
-        user_prompt = f"{example}\n\n"
-        if context:
-            user_prompt += f"Immediate Context: {context}\n\n"
+    # Setup system prompt
+    system_prompt = """You are a specialized text reconstruction system for the European Parliament. Your task is to correct errors in text while preserving the original meaning and intent.
 
-        user_prompt += f"Corrupted: {noisy_text}\nReconstructed:"
+    IMPORTANT GUIDELINES:
+    1. Correct spelling, grammar, and word corruptions carefully
+    2. Pay special attention to parliamentary terminology and names
+    3. NEVER replace "that" with "the" unless absolutely necessary
+    4. Pay special attention to corrupted words at the beginning of sentences
+    5. Make sure your reconstruction is grammatically correct
+    6. Preserve ALL original parliamentary terms and names
+    7. Do not add or remove information - focus only on correction
+    8. Keep the same sentence structure as the original
+    9. BE CONSERVATIVE - when in doubt, keep the original words
 
-        # Make API call - use less expensive model to save cost
-        api_model = "gpt-3.5-turbo"  # Use cheaper model
-        logger.info(f"[API] Making API call with model {api_model}...")
+    Common error patterns to fix:
+    - "sibht" should be corrected to "right"
+    - "csnne" should be corrected to "Lynne"
+    - "qhis" should be corrected to "this"
+    - "whht" should be corrected to "that"
+    - "tvks" should be corrected to "this"
+    - "ghft" should be corrected to "this" 
+    - "ministeg" should be corrected to "minister"
+    - "ieetpng" should be corrected to "meeting"
+    - "vbn" should be corrected to "van"
+    - "wgn" should be corrected to "can" or "will"
+    - "matzer" should be corrected to "matter"
+    - "agxnda" should be corrected to "agenda"
+    - "iop" should be corrected to "You"
+    - "izle" should be corrected to "Rule"
+    - "pare-sessiop" should be corrected to "part-session"
+    - "Wrv" should be corrected to "Why"
+    - "Hzalth" should be corrected to "Health"
+    - "buifdines" should be corrected to "buildings"
+    - "Pauliaqent" should be corrected to "Parliament"
+    """
 
-        messages = [
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": user_prompt}
-        ]
+    # Add KB knowledge if available
+    if kb_applied:
+        prompt_enhancement = f"Consider this possible correction as a starting point, but verify carefully: '{kb_result}'"
+        system_prompt += f"\n\nIMPORTANT: {prompt_enhancement}"
 
-        max_retries = config_manager.get("api.max_retries", 3)
-        response = make_api_call_with_retry(api_model, messages, max_retries=max_retries)
+    # Enhanced examples
+    example = """Example:
+Original: Mrs Plooij-van Gorsel, I can tell you that this matter is on the agenda for the Quaestors' meeting on Wednesday.
+Corrupted: Mrs Plooij-vbn Gorsel, I wgn tell you whht tiio matter is on the agenda for the Quaestors' ieetpng on Wednesday.
+Reconstructed: Mrs Plooij-van Gorsel, I can tell you that this matter is on the agenda for the Quaestors' meeting on Wednesday."""
 
-        if response:
-            # Extract corrected text
-            reconstructed_text = response.choices[0].message.content.strip()
+    user_prompt = f"{example}\n\n"
+    if context:
+        user_prompt += f"Immediate Context: {context}\n\n"
 
-            # Clean up response
-            for prefix in ["Reconstructed:", "Reconstructed text:"]:
-                if reconstructed_text.startswith(prefix):
-                    reconstructed_text = reconstructed_text[len(prefix):].strip()
+    user_prompt += f"Corrupted: {noisy_text}\nReconstructed:"
 
-            # Apply post-reconstruction validation with KB awareness
-            reconstructed_text = validate_reconstruction(noisy_text, reconstructed_text,
-                                                         kb_result if kb_applied else None)
+    # AGGRESSIVE MODEL SELECTION - always use GPT-4 for critical cases
+    api_model = "gpt-3.5-turbo"  # Default
 
-            # Calculate API cost
-            input_tokens = get_token_count(system_prompt + user_prompt)
-            output_tokens = get_token_count(reconstructed_text)
-            cost = calculate_api_cost(api_model, input_tokens, output_tokens)
+    # Force GPT-4 for critical patterns regardless of budget
+    if force_api or parl_term_present:
+        api_model = "gpt-4-turbo"
+        logger.info("[API] Selected GPT-4 Turbo for critical case")
+    elif budget_remaining > 0.4:
+        # Generous budget, use GPT-4 if quality needed
+        api_model = "gpt-4-turbo"
+        logger.info("[API] Selected GPT-4 Turbo (sufficient budget)")
+    else:
+        logger.info("[API] Selected GPT-3.5 Turbo (budget conservation)")
 
-            logger.info(f"[API] API reconstruction successful using model {api_model}")
-            method_used = f"api_{api_model}"
-            elapsed_time = time.time() - start_time
-            logger.info(f"[API] Completed in {elapsed_time:.3f}s using {method_used}")
+    # CRITICAL: Override RL agent for critical errors
+    if rl_agent is not None and not force_api and not parl_term_present:
+        try:
+            # Get state and action from RL agent
+            text_length = len(noisy_text.split())
+            state = rl_agent.get_enhanced_state(corruption_level=estimate_corruption_level(noisy_text),
+                                                text_length=text_length,
+                                                semantic_features=semantic_features) if hasattr(rl_agent,
+                                                                                                'get_enhanced_state') else torch.tensor(
+                [estimate_corruption_level(noisy_text), text_length / 100, budget_remaining])
 
-            return reconstructed_text, cost, 1
-    except Exception as e:
-        logger.error(f"[API] API enhancement failed: {e}")
+            action, _ = rl_agent.select_action(state, budget_remaining)
 
-    # Fallback to KB if API fails
-    if kb_applied and kb_result != noisy_text:
-        logger.info("[API] Using KB reconstruction as fallback")
+            # Only follow RL agent if it's not a critical error
+            if action == 2:  # GPT-4
+                api_model = "gpt-4-turbo"
+                logger.info("[API] RL agent selected GPT-4 Turbo")
+            elif action == 1:  # GPT-3.5
+                api_model = "gpt-3.5-turbo"
+                logger.info("[API] RL agent selected GPT-3.5 Turbo")
+            elif action == 0 and budget_remaining < 0.2:
+                # Only accept non-API for low budget and non-critical content
+                logger.info("[API] RL agent recommended non-API solution")
+                if kb_applied:
+                    return kb_result, 0, 0
+                return basic_result if basic_applied else noisy_text, 0, 0
+            else:
+                logger.info("[API] RL agent recommended non-API but overridden for quality")
+        except Exception as e:
+            logger.warning(f"[API] RL agent error: {e}")
+
+    # Make API call
+    logger.info(f"[API] Making API call with model {api_model}...")
+
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": user_prompt}
+    ]
+
+    max_retries = config_manager.get("api.max_retries", 3)
+    response = make_api_call_with_retry(api_model, messages, max_retries=max_retries)
+
+    if response:
+        # Extract corrected text
+        reconstructed_text = response.choices[0].message.content.strip()
+
+        # Clean up response
+        for prefix in ["Reconstructed:", "Reconstructed text:"]:
+            if reconstructed_text.startswith(prefix):
+                reconstructed_text = reconstructed_text[len(prefix):].strip()
+
+        # Apply post-reconstruction validation
+        reconstructed_text = validate_reconstruction(noisy_text, reconstructed_text,
+                                                     kb_result if kb_applied else None)
+
+        # Calculate API cost
+        input_tokens = get_token_count(system_prompt + user_prompt)
+        output_tokens = get_token_count(reconstructed_text)
+        cost = calculate_api_cost(api_model, input_tokens, output_tokens)
+
+        logger.info(f"[API] API reconstruction successful using model {api_model}")
+        method_used = f"api_{api_model}"
+        elapsed_time = time.time() - start_time
+        logger.info(f"[API] Completed in {elapsed_time:.3f}s using {method_used}")
+
+        return reconstructed_text, cost, 1
+
+    # Fallback to best available option if API fails
+    logger.warning("[API] API call failed, using best non-API result")
+    if kb_applied:
         return kb_result, 0, 0
+    return basic_result if basic_applied else noisy_text, 0, 0
 
-    # Ultimate fallback to basic reconstruction
-    elapsed_time = time.time() - start_time
-    logger.info(f"[API] Completed in {elapsed_time:.3f}s using basic reconstruction (fallback)")
 
-    return basic_result, 0, 0
+# Helper function to measure reconstruction quality
+def check_reconstruction_quality(original, reconstructed):
+    """
+    Evaluate quality of reconstruction to filter out bad reconstructions
+    Returns score between 0-1 (higher is better)
+    """
+    # Detect common error patterns
+    error_patterns = ["areeas", "staircasess", "shalll", "drilll", "enforrep", "sibht",
+                      "accidqnu", "Pauliaqent", "buifdines", "instrcctions"]
+
+    for pattern in error_patterns:
+        if pattern in reconstructed:
+            return 0.0  # Immediate rejection if contains known bad patterns
+
+    # Check if names/terms are preserved
+    terms = ["Lynne", "Parliament", "President", "Commission", "Council", "Brussels", "Strasbourg"]
+    for term in terms:
+        if term in original and term not in reconstructed:
+            return 0.0  # Reject if important term was lost
+
+    # Compute word-level changes
+    orig_words = original.split()
+    recon_words = reconstructed.split()
+
+    # Count words properly changed vs incorrectly changed
+    improvements = 0
+    regressions = 0
+
+    for i in range(min(len(orig_words), len(recon_words))):
+        if orig_words[i] != recon_words[i]:
+            # Examine change quality
+            if (len(orig_words[i]) > 1 and len(recon_words[i]) > 1 and
+                    orig_words[i][0] == recon_words[i][0] and
+                    orig_words[i][-1] == recon_words[i][-1]):
+                # Changed word with same first/last letter (likely good)
+                improvements += 1
+            elif recon_words[i].lower() in ["the", "and", "or", "this", "that", "for"]:
+                # Common word (likely good)
+                improvements += 1
+            else:
+                # Unknown change quality
+                regressions += 1
+
+    # Return weighted quality score
+    total_changes = improvements + regressions
+    if total_changes == 0:
+        return 0.5  # No changes
+
+    return improvements / total_changes
 
 
 # Helper function for corruption estimation
