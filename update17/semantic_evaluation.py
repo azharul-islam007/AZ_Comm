@@ -246,7 +246,8 @@ class EnhancedEvaluationFramework:
                 metrics["meteor"].append(0.0)
 
         # Calculate averages
-        for key in metrics:
+        keys_to_process = list(metrics.keys())  # Make a list of keys first
+        for key in keys_to_process:  # Then iterate over the list
             if metrics[key]:
                 metrics[f"{key}_avg"] = sum(metrics[key]) / len(metrics[key])
             else:
@@ -284,8 +285,8 @@ class EnhancedEvaluationFramework:
             logic_score = self._evaluate_logic_flow(orig, recon)
             metrics["logic_flow"].append(logic_score)
 
-        # Calculate averages
-        for key in metrics:
+        keys_to_process = list(metrics.keys())  # Make a list of keys first
+        for key in keys_to_process:  # Then iterate over the list
             if metrics[key]:
                 metrics[f"{key}_avg"] = sum(metrics[key]) / len(metrics[key])
             else:
@@ -336,8 +337,8 @@ class EnhancedEvaluationFramework:
             entity_score = self._evaluate_entity_preservation(orig, recon)
             metrics["entity_preservation"].append(entity_score)
 
-        # Calculate averages
-        for key in metrics:
+        keys_to_process = list(metrics.keys())  # Make a list of keys first
+        for key in keys_to_process:  # Then iterate over the list
             if metrics[key]:
                 metrics[f"{key}_avg"] = sum(metrics[key]) / len(metrics[key])
             else:
@@ -381,8 +382,8 @@ class EnhancedEvaluationFramework:
             key_info_score = self._evaluate_key_info_preservation(orig, recon)
             metrics["key_info_preservation"].append(key_info_score)
 
-        # Calculate averages
-        for key in metrics:
+        keys_to_process = list(metrics.keys())  # Make a list of keys first
+        for key in keys_to_process:  # Then iterate over the list
             if metrics[key]:
                 metrics[f"{key}_avg"] = sum(metrics[key]) / len(metrics[key])
             else:
