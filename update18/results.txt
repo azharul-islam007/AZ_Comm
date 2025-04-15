@@ -1,0 +1,1446 @@
+/home/ubuntu/anaconda3/bin/conda run -n myenv --no-capture-output python /tmp/pycharm_project_908/Europearl/SD5.py 
+2025-04-15 15:16:17,169 - INFO - Using device: cuda
+/home/ubuntu/.local/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+2025-04-15 15:16:18,485 - INFO - Initialized Enhanced Physical Channel with frequency_selective channel, ofdm-16 modulation, SNR=18.0dB
+2025-04-15 15:16:18,485 - INFO - Adaptive modulation enabled: thresholds at 15.0dB and 25.0dB
+2025-04-15 15:16:18,485 - INFO - Unequal error protection enabled with 3 protection levels
+/tmp/pycharm_project_908/Europearl/content_adaptive_coding.py:406: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(self.content_classifier_path, map_location=device)
+2025-04-15 15:16:18,489 - INFO - Using embedding dimension 460 from checkpoint
+2025-04-15 15:16:18,493 - INFO - Content classifier loaded with strict parameter matching
+2025-04-15 15:16:18,493 - INFO - Content-Adaptive Physical Channel initialized
+2025-04-15 15:16:18,493 - INFO - Enhanced content-adaptive physical channel initialized
+2025-04-15 15:16:18,493 - INFO - Will collect up to 10000 transmission pairs
+2025-04-15 15:16:18,493 - INFO - Using device: cuda
+2025-04-15 15:16:20,067 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:20,076 - INFO - ✅ OpenAI API connection successful
+
+===== SYSTEM COMPONENT TEST =====
+2025-04-15 15:16:20,079 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms
+2025-04-15 15:16:20,079 - INFO - Loaded knowledge base from ./models/europarl_knowledge_base.pkl with 41 terms (load #1)
+Knowledge Base loaded with 41 terms
+
+Test Case 1: Mrs Lynne, you are quite right and I shall check whether this ocs actually not been done.
+1. KB Reconstruction (1 changes):
+   Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
+2025-04-15 15:16:20,090 - INFO - KB reconstruction made changes: 'Mrs Lynne, you are quite right and I shall check whether this ocs actually not been done.' -> 'Mrs Lynne, you are quite right and I shall check whether this has actually not been done.'
+2. Basic Reconstruction (1 changes):
+   Mrs Lynne, you are quite right and I shall check whether this has actually not been done.
+2025-04-15 15:16:20,090 - INFO - [API] Starting reconstruction of text: 'Mrs Lynne, you are quite right...'
+2025-04-15 15:16:20,090 - INFO - [API] Important parliamentary term 'Lynne' present, increasing quality threshold
+2025-04-15 15:16:20,094 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:16:20,098 - INFO - KB reconstruction made changes: 'Mrs Lynne, you are quite right and I shall check whether this ocs actually not been done.' -> 'Mrs Lynne, you are quite right and I shall check whether this has actually not been done.'
+2025-04-15 15:16:20,098 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:16:20,098 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:16:20,098 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:16:21,118 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:21,126 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:21,127 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:16:21,127 - INFO - [API] Completed in 1.037s using api_gpt-4-turbo
+3. API Reconstruction (3 changes):
+   Mrs Lynne, you are quite rightt and I shall check whether this has aatually not been done.
+
+Test Case 2: The Parliamemt will now vote on the propofal from the Commissiob.
+1. KB Reconstruction (3 changes):
+   The Parliament will now vote on the proposal from the Commission
+2025-04-15 15:16:21,136 - INFO - KB reconstruction made changes: 'The Parliamemt will now vote on the propofal from the Commissiob.' -> 'The Parliament will now vote on the proposal from the Commission'
+2. Basic Reconstruction (3 changes):
+   The Parliament will now vote on the proposal from the Commission
+2025-04-15 15:16:21,136 - INFO - [API] Starting reconstruction of text: 'The Parliamemt will now vote o...'
+2025-04-15 15:16:21,140 - INFO - [API] KB made changes but quality score 0.67 below threshold 0.80
+2025-04-15 15:16:21,144 - INFO - KB reconstruction made changes: 'The Parliamemt will now vote on the propofal from the Commissiob.' -> 'The Parliament will now vote on the proposal from the Commission'
+2025-04-15 15:16:21,144 - INFO - [API] Basic made changes but quality score 0.67 below threshold 0.80
+2025-04-15 15:16:21,144 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:21,144 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:16:21,987 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:21,994 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:21,994 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:16:21,994 - INFO - [API] Completed in 0.858s using api_gpt-4-turbo
+3. API Reconstruction (3 changes):
+   The Parliament will now vote on the proposal from the Commission.
+
+Test Case 3: In accordancg with Rule 143, I wkulz like your acvioe about this moetinp.
+1. KB Reconstruction (4 changes):
+   in accordance with Rule 143, I would like your advice about this moetinp.
+2025-04-15 15:16:22,006 - INFO - KB reconstruction made changes: 'In accordancg with Rule 143, I wkulz like your acvioe about this moetinp.' -> 'in accordance with Rule 143, I would like your advice about this moetinp.'
+2. Basic Reconstruction (4 changes):
+   in accordance with Rule 143, I would like your advice about this moetinp.
+2025-04-15 15:16:22,006 - INFO - [API] Starting reconstruction of text: 'In accordancg with Rule 143, I...'
+2025-04-15 15:16:22,006 - INFO - [API] Important parliamentary term 'Rule' present, increasing quality threshold
+2025-04-15 15:16:22,009 - INFO - [API] KB made changes but quality score 0.25 below threshold 0.90
+2025-04-15 15:16:22,013 - INFO - KB reconstruction made changes: 'In accordancg with Rule 143, I wkulz like your acvioe about this moetinp.' -> 'in accordance with Rule 143, I would like your advice about this moetinp.'
+2025-04-15 15:16:22,013 - INFO - [API] Basic made changes but quality score 0.25 below threshold 0.90
+2025-04-15 15:16:22,013 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:16:22,013 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:16:23,153 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:23,157 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:23,157 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:16:23,158 - INFO - [API] Completed in 1.152s using api_gpt-4-turbo
+3. API Reconstruction (4 changes):
+   In accordance with Rule 143, I would like your advice about this meeting.
+
+===== RESULTS =====
+Components tested: KB Reconstruction, Basic Reconstruction, API Reconstruction
+Test cases corrected: 3/3
+System status: ✓ FUNCTIONAL
+2025-04-15 15:16:23,158 - INFO - Loaded dimensions from file: 768, 460
+/tmp/pycharm_project_908/Europearl/SD5.py:2408: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(dvae_path, map_location=torch.device('cpu'))
+2025-04-15 15:16:23,203 - INFO - System dimensions: {'input_dim': 768, 'compressed_dim': 460, 'dvae_input_dim': 460, 'dvae_hidden_dim': 920, 'dvae_latent_dim': 460}
+2025-04-15 15:16:23,203 - INFO - Updated dimension original_dim: 768 → 768
+2025-04-15 15:16:23,203 - INFO - Updated dimension compressed_dim: 460 → 460
+2025-04-15 15:16:23,203 - INFO - Updated dimension dvae_latent_dim: 460 → 460
+2025-04-15 15:16:23,203 - INFO - Initialized dimension registry: {'original': 768, 'compressed': 460, 'latent': 460}
+2025-04-15 15:16:23,221 - INFO - System dimensions: {'input_dim': 768, 'compressed_dim': 460, 'dvae_input_dim': 460, 'dvae_hidden_dim': 920, 'dvae_latent_dim': 460}
+2025-04-15 15:16:23,222 - INFO - [PIPELINE] Starting enhanced pipeline with parameters:
+2025-04-15 15:16:23,222 - INFO - [PIPELINE] - samples: 50, noise: 0.15/gaussian
+2025-04-15 15:16:23,222 - INFO - [PIPELINE] - API: 50%, Compare: True
+2025-04-15 15:16:23,222 - INFO - [PIPELINE] - Features: VAE=True, Semantic=True, Adaptive=True
+2025-04-15 15:16:23,222 - INFO - [PIPELINE] - System dimensions: input=768, compressed=460
+2025-04-15 15:16:23,222 - INFO - [PIPELINE] Knowledge base initialized successfully
+2025-04-15 15:16:23,222 - INFO - Precomputing KB enhancements...
+2025-04-15 15:16:23,222 - INFO - Precomputed 41 common KB terms
+2025-04-15 15:16:23,222 - INFO - Initializing semantic loss with bert-base-uncased model
+/home/ubuntu/.local/lib/python3.8/site-packages/transformers/tokenization_utils_base.py:1601: FutureWarning: `clean_up_tokenization_spaces` was not set. It will be set to `True` by default. This behavior will be depracted in transformers v4.45, and will be then set to `False` by default. For more details check this issue: https://github.com/huggingface/transformers/issues/31884
+  warnings.warn(
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+2025-04-15 15:16:24,045 - INFO - Semantic perceptual loss initialized successfully
+2025-04-15 15:16:24,046 - INFO - [PIPELINE] Semantic perceptual loss initialized successfully
+2025-04-15 15:16:24,063 - INFO - [PIPELINE] Loaded 10000 items from compressed data
+2025-04-15 15:16:24,067 - INFO - [PIPELINE] Loaded 10000 original sentences
+2025-04-15 15:16:24,067 - INFO - Loading existing VAE compressor from ./data/vae_compressor.pth
+/tmp/pycharm_project_908/Europearl/compression_vae.py:727: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(VAE_COMPRESSOR_PATH, map_location=device)
+2025-04-15 15:16:24,108 - INFO - VAE compressor loaded: 768 → 460 dimensions
+2025-04-15 15:16:24,109 - INFO - Note: Loaded standard model, but requested enhanced
+2025-04-15 15:16:24,115 - INFO - Saved VAE dimensions to file: input=768, compressed=460
+2025-04-15 15:16:24,116 - INFO - [PIPELINE] VAE compressor loaded successfully: 768 → 460
+2025-04-15 15:16:24,116 - INFO - Initialized Enhanced Physical Channel with frequency_selective channel, ofdm-16 modulation, SNR=18.0dB
+2025-04-15 15:16:24,116 - INFO - Adaptive modulation enabled: thresholds at 15.0dB and 25.0dB
+2025-04-15 15:16:24,117 - INFO - Unequal error protection enabled with 3 protection levels
+/tmp/pycharm_project_908/Europearl/content_adaptive_coding.py:406: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(self.content_classifier_path, map_location=device)
+2025-04-15 15:16:24,124 - INFO - Using embedding dimension 460 from checkpoint
+2025-04-15 15:16:24,133 - INFO - Content classifier loaded with strict parameter matching
+2025-04-15 15:16:24,133 - INFO - Content-Adaptive Physical Channel initialized
+2025-04-15 15:16:24,133 - INFO - [PIPELINE] Physical channel upgraded to content-adaptive version
+2025-04-15 15:16:24,134 - INFO - Using provided input dimension: 460
+2025-04-15 15:16:24,134 - INFO - Loading pre-trained enhanced MLPDenoisingVAE from ./models/enhanced_mlp_dvae_model.pth
+/tmp/pycharm_project_908/Europearl/semantic_mlpdvae.py:909: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(full_model_path, map_location=device)
+2025-04-15 15:16:24,227 - INFO - Loaded model was trained with semantic perceptual loss
+2025-04-15 15:16:24,227 - INFO - [PIPELINE] System configurations:
+2025-04-15 15:16:24,227 - INFO -   - VAE compression: True
+2025-04-15 15:16:24,227 - INFO -   - VAE dimensions: 768 → 460
+2025-04-15 15:16:24,227 - INFO -   - DVAE dimensions: input=460, hidden=920, latent=460
+2025-04-15 15:16:24,227 - INFO -   - Physical channel enabled: True
+2025-04-15 15:16:24,227 - INFO -   - Content adaptive coding: True
+2025-04-15 15:16:24,227 - INFO -   - Knowledge base enabled: True
+2025-04-15 15:16:24,227 - INFO - [PIPELINE] IMPORTANT: Model dimensions are input=460, hidden=920, latent=460
+/tmp/pycharm_project_908/Europearl/SD5.py:846: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(path, map_location=self.model_device)
+2025-04-15 15:16:24,425 - INFO - Loaded PPO agent (exploration rate: 0.08)
+2025-04-15 15:16:24,426 - INFO - Initializing semantic loss with bert-base-uncased model
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+A parameter name that contains `beta` will be renamed internally to `bias`. Please use a different name to suppress this warning.
+A parameter name that contains `gamma` will be renamed internally to `weight`. Please use a different name to suppress this warning.
+2025-04-15 15:16:25,275 - INFO - Semantic perceptual loss initialized successfully
+2025-04-15 15:16:25,277 - INFO - [PIPELINE] Semantic channel optimizer initialized
+2025-04-15 15:16:25,277 - INFO - [PIPELINE] Using enhanced RL agent for API optimization (exploration rate: 0.08)
+2025-04-15 15:16:25,277 - INFO - === Starting Enhanced Semantic Reconstruction Pipeline ===
+2025-04-15 15:16:25,277 - INFO - [PIPELINE] Noise level: 0.15, Noise type: gaussian
+2025-04-15 15:16:25,277 - INFO - [PIPELINE] OpenAI API available: True
+2025-04-15 15:16:25,277 - INFO - [PIPELINE] Physical channel enabled: True
+Processing samples:   0%|                                | 0/50 [00:00<?, ?it/s]/tmp/pycharm_project_908/Europearl/physical_semantic_integration.py:539: UserWarning: var(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at ../aten/src/ATen/native/ReduceOps.cpp:1808.)
+  variance = torch.var(tensor, dim=0)
+2025-04-15 15:16:25,367 - INFO - Using device: cuda
+2025-04-15 15:16:25,891 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:25,897 - INFO - ✅ OpenAI API connection successful
+/tmp/pycharm_project_908/Europearl/compression_vae.py:676: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  checkpoint = torch.load(VAE_COMPRESSOR_PATH, map_location=device)
+2025-04-15 15:16:25,997 - INFO - [API] Starting reconstruction of text: 'Although , as you will hazf se...'
+2025-04-15 15:16:26,015 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:26,088 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:26,088 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:27,154 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:27,165 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:27,169 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:27,169 - INFO - [API] Completed in 1.172s using api_gpt-3.5-turbo
+2025-04-15 15:16:27,171 - INFO - Using default tokenizer.
+2025-04-15 15:16:28,642 - INFO - Using default tokenizer.
+2025-04-15 15:16:28,654 - INFO - [API] Starting reconstruction of text: 'Although , as xot will have se...'
+2025-04-15 15:16:28,670 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:28,672 - INFO - [API] RL agent recommended non-API but overridden for quality
+2025-04-15 15:16:28,672 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:16:30,259 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:30,275 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:30,278 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:16:30,278 - INFO - [API] Completed in 1.624s using api_gpt-4-turbo
+2025-04-15 15:16:30,279 - INFO - Using default tokenizer.
+2025-04-15 15:16:30,308 - INFO - [PIPELINE] Sample 1/50 (processed in 5.03s)
+2025-04-15 15:16:30,308 - INFO - [PIPELINE] Original: Although , as you will have seen , the dreaded ' millennium bug ' failed to materialise , still the people in a number of countries suffered a series of natural disasters that truly were dreadful .
+2025-04-15 15:16:30,308 - INFO - [PIPELINE] Semantic noisy: Although , as you will hazf seen , uht dreaded ' millennium bug ' failed to materiamise , still the ploxle in a number of countries suffered a series of natural disasters that truly were dreadful .
+2025-04-15 15:16:30,308 - INFO - [PIPELINE] Semantic reconstructed: Although, as you will have seen, the dreaded 'millennium bug' failed to materialize, still the to in a number of countries in a series of natural disasters that truly of dreadful.
+2025-04-15 15:16:30,308 - INFO - [PIPELINE] Direct noisy: Although , as xot will have seen , the dreaded ' millennium lbg ' failed to matjrialise , still the people in a number of countries suffered a series of natural diaaspers that truly were dreadful .
+2025-04-15 15:16:30,308 - INFO - [PIPELINE] Direct reconstructed: Although, as you will have seen the dreaded the bug' failed to materialize, still the to in a number of countries in a series of natural disasters that truly of dreadful.
+2025-04-15 15:16:30,308 - INFO - [PIPELINE] Semantic BLEU: 0.3502, ROUGE-L: 0.8710, SEMANTIC: 0.9298
+2025-04-15 15:16:30,308 - INFO - [PIPELINE] Direct BLEU: 0.3807, ROUGE-L: 0.8387, SEMANTIC: 0.8538
+2025-04-15 15:16:30,308 - INFO - [PIPELINE] Current cost: $0.0250 of $2.00
+2025-04-15 15:16:30,308 - INFO - [PIPELINE] Progress: 1/50 samples. Est. remaining: 350.3s (5.8m)
+2025-04-15 15:16:30,308 - INFO - ---
+Processing samples:   2%|▍                       | 1/50 [00:05<04:06,  5.03s/it]/tmp/pycharm_project_908/Europearl/physical_semantic_integration.py:539: UserWarning: var(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at ../aten/src/ATen/native/ReduceOps.cpp:1808.)
+  variance = torch.var(tensor, dim=0)
+2025-04-15 15:16:30,382 - INFO - [API] Starting reconstruction of text: 'You have requested a debate on...'
+2025-04-15 15:16:30,390 - INFO - Basic reconstruction made changes: 'You have requested a debate on this smbdect in the course of the next few days , during this part-session .' -> 'You have requested a debate on this smbdeat in the course of the next few days , during this part-session .'
+2025-04-15 15:16:30,390 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:16:30,390 - INFO - [API] Completed in 0.008s using basic reconstruction
+2025-04-15 15:16:30,390 - INFO - Using default tokenizer.
+2025-04-15 15:16:30,404 - INFO - Using default tokenizer.
+2025-04-15 15:16:30,415 - INFO - [API] Starting reconstruction of text: 'You have requested a debate on...'
+2025-04-15 15:16:30,423 - INFO - Basic reconstruction made changes: 'You have requested a debate on this subject in the course of the nejh few days , during this part-session .' -> 'You have requested a debate on this subjeat in the course of the nejh few days , during this part-session .'
+2025-04-15 15:16:30,423 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:16:30,423 - INFO - [API] Completed in 0.008s using basic reconstruction
+2025-04-15 15:16:30,423 - INFO - Using default tokenizer.
+2025-04-15 15:16:30,435 - INFO - [PIPELINE] Sample 2/50 (processed in 0.13s)
+2025-04-15 15:16:30,435 - INFO - [PIPELINE] Original: You have requested a debate on this subject in the course of the next few days , during this part-session .
+2025-04-15 15:16:30,435 - INFO - [PIPELINE] Semantic noisy: You have requested a debate on this smbdect in the course of the next few days , during this part-session .
+2025-04-15 15:16:30,435 - INFO - [PIPELINE] Semantic reconstructed: You have requested a debate on this smbdeat in the course of the next few days , during this part-session .
+2025-04-15 15:16:30,435 - INFO - [PIPELINE] Direct noisy: You have requested a debate on this subject in the course of the nejh few days , during this part-session .
+2025-04-15 15:16:30,435 - INFO - [PIPELINE] Direct reconstructed: You have requested a debate on this subjeat in the course of the nejh few days , during this part-session .
+2025-04-15 15:16:30,435 - INFO - [PIPELINE] Semantic BLEU: 0.8656, ROUGE-L: 0.9500, SEMANTIC: 0.9742
+2025-04-15 15:16:30,435 - INFO - [PIPELINE] Direct BLEU: 0.7242, ROUGE-L: 0.9000, SEMANTIC: 0.8958
+2025-04-15 15:16:30,435 - INFO - [PIPELINE] Current cost: $0.0250 of $2.00
+2025-04-15 15:16:30,435 - INFO - [PIPELINE] Progress: 2/50 samples. Est. remaining: 174.6s (2.9m)
+2025-04-15 15:16:30,435 - INFO - ---
+Processing samples:   4%|▉                       | 2/50 [00:05<01:42,  2.15s/it]2025-04-15 15:16:30,498 - INFO - [API] Starting reconstruction of text: 'Please ciss , then , for this ...'
+2025-04-15 15:16:30,502 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:30,503 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:30,503 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:31,022 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:31,027 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:31,027 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:31,027 - INFO - [API] Completed in 0.529s using api_gpt-3.5-turbo
+2025-04-15 15:16:31,028 - INFO - Using default tokenizer.
+2025-04-15 15:16:31,056 - INFO - Using default tokenizer.
+2025-04-15 15:16:31,070 - INFO - [API] Starting reconstruction of text: 'Please rise , then , for this ...'
+2025-04-15 15:16:31,074 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:31,075 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:31,075 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:31,644 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:31,650 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:31,651 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:31,651 - INFO - [API] Completed in 0.581s using api_gpt-3.5-turbo
+2025-04-15 15:16:31,651 - INFO - Using default tokenizer.
+Processing samples:   6%|█▍                      | 3/50 [00:06<01:21,  1.73s/it]2025-04-15 15:16:31,748 - INFO - [API] Starting reconstruction of text: '( The House rose and observed ...'
+2025-04-15 15:16:31,748 - INFO - [API] Important parliamentary term 'President' present, increasing quality threshold
+2025-04-15 15:16:31,755 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:16:31,755 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:16:32,575 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:32,579 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:32,580 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:16:32,580 - INFO - [API] Completed in 0.832s using api_gpt-4-turbo
+2025-04-15 15:16:32,581 - INFO - Using default tokenizer.
+2025-04-15 15:16:32,606 - INFO - Using default tokenizer.
+2025-04-15 15:16:32,618 - INFO - [API] Starting reconstruction of text: '( Thg House rose and observed ...'
+2025-04-15 15:16:32,618 - INFO - [API] Important parliamentary term 'President' present, increasing quality threshold
+2025-04-15 15:16:32,627 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:16:32,627 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:16:33,714 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:33,720 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:33,721 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:16:33,721 - INFO - [API] Completed in 1.103s using api_gpt-4-turbo
+2025-04-15 15:16:33,722 - INFO - Using default tokenizer.
+Processing samples:   8%|█▉                      | 4/50 [00:08<01:25,  1.87s/it]2025-04-15 15:16:33,818 - INFO - [API] Starting reconstruction of text: 'You will be aware from tje pre...'
+2025-04-15 15:16:33,818 - INFO - [API] Using high-quality KB reconstruction
+2025-04-15 15:16:33,818 - INFO - [API] Completed in 0.000s using method: kb
+2025-04-15 15:16:33,819 - INFO - Using default tokenizer.
+2025-04-15 15:16:33,831 - INFO - Using default tokenizer.
+2025-04-15 15:16:33,843 - INFO - [API] Starting reconstruction of text: 'You will be aware from the pre...'
+2025-04-15 15:16:33,854 - INFO - Basic reconstruction made changes: 'You will be aware from the press and xelevition that there have been a sumbxr of bomb explosions and killings in Sri Lanka .' -> 'You will be awaree from the press and xelevition that there have been a sumbxr of bomb explosions and killings in Sri Lanka .'
+2025-04-15 15:16:33,855 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:16:33,855 - INFO - [API] Completed in 0.012s using basic reconstruction
+2025-04-15 15:16:33,855 - INFO - Using default tokenizer.
+Processing samples:  10%|██▍                     | 5/50 [00:08<00:55,  1.24s/it]2025-04-15 15:16:33,926 - INFO - [API] Starting reconstruction of text: 'One of the people assasainaued...'
+2025-04-15 15:16:33,926 - INFO - [API] Important parliamentary term 'Parliament' present, increasing quality threshold
+2025-04-15 15:16:33,942 - INFO - Basic reconstruction made changes: 'One of the people assasainaued very recentln in Sri Lanka wkd Mr Kumar Ponnambalam , who had visioed thh European Parliament just a few months ago .' -> 'One of the people assasainaued very recentln in Sri Lanka wkd Mr Kumare Ponnambalam , who had visioed thh European Pareliament just a few months ago .'
+2025-04-15 15:16:33,942 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:16:33,942 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:16:33,942 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:16:35,212 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:35,216 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:35,218 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:16:35,218 - INFO - [API] Completed in 1.293s using api_gpt-4-turbo
+2025-04-15 15:16:35,219 - INFO - Using default tokenizer.
+2025-04-15 15:16:35,247 - INFO - Using default tokenizer.
+2025-04-15 15:16:35,261 - INFO - [API] Starting reconstruction of text: 'One of the people assassinated...'
+2025-04-15 15:16:35,261 - INFO - [API] Important parliamentary term 'Parliament' present, increasing quality threshold
+2025-04-15 15:16:35,277 - INFO - Basic reconstruction made changes: 'One of the people assassinated very recently in wrm Lanka was Mr Kumar Ponnambalam , who had visited the European Parliament just a fer months ago .' -> 'One of the people assassinated very recently in wrm Lanka was Mr Kumare Ponnambalam , who had visited the European Pareliament just a fer months ago .'
+2025-04-15 15:16:35,277 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:16:35,277 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:16:35,277 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:16:36,543 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:36,550 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:36,552 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:16:36,552 - INFO - [API] Completed in 1.291s using api_gpt-4-turbo
+2025-04-15 15:16:36,553 - INFO - Using default tokenizer.
+Processing samples:  12%|██▉                     | 6/50 [00:11<01:16,  1.74s/it]2025-04-15 15:16:36,645 - INFO - [API] Starting reconstruction of text: 'Yes , Mr Evans , I feel an ini...'
+2025-04-15 15:16:36,654 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:36,656 - INFO - [API] RL agent recommended non-API but overridden for quality
+2025-04-15 15:16:36,656 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:16:37,559 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:37,571 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:37,573 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:16:37,573 - INFO - [API] Completed in 0.928s using api_gpt-4-turbo
+2025-04-15 15:16:37,573 - INFO - Using default tokenizer.
+2025-04-15 15:16:37,612 - INFO - Using default tokenizer.
+2025-04-15 15:16:37,625 - INFO - [API] Starting reconstruction of text: 'Yes , Mr Evafs , I feel an ini...'
+2025-04-15 15:16:37,634 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:37,636 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:37,636 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:38,562 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:38,569 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:38,570 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:38,570 - INFO - [API] Completed in 0.945s using api_gpt-3.5-turbo
+2025-04-15 15:16:38,571 - INFO - Using default tokenizer.
+Processing samples:  14%|███▎                    | 7/50 [00:13<01:18,  1.83s/it]2025-04-15 15:16:38,665 - INFO - [API] Starting reconstruction of text: 'If the House agrees , I shall ...'
+2025-04-15 15:16:38,670 - INFO - Basic reconstruction made changes: 'If the House agrees , I shall do as Mr Evans has suggested .' -> 'If the House agrees , I shalll do as Mr Evans has suggested .'
+2025-04-15 15:16:38,670 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:16:38,670 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:38,671 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:38,671 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:39,260 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:39,264 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:39,264 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:39,264 - INFO - [API] Completed in 0.599s using api_gpt-3.5-turbo
+2025-04-15 15:16:39,265 - INFO - Using default tokenizer.
+2025-04-15 15:16:39,292 - INFO - Using default tokenizer.
+2025-04-15 15:16:39,305 - INFO - [API] Starting reconstruction of text: 'If the House agrees , I shall ...'
+2025-04-15 15:16:39,310 - INFO - Basic reconstruction made changes: 'If the House agrees , I shall do as Mr Evans has suggesyed .' -> 'If the House agrees , I shalll do as Mr Evans has suggesyed .'
+2025-04-15 15:16:39,310 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:16:39,310 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:39,311 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:39,311 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:40,031 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:40,039 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:40,040 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:40,040 - INFO - [API] Completed in 0.734s using api_gpt-3.5-turbo
+2025-04-15 15:16:40,040 - INFO - Using default tokenizer.
+Processing samples:  16%|███▊                    | 8/50 [00:14<01:12,  1.72s/it]2025-04-15 15:16:40,134 - INFO - [API] Starting reconstruction of text: 'Madam President , on a point o...'
+2025-04-15 15:16:40,135 - INFO - [API] Important parliamentary term 'President' present, increasing quality threshold
+2025-04-15 15:16:40,138 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:16:40,138 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:16:41,128 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:41,140 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:41,141 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:16:41,141 - INFO - [API] Completed in 1.006s using api_gpt-4-turbo
+2025-04-15 15:16:41,141 - INFO - Using default tokenizer.
+2025-04-15 15:16:41,167 - INFO - Using default tokenizer.
+2025-04-15 15:16:41,181 - INFO - [API] Starting reconstruction of text: 'Madam President , on a point o...'
+2025-04-15 15:16:41,181 - INFO - [API] Important parliamentary term 'President' present, increasing quality threshold
+2025-04-15 15:16:41,184 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:16:41,184 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:16:41,912 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:41,919 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:41,919 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:16:41,920 - INFO - [API] Completed in 0.739s using api_gpt-4-turbo
+2025-04-15 15:16:41,920 - INFO - Using default tokenizer.
+Processing samples:  18%|████▎                   | 9/50 [00:16<01:12,  1.77s/it]2025-04-15 15:16:42,013 - INFO - [API] Starting reconstruction of text: 'I would vgke your advice gbopt...'
+2025-04-15 15:16:42,016 - INFO - [API] Using high-quality KB reconstruction
+2025-04-15 15:16:42,017 - INFO - [API] Completed in 0.004s using method: kb
+2025-04-15 15:16:42,017 - INFO - Using default tokenizer.
+2025-04-15 15:16:42,029 - INFO - Using default tokenizer.
+2025-04-15 15:16:42,041 - INFO - [API] Starting reconstruction of text: 'I would like youp ydvice about...'
+2025-04-15 15:16:42,048 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:42,049 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:42,049 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:42,613 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:42,617 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:42,618 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:42,618 - INFO - [API] Completed in 0.577s using api_gpt-3.5-turbo
+2025-04-15 15:16:42,619 - INFO - Using default tokenizer.
+2025-04-15 15:16:42,643 - INFO - [PIPELINE] Sample 10/50 (processed in 0.70s)
+2025-04-15 15:16:42,643 - INFO - [PIPELINE] Original: I would like your advice about Rule 143 concerning inadmissibility .
+2025-04-15 15:16:42,643 - INFO - [PIPELINE] Semantic noisy: I would vgke your advice gbopt Ruwe 143 concerning inadmissibility .
+2025-04-15 15:16:42,643 - INFO - [PIPELINE] Semantic reconstructed: I would vgke your advice gbopt Rule 143 concerning inadmissibility .
+2025-04-15 15:16:42,643 - INFO - [PIPELINE] Direct noisy: I would like youp ydvice about rsle se3 concerning inadmissibility .
+2025-04-15 15:16:42,643 - INFO - [PIPELINE] Direct reconstructed: I would like your advice about Rule 3 concerning inadmissibility.
+2025-04-15 15:16:42,643 - INFO - [PIPELINE] Semantic BLEU: 0.4497, ROUGE-L: 0.8000, SEMANTIC: 0.8142
+2025-04-15 15:16:42,643 - INFO - [PIPELINE] Direct BLEU: 0.5978, ROUGE-L: 0.9000, SEMANTIC: 0.9916
+2025-04-15 15:16:42,643 - INFO - [PIPELINE] Current cost: $0.0696 of $2.00
+2025-04-15 15:16:42,643 - INFO - [PIPELINE] Progress: 10/50 samples. Est. remaining: 77.9s (1.3m)
+2025-04-15 15:16:42,643 - INFO - ---
+Processing samples:  20%|████▌                  | 10/50 [00:17<00:57,  1.44s/it]2025-04-15 15:16:42,708 - INFO - [API] Starting reconstruction of text: 'My question relates to somethi...'
+2025-04-15 15:16:42,712 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:16:42,715 - INFO - KB reconstruction made changes: 'My question relates to something that will come up on Thursday and which I will bpen raise again .' -> 'My quaestor relates to meeting that will come up on Thursday and which I will bpen raise again .'
+2025-04-15 15:16:42,715 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:16:42,715 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:42,716 - INFO - [API] RL agent recommended non-API but overridden for quality
+2025-04-15 15:16:42,717 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:16:43,746 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:43,755 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:43,756 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:16:43,756 - INFO - [API] Completed in 1.048s using api_gpt-4-turbo
+2025-04-15 15:16:43,757 - INFO - Using default tokenizer.
+2025-04-15 15:16:43,787 - INFO - Using default tokenizer.
+2025-04-15 15:16:44,012 - INFO - [API] Starting reconstruction of text: 'My question relates to somethi...'
+2025-04-15 15:16:44,019 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:16:44,024 - INFO - KB reconstruction made changes: 'My question relates to something that will come up on Thursday akd which I will then raise again .' -> 'My quaestor relates to meeting that will come up on Thursday akd which I will then raise again .'
+2025-04-15 15:16:44,025 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:16:44,025 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:44,026 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:44,026 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:44,694 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:44,699 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:44,701 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:44,701 - INFO - [API] Completed in 0.688s using api_gpt-3.5-turbo
+2025-04-15 15:16:44,701 - INFO - Using default tokenizer.
+Processing samples:  22%|█████                  | 11/50 [00:19<01:03,  1.64s/it]2025-04-15 15:16:44,803 - INFO - [API] Starting reconstruction of text: 'fhk Cutva report on multiannua...'
+2025-04-15 15:16:44,803 - INFO - [API] Important parliamentary term 'Parliament' present, increasing quality threshold
+2025-04-15 15:16:44,829 - INFO - Basic reconstruction made changes: 'fhk Cutva report on multiannual guidance krogramhes comes before Parliament on Thursday aoi contains a proposal in paragraph 6 that a form of quota penalties should be introduced for countries which fail to kert their mlzet reduction targets annually .' -> 'fhk Cutva report on multiannual guidance krogramhes comes before Parliament on Thursday aoi contains a proposal in paragraph 6 that a form of quota penalties should be introduced for countries which fail to kert their mlzet reduation targets annually .'
+2025-04-15 15:16:44,829 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:16:44,830 - INFO - [API] Completed in 0.027s using basic reconstruction
+2025-04-15 15:16:44,830 - INFO - Using default tokenizer.
+2025-04-15 15:16:44,845 - INFO - Using default tokenizer.
+2025-04-15 15:16:44,859 - INFO - [API] Starting reconstruction of text: 'The Cunha report on multiannua...'
+2025-04-15 15:16:44,859 - INFO - [API] Important parliamentary term 'Parliament' present, increasing quality threshold
+2025-04-15 15:16:44,883 - INFO - Basic reconstruction made changes: 'The Cunha report on multiannual guidance programmes comes before Parliament on Thursday pnx contains a proposal in paragraph 6 that a fowu of quota penalties should be introduced for coustribs which fail to meet their fleet reduction torgnts annually .' -> 'The Cunha report on multiannual guidance programmes comes before Parliament on Thursday pnx contains a proposal in paragraph 6 that a fowu of quota penalties should be introduced for coustribs which fail to meet their fleet reduation torgnts annually .'
+2025-04-15 15:16:44,883 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:16:44,883 - INFO - [API] Completed in 0.025s using basic reconstruction
+2025-04-15 15:16:44,884 - INFO - Using default tokenizer.
+Processing samples:  24%|█████▌                 | 12/50 [00:19<00:45,  1.19s/it]2025-04-15 15:16:44,954 - INFO - [API] Starting reconstruction of text: 'It says that this qhouli be di...'
+2025-04-15 15:16:44,957 - INFO - [API] KB made changes but quality score 0.50 below threshold 0.80
+2025-04-15 15:16:44,959 - INFO - KB reconstruction made changes: 'It says that this qhouli be dixe despite the principle of relative stability .' -> 'It says that this qhouli be dixe debate the principles of relative stability .'
+2025-04-15 15:16:44,959 - INFO - [API] Basic made changes but quality score 0.50 below threshold 0.80
+2025-04-15 15:16:44,959 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:44,960 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:44,961 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:45,562 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:45,566 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:45,567 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:45,567 - INFO - [API] Completed in 0.613s using api_gpt-3.5-turbo
+2025-04-15 15:16:45,568 - INFO - Using default tokenizer.
+2025-04-15 15:16:45,594 - INFO - Using default tokenizer.
+2025-04-15 15:16:45,608 - INFO - [API] Starting reconstruction of text: 'It says ohat tril should be do...'
+2025-04-15 15:16:45,612 - INFO - [API] KB made changes but quality score 0.50 below threshold 0.80
+2025-04-15 15:16:45,615 - INFO - KB reconstruction made changes: 'It says ohat tril should be done despite the principle of relative stability .' -> 'It says ohat tril should be done debate the principles of relative stability .'
+2025-04-15 15:16:45,615 - INFO - [API] Basic made changes but quality score 0.50 below threshold 0.80
+2025-04-15 15:16:45,615 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:45,617 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:45,617 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:46,248 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:46,253 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:46,254 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:46,254 - INFO - [API] Completed in 0.647s using api_gpt-3.5-turbo
+2025-04-15 15:16:46,255 - INFO - Using default tokenizer.
+Processing samples:  26%|█████▉                 | 13/50 [00:21<00:46,  1.25s/it]2025-04-15 15:16:46,585 - INFO - [API] Starting reconstruction of text: 'I beliert that yhl principle o...'
+2025-04-15 15:16:46,592 - INFO - [API] KB made changes but quality score 0.33 below threshold 0.80
+2025-04-15 15:16:46,599 - INFO - KB reconstruction made changes: 'I beliert that yhl principle of relative stnbibity is a fundamental legal principle of the common fisheries policy and a proposal to subvert it would be legally inadmissible .' -> 'I beliert that yhl principles of relative stnbibity is a fundamental legal principles of the commission fisheries policy and a proposal to subvert it would be legally inadmissible .'
+2025-04-15 15:16:46,599 - INFO - [API] Basic made changes but quality score 0.33 below threshold 0.80
+2025-04-15 15:16:46,599 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:46,600 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:46,600 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:47,364 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:47,370 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:47,372 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:47,372 - INFO - [API] Completed in 0.788s using api_gpt-3.5-turbo
+2025-04-15 15:16:47,373 - INFO - Using default tokenizer.
+2025-04-15 15:16:47,402 - INFO - Using default tokenizer.
+2025-04-15 15:16:47,417 - INFO - [API] Starting reconstruction of text: 'I believe that the principle o...'
+2025-04-15 15:16:47,424 - INFO - [API] KB made changes but quality score 0.50 below threshold 0.80
+2025-04-15 15:16:47,431 - INFO - KB reconstruction made changes: 'I believe that the principle of relative stsbilxty is a fundamental legal principle of the common fisheries policy and a propnsil to subvert it would be lhnally inadmissible .' -> 'I believe that the principles of relative stsbilxty is a fundamental legal principles of the commission fisheries policy and a proposal to subvert it would be lhnally inadmissible .'
+2025-04-15 15:16:47,431 - INFO - [API] Basic made changes but quality score 0.50 below threshold 0.80
+2025-04-15 15:16:47,431 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:47,433 - INFO - [API] RL agent recommended non-API but overridden for quality
+2025-04-15 15:16:47,433 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:16:48,706 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:48,711 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:48,713 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:16:48,713 - INFO - [API] Completed in 1.296s using api_gpt-4-turbo
+2025-04-15 15:16:48,714 - INFO - Using default tokenizer.
+Processing samples:  28%|██████▍                | 14/50 [00:23<00:58,  1.61s/it]2025-04-15 15:16:48,810 - INFO - [API] Starting reconstruction of text: 'I want to knsk whether one can...'
+2025-04-15 15:16:48,818 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:16:48,825 - INFO - KB reconstruction made changes: 'I want to knsk whether one can raise an objection of chnt kind to what is merely a repxkt , not a legislative proposal , and whether that is something I can competently do on Thursday .' -> 'I want to knsk whether one can raise an objection of chnt kind to what is merely a repxkt , not a legislation proposal , and whether that is meeting I can competently do on Thursday .'
+2025-04-15 15:16:48,825 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:16:48,825 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:48,827 - INFO - [API] RL agent recommended non-API but overridden for quality
+2025-04-15 15:16:48,827 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:16:50,152 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:50,160 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:50,164 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:16:50,164 - INFO - [API] Completed in 1.354s using api_gpt-4-turbo
+2025-04-15 15:16:50,165 - INFO - Using default tokenizer.
+2025-04-15 15:16:50,193 - INFO - Using default tokenizer.
+2025-04-15 15:16:50,207 - INFO - [API] Starting reconstruction of text: 'I want to know whether one can...'
+2025-04-15 15:16:50,214 - INFO - [API] KB made changes but quality score 0.50 below threshold 0.80
+2025-04-15 15:16:50,220 - INFO - KB reconstruction made changes: 'I want to know whether one can raise an objectvon of that kind to what is mnreoy a repkct , not a legislative pmzposal , and whethzr that is something I can compelintly do on Thursday .' -> 'I want to know whether one can raise an objectvon of that kind to what is mnreoy a repkct , not a legislation proposal , and whether that is meeting I can compelintly do on Thursday .'
+2025-04-15 15:16:50,220 - INFO - [API] Basic made changes but quality score 0.50 below threshold 0.80
+2025-04-15 15:16:50,220 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:50,222 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:50,222 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:50,985 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:50,995 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:50,999 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:50,999 - INFO - [API] Completed in 0.792s using api_gpt-3.5-turbo
+2025-04-15 15:16:51,000 - INFO - Using default tokenizer.
+Processing samples:  30%|██████▉                | 15/50 [00:25<01:03,  1.82s/it]2025-04-15 15:16:51,089 - INFO - [API] Starting reconstruction of text: 'ghwt is precisely the time whe...'
+2025-04-15 15:16:51,096 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:51,098 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:51,098 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:51,685 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:51,695 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:51,696 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:51,697 - INFO - [API] Completed in 0.607s using api_gpt-3.5-turbo
+2025-04-15 15:16:51,697 - INFO - Using default tokenizer.
+2025-04-15 15:16:51,726 - INFO - Using default tokenizer.
+2025-04-15 15:16:51,740 - INFO - [API] Starting reconstruction of text: 'That is precisely the timo tte...'
+2025-04-15 15:16:51,743 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:16:51,746 - INFO - KB reconstruction made changes: 'That is precisely the timo tten you may , if you wish , raise this question , iser' -> 'That is precisely the timo tten you may , if you wish , raise this quaestor , iser'
+2025-04-15 15:16:51,746 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:16:51,746 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:51,747 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:51,747 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:52,445 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:52,463 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:52,464 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:52,464 - INFO - [API] Completed in 0.724s using api_gpt-3.5-turbo
+2025-04-15 15:16:52,465 - INFO - Using default tokenizer.
+Processing samples:  32%|███████▎               | 16/50 [00:27<00:58,  1.71s/it]2025-04-15 15:16:52,556 - INFO - [API] Starting reconstruction of text: 'on Thursday prior to the start...'
+2025-04-15 15:16:52,561 - INFO - Basic reconstruction made changes: 'on Thursday prior to the start of khz presentation of the report .' -> 'on Thursday prior to the staret of khz presentation of the report .'
+2025-04-15 15:16:52,561 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:16:52,561 - INFO - [API] Completed in 0.005s using basic reconstruction
+2025-04-15 15:16:52,562 - INFO - Using default tokenizer.
+2025-04-15 15:16:52,573 - INFO - Using default tokenizer.
+2025-04-15 15:16:52,584 - INFO - [API] Starting reconstruction of text: 'on Thxrtday prior to the start...'
+2025-04-15 15:16:52,588 - INFO - Basic reconstruction made changes: 'on Thxrtday prior to the start of the pretentatiog of the report .' -> 'on Thxrtday prior to the staret of the pretentatiog of the report .'
+2025-04-15 15:16:52,588 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:16:52,588 - INFO - [API] Completed in 0.004s using basic reconstruction
+2025-04-15 15:16:52,588 - INFO - Using default tokenizer.
+Processing samples:  34%|███████▊               | 17/50 [00:27<00:40,  1.23s/it]2025-04-15 15:16:52,658 - INFO - [API] Starting reconstruction of text: 'We shall call him Mr Hicks ....'
+2025-04-15 15:16:52,662 - INFO - Basic reconstruction made changes: 'We shall call him Mr Hicks .' -> 'We shalll call him Mr Hicks .'
+2025-04-15 15:16:52,662 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:16:52,662 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:52,664 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:52,664 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:53,167 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:53,171 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:53,171 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:53,171 - INFO - [API] Completed in 0.513s using api_gpt-3.5-turbo
+2025-04-15 15:16:53,172 - INFO - Using default tokenizer.
+2025-04-15 15:16:53,201 - INFO - Using default tokenizer.
+2025-04-15 15:16:53,215 - INFO - [API] Starting reconstruction of text: 'We shall call him Mr Hicks ....'
+2025-04-15 15:16:53,219 - INFO - Basic reconstruction made changes: 'We shall call him Mr Hicks .' -> 'We shalll call him Mr Hicks .'
+2025-04-15 15:16:53,219 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:16:53,219 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:53,220 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:53,220 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:53,969 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:53,982 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:53,982 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:53,982 - INFO - [API] Completed in 0.767s using api_gpt-3.5-turbo
+2025-04-15 15:16:53,983 - INFO - Using default tokenizer.
+Processing samples:  36%|████████▎              | 18/50 [00:28<00:41,  1.28s/it]2025-04-15 15:16:54,068 - INFO - [API] Starting reconstruction of text: 'At the request of a French Mlm...'
+2025-04-15 15:16:54,081 - INFO - Basic reconstruction made changes: 'At the request of a French Mlmbee , Mr Zimeray , a petition sav arreadx been paesonted , which many people signed , including myself .' -> 'At the request of a French Mlmbee , Mr Zimeray , a petition sav arereadx been paesonted , which many people signed , including myself .'
+2025-04-15 15:16:54,081 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:16:54,081 - INFO - [API] Completed in 0.013s using basic reconstruction
+2025-04-15 15:16:54,081 - INFO - Using default tokenizer.
+2025-04-15 15:16:54,094 - INFO - Using default tokenizer.
+2025-04-15 15:16:54,105 - INFO - [API] Starting reconstruction of text: 'At the request of a French Mem...'
+2025-04-15 15:16:54,118 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:54,119 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:54,119 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:54,803 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:54,811 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:54,813 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:54,813 - INFO - [API] Completed in 0.708s using api_gpt-3.5-turbo
+2025-04-15 15:16:54,814 - INFO - Using default tokenizer.
+Processing samples:  38%|████████▋              | 19/50 [00:29<00:35,  1.15s/it]2025-04-15 15:16:54,912 - INFO - [API] Starting reconstruction of text: 'This is all in accordance pidh...'
+2025-04-15 15:16:54,914 - INFO - [API] KB made changes but quality score 0.17 below threshold 0.80
+2025-04-15 15:16:54,917 - INFO - KB reconstruction rejected due to 4 questionable changes
+2025-04-15 15:16:54,917 - INFO - Basic reconstruction made changes: 'This is all in accordance pidh the principles that we have always upheld .' -> 'This is shall in accordance pidh the principles that we have always upheld .'
+2025-04-15 15:16:54,917 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:16:54,918 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:54,919 - INFO - [API] RL agent recommended non-API but overridden for quality
+2025-04-15 15:16:54,919 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:16:55,736 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:55,741 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:55,741 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:16:55,742 - INFO - [API] Completed in 0.830s using api_gpt-4-turbo
+2025-04-15 15:16:55,742 - INFO - Using default tokenizer.
+2025-04-15 15:16:55,770 - INFO - Using default tokenizer.
+2025-04-15 15:16:55,785 - INFO - [API] Starting reconstruction of text: 'This is all in accordance with...'
+2025-04-15 15:16:55,788 - INFO - [API] KB made changes but quality score 0.08 below threshold 0.80
+2025-04-15 15:16:55,790 - INFO - KB reconstruction rejected due to 3 questionable changes
+2025-04-15 15:16:55,791 - INFO - Basic reconstruction made changes: 'This is all in accordance with she principles that we have always upheld .' -> 'This is shall in accordance with she principles that we have always upheld .'
+2025-04-15 15:16:55,791 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:16:55,791 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:55,792 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:55,793 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:56,435 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:56,439 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:56,440 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:56,440 - INFO - [API] Completed in 0.655s using api_gpt-3.5-turbo
+2025-04-15 15:16:56,441 - INFO - Using default tokenizer.
+2025-04-15 15:16:56,465 - INFO - [PIPELINE] Sample 20/50 (processed in 1.62s)
+2025-04-15 15:16:56,465 - INFO - [PIPELINE] Original: This is all in accordance with the principles that we have always upheld .
+2025-04-15 15:16:56,465 - INFO - [PIPELINE] Semantic noisy: This is all in accordance pidh the principles that we have always upheld .
+2025-04-15 15:16:56,465 - INFO - [PIPELINE] Semantic reconstructed: This is all in accordance with the principles that we have always upheld.
+2025-04-15 15:16:56,465 - INFO - [PIPELINE] Direct noisy: This is all in accordance with she principles that we have always upheld .
+2025-04-15 15:16:56,465 - INFO - [PIPELINE] Direct reconstructed: This is all in accordance with the principles that we have always upheld.
+2025-04-15 15:16:56,465 - INFO - [PIPELINE] Semantic BLEU: 0.8446, ROUGE-L: 1.0000, SEMANTIC: 1.0000
+2025-04-15 15:16:56,465 - INFO - [PIPELINE] Direct BLEU: 0.8446, ROUGE-L: 1.0000, SEMANTIC: 1.0000
+2025-04-15 15:16:56,465 - INFO - [PIPELINE] Current cost: $0.1010 of $2.00
+2025-04-15 15:16:56,465 - INFO - [PIPELINE] Progress: 20/50 samples. Est. remaining: 50.0s (0.8m)
+2025-04-15 15:16:56,465 - INFO - ---
+Processing samples:  40%|█████████▏             | 20/50 [00:31<00:38,  1.29s/it]2025-04-15 15:16:56,531 - INFO - [API] Starting reconstruction of text: 'Thank you , Mr Segni , I shall...'
+2025-04-15 15:16:56,534 - INFO - Basic reconstruction made changes: 'Thank you , Mr Segni , I shall do so gladly .' -> 'Thank you , Mr Segni , I shalll do so gladly .'
+2025-04-15 15:16:56,534 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:16:56,534 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:56,535 - INFO - [API] RL agent recommended non-API but overridden for quality
+2025-04-15 15:16:56,535 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:16:57,481 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:57,486 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:57,487 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:16:57,487 - INFO - [API] Completed in 0.956s using api_gpt-4-turbo
+2025-04-15 15:16:57,487 - INFO - Using default tokenizer.
+2025-04-15 15:16:57,512 - INFO - Using default tokenizer.
+2025-04-15 15:16:57,565 - INFO - Saved PPO agent state
+2025-04-15 15:16:57,565 - INFO - [API] Starting reconstruction of text: 'Thank you , Mr Spgni , I shall...'
+2025-04-15 15:16:57,570 - INFO - Basic reconstruction made changes: 'Thank you , Mr Spgni , I shall do so gladly .' -> 'Thank you , Mr Spgni , I shalll do so gladly .'
+2025-04-15 15:16:57,570 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:16:57,570 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:57,571 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:57,571 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:58,108 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:58,121 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:58,122 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:58,122 - INFO - [API] Completed in 0.557s using api_gpt-3.5-turbo
+2025-04-15 15:16:58,123 - INFO - Using default tokenizer.
+Processing samples:  42%|█████████▋             | 21/50 [00:32<00:40,  1.41s/it]2025-04-15 15:16:58,213 - INFO - [API] Starting reconstruction of text: 'Indeed , it is quite in keepin...'
+2025-04-15 15:16:58,220 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:58,221 - INFO - [API] RL agent recommended non-API but overridden for quality
+2025-04-15 15:16:58,221 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:16:59,206 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:59,210 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:59,211 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:16:59,212 - INFO - [API] Completed in 0.998s using api_gpt-4-turbo
+2025-04-15 15:16:59,212 - INFO - Using default tokenizer.
+2025-04-15 15:16:59,239 - INFO - Using default tokenizer.
+2025-04-15 15:16:59,253 - INFO - [API] Starting reconstruction of text: 'Indeed , it is quite in keepin...'
+2025-04-15 15:16:59,261 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:16:59,262 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:16:59,262 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:16:59,836 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:59,840 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:16:59,841 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:16:59,841 - INFO - [API] Completed in 0.588s using api_gpt-3.5-turbo
+2025-04-15 15:16:59,842 - INFO - Using default tokenizer.
+Processing samples:  44%|██████████             | 22/50 [00:34<00:42,  1.50s/it]2025-04-15 15:16:59,935 - INFO - [API] Starting reconstruction of text: 'Mdqam President , I should lik...'
+2025-04-15 15:16:59,935 - INFO - [API] Important parliamentary term 'Parliament' present, increasing quality threshold
+2025-04-15 15:16:59,946 - INFO - Basic reconstruction made changes: 'Mdqam President , I should like to draw your attention to a case in which this Parliament cas consistently shown an interhot .' -> 'Mdqam President , I should like to draw your attention to a case in which this Pareliament cas consistently shown an interhot .'
+2025-04-15 15:16:59,946 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:16:59,946 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:16:59,946 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:01,516 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:01,520 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:01,521 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:01,521 - INFO - [API] Completed in 1.586s using api_gpt-4-turbo
+2025-04-15 15:17:01,522 - INFO - Using default tokenizer.
+2025-04-15 15:17:01,550 - INFO - Using default tokenizer.
+2025-04-15 15:17:01,563 - INFO - [API] Starting reconstruction of text: 'Madam President , I should lik...'
+2025-04-15 15:17:01,563 - INFO - [API] Important parliamentary term 'Parliament' present, increasing quality threshold
+2025-04-15 15:17:01,573 - INFO - Basic reconstruction made changes: 'Madam President , I should like to draw your attention to a case in which this Parliament has consistently shown an interest .' -> 'Madam President , I should like to draw your attention to a case in which this Pareliament has consistently shown an interest .'
+2025-04-15 15:17:01,573 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:17:01,573 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:17:01,573 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:02,963 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:02,967 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:02,968 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:02,968 - INFO - [API] Completed in 1.405s using api_gpt-4-turbo
+2025-04-15 15:17:02,969 - INFO - Using default tokenizer.
+Processing samples:  46%|██████████▌            | 23/50 [00:37<00:53,  1.99s/it]2025-04-15 15:17:03,055 - INFO - [API] Starting reconstruction of text: 'It is the case of Alexander Ni...'
+2025-04-15 15:17:03,059 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:03,060 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:03,060 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:03,589 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:03,606 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:03,607 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:03,607 - INFO - [API] Completed in 0.551s using api_gpt-3.5-turbo
+2025-04-15 15:17:03,607 - INFO - Using default tokenizer.
+2025-04-15 15:17:03,636 - INFO - Using default tokenizer.
+2025-04-15 15:17:03,650 - INFO - [API] Starting reconstruction of text: 'It is the qase of Alexander Nb...'
+2025-04-15 15:17:03,653 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:03,654 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:03,654 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:04,164 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:04,170 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:04,171 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:04,171 - INFO - [API] Completed in 0.522s using api_gpt-3.5-turbo
+2025-04-15 15:17:04,172 - INFO - Using default tokenizer.
+Processing samples:  48%|███████████            | 24/50 [00:38<00:45,  1.75s/it]2025-04-15 15:17:04,260 - INFO - [API] Starting reconstruction of text: 'All of us here are pleased tha...'
+2025-04-15 15:17:04,274 - INFO - Basic reconstruction made changes: 'All of us here are pleased that the courts have xqquitted him and made it clear that in Russia , too , access to environmental information is a constitutional right .' -> 'Shall of us here are pleased that the courts have xqquitted him and made it clear that in Russia , too , access to environmental information is a constitutional right .'
+2025-04-15 15:17:04,274 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:04,274 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:04,276 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:04,276 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:05,028 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:05,037 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:05,039 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:05,039 - INFO - [API] Completed in 0.779s using api_gpt-3.5-turbo
+2025-04-15 15:17:05,040 - INFO - Using default tokenizer.
+2025-04-15 15:17:05,071 - INFO - Using default tokenizer.
+2025-04-15 15:17:05,086 - INFO - [API] Starting reconstruction of text: 'All of us here are plrased tha...'
+2025-04-15 15:17:05,093 - INFO - [API] Using high-quality KB reconstruction
+2025-04-15 15:17:05,093 - INFO - [API] Completed in 0.007s using method: kb
+2025-04-15 15:17:05,093 - INFO - Using default tokenizer.
+Processing samples:  50%|███████████▌           | 25/50 [00:39<00:37,  1.50s/it]2025-04-15 15:17:05,169 - INFO - [API] Starting reconstruction of text: 'Now , hxwever , he is to go be...'
+2025-04-15 15:17:05,180 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:05,181 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:05,181 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:05,849 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:05,855 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:05,856 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:05,856 - INFO - [API] Completed in 0.687s using api_gpt-3.5-turbo
+2025-04-15 15:17:05,857 - INFO - Using default tokenizer.
+2025-04-15 15:17:05,884 - INFO - Using default tokenizer.
+2025-04-15 15:17:05,899 - INFO - [API] Starting reconstruction of text: 'Now , however , he is to go be...'
+2025-04-15 15:17:05,910 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:05,912 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:05,912 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:06,886 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:06,890 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:06,891 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:06,891 - INFO - [API] Completed in 0.993s using api_gpt-3.5-turbo
+2025-04-15 15:17:06,892 - INFO - Using default tokenizer.
+Processing samples:  52%|███████████▉           | 26/50 [00:41<00:38,  1.59s/it]2025-04-15 15:17:06,982 - INFO - [API] Starting reconstruction of text: 'Yes , Mrs Schroedter , I shalc...'
+2025-04-15 15:17:06,982 - INFO - [API] Important parliamentary term 'Mrs' present, increasing quality threshold
+2025-04-15 15:17:06,987 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:17:06,992 - INFO - KB reconstruction made changes: 'Yes , Mrs Schroedter , I shalc be cleaseu to lsxk inwr the facts of thip cave when I have recfivad your letter .' -> 'Yes , Mrs Schroedter , I shall be cleaseu to lsxk inwr the facts of thip cave when I have recfivad your letter .'
+2025-04-15 15:17:06,992 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:17:06,992 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:17:06,992 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:08,355 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:08,361 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:08,363 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:08,363 - INFO - [API] Completed in 1.381s using api_gpt-4-turbo
+2025-04-15 15:17:08,364 - INFO - Using default tokenizer.
+2025-04-15 15:17:08,393 - INFO - Using default tokenizer.
+2025-04-15 15:17:08,406 - INFO - [API] Starting reconstruction of text: 'Yes , Mrs Schroedter , I shall...'
+2025-04-15 15:17:08,406 - INFO - [API] Important parliamentary term 'Mrs' present, increasing quality threshold
+2025-04-15 15:17:08,412 - INFO - [API] Using high-quality KB reconstruction
+2025-04-15 15:17:08,412 - INFO - [API] Completed in 0.006s using method: kb
+2025-04-15 15:17:08,412 - INFO - Using default tokenizer.
+Processing samples:  54%|████████████▍          | 27/50 [00:43<00:36,  1.57s/it]2025-04-15 15:17:08,486 - INFO - [API] Starting reconstruction of text: 'But , Madam President , my per...'
+2025-04-15 15:17:08,486 - INFO - [API] Important parliamentary term 'President' present, increasing quality threshold
+2025-04-15 15:17:08,489 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:17:08,489 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:09,596 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:09,600 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:09,601 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:09,601 - INFO - [API] Completed in 1.115s using api_gpt-4-turbo
+2025-04-15 15:17:09,602 - INFO - Using default tokenizer.
+2025-04-15 15:17:09,628 - INFO - Using default tokenizer.
+2025-04-15 15:17:09,642 - INFO - [API] Starting reconstruction of text: 'But , Madam President , my per...'
+2025-04-15 15:17:09,642 - INFO - [API] Important parliamentary term 'President' present, increasing quality threshold
+2025-04-15 15:17:09,645 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:17:09,645 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:10,702 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:10,723 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:10,724 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:10,724 - INFO - [API] Completed in 1.082s using api_gpt-4-turbo
+2025-04-15 15:17:10,725 - INFO - Using default tokenizer.
+Processing samples:  56%|████████████▉          | 28/50 [00:45<00:39,  1.79s/it]2025-04-15 15:17:10,815 - INFO - [API] Starting reconstruction of text: 'I would therefore once more ws...'
+2025-04-15 15:17:10,818 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:10,822 - INFO - KB reconstruction made changes: 'I would therefore once more wsk you to ensure that we get a Dutch channel as well .' -> 'I would therefore once more wish you to ensure that we get a Dutch channel as well .'
+2025-04-15 15:17:10,822 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:10,822 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:10,824 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:10,824 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:11,395 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:11,403 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:11,404 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:11,404 - INFO - [API] Completed in 0.589s using api_gpt-3.5-turbo
+2025-04-15 15:17:11,405 - INFO - Using default tokenizer.
+2025-04-15 15:17:11,434 - INFO - Using default tokenizer.
+2025-04-15 15:17:11,449 - INFO - [API] Starting reconstruction of text: 'I would therefore once mobi as...'
+2025-04-15 15:17:11,457 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:11,459 - INFO - [API] RL agent recommended non-API but overridden for quality
+2025-04-15 15:17:11,459 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:12,582 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:12,586 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:12,587 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:12,587 - INFO - [API] Completed in 1.138s using api_gpt-4-turbo
+2025-04-15 15:17:12,588 - INFO - Using default tokenizer.
+Processing samples:  58%|█████████████▎         | 29/50 [00:47<00:38,  1.82s/it]2025-04-15 15:17:12,680 - INFO - [API] Starting reconstruction of text: 'Mrs Plooij-van Gorsel , I can ...'
+2025-04-15 15:17:12,680 - INFO - [API] Important parliamentary term 'Mrs' present, increasing quality threshold
+2025-04-15 15:17:12,684 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:17:12,688 - INFO - KB reconstruction made changes: 'Mrs Plooij-van Gorsel , I can tell you that this matter is on the agenda fir the Quaestors ' meeting on Wednesday .' -> 'Mrs Plooij-van Gorsel , I can tell you that this matter is on the agenda fir the Quaestor ' meeting on Wednesday .'
+2025-04-15 15:17:12,688 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:17:12,688 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:17:12,688 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:14,146 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:14,156 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:14,157 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:14,157 - INFO - [API] Completed in 1.477s using api_gpt-4-turbo
+2025-04-15 15:17:14,158 - INFO - Using default tokenizer.
+2025-04-15 15:17:14,184 - INFO - Using default tokenizer.
+2025-04-15 15:17:14,197 - INFO - [API] Starting reconstruction of text: 'Mrs Plooij-van Gorsel , I oaq ...'
+2025-04-15 15:17:14,197 - INFO - [API] Important parliamentary term 'Mrs' present, increasing quality threshold
+2025-04-15 15:17:14,201 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:17:14,204 - INFO - KB reconstruction made changes: 'Mrs Plooij-van Gorsel , I oaq tell you that this matter is on the agenda for the Quaestors ' meeting on Weynusday .' -> 'Mrs Plooij-van Gorsel , I oaq tell you that this matter is on the agenda for the Quaestor ' meeting on Weynusday .'
+2025-04-15 15:17:14,204 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:17:14,204 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:17:14,204 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:15,705 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:15,710 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:15,711 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:15,711 - INFO - [API] Completed in 1.514s using api_gpt-4-turbo
+2025-04-15 15:17:15,712 - INFO - Using default tokenizer.
+2025-04-15 15:17:15,738 - INFO - [PIPELINE] Sample 30/50 (processed in 3.12s)
+2025-04-15 15:17:15,738 - INFO - [PIPELINE] Original: Mrs Plooij-van Gorsel , I can tell you that this matter is on the agenda for the Quaestors ' meeting on Wednesday .
+2025-04-15 15:17:15,738 - INFO - [PIPELINE] Semantic noisy: Mrs Plooij-van Gorsel , I can tell you that this matter is on the agenda fir the Quaestors ' meeting on Wednesday .
+2025-04-15 15:17:15,738 - INFO - [PIPELINE] Semantic reconstructed: Mrs Plooij-van Gorsel, I Can tell you that this matter is on the agenda for the Quaestors Meeting on Wednesday.
+2025-04-15 15:17:15,738 - INFO - [PIPELINE] Direct noisy: Mrs Plooij-van Gorsel , I oaq tell you that this matter is on the agenda for the Quaestors ' meeting on Weynusday .
+2025-04-15 15:17:15,738 - INFO - [PIPELINE] Direct reconstructed: Mrs Plooij-van Gorsel, I Can tell you that this matter is on the agenda for the Quaestors Meeting on Wednesday.
+2025-04-15 15:17:15,738 - INFO - [PIPELINE] Semantic BLEU: 0.5344, ROUGE-L: 1.0000, SEMANTIC: 0.9969
+2025-04-15 15:17:15,738 - INFO - [PIPELINE] Direct BLEU: 0.5344, ROUGE-L: 1.0000, SEMANTIC: 0.9969
+2025-04-15 15:17:15,738 - INFO - [PIPELINE] Current cost: $0.1659 of $2.00
+2025-04-15 15:17:15,739 - INFO - [PIPELINE] Progress: 30/50 samples. Est. remaining: 35.1s (0.6m)
+2025-04-15 15:17:15,739 - INFO - ---
+Processing samples:  60%|█████████████▊         | 30/50 [00:50<00:44,  2.21s/it]2025-04-15 15:17:15,805 - INFO - [API] Starting reconstruction of text: 'It will , I hope , be examined...'
+2025-04-15 15:17:15,810 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:15,811 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:15,811 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:16,634 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:16,649 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:16,650 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:16,650 - INFO - [API] Completed in 0.845s using api_gpt-3.5-turbo
+2025-04-15 15:17:16,651 - INFO - Using default tokenizer.
+2025-04-15 15:17:16,676 - INFO - Using default tokenizer.
+2025-04-15 15:17:16,714 - INFO - [API] Starting reconstruction of text: 'It will , I fope , be examined...'
+2025-04-15 15:17:16,720 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:16,721 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:16,721 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:17,401 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:17,410 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:17,411 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:17,411 - INFO - [API] Completed in 0.697s using api_gpt-3.5-turbo
+2025-04-15 15:17:17,412 - INFO - Using default tokenizer.
+Processing samples:  62%|██████████████▎        | 31/50 [00:52<00:39,  2.06s/it]2025-04-15 15:17:17,503 - INFO - [API] Starting reconstruction of text: 'Madam President , jaj you tell...'
+2025-04-15 15:17:17,503 - INFO - [API] Important parliamentary term 'Parliament' present, increasing quality threshold
+2025-04-15 15:17:17,511 - INFO - Basic reconstruction made changes: 'Madam President , jaj you tell me why this Parliament does not adhere to the health and safety legislation that it actually pxssps ?' -> 'Madam President , jaj you tell me why this Parliament does not adhere to the health and safety legislation that it aatually pxssps ?'
+2025-04-15 15:17:17,511 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:17:17,512 - INFO - [API] Completed in 0.009s using basic reconstruction
+2025-04-15 15:17:17,512 - INFO - Using default tokenizer.
+2025-04-15 15:17:17,525 - INFO - Using default tokenizer.
+2025-04-15 15:17:17,537 - INFO - [API] Starting reconstruction of text: 'Madam President , can coo tell...'
+2025-04-15 15:17:17,537 - INFO - [API] Important parliamentary term 'Parliament' present, increasing quality threshold
+2025-04-15 15:17:17,545 - INFO - Basic reconstruction made changes: 'Madam President , can coo tell me why this Parliament does not adhere to the health and safety legislation that it actually passes ?' -> 'Madam President , can coo tell me why this Parliament does not adhere to the health and safety legislation that it aatually passes ?'
+2025-04-15 15:17:17,545 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:17:17,545 - INFO - [API] Completed in 0.009s using basic reconstruction
+2025-04-15 15:17:17,546 - INFO - Using default tokenizer.
+Processing samples:  64%|██████████████▋        | 32/50 [00:52<00:26,  1.47s/it]2025-04-15 15:17:17,616 - INFO - [API] Starting reconstruction of text: 'Why hoz no air quality test be...'
+2025-04-15 15:17:17,620 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:17,624 - INFO - KB reconstruction made changes: 'Why hoz no air quality test been done on this particular building since we were elected ?' -> 'Why hoz no are quality test been done on this particular building since we were elected ?'
+2025-04-15 15:17:17,624 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:17,624 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:17,625 - INFO - [API] RL agent recommended non-API but overridden for quality
+2025-04-15 15:17:17,625 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:18,779 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:18,786 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:18,787 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:18,787 - INFO - [API] Completed in 1.172s using api_gpt-4-turbo
+2025-04-15 15:17:18,788 - INFO - Using default tokenizer.
+2025-04-15 15:17:18,815 - INFO - Using default tokenizer.
+2025-04-15 15:17:18,829 - INFO - [API] Starting reconstruction of text: 'zoy has no air quality test be...'
+2025-04-15 15:17:18,833 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:18,837 - INFO - KB reconstruction made changes: 'zoy has no air quality test been donw on this particular building swqce we were elecbed ?' -> 'zoy has no are quality test been donw on this particular building swqce we were elecbed ?'
+2025-04-15 15:17:18,837 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:18,837 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:18,838 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:18,838 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:19,581 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:19,587 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:19,588 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:19,588 - INFO - [API] Completed in 0.759s using api_gpt-3.5-turbo
+2025-04-15 15:17:19,589 - INFO - Using default tokenizer.
+Processing samples:  66%|███████████████▏       | 33/50 [00:54<00:28,  1.65s/it]2025-04-15 15:17:19,685 - INFO - [API] Starting reconstruction of text: 'Why has there been no Hnapth a...'
+2025-04-15 15:17:19,691 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:19,693 - INFO - [API] RL agent selected GPT-4 Turbo
+2025-04-15 15:17:19,693 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:20,889 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:20,894 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:20,895 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:20,896 - INFO - [API] Completed in 1.211s using api_gpt-4-turbo
+2025-04-15 15:17:20,896 - INFO - Using default tokenizer.
+2025-04-15 15:17:20,923 - INFO - Using default tokenizer.
+2025-04-15 15:17:20,937 - INFO - [API] Starting reconstruction of text: 'Wty has there been no Health a...'
+2025-04-15 15:17:20,937 - INFO - [API] Important parliamentary term 'Health' present, increasing quality threshold
+2025-04-15 15:17:20,945 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:17:20,945 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:21,850 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:21,860 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:21,861 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:21,861 - INFO - [API] Completed in 0.924s using api_gpt-4-turbo
+2025-04-15 15:17:21,861 - INFO - Using default tokenizer.
+Processing samples:  68%|███████████████▋       | 34/50 [00:56<00:29,  1.84s/it]2025-04-15 15:17:21,955 - INFO - [API] Starting reconstruction of text: 'Why has ttere been no fire dri...'
+2025-04-15 15:17:21,955 - INFO - [API] Important parliamentary term 'Parliament' present, increasing quality threshold
+2025-04-15 15:17:21,960 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:17:21,965 - INFO - KB reconstruction made changes: 'Why has ttere been no fire drill , either in the Brussels Parliament buildings or the Strasbourg Parliament buildings ?' -> 'Why has ttere been no fire drilll , whether in the Brussels Parliament buildings or the Strasbourg Parliament buildings ?'
+2025-04-15 15:17:21,965 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:17:21,965 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:17:21,965 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:22,927 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:22,935 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:22,937 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:22,937 - INFO - [API] Completed in 0.982s using api_gpt-4-turbo
+2025-04-15 15:17:22,938 - INFO - Using default tokenizer.
+2025-04-15 15:17:22,964 - INFO - Using default tokenizer.
+2025-04-15 15:17:22,977 - INFO - [API] Starting reconstruction of text: 'Why has there been no airg dri...'
+2025-04-15 15:17:22,977 - INFO - [API] Important parliamentary term 'Parliament' present, increasing quality threshold
+2025-04-15 15:17:22,982 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:17:22,986 - INFO - KB reconstruction made changes: 'Why has there been no airg drill , either in the Brussels Parliament buildings or the Strasbourg Parliament buildings ?' -> 'Why has there been no airg drill , whether in the Brussels Parliament buildings or the Strasbourg Parliament buildings ?'
+2025-04-15 15:17:22,986 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:17:22,986 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:17:22,986 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:24,006 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:24,014 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:24,015 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:24,015 - INFO - [API] Completed in 1.039s using api_gpt-4-turbo
+2025-04-15 15:17:24,016 - INFO - Using default tokenizer.
+Processing samples:  70%|████████████████       | 35/50 [00:58<00:28,  1.93s/it]2025-04-15 15:17:24,113 - INFO - [API] Starting reconstruction of text: 'ufy arw there no fire instruct...'
+2025-04-15 15:17:24,116 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:24,118 - INFO - KB reconstruction made changes: 'ufy arw there no fire instructions ?' -> 'ufy are there no fire instructions ?'
+2025-04-15 15:17:24,119 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:24,119 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:24,120 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:24,120 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:24,687 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:24,691 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:24,691 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:24,691 - INFO - [API] Completed in 0.578s using api_gpt-3.5-turbo
+2025-04-15 15:17:24,692 - INFO - Using default tokenizer.
+2025-04-15 15:17:24,719 - INFO - Using default tokenizer.
+2025-04-15 15:17:24,734 - INFO - [API] Starting reconstruction of text: 'Wot are there no fire instruct...'
+2025-04-15 15:17:24,739 - INFO - Basic reconstruction made changes: 'Wot are there no fire instructions ?' -> 'Wot are there no fire instruations ?'
+2025-04-15 15:17:24,739 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:17:24,739 - INFO - [API] Completed in 0.005s using basic reconstruction
+2025-04-15 15:17:24,739 - INFO - Using default tokenizer.
+Processing samples:  72%|████████████████▌      | 36/50 [00:59<00:21,  1.56s/it]2025-04-15 15:17:24,814 - INFO - [API] Starting reconstruction of text: 'Why have the staiscases not be...'
+2025-04-15 15:17:24,819 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:24,820 - INFO - [API] RL agent recommended non-API but overridden for quality
+2025-04-15 15:17:24,820 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:25,506 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:25,513 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:25,514 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:25,514 - INFO - [API] Completed in 0.700s using api_gpt-4-turbo
+2025-04-15 15:17:25,515 - INFO - Using default tokenizer.
+2025-04-15 15:17:25,543 - INFO - Using default tokenizer.
+2025-04-15 15:17:25,557 - INFO - [API] Starting reconstruction of text: 'ocy have the staircases not be...'
+2025-04-15 15:17:25,559 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:25,562 - INFO - KB reconstruction made changes: 'ocy have the staircases not been improved since my accident ?' -> 'ocy have the staircasess not been improved since my accident ?'
+2025-04-15 15:17:25,562 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:25,562 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:25,563 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:25,564 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:26,074 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:26,077 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:26,078 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:26,078 - INFO - [API] Completed in 0.521s using api_gpt-3.5-turbo
+2025-04-15 15:17:26,078 - INFO - Using default tokenizer.
+Processing samples:  74%|█████████████████      | 37/50 [01:00<00:19,  1.50s/it]2025-04-15 15:17:26,161 - INFO - [API] Starting reconstruction of text: 'Why are no-smoking areas not e...'
+2025-04-15 15:17:26,165 - INFO - Basic reconstruction made changes: 'Why are no-smoking areas not enforced ?' -> 'Why aree no-smoking areeas not enforced ?'
+2025-04-15 15:17:26,165 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:26,165 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:26,166 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:26,166 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:26,896 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:26,902 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:26,902 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:26,902 - INFO - [API] Completed in 0.741s using api_gpt-3.5-turbo
+2025-04-15 15:17:26,903 - INFO - Using default tokenizer.
+2025-04-15 15:17:26,931 - INFO - Using default tokenizer.
+2025-04-15 15:17:26,946 - INFO - [API] Starting reconstruction of text: 'Whj are no-smoking areas not t...'
+2025-04-15 15:17:26,950 - INFO - Basic reconstruction made changes: 'Whj are no-smoking areas not tnforcjd ?' -> 'Whj aree no-smoking areeas not tnforcjd ?'
+2025-04-15 15:17:26,950 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:26,950 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:26,952 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:26,952 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:27,505 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:27,514 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:27,514 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:27,515 - INFO - [API] Completed in 0.568s using api_gpt-3.5-turbo
+2025-04-15 15:17:27,515 - INFO - Using default tokenizer.
+Processing samples:  76%|█████████████████▍     | 38/50 [01:02<00:17,  1.48s/it]2025-04-15 15:17:27,605 - INFO - [API] Starting reconstruction of text: 'It seems absolutely disgracefu...'
+2025-04-15 15:17:27,612 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:27,613 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:27,614 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:28,142 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:28,146 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:28,147 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:28,147 - INFO - [API] Completed in 0.542s using api_gpt-3.5-turbo
+2025-04-15 15:17:28,148 - INFO - Using default tokenizer.
+2025-04-15 15:17:28,174 - INFO - Using default tokenizer.
+2025-04-15 15:17:28,188 - INFO - [API] Starting reconstruction of text: 'It seems absolutely disgracefu...'
+2025-04-15 15:17:28,196 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:28,197 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:28,197 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:28,786 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:28,795 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:28,796 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:28,796 - INFO - [API] Completed in 0.608s using api_gpt-3.5-turbo
+2025-04-15 15:17:28,797 - INFO - Using default tokenizer.
+Processing samples:  78%|█████████████████▉     | 39/50 [01:03<00:15,  1.42s/it]2025-04-15 15:17:28,892 - INFO - [API] Starting reconstruction of text: 'Mrs Lynne , you ere quite righ...'
+2025-04-15 15:17:28,892 - INFO - [API] Important parliamentary term 'Lynne' present, increasing quality threshold
+2025-04-15 15:17:28,898 - INFO - Basic reconstruction made changes: 'Mrs Lynne , you ere quite right and I shall check whether this has actually not been done .' -> 'Mrs Lynne , you ere quite right and I shall check whether this has aatually not been done .'
+2025-04-15 15:17:28,898 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:17:28,898 - INFO - [API] Completed in 0.006s using basic reconstruction
+2025-04-15 15:17:28,898 - INFO - Using default tokenizer.
+2025-04-15 15:17:28,911 - INFO - Using default tokenizer.
+2025-04-15 15:17:28,922 - INFO - [API] Starting reconstruction of text: 'Mrs Lynne , you are quite rngh...'
+2025-04-15 15:17:28,922 - INFO - [API] Important parliamentary term 'Lynne' present, increasing quality threshold
+2025-04-15 15:17:28,926 - INFO - [API] Using high-quality KB reconstruction
+2025-04-15 15:17:28,926 - INFO - [API] Completed in 0.003s using method: kb
+2025-04-15 15:17:28,926 - INFO - Using default tokenizer.
+2025-04-15 15:17:28,937 - INFO - [PIPELINE] Sample 40/50 (processed in 0.11s)
+2025-04-15 15:17:28,937 - INFO - [PIPELINE] Original: Mrs Lynne , you are quite right and I shall check whether this has actually not been done .
+2025-04-15 15:17:28,937 - INFO - [PIPELINE] Semantic noisy: Mrs Lynne , you ere quite right and I shall check whether this has actually not been done .
+2025-04-15 15:17:28,937 - INFO - [PIPELINE] Semantic reconstructed: Mrs Lynne , you ere quite right and I shall check whether this has aatually not been done .
+2025-04-15 15:17:28,937 - INFO - [PIPELINE] Direct noisy: Mrs Lynne , you are quite rnghh sld I shall check wyethjr this has actoilly not dxen done .
+2025-04-15 15:17:28,937 - INFO - [PIPELINE] Direct reconstructed: Mrs Lynne , you are quite rnghh sld I shall check whether this has actually not dxen done .
+2025-04-15 15:17:28,937 - INFO - [PIPELINE] Semantic BLEU: 0.6888, ROUGE-L: 0.8824, SEMANTIC: 0.9034
+2025-04-15 15:17:28,937 - INFO - [PIPELINE] Direct BLEU: 0.6503, ROUGE-L: 0.8235, SEMANTIC: 0.8151
+2025-04-15 15:17:28,937 - INFO - [PIPELINE] Current cost: $0.2056 of $2.00
+2025-04-15 15:17:28,937 - INFO - [PIPELINE] Progress: 40/50 samples. Est. remaining: 16.4s (0.3m)
+2025-04-15 15:17:28,937 - INFO - ---
+Processing samples:  80%|██████████████████▍    | 40/50 [01:03<00:10,  1.03s/it]2025-04-15 15:17:28,999 - INFO - [API] Starting reconstruction of text: 'I shall also refer the matter ...'
+2025-04-15 15:17:29,005 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:29,010 - INFO - KB reconstruction made changes: 'I shall also refer the matter to the College of Quaestors , and I am cerlgin that they will be keen to ynsuje that we comply with the regulations we ourselves vote on .' -> 'I shall also refer the matter to the College of Quaestor , and I am cerlgin that they will be keen to ynsuje that we comply with the regulation we ourselves vote on .'
+2025-04-15 15:17:29,010 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:29,010 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:29,011 - INFO - [API] RL agent recommended non-API but overridden for quality
+2025-04-15 15:17:29,011 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:30,129 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:30,134 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:30,137 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:30,137 - INFO - [API] Completed in 1.138s using api_gpt-4-turbo
+2025-04-15 15:17:30,138 - INFO - Using default tokenizer.
+2025-04-15 15:17:30,168 - INFO - Using default tokenizer.
+2025-04-15 15:17:30,220 - INFO - Saved PPO agent state
+2025-04-15 15:17:30,221 - INFO - [API] Starting reconstruction of text: 'I shall also refer the mmtfer ...'
+2025-04-15 15:17:30,239 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:30,250 - INFO - KB reconstruction made changes: 'I shall also refer the mmtfer to the Cpllega of Quaestors , and I am certain that they will be keen to ensure that we comply with the regulations we ourselves vote on .' -> 'I shall also refer the mmtfer to the Cpllega of Quaestor , and I am certain that they will be keen to ensure that we comply with the regulation we ourselves vote on .'
+2025-04-15 15:17:30,250 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:30,250 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:30,252 - INFO - [API] RL agent recommended non-API but overridden for quality
+2025-04-15 15:17:30,252 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:31,891 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:31,897 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:31,900 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:31,900 - INFO - [API] Completed in 1.679s using api_gpt-4-turbo
+2025-04-15 15:17:31,901 - INFO - Using default tokenizer.
+Processing samples:  82%|██████████████████▊    | 41/50 [01:06<00:14,  1.62s/it]2025-04-15 15:17:31,993 - INFO - [API] Starting reconstruction of text: 'Madam President , Mrs Díez Gon...'
+2025-04-15 15:17:31,993 - INFO - [API] Important parliamentary term 'President' present, increasing quality threshold
+2025-04-15 15:17:32,008 - INFO - Basic reconstruction made changes: 'Madam President , Mrs Díez González and I had tabled questions on certain opinions of tce Vice-President , Mrs de Palacio , which appeared in a Spanish newspaper .' -> 'Madam President , Mrs Díez González and I had tabled questions on certain opinions of tce Vice-President , Mrs de Palacio , which appeareed in a Spanish newspaper .'
+2025-04-15 15:17:32,008 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:17:32,008 - INFO - [API] Completed in 0.015s using basic reconstruction
+2025-04-15 15:17:32,008 - INFO - Using default tokenizer.
+2025-04-15 15:17:32,022 - INFO - Using default tokenizer.
+2025-04-15 15:17:32,034 - INFO - [API] Starting reconstruction of text: 'Madam President , Mrs iífz Gon...'
+2025-04-15 15:17:32,034 - INFO - [API] Important parliamentary term 'President' present, increasing quality threshold
+2025-04-15 15:17:32,050 - INFO - Basic reconstruction made changes: 'Madam President , Mrs iífz González and I uaq tabled questions on nertain opinions of the Vice-President , Mrs de Palacio , which appeared in a Spanish newspaper .' -> 'Madam President , Mrs iífz González and I uaq tabled questions on nertain opinions of the Vice-President , Mrs de Palacio , which appeareed in a Spanish newspaper .'
+2025-04-15 15:17:32,050 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:17:32,050 - INFO - [API] Completed in 0.016s using basic reconstruction
+2025-04-15 15:17:32,050 - INFO - Using default tokenizer.
+Processing samples:  84%|███████████████████▎   | 42/50 [01:06<00:09,  1.17s/it]2025-04-15 15:17:32,120 - INFO - [API] Starting reconstruction of text: 'The competent services have no...'
+2025-04-15 15:17:32,130 - INFO - Basic reconstruction made changes: 'The competent services have not included them in the agenda on the grounds that they had been answered in a previous part-session .' -> 'The competent services have not included them in the agenda on the grounds that they had been answered in a previous paret-session .'
+2025-04-15 15:17:32,130 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:17:32,130 - INFO - [API] Completed in 0.010s using basic reconstruction
+2025-04-15 15:17:32,130 - INFO - Using default tokenizer.
+2025-04-15 15:17:32,142 - INFO - Using default tokenizer.
+2025-04-15 15:17:32,153 - INFO - [API] Starting reconstruction of text: 'The competent services have nm...'
+2025-04-15 15:17:32,163 - INFO - Basic reconstruction made changes: 'The competent services have nmq included them in the agenda on the grounds that they had been answered in a previous part-session .' -> 'The competent services have nmq included them in the agenda on the grounds that they had been answered in a previous paret-session .'
+2025-04-15 15:17:32,163 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:17:32,163 - INFO - [API] Completed in 0.011s using basic reconstruction
+2025-04-15 15:17:32,163 - INFO - Using default tokenizer.
+Processing samples:  86%|███████████████████▊   | 43/50 [01:06<00:05,  1.17it/s]2025-04-15 15:17:32,231 - INFO - [API] Starting reconstruction of text: 'I wokld ask that they rbconsid...'
+2025-04-15 15:17:32,231 - INFO - [API] Using high-quality KB reconstruction
+2025-04-15 15:17:32,231 - INFO - [API] Completed in 0.000s using method: kb
+2025-04-15 15:17:32,231 - INFO - Using default tokenizer.
+2025-04-15 15:17:32,243 - INFO - Using default tokenizer.
+2025-04-15 15:17:32,254 - INFO - [API] Starting reconstruction of text: 'I would ask that they reconsid...'
+2025-04-15 15:17:32,255 - INFO - [API] KB made changes but quality score 0.25 below threshold 0.80
+2025-04-15 15:17:32,257 - INFO - KB reconstruction rejected due to 3 questionable changes
+2025-04-15 15:17:32,257 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:32,258 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:32,258 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:32,829 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:32,835 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:32,836 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:32,836 - INFO - [API] Completed in 0.582s using api_gpt-3.5-turbo
+2025-04-15 15:17:32,836 - INFO - Using default tokenizer.
+Processing samples:  88%|████████████████████▏  | 44/50 [01:07<00:04,  1.24it/s]2025-04-15 15:17:32,931 - INFO - [API] Starting reconstruction of text: 'The questions answered previou...'
+2025-04-15 15:17:32,931 - INFO - [API] Important parliamentary term 'Mrs' present, increasing quality threshold
+2025-04-15 15:17:32,947 - INFO - Basic reconstruction made changes: 'The questions answered previously referred to Mrs de Palacio ' s intervention , on another occasion , and not to these comments which appeared in the ABC newspaper on 18 November .' -> 'The questions answered previously referred to Mrs de Palacio ' s intervention , on another occasion , and not to thase comments which appeareed in the ABC newspaper on 18 November .'
+2025-04-15 15:17:32,947 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:17:32,947 - INFO - [API] Completed in 0.016s using basic reconstruction
+2025-04-15 15:17:32,947 - INFO - Using default tokenizer.
+2025-04-15 15:17:32,962 - INFO - Using default tokenizer.
+2025-04-15 15:17:32,974 - INFO - [API] Starting reconstruction of text: 'The questions answered pxevioy...'
+2025-04-15 15:17:32,974 - INFO - [API] Important parliamentary term 'Mrs' present, increasing quality threshold
+2025-04-15 15:17:32,982 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:17:32,990 - INFO - KB reconstruction made changes: 'The questions answered pxevioysly referred to Mrs de Palacio ' s intervention , on another occasion , and nct to these comments which appeared in the ABC newspaper on 18 November .' -> 'The questions answered pxevioysly referred to Mrs de Palacio ' s intervention , on another occasion , and at to these comments which appeared in the ABC newspaper on 18 November .'
+2025-04-15 15:17:32,990 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:17:32,990 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:17:32,990 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:34,361 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:34,366 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:34,369 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:34,369 - INFO - [API] Completed in 1.394s using api_gpt-4-turbo
+2025-04-15 15:17:34,369 - INFO - Using default tokenizer.
+Processing samples:  90%|████████████████████▋  | 45/50 [01:09<00:05,  1.02s/it]2025-04-15 15:17:34,461 - INFO - [API] Starting reconstruction of text: 'Mr Berenguer Fuster , we shall...'
+2025-04-15 15:17:34,467 - INFO - Basic reconstruction made changes: 'Mr Berenguer Fuster , we shall nhecb aln this .' -> 'Mr Berenguer Fuster , we shalll nhecb aln this .'
+2025-04-15 15:17:34,467 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:34,467 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:34,469 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:34,469 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:35,006 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:35,013 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:35,014 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:35,014 - INFO - [API] Completed in 0.553s using api_gpt-3.5-turbo
+2025-04-15 15:17:35,015 - INFO - Using default tokenizer.
+2025-04-15 15:17:35,041 - INFO - Using default tokenizer.
+2025-04-15 15:17:35,053 - INFO - [API] Starting reconstruction of text: 'Mr Berenguer wustmr , we shall...'
+2025-04-15 15:17:35,058 - INFO - Basic reconstruction made changes: 'Mr Berenguer wustmr , we shall check all ycis .' -> 'Mr Berenguer wustmr , we shall check shall ycis .'
+2025-04-15 15:17:35,059 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:35,059 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:35,060 - INFO - [API] RL agent recommended non-API but overridden for quality
+2025-04-15 15:17:35,060 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:35,849 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:35,853 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:35,854 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:35,854 - INFO - [API] Completed in 0.801s using api_gpt-4-turbo
+2025-04-15 15:17:35,855 - INFO - Using default tokenizer.
+Processing samples:  92%|█████████████████████▏ | 46/50 [01:10<00:04,  1.16s/it]2025-04-15 15:17:35,945 - INFO - [API] Starting reconstruction of text: 'I admit that , at present , th...'
+2025-04-15 15:17:35,950 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:35,952 - INFO - [API] RL agent recommended non-API but overridden for quality
+2025-04-15 15:17:35,952 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:36,895 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:36,899 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:36,900 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:36,900 - INFO - [API] Completed in 0.955s using api_gpt-4-turbo
+2025-04-15 15:17:36,901 - INFO - Using default tokenizer.
+2025-04-15 15:17:36,928 - INFO - Using default tokenizer.
+2025-04-15 15:17:36,942 - INFO - [API] Starting reconstruction of text: 'I cdmnt that , at vressnt , th...'
+2025-04-15 15:17:36,947 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:36,949 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:36,949 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:37,575 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:37,585 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:37,586 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:37,586 - INFO - [API] Completed in 0.645s using api_gpt-3.5-turbo
+2025-04-15 15:17:37,587 - INFO - Using default tokenizer.
+Processing samples:  94%|█████████████████████▌ | 47/50 [01:12<00:04,  1.33s/it]2025-04-15 15:17:37,681 - INFO - [API] Starting reconstruction of text: 'We shall therefore lock into i...'
+2025-04-15 15:17:37,684 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:37,686 - INFO - KB reconstruction made changes: 'We shall therefore lock into it prcperty to ensure that everything is as it shouad be .' -> 'We shall therefore lock into it prcperty to ensure that meeting is as it shouad be .'
+2025-04-15 15:17:37,687 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:37,687 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:37,688 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:37,688 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:38,313 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:38,319 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:38,320 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:38,320 - INFO - [API] Completed in 0.639s using api_gpt-3.5-turbo
+2025-04-15 15:17:38,321 - INFO - Using default tokenizer.
+2025-04-15 15:17:38,348 - INFO - Using default tokenizer.
+2025-04-15 15:17:38,363 - INFO - [API] Starting reconstruction of text: 'We shall therefore lmof into i...'
+2025-04-15 15:17:38,366 - INFO - [API] KB made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:38,368 - INFO - KB reconstruction made changes: 'We shall therefore lmof into it properly to ensure trlt everything is as it should be .' -> 'We shall therefore lmof into it properly to ensure trlt meeting is as it should be .'
+2025-04-15 15:17:38,368 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.80
+2025-04-15 15:17:38,369 - INFO - [API] Selected GPT-4 Turbo (sufficient budget)
+2025-04-15 15:17:38,370 - INFO - [API] RL agent selected GPT-3.5 Turbo
+2025-04-15 15:17:38,370 - INFO - [API] Making API call with model gpt-3.5-turbo...
+2025-04-15 15:17:38,940 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:38,944 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:38,945 - INFO - [API] API reconstruction successful using model gpt-3.5-turbo
+2025-04-15 15:17:38,945 - INFO - [API] Completed in 0.582s using api_gpt-3.5-turbo
+2025-04-15 15:17:38,946 - INFO - Using default tokenizer.
+Processing samples:  96%|██████████████████████ | 48/50 [01:13<00:02,  1.34s/it]2025-04-15 15:17:39,043 - INFO - [API] Starting reconstruction of text: 'Today 's decision not to renrw...'
+2025-04-15 15:17:39,051 - INFO - Basic reconstruction made changes: 'Today 's decision not to renrw fee embareo is extremely dangerous considering the situation there .' -> 'Today 's decision not to renrw fee embareeo is extremely dangerous considering the situation there .'
+2025-04-15 15:17:39,051 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:17:39,051 - INFO - [API] Completed in 0.008s using basic reconstruction
+2025-04-15 15:17:39,051 - INFO - Using default tokenizer.
+2025-04-15 15:17:39,065 - INFO - Using default tokenizer.
+2025-04-15 15:17:39,077 - INFO - [API] Starting reconstruction of text: 'Today 's decision not to runel...'
+2025-04-15 15:17:39,083 - INFO - Basic reconstruction made changes: 'Today 's decision not to runel the embargo is extremely dangerous considering the situation there .' -> 'Today 's decision not to runel the embarego is extremely dangerous considering the situation there .'
+2025-04-15 15:17:39,083 - INFO - [API] Using high-quality basic reconstruction
+2025-04-15 15:17:39,083 - INFO - [API] Completed in 0.006s using basic reconstruction
+2025-04-15 15:17:39,083 - INFO - Using default tokenizer.
+Processing samples:  98%|██████████████████████▌| 49/50 [01:13<00:00,  1.03it/s]2025-04-15 15:17:39,177 - INFO - [API] Starting reconstruction of text: 'So Parliament should send a me...'
+2025-04-15 15:17:39,177 - INFO - [API] Important parliamentary term 'Parliament' present, increasing quality threshold
+2025-04-15 15:17:39,183 - INFO - Basic reconstruction made changes: 'So Parliament should send a message , sinmv that is the wish of the vast majority .' -> 'So Pareliament should send a message , sinmv that is the wish of the vast majority .'
+2025-04-15 15:17:39,183 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:17:39,183 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:17:39,183 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:39,940 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:39,943 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:39,944 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:39,944 - INFO - [API] Completed in 0.767s using api_gpt-4-turbo
+2025-04-15 15:17:39,945 - INFO - Using default tokenizer.
+2025-04-15 15:17:39,973 - INFO - Using default tokenizer.
+2025-04-15 15:17:39,987 - INFO - [API] Starting reconstruction of text: 'So Parliament should send a me...'
+2025-04-15 15:17:39,987 - INFO - [API] Important parliamentary term 'Parliament' present, increasing quality threshold
+2025-04-15 15:17:39,993 - INFO - Basic reconstruction made changes: 'So Parliament should send a message , since that is the ciqh of the vast majority .' -> 'So Pareliament should send a message , since that is the ciqh of the vast majority .'
+2025-04-15 15:17:39,993 - INFO - [API] Basic made changes but quality score 0.00 below threshold 0.90
+2025-04-15 15:17:39,993 - INFO - [API] Selected GPT-4 Turbo for critical case
+2025-04-15 15:17:39,993 - INFO - [API] Making API call with model gpt-4-turbo...
+2025-04-15 15:17:40,721 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:40,725 - INFO - HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+2025-04-15 15:17:40,726 - INFO - [API] API reconstruction successful using model gpt-4-turbo
+2025-04-15 15:17:40,726 - INFO - [API] Completed in 0.739s using api_gpt-4-turbo
+2025-04-15 15:17:40,727 - INFO - Using default tokenizer.
+2025-04-15 15:17:40,754 - INFO - [PIPELINE] Sample 50/50 (processed in 1.66s)
+2025-04-15 15:17:40,754 - INFO - [PIPELINE] Original: So Parliament should send a message , since that is the wish of the vast majority .
+2025-04-15 15:17:40,754 - INFO - [PIPELINE] Semantic noisy: So Parliament should send a message , sinmv that is the wish of the vast majority .
+2025-04-15 15:17:40,754 - INFO - [PIPELINE] Semantic reconstructed: So Parliament should send a message, saying that is the wish of the vast majority.
+2025-04-15 15:17:40,754 - INFO - [PIPELINE] Direct noisy: So Parliament should send a message , since that is the ciqh of the vast majority .
+2025-04-15 15:17:40,754 - INFO - [PIPELINE] Direct reconstructed: So Parliament should send a message, since that is the ciqh of the vast majority.
+2025-04-15 15:17:40,755 - INFO - [PIPELINE] Semantic BLEU: 0.5667, ROUGE-L: 0.9333, SEMANTIC: 0.9743
+2025-04-15 15:17:40,755 - INFO - [PIPELINE] Direct BLEU: 0.4319, ROUGE-L: 0.9333, SEMANTIC: 0.9434
+2025-04-15 15:17:40,755 - INFO - [PIPELINE] Current cost: $0.2531 of $2.00
+2025-04-15 15:17:40,755 - INFO - [PIPELINE] Progress: 50/50 samples. Est. remaining: 0.0s (0.0m)
+2025-04-15 15:17:40,755 - INFO - ---
+Processing samples: 100%|███████████████████████| 50/50 [01:15<00:00,  1.51s/it]
+2025-04-15 15:17:40,767 - INFO - Saved PPO agent state
+2025-04-15 15:17:40,767 - INFO - [PIPELINE] Saved enhanced RL agent state
+2025-04-15 15:17:40,768 - INFO - Using default tokenizer.
+2025-04-15 15:17:40,768 - INFO - Initialized knowledge base for evaluation
+2025-04-15 15:17:41,314 - INFO - 
+=== Enhanced Evaluation Results ===
+2025-04-15 15:17:41,314 - INFO - Overall Score: 0.8463
+2025-04-15 15:17:41,314 - INFO - Semantic Fidelity: 0.8889
+2025-04-15 15:17:41,314 - INFO - Linguistic Quality: 0.7437
+2025-04-15 15:17:41,314 - INFO - Domain Relevance: 0.9289
+2025-04-15 15:17:41,314 - INFO - Information Preservation: 0.8181
+2025-04-15 15:17:41,437 - INFO - Total API cost: $0.2531 of $2.00 budget
+2025-04-15 15:17:41,437 - INFO - 
+=== Overall Results ===
+2025-04-15 15:17:41,437 - INFO - [PIPELINE] Total time: 77.61s, Avg: 1.55s per sample
+2025-04-15 15:17:41,437 - INFO - [PIPELINE] System dimensions: input=768, compressed=460
+2025-04-15 15:17:41,437 - INFO - [PIPELINE] Semantic Reconstruction:
+2025-04-15 15:17:41,438 - INFO - [PIPELINE] Semantic Average BLEU: 0.5734
+2025-04-15 15:17:41,438 - INFO - [PIPELINE] Semantic Average ROUGE1: 0.9139
+2025-04-15 15:17:41,438 - INFO - [PIPELINE] Semantic Average ROUGEL: 0.9139
+2025-04-15 15:17:41,438 - INFO - [PIPELINE] Semantic Average METEOR: 0.7439
+2025-04-15 15:17:41,438 - INFO - [PIPELINE] Semantic Average SEMANTIC: 0.9354
+2025-04-15 15:17:41,438 - INFO - 
+[PIPELINE] Direct Reconstruction:
+2025-04-15 15:17:41,438 - INFO - [PIPELINE] Direct Average BLEU: 0.5507
+2025-04-15 15:17:41,438 - INFO - [PIPELINE] Direct Average ROUGE1: 0.9066
+2025-04-15 15:17:41,438 - INFO - [PIPELINE] Direct Average ROUGEL: 0.9066
+2025-04-15 15:17:41,438 - INFO - [PIPELINE] Direct Average METEOR: 0.7371
+2025-04-15 15:17:41,438 - INFO - [PIPELINE] Direct Average SEMANTIC: 0.9355
+2025-04-15 15:17:41,438 - INFO - 
+[PIPELINE] Total Cost: $0.2531 of $2.00 budget
+2025-04-15 15:17:41,438 - INFO - [PIPELINE] Results saved to C:\Users\Daud\SemanticCommTransmission\pythonProject/sem_com_results/enhanced_run_20250415-151623
+2025-04-15 15:17:41,438 - INFO - 
+[PIPELINE] RL Agent Performance:
+2025-04-15 15:17:41,438 - INFO - Total episodes: 504
+2025-04-15 15:17:41,438 - INFO - Total reward: 1443.21
+2025-04-15 15:17:41,438 - INFO - Final exploration rate: 0.07
+2025-04-15 15:17:41,438 - INFO - API efficiency: 1616.5925198523032
+2025-04-15 15:17:41,438 - INFO - [PIPELINE] Visualizations saved to C:\Users\Daud\SemanticCommTransmission\pythonProject/sem_com_results/enhanced_run_20250415-151623
+
+===== KNOWLEDGE BASE FUNCTIONALITY CHECK =====
+✓ KB initialized successfully with 41 terms
+
+Test 1:
+  Input:      The Parliamemt will now vote on the propofal from the Commissiob.
+  Corrected:  The Parliament will now vote on the proposal from the Commission
+  Corrections: 3/3 expected terms
+  Result:     ✓ KB applied corrections
+
+Test 2:
+  Input:      In accordancg with Rule 143, I wkulz like your acvioe.
+  Corrected:  in accordance with Rule 143, I would like your advice
+  Corrections: 4/3 expected terms
+  Result:     ✓ KB applied corrections
+
+Test 3:
+  Input:      The Coupcil and Directave on environmentsl protrction.
+  Corrected:  The Council and Directive on environmental protection
+  Corrections: 4/4 expected terms
+  Result:     ✓ KB applied corrections
+
+===== SUMMARY =====
+Tests passed: 3/3
+Total corrections made: 11
+KB Status: FUNCTIONING
+
+====== Enhanced Semantic Communication Pipeline Complete ======
+Overall improvements:
+- Advanced Compression: Implemented VAE-based non-linear compression
+- Content-Adaptive Coding: Implemented content-aware protection strategies
+- Semantic Perceptual Loss: Added semantic similarity metrics and training
+- Enhanced RL Agent: Improved state representation with semantic features
+
+Final metrics:
+  semantic_avg_BLEU: 0.5734
+  semantic_avg_METEOR: 0.7439
+  semantic_avg_ROUGE1: 0.9139
+  semantic_avg_ROUGEL: 0.9139
+  semantic_avg_SEMANTIC: 0.9354
+
+Process finished with exit code 0
