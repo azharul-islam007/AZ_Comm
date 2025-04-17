@@ -14,6 +14,9 @@ import traceback
 import matplotlib
 import difflib
 import re
+import http.server
+import socketserver
+import webbrowser
 
 matplotlib.use('Agg')  # Keep using non-interactive backend for headless environment
 import matplotlib.pyplot as plt
@@ -57,8 +60,8 @@ PROCESSED_DATA_PATH = os.path.join(DATA_DIR, "processed_data.pkl")
 COMPRESSED_DATA_PATH = os.path.join(DATA_DIR, "compressed_data.pkl")
 # Save to a permanent location like your home directory
 HOME_DIR = os.path.expanduser("~")  # Gets your home directory
-PROJECT_ROOT = r"C:\Users\Daud\SemanticCommTransmission\pythonProject"
-RESULTS_DIR = os.path.join(PROJECT_ROOT, "sem_com_result")
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+RESULTS_DIR = os.path.join("/tmp/pycharm_project_908", "sem_com_result")
 os.makedirs(RESULTS_DIR, exist_ok=True)
 MODELS_DIR = "./models"
 TRANSMISSION_PAIRS_DIR = './transmission_pairs'
@@ -793,7 +796,10 @@ def visualize_system_performance(results, save_dir="./sem_com_result", run_id=No
 
     logger.info("Generated noise robustness evaluation visualizations")
 
-    # Return path to visualization directory
+    print("\n\n=== VISUALIZATION FILES LOCATION ===")
+    print(f"Files saved to: {viz_dir}")
+    print(f"Absolute path: {os.path.abspath(viz_dir)}")
+    print("=== END LOCATION INFO ===\n\n")
     return viz_dir
 def validate_sentence_structure(text):
     """
@@ -5202,3 +5208,7 @@ if __name__ == "__main__":
         if "cost" in results:
             print(f"  Total API cost: ${results['cost']['total']:.4f}")
             print(f"  Remaining budget: ${results['cost']['remaining']:.2f}")
+
+
+
+
