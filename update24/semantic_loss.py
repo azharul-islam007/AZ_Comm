@@ -97,7 +97,7 @@ class SemanticPerceptualLoss(nn.Module):
         return layer_embeddings
 
     def forward(self, original_texts, reconstructed_texts, add_contrastive=True):
-        """Calculate semantic similarity loss between original and reconstructed texts with contrastive term"""
+        """Calculate semantic similarity loss between original and reconstructed texts with contrastive term and grammar loss"""
         if not self.initialized or not original_texts or not reconstructed_texts:
             # Return zero loss if not initialized or no texts provided
             return torch.tensor(0.0, device=device)
@@ -160,10 +160,94 @@ class SemanticPerceptualLoss(nn.Module):
             # Scale contrastive loss (0.3 is a good starting point)
             contrastive_loss *= 0.3
 
-        # Combine losses
-        total_loss = standard_loss + contrastive_loss
+        # Calculate grammar loss for reconstructed texts (new)
+        grammar_loss = self.calculate_grammar_loss(reconstructed_texts)
+
+        # Combine losses - add grammar loss with 0.1x weight of semantic loss
+        total_loss = standard_loss + contrastive_loss + (0.1 * grammar_loss)
 
         return total_loss
+
+    def calculate_grammar_loss(self, texts):
+        """
+        Calculate grammar loss using POS tagging to penalize unlikely POS transitions.
+        """
+        if not self.initialized:
+            return torch.tensor(0.0, device=device)
+
+        # Import NLTK for POS tagging
+        try:
+            import nltk
+            from nltk.tag import pos_tag
+            from nltk.tokenize import word_tokenize
+
+            # Ensure NLTK resources are available
+            try:
+                nltk.data.find('tokenizers/punkt')
+                nltk.data.find('taggers/averaged_perceptron_tagger')
+            except LookupError:
+                nltk.download('punkt')
+                nltk.download('averaged_perceptron_tagger')
+        except ImportError:
+            logger.warning("NLTK not available for grammar loss calculation")
+            return torch.tensor(0.0, device=device)
+
+        # Define transition probabilities for common sequences
+        # Higher score = more grammatical
+        common_transitions = {
+            ('DT', 'NN'): 0.9,  # Determiner -> Noun (the car)
+            ('DT', 'JJ'): 0.8,  # Determiner -> Adjective (the red)
+            ('JJ', 'NN'): 0.9,  # Adjective -> Noun (red car)
+            ('NN', 'VBZ'): 0.8,  # Noun -> Verb (car is)
+            ('PRP', 'VBP'): 0.9,  # Pronoun -> Verb (I am)
+            ('VBZ', 'VBG'): 0.7,  # Verb -> Gerund (is running)
+            ('TO', 'VB'): 0.9,  # 'to' -> Verb base (to run)
+            ('IN', 'DT'): 0.8,  # Preposition -> Determiner (in the)
+            ('VB', 'DT'): 0.7,  # Verb -> Determiner (see the)
+            ('VBD', 'IN'): 0.7,  # Past tense verb -> Preposition (walked in)
+        }
+
+        # Calculate grammar score for each text
+        grammar_losses = []
+
+        for text in texts:
+            try:
+                # Tokenize and tag
+                tokens = word_tokenize(text)
+                tagged = pos_tag(tokens)
+
+                # Calculate transition scores
+                transition_scores = []
+
+                for i in range(len(tagged) - 1):
+                    current_tag = tagged[i][1]
+                    next_tag = tagged[i + 1][1]
+
+                    # Check if this transition is in our common list
+                    transition = (current_tag, next_tag)
+                    if transition in common_transitions:
+                        # Higher score means more grammatical, so subtract from 1 for loss
+                        transition_scores.append(1.0 - common_transitions[transition])
+                    else:
+                        # Unknown transition - moderate penalty
+                        transition_scores.append(0.5)
+
+                # Overall grammar loss for this text
+                if transition_scores:
+                    grammar_loss = sum(transition_scores) / len(transition_scores)
+                    grammar_losses.append(grammar_loss)
+                else:
+                    grammar_losses.append(0.5)  # Default for very short texts
+
+            except Exception as e:
+                logger.debug(f"Error in grammar loss calculation: {e}")
+                grammar_losses.append(0.5)  # Default on error
+
+        # Convert to tensor
+        if grammar_losses:
+            return torch.tensor(grammar_losses, device=device).mean()
+        else:
+            return torch.tensor(0.0, device=device)
 
     def calculate_semantic_similarity(self, text1, text2):
         """
