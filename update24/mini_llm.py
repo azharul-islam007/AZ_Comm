@@ -97,8 +97,37 @@ class MiniLLM:
             full_output = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
             corrected_text = full_output.split("Corrected:")[-1].strip()
 
-            # Estimate confidence
-            confidence = self.estimate_confidence(noisy_text, corrected_text)
+            # Check if the output is unchanged - if so, try again with paraphrase prompt
+            if corrected_text == noisy_text:
+                logger.info("Mini-LLM output unchanged, trying with paraphrase prompt")
+
+                # Re-invoke with a paraphrase prompt
+                paraphrase_prompt = f"Rewrite more fluently: {noisy_text}\n\nRewritten:"
+
+                inputs = self.tokenizer(paraphrase_prompt, return_tensors="pt", padding=True)
+                attention_mask = inputs.attention_mask.to(self.device)
+                inputs = inputs.to(self.device)
+
+                with torch.no_grad():
+                    outputs = self.model.generate(
+                        inputs.input_ids,
+                        attention_mask=attention_mask,
+                        max_new_tokens=len(noisy_text.split()) * 2,
+                        do_sample=True,
+                        temperature=0.8,  # Slightly higher temperature for more variation
+                        top_p=0.9,
+                        num_return_sequences=1,
+                        pad_token_id=self.tokenizer.eos_token_id
+                    )
+
+                full_output = self.tokenizer.decode(outputs[0], skip_special_tokens=True)
+                corrected_text = full_output.split("Rewritten:")[-1].strip()
+
+                # Re-estimate confidence
+                confidence = self.estimate_confidence(noisy_text, corrected_text)
+            else:
+                # Estimate confidence for original output
+                confidence = self.estimate_confidence(noisy_text, corrected_text)
 
             # Only return if confidence exceeds threshold
             if confidence >= min_confidence:
