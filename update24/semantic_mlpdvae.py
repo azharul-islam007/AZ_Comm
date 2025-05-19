@@ -188,13 +188,7 @@ class MLPDenoisingVAE(nn.Module):
 
     def decode_with_text_guidance(self, z, text_hint=None, text_context=None, text_contexts=None):
         """
-        Simplified: Decode latent with text guidance from KB when available
-
-        Args:
-            z: Latent vector to decode
-            text_hint: Text for guidance (usually the source text)
-            text_context: Primary context text (for backward compatibility)
-            text_contexts: List of context texts for enhanced context utilization
+        Decode latent with text guidance from KB when available, preserving proper names
         """
         # Basic decode first - use existing decode method
         reconstructed = self.decode(z)
@@ -205,6 +199,32 @@ class MLPDenoisingVAE(nn.Module):
 
         # Try to apply KB guidance to improve the result
         try:
+            # Import NLTK for POS tagging
+            try:
+                import nltk
+                from nltk.tag import pos_tag
+                from nltk.tokenize import word_tokenize
+
+                # Ensure NLTK resources are available
+                try:
+                    nltk.data.find('tokenizers/punkt')
+                    nltk.data.find('taggers/averaged_perceptron_tagger')
+                except LookupError:
+                    nltk.download('punkt')
+                    nltk.download('averaged_perceptron_tagger')
+            except ImportError:
+                logger.warning("NLTK not available for proper name preservation")
+
+            # Extract proper names from text_hint
+            tokens = word_tokenize(text_hint)
+            tagged = pos_tag(tokens)
+
+            # Find all proper nouns (PROPN)
+            proper_names = []
+            for token, tag in tagged:
+                if tag in ['NNP', 'NNPS']:  # Proper noun tags in NLTK
+                    proper_names.append(token)
+
             # Get embeddings for text hint if we have that capability
             if hasattr(self, 'get_text_embedding'):
                 hint_embedding = self.get_text_embedding(text_hint)
@@ -228,7 +248,40 @@ class MLPDenoisingVAE(nn.Module):
                 if sim.item() > 0.9:
                     return reconstructed
 
-                # Use a simple weight calculation based on similarity
+                # If proper names found, ensure they are preserved
+                if proper_names:
+                    kb = get_or_create_knowledge_base()
+
+                    # Apply proper name preservation through KB
+                    if hasattr(kb, 'preserve_names'):
+                        # Call the KB method to preserve names
+                        text_with_names = kb.preserve_names(
+                            text_hint,
+                            proper_names=proper_names
+                        )
+
+                        # If text with preserved names, get its embedding
+                        if text_with_names and text_with_names != text_hint:
+                            names_embedding = self.get_text_embedding(text_with_names)
+                            names_tensor = torch.tensor(names_embedding, device=reconstructed.device)
+
+                            # Ensure proper shape
+                            if len(names_tensor.shape) == 1:
+                                names_tensor = names_tensor.unsqueeze(0)
+
+                            # Blend with focus on names preservation
+                            name_weight = min(0.4, 0.2 + len(proper_names) * 0.05)
+                            adjusted = (1 - name_weight) * reconstructed + name_weight * names_tensor
+
+                            # Normalize to preserve norm
+                            norm = torch.norm(reconstructed)
+                            adjusted_norm = torch.norm(adjusted)
+                            if adjusted_norm > 0:
+                                adjusted = adjusted * (norm / adjusted_norm)
+
+                            return adjusted
+
+                # Use a simple weight calculation based on similarity for standard hints
                 hint_weight = max(0.0, min(0.3, 0.8 - sim.item()))
 
                 # Add a small bonus for having context
@@ -248,6 +301,7 @@ class MLPDenoisingVAE(nn.Module):
                     adjusted = adjusted * (norm / adjusted_norm)
 
                 return adjusted
+
         except Exception as e:
             logger.debug(f"Text-guided decoding error: {e}")
 
