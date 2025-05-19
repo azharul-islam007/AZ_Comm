@@ -375,6 +375,112 @@ class SemanticKnowledgeBase:
 
         return self.save()
 
+    def preserve_names(self, text, proper_names=None):
+        """
+        Ensure proper names are preserved during reconstruction.
+
+        Args:
+            text: Original text
+            proper_names: List of proper names to preserve
+
+        Returns:
+            Text with proper names preserved
+        """
+        if not text:
+            return text
+
+        if not proper_names:
+            # Try to detect proper names using POS tagging
+            try:
+                import nltk
+                from nltk.tag import pos_tag
+                from nltk.tokenize import word_tokenize
+
+                # Ensure NLTK resources are available
+                try:
+                    nltk.data.find('tokenizers/punkt')
+                    nltk.data.find('taggers/averaged_perceptron_tagger')
+                except LookupError:
+                    nltk.download('punkt')
+                    nltk.download('averaged_perceptron_tagger')
+
+                # Extract proper names
+                tokens = word_tokenize(text)
+                tagged = pos_tag(tokens)
+
+                proper_names = []
+                for token, tag in tagged:
+                    if tag in ['NNP', 'NNPS']:  # Proper noun tags
+                        proper_names.append(token)
+            except Exception as e:
+                logger.debug(f"Error detecting proper names: {e}")
+                return text
+
+        # If no proper names found, return original text
+        if not proper_names:
+            return text
+
+        # Add proper names to a special preserved terms dictionary
+        if not hasattr(self, 'preserved_names'):
+            self.preserved_names = {}
+
+        for name in proper_names:
+            if name not in self.preserved_names:
+                self.preserved_names[name] = name
+
+        # Apply KB reconstruction but ensure proper names remain intact
+        result = self.kb_guided_reconstruction(text)
+
+        # Check if proper names were preserved in the reconstruction
+        for name in proper_names:
+            if name not in result and name in text:
+                # Name was lost - try to reinsert it
+                # Find potential locations based on context
+                try:
+                    # Get context words before and after name in original text
+                    original_words = text.split()
+                    name_positions = [i for i, word in enumerate(original_words) if word == name]
+
+                    if name_positions:
+                        for pos in name_positions:
+                            # Get context (up to 2 words before and after)
+                            context_before = original_words[max(0, pos - 2):pos]
+                            context_after = original_words[pos + 1:min(len(original_words), pos + 3)]
+
+                            # Look for similar context in result
+                            result_words = result.split()
+                            best_pos = -1
+                            best_score = -1
+
+                            for i in range(len(result_words)):
+                                # Check context similarity
+                                score = 0
+
+                                # Check words before
+                                for j, word in enumerate(context_before):
+                                    if (i - len(context_before) + j >= 0 and
+                                            result_words[i - len(context_before) + j].lower() == word.lower()):
+                                        score += 1
+
+                                # Check words after
+                                for j, word in enumerate(context_after):
+                                    if (i + 1 + j < len(result_words) and
+                                            result_words[i + 1 + j].lower() == word.lower()):
+                                        score += 1
+
+                                if score > best_score:
+                                    best_score = score
+                                    best_pos = i
+
+                            # Insert name at best position if found
+                            if best_pos >= 0:
+                                result_words.insert(best_pos, name)
+                                result = ' '.join(result_words)
+                                break
+                except Exception as e:
+                    logger.debug(f"Error reinserting proper name: {e}")
+
+        return result
     def enhance_europarl_kb(self):
         """Expand knowledge base with more specialized parliamentary terms"""
         # Add additional parliamentary-specific terms
@@ -1615,13 +1721,48 @@ class SemanticKnowledgeBase:
 
         return result
 
-    def kb_guided_reconstruction(self, noisy_text):
+    def kb_guided_reconstruction(self, noisy_text, preserve_names=True):
         """
         Enhanced text reconstruction using KB with multi-stage approach and more
-        aggressive correction for parliamentary text.
+        aggressive correction for parliamentary text, with proper name preservation.
         """
         if not noisy_text:
             return ""
+
+        # Extract proper names if preserve_names is True
+        proper_names = []
+        if preserve_names:
+            try:
+                import nltk
+                from nltk.tag import pos_tag
+                from nltk.tokenize import word_tokenize
+
+                # Ensure NLTK resources are available
+                try:
+                    nltk.data.find('tokenizers/punkt')
+                    nltk.data.find('taggers/averaged_perceptron_tagger')
+                except LookupError:
+                    nltk.download('punkt')
+                    nltk.download('averaged_perceptron_tagger')
+
+                # Extract proper names
+                tokens = word_tokenize(noisy_text)
+                tagged = pos_tag(tokens)
+
+                for token, tag in tagged:
+                    if tag in ['NNP', 'NNPS']:  # Proper noun tags
+                        proper_names.append(token)
+
+                # Add to preserved names dictionary
+                if not hasattr(self, 'preserved_names'):
+                    self.preserved_names = {}
+
+                for name in proper_names:
+                    self.preserved_names[name] = name
+
+            except Exception as e:
+                logger.debug(f"Error extracting proper names: {e}")
+                proper_names = []
 
         # Stage 1: Check for multi-word phrase patterns first
         # This is more important for coherent correction of domain-specific terms
@@ -1731,6 +1872,10 @@ class SemanticKnowledgeBase:
                 break
 
         for i, word in enumerate(words):
+            # Skip proper names if preserve_names is True
+            if preserve_names and word in proper_names:
+                continue
+
             if word in common_error_patterns:
                 words[i] = common_error_patterns[word]
                 quick_fix = True
@@ -1766,6 +1911,11 @@ class SemanticKnowledgeBase:
 
         # Process each word with enhanced context awareness
         for i, word in enumerate(words):
+            # Skip proper names if preserve_names is True
+            if preserve_names and word in proper_names:
+                corrected_words.append(word)
+                continue
+
             # Skip very short words and punctuation
             if len(word) <= 2 or all(c in '.,;:!?()[]{}"\'' for c in word):
                 corrected_words.append(word)
@@ -1822,6 +1972,10 @@ class SemanticKnowledgeBase:
                 if context_match:
                     continue
 
+            # If context match found, skip to next word
+            if context_match:
+                continue
+
             # Try fuzzy matching with adaptive thresholds based on word length and content type
             base_threshold = 0.55 if is_parliamentary else 0.6  # Lower base threshold for parliamentary content
             threshold = max(0.45, base_threshold - (len(word) * 0.02))  # Lower threshold for longer words
@@ -1869,6 +2023,58 @@ class SemanticKnowledgeBase:
 
         # Stage 5: Apply grammatical consistency checks
         result = self._apply_grammatical_fixes(result)
+
+        # Final step: Ensure proper names are preserved
+        if preserve_names and proper_names:
+            result_words = result.split()
+
+            # Check if each proper name appears in the result
+            for name in proper_names:
+                if name not in result and name in noisy_text:
+                    # Find potential locations based on context
+                    try:
+                        # Get context words before and after name in original text
+                        original_words = noisy_text.split()
+                        name_positions = [i for i, word in enumerate(original_words) if word == name]
+
+                        if name_positions:
+                            for pos in name_positions:
+                                # Get context (up to 2 words before and after)
+                                context_before = original_words[max(0, pos - 2):pos]
+                                context_after = original_words[pos + 1:min(len(original_words), pos + 3)]
+
+                                # Look for similar context in result
+                                result_words = result.split()
+                                best_pos = -1
+                                best_score = -1
+
+                                for i in range(len(result_words)):
+                                    # Check context similarity
+                                    score = 0
+
+                                    # Check words before
+                                    for j, word in enumerate(context_before):
+                                        if (i - len(context_before) + j >= 0 and
+                                                result_words[i - len(context_before) + j].lower() == word.lower()):
+                                            score += 1
+
+                                    # Check words after
+                                    for j, word in enumerate(context_after):
+                                        if (i + 1 + j < len(result_words) and
+                                                result_words[i + 1 + j].lower() == word.lower()):
+                                            score += 1
+
+                                    if score > best_score:
+                                        best_score = score
+                                        best_pos = i
+
+                                # Insert name at best position if found
+                                if best_pos >= 0:
+                                    result_words.insert(best_pos, name)
+                                    result = ' '.join(result_words)
+                                    break
+                    except Exception as e:
+                        logger.debug(f"Error reinserting proper name: {e}")
 
         return result
 
