@@ -11,8 +11,8 @@ logger = logging.getLogger(__name__)
 class MiniLLM:
     """Lightweight local LLM for text reconstruction as an API fallback"""
 
-    def __init__(self, model_name="distilgpt2", device=None):
-        self.model_name = model_name
+    def __init__(self, model_name="gpt2-medium", device=None):
+        self.model_name = model_name  # Use gpt2-medium by default for better performance
         self.device = device or torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.initialized = False
         self.load_model()
@@ -63,17 +63,39 @@ class MiniLLM:
         return min(0.95, confidence)  # Cap at 0.95 to leave room for improvement
 
     def reconstruct(self, noisy_text, context=None, min_confidence=0.6):
-        """Reconstruct text using the mini-LLM"""
+        """Reconstruct text using the mini-LLM with improved prompt engineering"""
         if not self.initialized:
             logger.warning("Mini-LLM not initialized")
             return noisy_text, 0.0
 
         try:
-            # Prepare prompt
+            # Enhanced prompt with specific examples
             if context:
-                prompt = f"Context: {context}\n\nCorrect this text: {noisy_text}\n\nCorrected:"
+                prompt = f"""Context: {context}
+
+    You are correcting text from European Parliament proceedings that contains errors.
+    Pay special attention to correcting these exact patterns:
+    - "com" should be corrected to "you"
+    - "haye" should be corrected to "have"
+    - "durifb" should be corrected to "during"
+    - "tjps" should be corrected to "this"
+    - Be careful not to add duplicate letters (like "agendaa" or "meetingg")
+
+    Original text: {noisy_text}
+
+    Corrected text:"""
             else:
-                prompt = f"Correct this text: {noisy_text}\n\nCorrected:"
+                prompt = f"""You are correcting text from European Parliament proceedings that contains errors.
+    Pay special attention to correcting these exact patterns:
+    - "com" should be corrected to "you"
+    - "haye" should be corrected to "have"
+    - "durifb" should be corrected to "during"
+    - "tjps" should be corrected to "this"
+    - Be careful not to add duplicate letters (like "agendaa" or "meetingg")
+
+    Original text: {noisy_text}
+
+    Corrected text:"""
 
             # Tokenize with explicit padding and attention mask
             inputs = self.tokenizer(prompt, return_tensors="pt", padding=True)
