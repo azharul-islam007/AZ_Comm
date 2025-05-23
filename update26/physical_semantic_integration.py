@@ -462,61 +462,23 @@ class SemanticChannelOptimizer:
                     # For 1D tensor, return uniform weights
                     importance = torch.ones_like(embedding)
                 else:
-                    # For 2D+ tensor, calculate variance along dim 0
-                    variance = torch.var(embedding, dim=0, unbiased=False)  # Use unbiased=False to prevent warning
-                    importance = 0.2 + 0.8 * (variance / (torch.max(variance) + 1e-8))
+                    # Check batch size before calculating variance
+                    if embedding.shape[0] <= 1:
+                        # Single sample - return uniform weights
+                        importance = torch.ones(embedding.shape[-1], device=embedding.device)
+                    else:
+                        # Multiple samples - safe to calculate variance
+                        variance = torch.var(embedding, dim=0, unbiased=True)
+                        importance = 0.2 + 0.8 * (variance / (torch.max(variance) + 1e-8))
                 return importance
             else:
-                # Numpy array
-                if len(embedding.shape) <= 1:
-                    # For 1D array, return uniform weights
-                    importance = np.ones_like(embedding)
+                # Numpy array handling
+                if len(embedding.shape) <= 1 or embedding.shape[0] <= 1:
+                    importance = np.ones(embedding.shape[-1] if len(embedding.shape) > 1 else len(embedding))
                 else:
-                    # For 2D+ array, calculate variance along axis 0
                     variance = np.var(embedding, axis=0)
                     importance = 0.2 + 0.8 * (variance / (np.max(variance) + 1e-8))
                 return importance
-
-        # With semantic loss, we can do more sophisticated importance extraction
-        try:
-            # Use the importance model to predict importance
-            if self.importance_model is not None:
-                with torch.no_grad():
-                    tensor = torch.tensor(embedding, dtype=torch.float32).to(device)
-
-                    # Ensure proper shape
-                    if len(tensor.shape) == 1:
-                        tensor = tensor.unsqueeze(0)
-
-                    # Get importance prediction
-                    importance = self.importance_model(tensor).squeeze()
-
-                    # Mix with a variance-based baseline
-                    variance = torch.var(tensor, dim=0)
-                    var_importance = 0.2 + 0.8 * (variance / (torch.max(variance) + 1e-8))
-
-                    # Combine both (25% model, 75% variance-based)
-                    importance = 0.25 * importance + 0.75 * var_importance
-
-                    return importance.cpu().numpy() if isinstance(embedding, np.ndarray) else importance
-
-            # Fallback to simple variance-based importance
-            if isinstance(embedding, torch.Tensor):
-                variance = torch.var(embedding, dim=0)
-                importance = 0.2 + 0.8 * (variance / (torch.max(variance) + 1e-8))
-                return importance
-            else:
-                variance = np.var(embedding, axis=0)
-                importance = 0.2 + 0.8 * (variance / (np.max(variance) + 1e-8))
-                return importance
-
-        except Exception as e:
-            logger.warning(f"Error in importance extraction: {e}")
-            # Return uniform importance
-            if isinstance(embedding, torch.Tensor):
-                return torch.ones_like(embedding[0] if len(embedding.shape) > 1 else embedding)
-            else:
-                return np.ones_like(embedding[0] if len(embedding.shape) > 1 else embedding)
 
     def _adjust_channel_parameters(self, importance_weights):
         """Adjust physical channel parameters based on importance"""
