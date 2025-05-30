@@ -1962,7 +1962,7 @@ class PPOAgent(nn.Module):
     with enhanced state representation and more sophisticated policy updates.
     """
 
-    def __init__(self, state_dim=16, num_actions=4, learning_rate=0.0003):
+    def __init__(self, state_dim=16, num_actions=5, learning_rate=0.0003):
         super().__init__()
         self.state_dim = state_dim
         self.num_actions = num_actions
@@ -1970,7 +1970,7 @@ class PPOAgent(nn.Module):
         # Store model device for consistency
         self.model_device = device
         # Print confirmation of action space
-        print(f"PPO Agent initialized with {self.num_actions} actions: 0=KB, 1=Basic, 2=GPT-3.5, 3=GPT-4")
+        print(f"PPO Agent initialized with {self.num_actions} actions: 0=KB, 1=Basic, 2=GPT-4o-mini, 3=GPT-3.5, 4=GPT-4")
         # Actor network (policy) - outputs action probabilities
         self.actor = nn.Sequential(
             nn.Linear(state_dim, 128),
@@ -2124,9 +2124,17 @@ class PPOAgent(nn.Module):
         return action, log_prob, value.cpu().item()
 
     def select_action(self, state, budget_remaining, force_basic=False, corruption_level=None, kb_confidence=None):
-        """Select action for API decision making with improved parliamentary focus and better cost efficiency"""
+        """Select action for API decision making with improved parliamentary focus and better cost efficiency
+
+        Actions:
+        0 = KB
+        1 = Basic
+        2 = GPT-4o-mini (NEW - preferred over GPT-3.5)
+        3 = GPT-3.5-turbo
+        4 = GPT-4-turbo
+        """
         # Action name mapping for logging
-        action_names = ["KB", "Basic", "GPT-3.5", "GPT-4"]
+        action_names = ["KB", "Basic", "GPT-4o-mini", "GPT-3.5", "GPT-4"]
 
         # IMPROVED: Detect parliamentary content
         is_parliamentary = False
@@ -2154,27 +2162,35 @@ class PPOAgent(nn.Module):
             logger.info(f"[RL] PPO Agent selecting next reconstructor: {action_names[action]}")
             return action, 0.0  # Force KB action
 
-        # IMPROVED: More conservative GPT-4 usage
+        # IMPROVED: More conservative GPT-4 usage with GPT-4o-mini as middle ground
         if corruption_level is not None:
             # Critical parliamentary content with severe corruption (GPT-4 for highest value cases)
             if is_parliamentary and corruption_level > 0.6 and kb_confidence is not None and kb_confidence < 0.5:
                 if budget_remaining > 0.6:  # Higher budget threshold for GPT-4
-                    action = 3  # GPT-4 action
+                    action = 4  # GPT-4 action
                     logger.debug(f"Using GPT-4 for critical parliamentary content with severe corruption")
                     logger.info(f"[RL] PPO Agent selecting next reconstructor: {action_names[action]}")
                     return action, 0.0
-                else:
-                    # Use GPT-3.5 when budget is constrained but need is high
-                    action = 2  # GPT-3.5 action
-                    logger.debug(f"Using GPT-3.5 for critical parliamentary content with limited budget")
+                elif budget_remaining > 0.3:
+                    # Use GPT-4o-mini when budget is constrained but need is high
+                    action = 2  # GPT-4o-mini action
+                    logger.debug(f"Using GPT-4o-mini for critical parliamentary content with limited budget")
                     logger.info(f"[RL] PPO Agent selecting next reconstructor: {action_names[action]}")
                     return action, 0.0
 
-            # For high corruption but not parliamentary or critical, prefer GPT-3.5
+            # For high corruption but not parliamentary or critical, prefer GPT-4o-mini
             elif corruption_level > 0.5 and kb_confidence is not None and kb_confidence < 0.6:
-                if budget_remaining > 0.3:  # Moderate budget threshold for GPT-3.5
-                    action = 2  # GPT-3.5 action
-                    logger.debug(f"Using GPT-3.5 for high corruption content")
+                if budget_remaining > 0.2:  # Lower threshold since GPT-4o-mini is cheaper
+                    action = 2  # GPT-4o-mini action
+                    logger.debug(f"Using GPT-4o-mini for high corruption content")
+                    logger.info(f"[RL] PPO Agent selecting next reconstructor: {action_names[action]}")
+                    return action, 0.0
+
+            # For medium corruption, also prefer GPT-4o-mini over GPT-3.5
+            elif corruption_level > 0.4 and kb_confidence is not None and kb_confidence < 0.65:
+                if budget_remaining > 0.15:  # Very low threshold due to cost efficiency
+                    action = 2  # GPT-4o-mini action
+                    logger.debug(f"Using GPT-4o-mini for medium corruption content")
                     logger.info(f"[RL] PPO Agent selecting next reconstructor: {action_names[action]}")
                     return action, 0.0
 
@@ -2182,7 +2198,11 @@ class PPOAgent(nn.Module):
         if random.random() < 0.08:
             # More balanced exploration including API when budget allows
             if budget_remaining > 0.6:
-                action = random.choices([0, 1, 2, 3], weights=[0.3, 0.3, 0.3, 0.1])[0]
+                # Prefer GPT-4o-mini in exploration
+                action = random.choices([0, 1, 2, 3, 4], weights=[0.25, 0.25, 0.35, 0.05, 0.1])[0]
+            elif budget_remaining > 0.3:
+                # Still explore GPT-4o-mini when budget is moderate
+                action = random.choices([0, 1, 2], weights=[0.35, 0.35, 0.3])[0]
             else:
                 action = random.choice([0, 1])  # Only explore KB and Basic when budget limited
             logger.debug(f"Forcing exploration with action {action}")
@@ -2190,29 +2210,29 @@ class PPOAgent(nn.Module):
             return action, 0.0
 
         # Only force basic reconstruction if explicitly requested or extremely low budget
-        if force_basic or budget_remaining < 0.12:
+        if force_basic or budget_remaining < 0.08:  # Lower threshold since GPT-4o-mini is cheaper
             action = 1  # Basic action
             logger.info(f"[RL] PPO Agent selecting next reconstructor: {action_names[action]}")
-            return action, 0.0  # Basic action (now action 1), log_prob=0
+            return action, 0.0
 
         # Force KB attempt when KB confidence is high
         if kb_confidence is not None and kb_confidence > 0.65:
             action = 0  # KB action
             logger.info(f"[RL] PPO Agent selecting next reconstructor: {action_names[action]}")
-            return action, 0.0  # Try KB when it seems confidently promising
+            return action, 0.0
 
         # IMPROVED: Enhanced budget-aware decision making
-        # Force budget conservation by avoiding API when budget is below 30%
-        if budget_remaining < 0.3:
-            # Strongly prefer KB or Basic when budget is low
-            if random.random() < 0.8:  # 80% chance of KB
+        # Force budget conservation by avoiding expensive APIs when budget is below 25%
+        if budget_remaining < 0.25:
+            # Strongly prefer KB, Basic, or GPT-4o-mini when budget is low
+            if random.random() < 0.6:  # 60% chance of KB
                 action = 0  # KB action
-                logger.info(f"[RL] PPO Agent selecting next reconstructor: {action_names[action]}")
-                return action, 0.0  # KB action
+            elif random.random() < 0.8:  # 20% chance of GPT-4o-mini (cheaper)
+                action = 2  # GPT-4o-mini
             else:
                 action = 1  # Basic action
-                logger.info(f"[RL] PPO Agent selecting next reconstructor: {action_names[action]}")
-                return action, 0.0  # Basic action
+            logger.info(f"[RL] PPO Agent selecting next reconstructor: {action_names[action]}")
+            return action, 0.0
 
         # Ensure state is on the correct device
         if not isinstance(state, torch.Tensor):
@@ -2234,24 +2254,30 @@ class PPOAgent(nn.Module):
             # For very low corruption, prefer KB or Basic
             if corruption_level < 0.2:
                 action = min(action, 1)  # Use at most Basic for very mild corruption
-            # For low corruption, consider KB, Basic or GPT-3.5
+            # For low corruption, consider KB, Basic or GPT-4o-mini
             elif corruption_level < 0.35:
-                action = min(action, 2)  # Use at most GPT-3.5 for mild corruption
-            # For medium corruption, prefer GPT-3.5 or better
+                action = min(action, 2)  # Use at most GPT-4o-mini for mild corruption
+            # For medium corruption, prefer GPT-4o-mini
             elif corruption_level < 0.5:
-                action = max(min(action, 2), 1)  # At least Basic, at most GPT-3.5
+                action = max(min(action, 2), 1)  # At least Basic, at most GPT-4o-mini
             else:  # For severe corruption, prefer API models
-                # Allow GPT-4 for severe corruption with good budget
-                if budget_remaining > 0.4:
-                    action = max(action, 2)  # At least GPT-3.5
-                if budget_remaining > 0.6 and corruption_level > 0.7:
-                    action = 3  # Prefer GPT-4 for severe corruption with good budget
+                # Allow GPT-4 or GPT-4o-mini based on budget
+                if budget_remaining > 0.5:
+                    action = max(action, 2)  # At least GPT-4o-mini
+                    if budget_remaining > 0.7 and corruption_level > 0.7:
+                        action = 4  # Prefer GPT-4 for severe corruption with good budget
+                else:
+                    action = min(action, 2)  # Cap at GPT-4o-mini if budget is tight
 
-        # IMPROVED: Further budget conservation
-        if budget_remaining < 0.35 and action == 3:
-            # Downgrade to GPT-3.5 if budget is tight
-            action = 2
-            logger.debug(f"Downgrading from GPT-4 to GPT-3.5 due to budget constraints")
+        # IMPROVED: Further budget conservation - avoid GPT-3.5 in favor of GPT-4o-mini
+        if action == 3:  # If GPT-3.5 was selected
+            action = 2  # Switch to GPT-4o-mini (better and cheaper)
+            logger.debug(f"Switching from GPT-3.5 to GPT-4o-mini for better performance and cost")
+
+        # Downgrade from GPT-4 to GPT-4o-mini if budget is tight
+        if budget_remaining < 0.35 and action == 4:
+            action = 2  # Downgrade to GPT-4o-mini
+            logger.debug(f"Downgrading from GPT-4 to GPT-4o-mini due to budget constraints")
 
         # Log the final decision
         logger.info(f"[RL] PPO Agent selecting next reconstructor: {action_names[action]}")
@@ -2672,7 +2698,8 @@ class CostTracker:
         self.pricing = {
             "gpt-3.5-turbo": {"input": 0.0005, "output": 0.0015},
             "gpt-4-turbo": {"input": 0.01, "output": 0.03},
-            "gpt-4o": {"input": 0.01, "output": 0.03}
+            "gpt-4o": {"input": 0.01, "output": 0.03},
+            "gpt-4o-mini": {"input": 0.00015, "output": 0.0006}  # Much cheaper than GPT-3.5!
         }
 
     def log_usage(self, model, input_tokens, output_tokens):
@@ -4196,7 +4223,7 @@ def api_reconstruct_with_semantic_features(noisy_text, context="", rl_agent=None
     """
     Improved API reconstruction with parliamentary-focused system prompt
     and better model selection. Now with Mini-LLM integration as an additional
-    reconstruction option.
+    reconstruction option. Updated to prefer GPT-4o-mini over GPT-3.5.
     """
     start_time = time.time()
     api_cost = 0
@@ -4408,14 +4435,14 @@ def api_reconstruct_with_semantic_features(noisy_text, context="", rl_agent=None
         logger.info(f"[API] Completed in {elapsed_time:.3f}s using method: {method_used}")
         return mini_llm_result, 0, final_action
 
-    # Default API model selection with parliamentary awareness
+    # Default API model selection with GPT-4o-mini preference
     if api_model is None:
-        if parl_term_present and corruption_level > 0.4 and budget_remaining > 0.5:
-            api_model = "gpt-4-turbo"  # Use GPT-4 for important parliamentary content
-        elif corruption_level > 0.7 and budget_remaining > 0.6:
+        if parl_term_present and corruption_level > 0.6 and budget_remaining > 0.5:
+            api_model = "gpt-4-turbo"  # Use GPT-4 for critical parliamentary content
+        elif corruption_level > 0.8 and budget_remaining > 0.6:
             api_model = "gpt-4-turbo"  # Use GPT-4 for severe corruption with good budget
         else:
-            api_model = "gpt-3.5-turbo"  # Default to more economical model
+            api_model = "gpt-4o-mini"  # Default to GPT-4o-mini instead of GPT-3.5
 
     # NOW let RL agent decide which method to use AFTER all options have been evaluated
     if rl_agent is not None and not force_api:
@@ -4467,16 +4494,20 @@ def api_reconstruct_with_semantic_features(noisy_text, context="", rl_agent=None
                 else:
                     logger.info("[API] RL agent selected Basic but quality insufficient, falling back")
                     # Fall through to try API
-            elif action == 2:  # GPT-3.5
-                api_model = "gpt-3.5-turbo"
-                logger.info("[API] RL agent selected GPT-3.5 Turbo")
-            elif action == 3:  # GPT-4
+            elif action == 2:  # GPT-4o-mini
+                api_model = "gpt-4o-mini"
+                logger.info("[API] RL agent selected GPT-4o-mini")
+            elif action == 3:  # GPT-3.5
+                # Redirect to GPT-4o-mini instead
+                api_model = "gpt-4o-mini"
+                logger.info("[API] RL agent selected GPT-3.5 but using GPT-4o-mini instead (better and cheaper)")
+            elif action == 4:  # GPT-4
                 api_model = "gpt-4-turbo"
                 logger.info("[API] RL agent selected GPT-4 Turbo")
                 # Only downgrade for severely constrained budget
                 if budget_remaining < 0.35:  # Adjusted from 0.5
-                    api_model = "gpt-3.5-turbo"
-                    logger.info("[API] Downgraded to GPT-3.5 Turbo due to budget constraints")
+                    api_model = "gpt-4o-mini"
+                    logger.info("[API] Downgraded to GPT-4o-mini due to budget constraints")
         except Exception as e:
             logger.warning(f"[API] RL agent error: {e}")
 
@@ -4487,8 +4518,8 @@ def api_reconstruct_with_semantic_features(noisy_text, context="", rl_agent=None
             api_model = "gpt-4-turbo"  # Use GPT-4 for critical cases with good budget
             logger.info("[API] Selected GPT-4 Turbo for critical case")
         else:
-            api_model = "gpt-3.5-turbo"
-            logger.info("[API] Selected GPT-3.5 Turbo for critical case with budget constraints")
+            api_model = "gpt-4o-mini"  # Use GPT-4o-mini instead of GPT-3.5
+            logger.info("[API] Selected GPT-4o-mini for critical case with budget constraints")
     elif mini_llm_applied and mini_llm_quality >= quality_threshold and not force_api:
         # Use Mini-LLM if high quality and not forcing API
         logger.info(f"[API] Using high-quality Mini-LLM reconstruction")
@@ -4589,7 +4620,7 @@ def api_reconstruct_with_semantic_features(noisy_text, context="", rl_agent=None
     # IMPROVED: Enhanced validation of the response
     if response and hasattr(response, 'choices') and len(response.choices) > 0 and hasattr(response.choices[0],
                                                                                            'message') and hasattr(
-        response.choices[0].message, 'content'):
+            response.choices[0].message, 'content'):
         try:
             # Extract corrected text
             reconstructed_text = response.choices[0].message.content.strip()
@@ -4634,10 +4665,12 @@ def api_reconstruct_with_semantic_features(noisy_text, context="", rl_agent=None
             method_used = f"api_{api_model}"
 
             # Set final action based on API model used
-            if "gpt-3.5" in api_model:
-                final_action = 2  # GPT-3.5
+            if "gpt-4o-mini" in api_model:
+                final_action = 2  # GPT-4o-mini
+            elif "gpt-3.5" in api_model:
+                final_action = 3  # GPT-3.5
             else:
-                final_action = 3  # GPT-4
+                final_action = 4  # GPT-4
 
             elapsed_time = time.time() - start_time
             logger.info(f"[API] Completed in {elapsed_time:.3f}s using method: {method_used}")
@@ -5350,11 +5383,11 @@ def should_use_api(noisy_text, kb_result=None, kb_confidence=0.0, budget_remaini
     """
     Much more conservative function to decide whether to use API for reconstruction.
     Drastically reduces API usage, especially GPT-4, by implementing strict budget
-    thresholds and requiring higher corruption levels.
+    thresholds and requiring higher corruption levels. Now prefers GPT-4o-mini.
     """
     # Default choices - explicitly default to no API
     should_use = False
-    model = "gpt-3.5-turbo"  # Default cheaper model
+    model = "gpt-4o-mini"  # Default to GPT-4o-mini instead of GPT-3.5
     reason = "default_no_api"  # Default to not using API
 
     # Critical budget checks - significantly raised thresholds
@@ -5438,8 +5471,8 @@ def should_use_api(noisy_text, kb_result=None, kb_confidence=0.0, budget_remaini
     # If we get here, basic API usage has been approved
     # Now determine which model to use with extremely conservative GPT-4 usage
 
-    # Default to more economical GPT-3.5 unless specific conditions are met
-    model = "gpt-3.5-turbo"
+    # Default to GPT-4o-mini
+    model = "gpt-4o-mini"
 
     # Only consider GPT-4 when budget is very healthy and corruption is extreme
     if should_use and budget_remaining > 0.8 and corruption_level > 0.8:
@@ -5448,8 +5481,8 @@ def should_use_api(noisy_text, kb_result=None, kb_confidence=0.0, budget_remaini
             model = "gpt-4-turbo"
             reason = "critical_parliamentary_content_extreme_corruption"
         else:
-            # Still use GPT-3.5 for non-critical content
-            model = "gpt-3.5-turbo"
+            # Still use GPT-4o-mini for non-critical content
+            model = "gpt-4o-mini"
             reason = "extreme_corruption_but_not_critical_parliamentary"
 
     # Final ultra-conservative budget check
@@ -5797,6 +5830,13 @@ def cascade_reconstruction(noisy_text, context=None, rl_agent=None, budget_remai
     1. Try KB and enhanced basic (which includes Mini-LLM) independently
     2. Use API when necessary based on corruption level and budget
     3. Use ensemble voting for multiple good reconstructions
+
+    Updated to handle 5 action codes:
+    0 = KB
+    1 = Basic
+    2 = GPT-4o-mini
+    3 = GPT-3.5
+    4 = GPT-4
     """
     start_time = time.time()
     method_used = "none"
@@ -5840,7 +5880,7 @@ def cascade_reconstruction(noisy_text, context=None, rl_agent=None, budget_remai
     api_applied = False
     api_confidence = 0.0
     api_cost = 0.0
-    api_action = 2  # Default to GPT-3.5
+    api_action = 2  # Default to GPT-4o-mini
 
     # Estimate corruption level
     corruption_level = estimate_corruption_level(noisy_text)
@@ -5872,7 +5912,7 @@ def cascade_reconstruction(noisy_text, context=None, rl_agent=None, budget_remai
 
     # Determine if API should be used - more intelligent approach
     should_use_api = False
-    api_model = "gpt-3.5-turbo"  # Default to cheaper model
+    api_model = "gpt-4o-mini"  # Default to GPT-4o-mini
 
     # Only consider API if available and budget allows
     if openai_available and openai_client and budget_remaining > 0.08:
@@ -5954,11 +5994,16 @@ def cascade_reconstruction(noisy_text, context=None, rl_agent=None, budget_remai
             method_used = "basic"
             logger.info(f"RL agent selected enhanced basic with quality {basic_quality:.2f}")
             final_action = 1
-        elif action >= 2 and api_applied:  # API
+        elif action >= 2 and api_applied:  # API (any of the three models)
             semantic_reconstructed = api_result
-            method_used = f"api_{api_model}"
+            if action == 2:
+                method_used = "api_gpt-4o-mini"
+            elif action == 3:
+                method_used = "api_gpt-3.5-turbo"
+            else:  # action == 4
+                method_used = "api_gpt-4-turbo"
             final_action = action
-            logger.info(f"RL agent selected API ({api_model}) with confidence {api_confidence:.2f}")
+            logger.info(f"RL agent selected API ({method_used}) with confidence {api_confidence:.2f}")
         else:
             # Fallback to best available option if selected action failed
             candidates = []
@@ -6021,7 +6066,18 @@ def cascade_reconstruction(noisy_text, context=None, rl_agent=None, budget_remai
     # Otherwise, use ensemble voting for most cases (favors combination of methods)
     results = [c[0] for c in candidates]
     confidences = [c[1] for c in candidates]
-    method_names = ["kb" if c[2] == 0 else "basic" if c[2] == 1 else "api" for c in candidates]
+    method_names = []
+    for c in candidates:
+        if c[2] == 0:
+            method_names.append("kb")
+        elif c[2] == 1:
+            method_names.append("basic")
+        elif c[2] == 2:
+            method_names.append("api_gpt-4o-mini")
+        elif c[2] == 3:
+            method_names.append("api_gpt-3.5-turbo")
+        else:
+            method_names.append("api_gpt-4-turbo")
 
     # Use enhanced ensemble voting
     ensemble_result = adaptive_ensemble_voting(
