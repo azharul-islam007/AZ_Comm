@@ -2604,12 +2604,18 @@ class PPOAgent(nn.Module):
             logger.info(f"[RL] PPO Agent selecting next reconstructor: {action_names[action]}")
             return action, 0.0  # Force KB action
 
-        # IMPROVED: More conservative GPT-4 usage with GPT-4o-mini as middle ground
+        # Enhanced GPT-4 usage for severe cases
         if corruption_level is not None:
             # Critical parliamentary content with severe corruption (GPT-4 for highest value cases)
-            if is_parliamentary and corruption_level > 0.6 and kb_confidence is not None and kb_confidence < 0.5:
-                if budget_remaining > 0.6:  # Higher budget threshold for GPT-4
+            if is_parliamentary and corruption_level > 0.5 and kb_confidence is not None and kb_confidence < 0.6:
+                if budget_remaining > 0.4:  # Lowered budget threshold for GPT-4
                     action = 4  # GPT-4 action
+                    logger.debug(f"RL agent selected GPT-4 for critical parliamentary content")
+                    logger.info(f"[RL] PPO Agent selecting next reconstructor: {action_names[action]}")
+                    return action, 0.0
+                elif budget_remaining > 0.25:
+                    # Use GPT-4o-mini when budget is constrained but need is high
+                    action = 2  # GPT-4o-mini action
                     logger.debug(f"Using GPT-4 for critical parliamentary content with severe corruption")
                     logger.info(f"[RL] PPO Agent selecting next reconstructor: {action_names[action]}")
                     return action, 0.0
@@ -2635,13 +2641,20 @@ class PPOAgent(nn.Module):
                     logger.debug(f"Using GPT-4o-mini for medium corruption content")
                     logger.info(f"[RL] PPO Agent selecting next reconstructor: {action_names[action]}")
                     return action, 0.0
+            # For severe corruption without parliamentary content, still prefer GPT-4
+            elif corruption_level > 0.7 and kb_confidence is not None and kb_confidence < 0.5:
+                if budget_remaining > 0.4:  # Use GPT-4 for severe corruption
+                    action = 4  # GPT-4 action
+                    logger.debug(f"RL agent selected GPT-4 for severe corruption (level: {corruption_level:.2f})")
+                    logger.info(f"[RL] PPO Agent selecting next reconstructor: {action_names[action]}")
+                    return action, 0.0
 
-        # Random exploration with better distribution
-        if random.random() < 0.08:
+        # Random exploration with better distribution and more GPT-4
+        if random.random() < 0.12:  # Increased exploration rate
             # More balanced exploration including API when budget allows
-            if budget_remaining > 0.6:
-                # Prefer GPT-4o-mini in exploration
-                action = random.choices([0, 1, 2, 3, 4], weights=[0.25, 0.25, 0.35, 0.05, 0.1])[0]
+            if budget_remaining > 0.5:  # Lowered threshold
+                # Better distribution with more GPT-4 exploration
+                action = random.choices([0, 1, 2, 3, 4], weights=[0.2, 0.2, 0.25, 0.1, 0.25])[0]  # More GPT-4
             elif budget_remaining > 0.3:
                 # Still explore GPT-4o-mini when budget is moderate
                 action = random.choices([0, 1, 2], weights=[0.35, 0.35, 0.3])[0]
@@ -2723,6 +2736,11 @@ class PPOAgent(nn.Module):
 
         # Log the final decision
         logger.info(f"[RL] PPO Agent selecting next reconstructor: {action_names[action]}")
+
+        # Log the final decision with context
+        logger.info(f"[RL] Final action selection: {action} ({action_names[action]}) - "
+                    f"corruption: {corruption_level:.2f}, budget: {budget_remaining:.2f}, "
+                    f"parliamentary: {is_parliamentary}")
 
         return action, log_prob
 
@@ -4877,14 +4895,20 @@ def api_reconstruct_with_semantic_features(noisy_text, context="", rl_agent=None
         logger.info(f"[API] Completed in {elapsed_time:.3f}s using method: {method_used}")
         return mini_llm_result, 0, final_action
 
-    # Default API model selection with GPT-4o-mini preference
+    # Enhanced API model selection with better GPT-4 criteria
     if api_model is None:
-        if parl_term_present and corruption_level > 0.6 and budget_remaining > 0.5:
-            api_model = "gpt-4-turbo"  # Use GPT-4 for critical parliamentary content
-        elif corruption_level > 0.8 and budget_remaining > 0.6:
-            api_model = "gpt-4-turbo"  # Use GPT-4 for severe corruption with good budget
+        # Get corruption details
+        corruption_info = detect_corruption_patterns(noisy_text)
+        critical_corruptions = corruption_info.get('critical_corruptions', 0)
+
+        if parl_term_present and corruption_level > 0.5 and budget_remaining > 0.4:
+            api_model = "gpt-4-turbo"  # Lowered thresholds for parliamentary content
+        elif corruption_level > 0.7 and budget_remaining > 0.4:  # Lowered from 0.8 and 0.6
+            api_model = "gpt-4-turbo"  # Use GPT-4 for severe corruption
+        elif critical_corruptions >= 2 and budget_remaining > 0.35:  # Now properly defined
+            api_model = "gpt-4-turbo"  # Use GPT-4 for multiple critical corruptions
         else:
-            api_model = "gpt-4o-mini"  # Default to GPT-4o-mini instead of GPT-3.5
+            api_model = "gpt-4o-mini"  # Default to GPT-4o-mini
 
     # NOW let RL agent decide which method to use AFTER all options have been evaluated
     if rl_agent is not None and not force_api:
@@ -4953,15 +4977,17 @@ def api_reconstruct_with_semantic_features(noisy_text, context="", rl_agent=None
         except Exception as e:
             logger.warning(f"[API] RL agent error: {e}")
 
-    # Force fallbacks if no RL agent or RL agent didn't make a usable decision
-    if force_api:
-        # Critical errors require API
-        if budget_remaining > 0.5:
-            api_model = "gpt-4-turbo"  # Use GPT-4 for critical cases with good budget
-            logger.info("[API] Selected GPT-4 Turbo for critical case")
+    # Enhanced decision logic for severe cases
+    severe_corruption = detect_severe_corruption_patterns(noisy_text)
+
+    if force_api or severe_corruption:
+        # Critical errors or severe patterns require stronger model
+        if budget_remaining > 0.35:  # Lowered from 0.5
+            api_model = "gpt-4-turbo"
+            logger.info(f"[API] Selected GPT-4 Turbo for {'critical case' if force_api else 'severe corruption'}")
         else:
-            api_model = "gpt-4o-mini"  # Use GPT-4o-mini instead of GPT-3.5
-            logger.info("[API] Selected GPT-4o-mini for critical case with budget constraints")
+            api_model = "gpt-4o-mini"
+            logger.info("[API] Selected GPT-4o-mini due to budget constraints")
     elif mini_llm_applied and mini_llm_quality >= quality_threshold and not force_api:
         # Use Mini-LLM if high quality and not forcing API
         logger.info(f"[API] Using high-quality Mini-LLM reconstruction")
@@ -5820,6 +5846,28 @@ def detect_corruption_patterns(text):
     return results
 
 
+def detect_severe_corruption_patterns(text):
+    """Enhanced detection of severe corruption that requires GPT-4"""
+    severe_patterns = [
+        # Parliamentary institution corruptions
+        "Parliamemt", "Commissiob", "Coupcil", "Quaestozs",
+        # Multiple consecutive corruptions
+        r'[bcdfghjklmnpqrstvwxyz]{4,}',  # 4+ consecutive consonants
+        # Critical procedural term corruptions
+        "propofal", "amendmert", "directave", "regulatn"
+    ]
+
+    severe_count = 0
+    for pattern in severe_patterns:
+        if isinstance(pattern, str):
+            if pattern in text:
+                severe_count += 1
+        else:  # regex pattern
+            if re.search(pattern, text.lower()):
+                severe_count += 1
+
+    return severe_count >= 2  # Require at least 2 severe patterns for GPT-4
+
 def should_use_api(noisy_text, kb_result=None, kb_confidence=0.0, budget_remaining=1.0, rl_agent=None,
                    parl_features=None):
     """
@@ -5916,21 +5964,23 @@ def should_use_api(noisy_text, kb_result=None, kb_confidence=0.0, budget_remaini
     # Default to GPT-4o-mini
     model = "gpt-4o-mini"
 
-    # Only consider GPT-4 when budget is very healthy and corruption is extreme
-    if should_use and budget_remaining > 0.8 and corruption_level > 0.8:
-        # Only for extremely problematic parliamentary text with excellent budget
-        if critical_parl_terms >= 2 and parl_count >= 3:
+    # More balanced GPT-4 usage for severe cases
+    if should_use and budget_remaining > 0.4 and corruption_level > 0.6:  # Lowered thresholds
+        # Use GPT-4 for severe corruption or critical parliamentary content
+        if (critical_parl_terms >= 1 and parl_count >= 2) or corruption_level > 0.75:
             model = "gpt-4-turbo"
-            reason = "critical_parliamentary_content_extreme_corruption"
+            reason = "severe_corruption_or_critical_parliamentary"
         else:
-            # Still use GPT-4o-mini for non-critical content
             model = "gpt-4o-mini"
-            reason = "extreme_corruption_but_not_critical_parliamentary"
+            reason = "moderate_corruption"
 
-    # Final ultra-conservative budget check
-    if budget_remaining < 0.5:  # Raised from 0.3 to 0.5
+    # Balanced budget check that allows GPT-4 for severe cases
+    if budget_remaining < 0.3:  # Allow more flexibility for severe cases
         should_use = False
         reason = "budget_conservation_override"
+    elif budget_remaining < 0.4 and corruption_level < 0.7:  # Only restrict for moderate corruption
+        should_use = False
+        reason = "budget_conservation_moderate_corruption"
 
     return should_use, model, reason
 
@@ -6351,6 +6401,11 @@ def cascade_reconstruction(noisy_text, context=None, rl_agent=None, budget_remai
 
     # Extract parliamentary features for better RL state representation if needed
     parl_features = extract_parliamentary_features(noisy_text)
+    # Enhanced severity detection for better model selection
+    if parl_term_corruptions > 0 and corruption_level > 0.4:
+        corruption_level = min(1.0, corruption_level + 0.2)  # Boost for parliamentary corruption
+        logger.info(
+            f"[PIPELINE] Boosted corruption level to {corruption_level:.2f} due to parliamentary term corruption")
 
     # Determine if API should be used - more intelligent approach
     should_use_api = False
@@ -7559,15 +7614,18 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
                         # Directly record the action chosen
                         sample_result["rl_action"] = action
 
-                        # Record method based on action number for clarity
+                        # Record method based on action number for clarity (5 actions)
                         if action == 0:
                             sample_result["semantic_method"] = "kb"
                         elif action == 1:
                             sample_result["semantic_method"] = "basic"
                         elif action == 2:
-                            sample_result["semantic_method"] = "api_gpt-3.5-turbo"
+                            sample_result["semantic_method"] = "api_gpt-4o-mini"
                             sample_result["api_cost"] = api_cost
                         elif action == 3:
+                            sample_result["semantic_method"] = "api_gpt-3.5-turbo"
+                            sample_result["api_cost"] = api_cost
+                        elif action == 4:
                             sample_result["semantic_method"] = "api_gpt-4-turbo"
                             sample_result["api_cost"] = api_cost
                 else:
@@ -7891,7 +7949,7 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
     # Add RL agent metrics if used
     if use_rl:
         # Track action distribution (KB, Basic, GPT-3.5, GPT-4)
-        action_counts = {0: 0, 1: 0, 2: 0, 3: 0}  # Initialize all counts to 0
+        action_counts = {0: 0, 1: 0, 2: 0, 3: 0, 4: 0}  # Initialize all counts to 0
 
         # Count actions based on both rl_action and semantic_method for better reliability
         for sample in results["samples"]:
@@ -7900,18 +7958,21 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
             # First check explicit rl_action if available
             if "rl_action" in sample:
                 action = sample["rl_action"]
-            # If no action but we have method, infer from it
             elif "semantic_method" in sample:
                 method = sample["semantic_method"]
                 if method == "kb":
                     action = 0  # KB
-                elif method == "basic":
+                elif method == "basic" or method == "mini_llm":
                     action = 1  # Basic
                 elif "api" in method:
-                    if "3.5" in method or "3-5" in method:
-                        action = 2  # GPT-3.5
+                    if "4o-mini" in method:
+                        action = 2  # GPT-4o-mini
+                    elif "3.5" in method or "3-5" in method:
+                        action = 3  # GPT-3.5
+                    elif "4" in method or "turbo" in method:
+                        action = 4  # GPT-4
                     else:
-                        action = 3  # GPT-4
+                        action = 2  # Default to GPT-4o-mini for unknown API
 
             # Record the action if we determined it
             if action is not None and action in action_counts:
@@ -7926,8 +7987,9 @@ def run_enhanced_pipeline(num_samples=None, noise_level=None, noise_type=None,
             "action_distribution": {
                 "KB": action_counts[0],  # Action 0: KB
                 "Basic": action_counts[1],  # Action 1: Basic
-                "GPT-3.5": action_counts[2],  # Action 2: GPT-3.5
-                "GPT-4": action_counts[3]  # Action 3: GPT-4
+                "GPT-4o-mini": action_counts[2],  # Action 2: GPT-4o-mini
+                "GPT-3.5": action_counts[3],  # Action 3: GPT-3.5
+                "GPT-4": action_counts[4]  # Action 4: GPT-4
             }
         }
 
